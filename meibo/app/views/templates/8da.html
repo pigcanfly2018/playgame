@@ -1,0 +1,560 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>#{get 'title' /}</title>
+<meta name="keywords" content="#{get 'keywords' /}" />
+<link rel="shortcut icon" href="#{mb.static '/public/favicon.ico' /}" /> 
+<meta name="description" content="#{get 'description' /}" />
+<link rel="stylesheet" href="#{mb.static '/public/style/style.css' /}" type="text/css" />
+<link rel="stylesheet" href="#{mb.static '/public/style/phone.css' /}" type="text/css" />
+<link rel="stylesheet" href="#{mb.static '/public/style/egame.css' /}" type="text/css" />
+
+<link rel="stylesheet" href="#{mb.static '/public/style/rides.css' /}" type="text/css" />
+<script src="#{mb.static '/public/js/jquery-1.9.1.min.js' /}" type="text/javascript"></script>
+<script src="#{mb.static '/public/js/layer.js' /}" type="text/javascript"></script>
+<script data-cfasync="false" src="#{mb.static '/public/js/jquery.superslide.2.1.1.js' /}" type="text/javascript"></script>
+<script data-cfasync="false" src="#{mb.static '/public/js/8da.js' /}" type="text/javascript"></script>
+<!-- 新页面引入的js/css -->
+<link rel="stylesheet" href="#{mb.static '/public/style/newstyle.css' /}" type="text/css" />
+
+#{if session.get("username")!=null}
+<script language="JavaScript" data-cfasync="false">
+if(self!=top){top.location=self.location;}
+</script>
+#{/if}
+
+<script type="text/javascript">
+<!-- RidesL ServiceOnline Start -->
+
+	$(function(){
+		$("#aRides_L_Show").click(function(){
+			$('#Rides_L_Cont').animate({width:'show',opacity:'show'},100,function(){$('#Rides_L_Cont').show();});
+			$('#aRides_L_Show').hide();
+			$('#aRides_L_Hide').show();				
+		});
+		$("#aRides_L_Hide").click(function(){
+			$('#Rides_L_Cont').animate({width:'hide', opacity:'hide'},100,function(){$('#Rides_L_Cont').hide();});
+			$('#aRides_L_Show').show();
+			$('#aRides_L_Hide').hide();	
+		});
+	});
+	
+<!-- RidesL ServiceOnline End -->
+
+<!-- RidesR Pay Start -->
+$(function(){
+		$("#aRides_R_Show").click(function(){
+			$('#Rides_R_Cont').animate({width:'show',opacity:'show'},100,function(){$('#Rides_R_Cont').show();});
+			$('#aRides_R_Show').hide();
+			$('#aRides_R_Hide').show();				
+		});
+		$("#aRides_R_Hide").click(function(){
+			$('#Rides_R_Cont').animate({width:'hide', opacity:'hide'},100,function(){$('#Rides_R_Cont').hide();});
+			$('#aRides_R_Show').show();
+			$('#aRides_R_Hide').hide();	
+		});
+		
+		$("#Btn1_SubmitSumAlipay").click(function(){
+			
+			var username = '${session.get("username")}';
+			if(username == null || username == ""){
+				layer.open({
+					  type: 1,
+					  time:2500,
+					  title:'温馨提示',
+					  skin: 'layui-layer-hui', //加上边框
+					  area: ['420px', '80px'], //宽高
+					  content: '请您先登录会员账号，再进行操作，感谢理解'
+					});
+				return false;
+			}else{
+				var amount = document.getElementById("zhifubaoamount").value;
+				if(amount == null || amount == ""){
+					layer.open({
+						  type: 1,
+						  time:4000,
+						  title:'温馨提示',
+						  skin: 'layui-layer-hui', //加上边框
+						  area: ['420px', '80px'], //宽高
+						  content: '金额不能为空,请输入您要充值的金额'
+						});
+					return false;
+				}
+				
+				
+				
+				if(isNaN(amount)==true){
+					layer.open({
+						  type: 1,
+						  title:'温馨提示',
+						  time:4000,
+						  skin: 'layui-layer-hui', //加上边框
+						  area: ['420px', '80px'], //宽高
+						  content: '金额只能为数字，请正确输入您要充值的金额'
+						});
+					return false;
+				}
+				
+				var amount = document.getElementById("zhifubaoamount").value;
+				
+				//获得窗口的垂直位置 
+	            var iTop = (window.screen.availHeight - 30 - 400) / 2; 
+	            //获得窗口的水平位置 
+	            var iLeft = (window.screen.availWidth - 10 - 400) / 2; 
+	            
+				window.open("deposit_quickside.php?bank=1&amount="+amount,"_blank","location=no,width=700,left="+iLeft+", height=400,top="+iTop);
+			}
+	
+			
+		});
+		
+		
+		$("#Btn1_SubmitSumWechat").click(function(){
+			
+			var username = '${session.get("username")}';
+			if(username == null || username == ""){
+				layer.open({
+					  type: 1,
+					  time:2500,
+					  title:'温馨提示',
+					  skin: 'layui-layer-hui', //加上边框
+					  area: ['420px', '80px'], //宽高
+					  content: '请您先登录会员账号，再进行操作，感谢理解'
+					});
+				return false;
+			}else{
+				var amount = document.getElementById("wexinamount").value;
+				if(amount == null || amount == ""){
+					layer.open({
+						  type: 1,
+						  time:4000,
+						  title:'温馨提示',
+						  skin: 'layui-layer-hui', //加上边框
+						  area: ['420px', '80px'], //宽高
+						  content: '金额不能为空,请输入您要充值的金额'
+						});
+					return false;
+				}
+				
+				if(isNaN(amount)==true){
+					layer.open({
+						  type: 1,
+						  time:4000,
+						  title:'温馨提示',
+						  skin: 'layui-layer-hui', //加上边框
+						  area: ['420px', '80px'], //宽高
+						  content: '金额只能为数字，请正确输入您要充值的金额'
+						});
+					return false;
+				}
+				
+				var amount = document.getElementById("wexinamount").value;
+				
+				//获得窗口的垂直位置 
+	            var iTop = (window.screen.availHeight - 30 - 400) / 2; 
+	            //获得窗口的水平位置 
+	            var iLeft = (window.screen.availWidth - 10 - 400) / 2; 
+	           
+				window.open("deposit_quickside.php?bank="+document.getElementById("banktype").value+"&amount="+amount,"_blank","location=no,width=700,left="+iLeft+", height=400,top="+iTop);
+			}
+	
+			
+		});
+		
+
+		$("#Btn1_PaySwitchToWechat").click(function(){
+			$('#Module_PayWechat').hide();
+			
+			$('#Module_PayAlipay').show();
+			
+			
+			
+			document.getElementById("wexinamount").value = document.getElementById("zhifubaoamount").value;
+			
+			
+		});
+		$("#Btn1_PaySwitchToAlipay").click(function(){
+			$('#Module_PayAlipay').hide();	
+			$('#Module_PayWechat').show();
+			
+			document.getElementById("zhifubaoamount").value = document.getElementById("wexinamount").value;
+			
+		});
+	});
+
+<!-- RidesR Pay End  -->
+</script>
+
+<script type="text/javascript">
+$(function(){
+	
+	var dragging = false;
+    var iX, iY;
+    $("#PopupLoginTitle").mousedown(function(e) {			
+        dragging = true;
+        iX = e.clientX - this.parentNode.offsetLeft;
+        iY = e.clientY - this.parentNode.offsetTop;
+        this.parentNode.setCapture && this.parentNode.setCapture();
+        return false;
+    });
+    document.onmousemove = function(e) {
+	
+        if (dragging) {
+        var e = e || window.event;
+        var oX = e.clientX - iX;
+        var oY = e.clientY - iY;
+        $("#PopupLoginTitle").parent().css({"left":oX + "px", "top":oY + "px"});
+        return false;
+        }
+    };
+    $(document).mouseup(function(e) {
+        dragging = false;
+        //$("#PopupLoginTitle").releaseCapture();
+        e.cancelBubble = true;
+    })
+    
+    
+	if( $.support.msie && $.browser.version<=6)
+	{
+		$(".PopupLayer").css("position","absolute");
+	}
+	$(".PopupLayer").css({"top":$(".PopupLayer").outerHeight()*-1+"px","opacity":0});//载入页面时将元素置于页面可见区域的顶部达到自上而下显示效果（PS：还有隐藏效果）
+	function notice_show()//显示
+	{
+		var browser_visible_region_height=document.documentElement.clientHeight;//获取浏览器可见区域高度
+		var element_height=$(".PopupLayer").outerHeight();//获取元素高度:height+paelement_heighting+margin
+		//计算元素显示时的top值
+		var element_show_top=(browser_visible_region_height-element_height)/2;
+		$(".PopupLayer").stop(true).animate({top:element_show_top,opacity:1},1800);
+	}
+	
+	function notice_hidden()//隐藏
+	{
+		var element_height=$(".PopupLayer").outerHeight();//获取元素高度:height+paelement_heighting+margin
+		var ee=-element_height;//元素隐藏时的top值
+		$(".PopupLayer").stop(true).animate({top:ee,opacity:0},1000);
+	}
+	
+	$("a.close").click(function(){
+		var element_height=$(".PopupLayer").outerHeight();//获取元素高度:height+paelement_heighting+margin
+		var ee=-element_height;//元素隐藏时的top值
+		$(".PopupLayer").animate({opacity:0},1000).animate({top:ee},0);
+	})//点击关闭按钮隐藏
+	
+	$("a.btn").click(function(){
+		$(".PopupLayer").animate({top:$(document).height(),opacity:0},1000)
+	})
+	
+	$("#open").click(function(){
+		document.getElementById("dianhuachuang").style.display="block";
+		notice_show();
+	})//单击按钮触发显示
+	
+	$("#openphone").click(function(){
+		document.getElementById("dianhuachuang").style.display="block";
+		notice_show();
+	})//单击按钮触发显示
+	
+	$("#close").click(function(){
+		notice_hidden();
+	})//单击按钮触发隐藏
+	
+	function check()
+	{
+		var kk=$(".PopupLayer").outerHeight()*-1;//获取元素高度:height+paelement_heighting+margin
+		var ww=$(document).height();
+		var qq=parseInt($(".PopupLayer").css("top"));//获取元素当前的top值，String类型转换为number类型
+		
+		if(qq == kk || qq == ww)
+		{
+			return;
+		}
+		else//弹出层自适应浏览器窗口大小。
+		{
+			var browser_visible_region_height=document.documentElement.clientHeight;//获取浏览器可见区域高度
+			var element_height=$(".PopupLayer").outerHeight();//获取元素高度:height+paelement_heighting+margin
+			//计算元素显示时的top值
+			var element_show_top=(browser_visible_region_height-element_height)/2;
+			$(".PopupLayer").stop(true).animate({top:element_show_top},1500);
+		}
+	}
+	
+	$(window).resize(function(){
+		check();
+	})//自适应浏览器窗口大小
+	
+})
+
+
+	function callphone(){
+            	  
+						 var callphone =  document.getElementById("callphone").value;
+		            	  $.ajax({
+		          			type:'post',
+		          			url:'/ajax/callPhone',
+		          			data:{callphone:callphone},
+		          			dataType:'text',
+		          			success:function(msg){
+		          				
+		          				var data =eval("("+msg+")");
+		          				if(data.success){
+		          					alert(data.message);
+		          					
+		          				}
+		          			},
+		          			error:function(){
+		          			}
+		          		});
+		              
+              }
+              
+</script>
+	
+</head>
+<body onload="showit();" >
+		#{include '/templates/sidebar.html'/} 
+		<div class="TopWrap">
+            <div  class="TopBar">
+              <div class="TopBarCont">
+              <!---->
+            <div class="notice"> <span><a href="#" class="NoticeTitle">公告:</a></span> 
+            	<div style="width: 90%; box-sizing: border-box; overflow: auto;">
+	                <marquee scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();" class="rel">
+	                   <P>#{mb.notice} 
+						 ${_notice.content}
+					#{/mb.notice}</p>
+	                </marquee>
+               </div> 
+			</div>
+                <div  class="TopBar_right">
+                    <p>
+                       <!-- <a href="javascript:closeYears()" style="background-image: url(#{mb.static '/public/10years/images/180x30-topgif.gif'/});width:180px;">&nbsp</a>  
+                       <a href="https://asia-gaming.com/redpocket2017/" target="_blank" ><img src="#{mb.static '/public/images/ag.gif' /}" alt="" /></a> 
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        -->
+                        
+                        <!-- 
+                      <a href="https://www.lc88drt.com/tournaments/site/34" target="_blank" ><img src="#{mb.static '/public/images/mg.gif' /}" alt="" /></a> 
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        -->
+                       <a href="/csoft.html" class="Flash2">下载中心</a> |
+                       <a href="/message.html">留言板</a>|
+                       <a href="javascript:addtoFavor()">加入收藏</a>|
+                       <a href="javascript:setHome()">设为首页</a> |
+                       <a href="/license.html" class="Licence"><img src="/public/images/iconLicense.png" />牌照展示</a>
+                     </p>
+                 </div>
+                 
+                 
+             </div>
+            
+        </div>   
+	   	<!---->
+    	<div id="header">
+    		<div class="headerCont">
+        	<div class="logo"><a href="/"></a></div>      
+            <div class="dianhua" style="display: none;"  >
+	            <div class="ann-x">
+		            <div class="ann-x2">
+		            	#{mb.openfire}
+		            		#{if !_openfire_flag}
+		            			#{if session.get("username")==null}
+		            				<a href="javascript:open800ChatBox('')" />
+		            			#{/if}
+		            			#{else}
+		            				<a href="javascript:open800ChatBox('${session.get("infoValue")}')" />
+		            			#{/else}
+		            		#{/if} 
+						    #{else}
+						    	<a href="javascript:openChatBox()" />
+						    #{/else}
+		            	
+		            	#{/mb.openfire}
+		            </a></div>
+	            </div>
+	            #{mb.callPhone}
+	            #{if !_call_flag}
+	               <a class="pcall" >立即回拨</a>
+	            #{/if}
+	            #{else}
+						<a id="open" class="pcall" href="#">立即回拨</a>
+				#{/else}
+	            
+	            #{/mb.callPhone}
+	         </div>
+	         
+	         <div class="phonecall PopupLayer" style="display:none" id="dianhuachuang">
+  <div class="phonecen">
+    <p>请输入您的电话号码：</p>
+    <input type="text" name="callphone" id="callphone" />
+    <a href="#" onclick="callphone();" >立即回拨</a> </div>
+  <a id="close" href="#"  class="phoneclose">关闭</a>
+</div>
+
+        	#{if session.get("username")==null}
+        	#{if isreg==null}
+        	 <div class="HeaderRight">
+                	<form autocomplete="off" method="post">
+                	
+                   		<div>
+                   		     
+                   		        <input type="text" id="loginnameId" name="username" placeholder="请输入用户名" value=""/>
+                   		</div>
+                   	 	<div> 
+                   	 	      
+                   	 	      <input type="password" id="loginPwd" placeholder="请输入密码"  name="pwd"  value=""/>
+                   	 	</div>
+                  		<div class="vericodeBox">
+                  		       
+                  		       <input type="text" name="code" id="logincaptchCode" placeholder="验证码"  /> <br /> 
+                  		       <a href="javascript:void(0)"><img src="/vericode.png?t=%{print System.currentTimeMillis()}%" id="vericode" onclick="refresh(this)"   alt=""/></a>
+                  		</div>
+                   
+                   
+                   		
+                   		
+                   		<button href="javascript:void(0)" onclick="submit2()" type="button" class="Btn3 BtnSize_M2">登入</button>
+          <button onClick="window.open('/reg.html','_self')" class="Btn2 BtnSize_M2" type="button" >快速注册</button>			
+                   
+                </form>						                       
+            </div> 
+        	#{/if}
+        	#{else}
+        	 <div class="HeaderRight">
+                	<form autocomplete="off" method="post">
+                	
+                   		<div>
+                   		     
+                   		        <input type="text" id="loginnameId" name="username" placeholder="请输入用户名" value=""/>
+                   		</div>
+                   	 	<div> 
+                   	 	      
+                   	 	      <input type="password" id="loginPwd" placeholder="请输入密码"  name="pwd"  value=""/>
+                   	 	</div>
+                  		<div class="vericodeBox">
+                  		       
+                  		       <input type="text" name="code" id="logincaptchCode" placeholder="验证码"  /> <br /> 
+                  		       <a href="javascript:void(0)"><img src="/vericode.png?t=%{print System.currentTimeMillis()}%" id="vericode" onclick="refresh(this)"   alt=""/></a>
+                  		</div>
+                   
+                   
+                   		
+                   		
+                   		<button href="javascript:void(0)" onclick="submit2()" type="button" class="Btn3 BtnSize_M2">登入</button>
+          <button onClick="window.open('/reg.html','_self')" class="Btn2 BtnSize_M2" type="button" >快速注册</button>			
+                   
+                </form>						                       
+            </div> 
+        	#{/else}    
+           
+            #{/if}
+            #{else}
+               <div class="HeaderRight">
+				<div class="loginEnTop">
+                         <p title="会员中心" >欢迎回来<a  href="/user.php" title="会员中心">：<span>${session.get("username")}</span></a></p>
+                         <p title="会员中心" ><a  href="/user.php" title="会员中心">用户中心</a><a  href="/user.php" class="loginEnicon" id="IconUser" title="会员中心"></a></p>
+                         <p>主账户：<span id="BalanceHide" >●●●●●●</span><span id="BalanceShow" style="display: none;">#{mb.cust uname:session.get("username")}${_cust.credit}#{/mb.cust}</span><a onclick="$('#IconBalanceHide').hide();$('#BalanceHide').hide();$('#IconBalanceShow').show();$('#BalanceShow').show();" id="IconBalanceHide" class="loginEnicon" ></a><a onclick="$('#IconBalanceShow').hide();$('#BalanceShow').hide();$('#IconBalanceHide').show();$('#BalanceHide').show();" id="IconBalanceShow" class="loginEnicon" style="display: none;"></a> <b onClick="window.open('/deposit.php','_self')">[充值]</b>   </p> 
+                         <p>站内信：<span id="letter_cnt">(0)</span>
+                         <a href="/letter_list.php" class="loginEnicon" id="IconMessage" >
+                          <i class="newtip" style="display: none;">新</i>
+                         </a>
+                            </p> 
+                         <p><a href="/logout.php" >安全退出</a><a href="/logout.php" class="loginEnicon" id="IconLogOut"></a>  </p>   
+                          
+                </div>         					                       
+            </div>  
+            <script>
+            $(function(){
+            	
+             	$.ajax({
+        			type:'post',
+        			url:'/ajax/getNoReadCnt',
+        			data:{},
+        			dataType:'text',
+        			success:function(msg){
+        				var data =eval("("+msg+")");
+        				if(data.success){
+        					if(data.message>=1){
+        						$('.newtip').show();
+        					}else{
+        						$('.newtip').hide();
+        					}
+        					$('#letter_cnt').html("("+data.message+")");
+        				}
+        			},
+        			error:function(){
+        			}
+        		});
+             	/*
+            	$.ajax({
+        			type:'post',
+        			url:'/ajax/getTotalCredit',
+        			data:{},
+        			dataType:'text',
+        			success:function(msg){
+        				var data =eval("("+msg+")");
+        				if(data.success){
+        					$('#credit_span').html(data.message);
+        				}
+        			},
+        			error:function(){
+
+        			}
+        		});*/
+           
+        	});
+            </script>
+            #{/else}          
+            
+            
+            
+			
+			</div>
+        </div>
+        #{include '/templates/nav.html' /}    
+        <!---->  
+         #{include '/templates/10years_banner.html'/} 
+         </div>
+        #{doLayout /}
+<!--wrapper-->  
+      
+   #{include '/templates/footer.html'/} 
+       
+</body>
+</html>
+
+<!--kefu-->
+<!-- 
+ <script type="text/javascript" src="#{mb.static '/public/js/footerbar.js'/}"></script>
+<div class="login_panel" isLogin="">
+  <div class="panel_center">
+  	<div class="f_kefu"><a href="javascript:openChatBox()"> <img src="#{mb.static '/public/images/f_kefu.png'/}" /></a></div>
+    <div class="f_tel"><span>国内热线：400-6666-858<br />
+						          </span></div>
+    <div class="f_qq"><span>QQ客服①：80308559 <a href="http://wpa.qq.com/msgrd?v=3&uin=80308559&menu=yes&site=qq" target="blank" title="点击进行在线咨询">
+      <img src="#{mb.static '/public/images/qq.png' /}" >
+      </a><br /> QQ客服②：80308698<a href="http://wpa.qq.com/msgrd?v=3&uin=80308698&menu=yes&site=qq" target="blank" title="点击进行在线咨询">
+      <img src="#{mb.static '/public/images/qq.png' /}" >
+      </a></span></div>
+     <div class="f_vist"><a href="/reg.html" target="_blank" class="buttom02">AG国际厅</a></div>
+     <div class="f_qreg"><a href="/reg.html" target="_blank" class="buttom02">波音娱乐厅</a></div>     
+      <div class="clear"></div>
+  </div>
+</div>
+ -->
+<!-- 去掉baidu统计 <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5aec18da21fa041481cd5cdc8180833b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script> -->
+

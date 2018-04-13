@@ -1,0 +1,19 @@
+/* Code tidied up by ScrapBook */
+* { border: 0px none; padding: 0px; margin: 0px; }
+.Popup { width: 100%; height: 100%; display: block; position: fixed; top: 0px; left: 0px; z-index: 1000000; margin: 0px; padding: 0px; outline: medium none; background: rgba(0, 0, 0, 0.7) none repeat scroll 0% 0%; box-sizing: border-box; overflow: auto; }
+.PopupTable { display: table; height: 100%; margin: 0px auto; padding: 0px; outline: medium none; }
+.PopupDT { display: table-cell; vertical-align: middle; margin: 0px; padding: 0px; outline: medium none; }
+.PopupWrap { width: auto; height: auto; min-height: 20%; max-height: 100%; min-width: 20%; max-width: 100%; margin: auto; position: relative; padding: 0px; outline: medium none; display: block; clear: both; overflow: hidden; background-clip: padding-box; border-radius: 0px; box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.5); border: 1px solid rgb(150, 0, 0); }
+.PopupBody { width: 100%; height: 100%; border: 0px solid rgb(255, 240, 0); background: rgb(80, 0, 0) none repeat scroll 0% 0%; overflow: hidden; }
+.contTextBox { background: rgb(80, 0, 0) none repeat scroll 0% 0%; margin: auto; box-sizing: border-box; overflow: auto; }
+.PopupBar { width: 100%; height: 30px; line-height: 30px; background: rgba(0, 0, 0, 0.8) none repeat scroll 0% 0%; }
+.PopupBarBtn { width: 12px; height: 12px; position: absolute; right: 10px; top: 10px; cursor: pointer; border-radius: 5px; margin: 0px; padding: 0px; outline: medium none; display: block; line-height: 12px; overflow: hidden; opacity: 0.5; }
+.PopupBarBtn:hover { opacity: 1; }
+#PopupBarBtn_Colse { background: rgba(0, 0, 0, 0) url("../images/windowsBtn.png") no-repeat scroll left 0px; right: 10px; top: 10px; }
+.PopupBarTitle { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 80%; padding-left: 10px; height: 30px; line-height: 30px; cursor: default; }
+#NoticePopup .contTextBox { width: 800px !important; }
+.ContTitle1 { color: rgb(255, 255, 255); font-size: 24px; font-weight: bold; line-height: 28px; text-align: center; margin: 20px; }
+.ContTitle2 { color: rgb(255, 240, 0); font-size: 18px; font-weight: bold; line-height: 24px; text-align: left; text-indent: 2em; margin: 5px; }
+.ContText { color: rgb(255, 255, 255); font-size: 14px; font-weight: normal; line-height: 20px; text-align: left; text-indent: 2em; margin: 5px; }
+.ContText_Open { color: rgb(255, 255, 255); font-size: 14px; font-weight: normal; line-height: 20px; text-align: left; margin: 5px; }
+.ContText_Sponsor { color: rgb(255, 255, 255); font-size: 14px; font-weight: normal; line-height: 20px; text-align: right; margin: 5px; }

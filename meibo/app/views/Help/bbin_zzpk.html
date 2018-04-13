@@ -1,0 +1,157 @@
+#{extends '/templates/help.html' /} 
+#{set title:'德州扑克玩法帮助-八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'德州扑克玩法 ，八达国际'/} 
+#{set sub_title:'德州扑克玩法 '/}
+<img src="#{mb.static '/public/images/help/bbin_zzpk.jpg' /}" style="width:720px"/>
+<h3>简介</h3>
+<p>视讯德州扑克Texas Hold'em，使用52张扑克牌，玩法是利用2张底牌与牌桌上的5张公牌，共7张牌，再取其中5张组成最佳牌组，玩家单纯与庄家比拚牌型大小而不用考虑花色，是一款考验智力与运气的扑克游戏。</p>
+<h3>游戏玩法</h3>
+<p>闲家下底注后，庄家与闲家轮流分配2张底牌，再依赌桌上5张公牌分次下注，最后庄家开牌与闲家依照牌型组合大小定胜负。</p>
+<p>闲家下底注同时可选择下注Bonus，闲家当局底牌拿到符合Bonus的牌型时，可依照牌型组合获得3 ~ 30倍不等的赔率奖金。</p>
+<h3>游戏规则</h3>
+<p>牌局开始，闲家在时限内下注并决定是否加注。</p>
+<table>
+<tr>
+   <td>下注</td>
+   <td>注额</td>
+   <td>说明</td>
+</tr>
+
+<tr>
+   <td>底注　Ante</td>
+   <td></td>
+   <td>底注的下注金额须符合限额大小。</td>
+</tr>
+
+<tr>
+   <td>翻牌　Flop</td>
+   <td>2倍底注</td>
+   <td>可加注或弃牌，弃牌则输掉底注，加注后庄家在赌桌上分配3张公牌。（未在倒数时限内跟注，视同弃牌）</td>
+</tr>
+
+<tr>
+   <td>转牌　Turn</td>
+   <td>1倍底注</td>
+   <td>可加注或过牌，过牌不需再下注，加注或过牌后庄家在赌桌上分配第4张公牌。</td>
+</tr>
+<tr>
+   <td>河牌　River</td>
+   <td>1倍底注</td>
+   <td>可加注或过牌，过牌不需再下注，加注或过牌后庄家在赌桌上分配第5张公牌并摊牌。</td>
+</tr>
+</table>
+<p>摊牌后，闲家与庄家以自己的2张底牌加上桌面5张公牌，共7张牌中取最大的5张牌型组合决定胜负。</p>
+<p>若牌型组合在顺子以上(含顺子)，获胜时可取得Ante、Flop、Turn、River个别1：1的下注赔率奖金；若牌型组合在三条以下(含三条)，获胜时可取得Flop、Turn、River个别1：1的下注赔率奖金。</p>
+<p>庄家与闲家牌型组合相同时将取中扑克数字最大的定胜负，若数字依然相同时则为平局，闲家将拿回所有下注金额，不含Bonus。</p>
+<h3>赔率表</h3>
+<p>底牌牌型组合将依照下注金额与赔率获得奖金，无论当局结果输赢</p>
+<table>
+   <thead>
+       <tr>
+           <td style="width:50%;">牌型组合</td>
+           <td style="width:50%;">赔率</td>
+       </tr>
+   </thead>
+   <tbody>
+       <tr>
+           <td>A-A</td>
+           <td>1︰30</td>
+       </tr>
+       <tr>
+           <td>A-K（相同花色）</td>
+           <td>1：25</td>
+       </tr>
+       <tr>
+           <td>A-Q or A-J（相同花色）</td>
+           <td>1：20</td>
+       </tr>
+       <tr>
+           <td>A-K（不同花色）</td>
+           <td>1：15</td>
+       </tr>
+       <tr>
+           <td>K-K or Q-Q or J-J</td>
+           <td>1：10</td>
+       </tr>
+       <tr>
+           <td>A-Q or A-J（不同花色）</td>
+           <td>1：5</td>
+       </tr>
+       <tr>
+           <td>2到10任何一对</td>
+           <td>1：3</td>
+       </tr>
+   </tbody>
+</table>
+<h3>获胜组合</h3>
+<table align="center">
+   <thead>
+       <tr>
+           <td style="width:20%;">牌型组合大小</td>
+           <td style="width:60%;">牌型说明</td>
+           <td style="width:20%;">图解</td>
+       </tr>
+   </thead>
+   <tbody>
+       <tr>
+           <td>同花大顺</td>
+           <td>10~ACE花色相同的顺子</td>
+           <td><img src="#{mb.static '/public/images/help/zzpk_01.png' /}" alt="" width="106" height="103" /></td>
+       </tr>
+       <tr>
+           <td>同花顺</td>
+           <td>5张花色相同数字相连的牌</td>
+           <td><img src="#{mb.static '/public/images/help/zzpk_02.png' /}" alt="" width="106" height="103" /></td>
+       </tr>
+       <tr>
+           <td>四条</td>
+           <td>有4张数字同的牌</td>
+           <td><img src="#{mb.static '/public/images/help/zzpk_03.png' /}" alt="" width="106" height="103" /></td>
+       </tr>
+       <tr>
+           <td>葫芦</td>
+           <td>三条与一对组合的牌</td>
+           <td><img src="#{mb.static '/public/images/help/zzpk_04.png' /}" alt="" width="106" height="103" /></td>
+       </tr>
+       <tr>
+           <td>同花</td>
+           <td>5张花色相同的牌</td>
+           <td><img src="#{mb.static '/public/images/help/zzpk_05.png' /}" alt="" width="106" height="103" /></td>
+       </tr>
+       <tr>
+           <td>顺子</td>
+           <td>5张数字相连的牌</td>
+           <td><img src="#{mb.static '/public/images/help/zzpk_06.png' /}" alt="" width="106" height="103" /></td>
+       </tr>
+       <tr>
+           <td>三条</td>
+           <td>有3张数字相同的牌</td>
+           <td><img src="#{mb.static '/public/images/help/zzpk_07.png' /}" alt="" width="106" height="103" /></td>
+       </tr>
+       <tr>
+           <td>两对</td>
+           <td>有两组一对的牌</td>
+           <td><img src="#{mb.static '/public/images/help/zzpk_08.png' /}" alt="" width="106" height="103" /></td>
+       </tr>
+       <tr>
+           <td>一对</td>
+           <td>有2张数字相同的牌</td>
+           <td><img src="#{mb.static '/public/images/help/zzpk_09.png' /}" alt="" width="106" height="103" /></td>
+       </tr>
+       <tr>
+           <td>高牌</td>
+           <td>
+              <p>无法组成任一牌型的散牌；五张牌中，取数字最大定胜负，若数字相同，则依序比较第二、第三、第四和第五大的点数，如果五张牌都相同，则视为和局。</p>
+              <p>示范牌型：A 3 9 7 5</p>
+              <p>比牌顺序：1 5 2 3 4</p>
+           </td>
+           <td><img src="#{mb.static '/public/images/help/zzpk_10.png' /}" alt="" width="106" height="103" /></td>
+       </tr>
+   </tbody>
+</table>
+
+
+
+
+
+

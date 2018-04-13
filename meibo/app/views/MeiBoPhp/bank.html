@@ -1,0 +1,93 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'银行资料 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'银行资料，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_3_1'/}
+<div id="wrapper" class="MainWrap">  
+
+           #{include '/templates/user_left.html'/}
+		    <div class="UserRight">            	
+               <fieldset>
+	                <legend>银行资料</legend>
+	                #{if ok}
+	                    <table>
+	                      <tr>
+	                         <td>银行名称:</td>
+	                         <td style="text-align:left">${customer.bank_name}</td>
+	                      </tr>
+	                      <tr>
+	                         <td>银行帐号:</td>
+	                         <td style="text-align:left">${customer.account}</td>
+	                      </tr>
+	                      <tr>
+	                         <td>账户类型:</td>
+	                         <td style="text-align:left">${customer.account_type}</td>
+	                      </tr>
+	                      <tr>
+	                         <td>开户网点:</td>
+	                         <td style="text-align:left">
+	                             ${customer.bank_dot}
+	                         </td>
+	                      </tr>
+	                   </table>
+	                #{/if}
+	                #{else}
+	            
+	                
+	                
+	                <div><span style="color:white">${errorMsg}</span></div>
+	                <form action="/bank.php" method="post" autocomplete="off">
+	                   <table>
+	                      <tr>
+	                         <td>银行名称:</td>
+	                         <td style="text-align:left"><select name="bank_name" id="bankname"  style="width:200px;">
+					        <option value="">请选择银行类型</option>
+						      <option value="工行">中国工商银行</option>
+						      <option value="农行">中国农业银行</option>
+						      <option value="招行">招商银行</option>
+						      <option value="建行">中国建设银行</option>
+						      <option value="民生">中国民生银行</option>
+						      <option value="中行">中国银行</option>
+						      <option value="兴业">兴业银行</option>
+						      <option value="华夏">华夏银行</option>
+						      <option value="邮政">邮政储蓄</option>
+						      <option value="中信">中信银行</option>
+	                          <option value="光大">光大银行</option>
+	                          <option value="广发">广发银行</option>
+	                          <option value="平安">平安银行(原深发展)</option>
+	                          <option value="恒丰">恒丰银行</option>
+	                          <option value="浙商">浙商银行</option>
+	                          <option value="徽商">徽商银行</option>
+	                          <option value="交行">交通银行</option>
+	                          <option value="广西农信社">广西农信社</option>
+				           </select></td>
+	                      </tr>
+	                      <tr>
+	                         <td>银行帐号:</td>
+	                         <td style="text-align:left"><input type="text" name="account" value="" id="bankAccountNo" style="border:1px solid #283653; width:200px; height:24px; line-height:24px; "></td>
+	                      </tr>
+	                      <tr>
+	                         <td>账户类型:</td>
+	                         <td style="text-align:left"><select name="account_type" id="bankAccountType" style="width:200px;">
+								      <option value="借记卡">借记卡</option>
+								      <option value="信用卡">信用卡</option>
+								      <option value="存折">存折</option>
+							  </select></td>
+	                      </tr>
+	                      <tr>
+	                         <td>开户网点:</td>
+	                         <td style="text-align:left"><input type="text" name="bank_dot" value="" id="branchName" style="border:1px solid #283653; width:200px; height:24px; line-height:24px;"></td>
+	                      </tr>
+	                       <tr>
+	                         <td></td>
+	                         <td style="text-align:left"><input name="Submit" type="submit" class="buttom02" value="绑定" /></td>
+	                      </tr>
+	                   </table>
+	                </form>
+	                    #{/else}
+               </fieldset>
+            </div>
+
+                 #{include '/templates/user_info.html' /}  
+                          
+</div>

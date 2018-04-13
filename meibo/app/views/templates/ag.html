@@ -1,0 +1,101 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'AG电子游艺 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'电子游艺，八达国际，申博电子游戏，波音电子游戏，电子老虎机。'/} 
+#{set description:'八达国际提供众多电子游戏项目，集成PT电子游戏，申博电子游戏，波音电子游戏，内设百余款电子老虎机，桌面游戏，棋牌游戏，总有一款适合您的游戏。'/}                       			                                                	                        			                                                	
+#{set menu_li:'index_2'/}
+<link rel="stylesheet" type="text/css" href="#{mb.static '/public/style/electron.css'/}"> 
+<script type="text/javascript" src="#{mb.static '/public/js/jquery.lazyload.min.js'/}"></script> 
+<style>
+.bolda{
+color:#Ff0;
+font-weight:bold;
+}
+</style>
+ <style>
+.ptwebnav {
+width: 775px;
+padding: 10px 0 10px 0;
+text-align: center;
+}
+.ptwebnav a.current {
+font-weight: bold;
+background: #9d7635;
+}
+.ptwebnav li {
+display: inline;
+}
+.ptwebnav a {
+color: #ccc;
+font-size: 12px;
+padding: 5px 8px;
+border-radius: 3px;
+background: #525252;
+}
+#ag_1{
+ display:block;
+}
+.p-tp-hide{
+display:none;
+}
+</style>
+
+<script type="text/javascript">$(function(){	
+					//图片延迟载入
+					$(".campItem img").lazyload({
+						effect : "fadeIn"
+					});
+					
+					$(".ptwebnav a").bind("click",function(e){
+				    	//alert(123);
+				    	$(".ptwebnav a").removeAttr("class");
+				    	$(this).attr("class","current");
+				    	$("div[id^='ag_']").fadeOut(1);
+				    	$("#"+$(this).attr("pt")).fadeIn(1500);
+				    });
+					
+					$(".campShow ul li").mouseenter(function(){
+						$(this).children("span.gridMask").animate({
+							opacity:"0.68",
+							top:"0"
+						},"normal");
+						$(this).children("a").animate({
+							top:"0"
+						},"normal");
+					}).mouseleave(function(){
+						$(this).children("span.gridMask").animate({
+							opacity:"0",
+							top:"-100%"
+						},"normal");
+						$(this).children("a").animate({
+							top:"-100%"
+						},"normal");
+					});
+					
+					$(".campShow ul li:last-child").css("margin","0");//解决IE8-不兼容last-child伪元素
+					$("a#menu_games").addClass("curMenu");
+				});
+			</script>
+<div id="wrapper" class="p-main ma">
+  <div class="p-nav">
+  			<div class="p-navm l"><a href="/pp_egame_hot.html" id="p-nav-on">PP电子游戏</a></div>
+    		<div class="p-navl l"><a href="/mghotgame.html" id="p-nav-on">MG电子游戏</a></div>
+         	<div  class="p-navl l"><a href="#{mb.forward url:'/pt_egame_hot.html',uname:session.get('username')/}" >PT电子游戏</a></div>
+            <div class="p-navl l"><a href="/bbin_egame.html" id="p-nav-on">BBIN电子游戏</a></div>
+    		<div class="p-navl l"><a href="/ag_egame_hot.html" id="p-nav-on">AG电子游戏</a></div>
+    		<div class="p-navl l"><a href="/sb_egame_hot.html" id="p-nav-on">申博电子游戏</a></div>
+    		
+  </div>
+  <!--电子游艺content begin-->
+  <div id="mg-container">
+    <div id="eleGameCamp2">
+      <h1> <br>
+        <br>
+        
+      </h1>
+      
+  </div>
+  <!--电子游艺content end-->
+</div>
+	#{doLayout /}  
+</div>
+	

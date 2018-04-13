@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="japidviews/**|rythm/**|views/**" kind="src" path="app"/>
+	<classpathentry kind="src" path="agent"/>
+	<classpathentry kind="src" path="mobile"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/meibo"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/play1.2.7"/>
+	<classpathentry kind="output" path="eclipse/classes"/>
+</classpath>

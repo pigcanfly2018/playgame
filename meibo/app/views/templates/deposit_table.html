@@ -1,0 +1,168 @@
+<table>
+               		   <tr>
+                        	<td width="40%">存款方式</td>
+                        	<td width="15%">单笔最低</td>
+                        	<td width="15%">单笔最高</td>
+                        	<td width="15%">到账时间</td>
+                        	<td width="15%"></td>
+                        </tr>
+                        
+                        #{mb.showDepositwayBycustLevel uname:session.get("username"),config_name:'zhisao',request_name:request}
+                        #{if _depositwayFlag}
+                         <tr>
+                        	<td>微信/支付宝扫码</td>
+                        	<td>100元</td>
+                        	<td>不限</td>
+                        	<td>5分钟到账</td>
+                        	<td>   		
+                        	   			<a class="check_sure"  href="javascript:void(0)" onclick="javascript:open800ChatBox('')" target="_blank">联系客服索要</a>
+
+                        	</td>
+                        </tr>
+                        #{/if}
+                        #{/mb.showDepositwayBycustLevel}
+                        
+                        
+                        #{mb.showDepositwayBycustLevel uname:session.get("username"),config_name:'zhifubao_saoma',request_name:request}
+                        #{if _depositwayFlag}
+                        <tr>
+                        	<td>支付宝扫码</td>
+                        	<td>100元</td>
+                        	<td>5000元</td>
+                        	<td>实时到账</td>
+                        	<td>   		
+                        	   			<a class="check_sure"  href="/choose_zhifubao_form.php"  target="_blank">确认</a>
+
+                        	</td>
+                        </tr>
+                       #{/if}
+                        #{/mb.showDepositwayBycustLevel}
+                        
+                        <tr>
+                        	<td>微信扫码</td>
+                        	<td>100元</td>
+                        	<td>5000元</td>
+                        	<td>实时到账</td>
+                        	<td>   		
+                        	   			<a class="check_sure"  href="/choose_weixin_form.php"  target="_blank">确认</a>
+
+                        	</td>
+                        </tr>
+                        
+                        
+                        #{mb.showDepositwayBycustLevel uname:session.get("username"),config_name:'yinlian_saoma',request_name:request}
+                        #{if _depositwayFlag}
+                       
+                        <tr>
+                        	<td>银联钱包</td>
+                        	<td>100元</td>
+                        	<td>1000元</td>
+                        	<td>实时到账</td>
+                        	<td>   		
+                        	   			<a class="check_sure"  href="/choose_yinlian_form.php"  target="_blank">确认</a>
+
+                        	</td>
+                        </tr>
+                        
+                         #{/if}
+                        #{/mb.showDepositwayBycustLevel}
+                      
+                        
+                         #{mb.showDepositwayBycustLevel uname:session.get("username"),config_name:'qq_saoma',request_name:request}
+                        #{if _depositwayFlag}
+                        <tr>
+                        	<td>QQ扫码</td>
+                        	<td>100元</td>
+                        	<td>4999元</td>
+                        	<td>实时到账</td>
+                        	<td>   		
+                        	   			<a class="check_sure"  href="/choose_qq_form.php"  target="_blank">确认</a>
+
+                        	</td>
+                        </tr>
+                       #{/if}
+                        #{/mb.showDepositwayBycustLevel}
+                        
+                        
+                        
+                        
+                        
+                        <!--
+                        <tr>
+                        	<td>支付宝扫码</td>
+                        	<td>100元</td>
+                        	<td>5000元</td>
+                        	<td>实时到账</td>
+                        	<td>   		
+                        	   			<a class="check_sure"  href="/choose_zhifubao_form.php"  target="_blank">确认</a>
+
+                        	</td>
+                        </tr>
+                       -->
+                        
+                        #{mb.showDepositwayBycustLevel uname:session.get("username"),config_name:'onlinepay',request_name:request}
+                        #{if _depositwayFlag}
+                    	<tr>
+                        	<td>在线支付<img src="#{mb.static '/public/images/star.png' /}" width="20px"></td>
+                        	<td>100元</td>
+                        	<td>5万元</td>
+                        	<td>实时到账</td>
+                        	<td>
+                        	   <a class="check_sure"  href="/choose_onlinepay.php" target="_blank" >确认</a>
+                        	</td>
+                        </tr> 
+                        #{/if}
+                        #{/mb.showDepositwayBycustLevel}
+                        
+                        
+                        #{mb.showDepositwayBycustLevel uname:session.get("username"),config_name:'pcrpnpay'}
+                        #{if _depositwayFlag}
+                    	<tr>
+                        	<td>银联支付</td>
+                        	<td>100元</td>
+                        	<td>2000元</td>
+                        	<td>实时到账</td>
+                        	<td>
+                        	   <a class="check_sure"  href="/choose_unionpay.php" target="_blank" >确认</a>
+                        	</td>
+                        </tr> 
+                        #{/if}
+                        #{/mb.showDepositwayBycustLevel}
+                        
+                        
+                        #{mb.showDepositwayBycustLevel uname:session.get("username"),config_name:'speedpay'}
+                        #{if _depositwayFlag}
+                        <tr>
+                        	<td>极速网银充值</td>
+                        	<td>100元</td>
+                        	<td>5万元</td>
+                        	<td>1分钟到账</td>
+                        	<td>
+                        		<a class="check_sure"  href="/choose_auto_bank.php">确认</a>
+                        	   	
+                        	</td>
+                        </tr> 
+                         #{/if}
+                        #{/mb.showDepositwayBycustLevel}
+                        
+                        #{mb.showDepositwayBycustLevel uname:session.get("username"),config_name:'guitaiATM'}
+                        #{if _depositwayFlag}
+                        <tr>
+                        	<td>网银/手机银行/柜台/ATM/支付宝/微信转银行</td>
+                        	<td>100元</td>
+                        	<td>50万元</td>
+                        	<td>5分钟内</td>
+                        	<td>
+                        	   <a class="check_sure"  href="/deposit_bank.php">确认</a>
+                        	</td>
+                        </tr> 
+                        #{/if}
+                        #{/mb.showDepositwayBycustLevel}
+                       
+                                                                                                                                                                                           
+                    </table>
+                    <div style="margin-bottom:20px;">
+                    <!--1,使用网银支付 / 柜台 / ATM / 手机转账以及支付宝转账方式存款，可以自动获取1%的存款红利。-->
+                    1,使用网银支付 / 柜台 / ATM / 手机转账以及支付宝转账方式存款，可以自动获取最低1%的存款红利。
+                    <br/><br/>
+                    2,充值成功后，在您未参与任何优惠的情况下需达到本金的一倍流水方可提款，如有参与优惠，只需达到优惠所规定的流水即可提款。</div>

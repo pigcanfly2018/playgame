@@ -1,0 +1,44 @@
+#{extends '/templates/pp.html' /} 
+#{set title:'热门游戏 -PP老虎机 -八达国际官网（8da2018.com）- 八达博天下' /}
+#{mb.pp_pool type:'all'}
+	<div class="p-dh">
+     	<ul>
+     	    <li><a href="/pp_egame_hot.html" class="current">电子游戏  </a></li>
+        </ul>
+</div>
+
+#{mb.pp_page pages:_pages}
+
+	<div class="campShow campOne p-tp-hide" id="mg_${_p}">
+		
+		#{mb.pp_row page:_page}
+		<ul class="campRow" >
+			#{mb.pp_cell row:_row}
+				<li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static _jpg/}"  >
+            <h6>${_cell.game_name}</h6>
+            
+            	<span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/7?gamecode=${_cell.game_code}" target="_blank"><span class="gridBtn">进入游戏</span></a> </li>
+            
+            #{/mb.pp_cell}
+			</ul>
+		#{/mb.pp_row}
+	
+</div>
+
+#{/mb.pp_page}
+
+#{if _pages.size()!=1}
+<ul class="ptwebnav">
+#{mb.pp_page pages:_pages}
+#{if _p==1}
+    <li><a href="#pt_${_p}" class="current" pt="mg_${_p}">${_p}</a></li>
+#{/if}
+#{else}
+    <li><a href="#pt_${_p}" pt="mg_${_p}">${_p}</a></li>
+#{/else}
+#{/mb.pp_page}
+</ul>
+#{/if}
+
+
+#{/mb.pp_pool}

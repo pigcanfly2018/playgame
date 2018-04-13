@@ -1,0 +1,47 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'订单状态查询-八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'订单状态查询，八达国际'/} 
+#{set description:''/} 
+<div id="wrapper"> 
+<div class="UserCenter">
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight"> 
+		       <fieldset>
+	               <legend>查询订单</legend>
+				
+           
+           
+					<table style="margin-top:20px">
+					   <tr>
+				        	<td width="20%" style="text-align:right">订单状态</td>
+				        	<td width="80%" style="text-align:left"><span>	 #{if result1!=null}
+               <div style="font-size:20px;font-weight:bolder;color:green"> 支付完成</div>
+            #{/if}
+            #{if result2!=null}
+                <div style="font-size:20px;font-weight:bolder;color:red"> 支付未完成</div>
+            #{/if}</span></td>
+				        </tr>
+				    	<tr>
+				        	<td style="text-align:right">温馨提示</td>
+				        	<td style="text-align:left"><span>   #{if result1!=null}
+                  ${result1.raw()}
+              #{/if}
+              
+               #{if result2!=null}
+                  ${result2.raw()}
+              #{/if}</span>
+               #{if result2!=null}
+              <br/>
+              <input name="button" type="button" class="buttom02" value="重新查询" style="margin-left:15px;" onclick="window.location.href='/dincardpay/${order_no}'" />
+              <input name="button" type="button" class="buttom02" value="重新支付" style="margin-left:15px;" onclick="window.location.href='/deposit_point.php'" />
+              #{/if}
+              </td>
+				        </tr>  
+                                                                                                                                                                
+				    </table>
+	
+	</fieldset>
+</div>
+#{include '/templates/user_info.html' /}    
+</div>
+</div>

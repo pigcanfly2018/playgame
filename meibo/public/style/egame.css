@@ -1,0 +1,66 @@
+@charset "gb2312";* {margin:0px;padding:0px;}
+.l {float:left;}
+.r {float:right;}
+.ma {margin:auto;}
+.bb {border-bottom:1px solid #FF0;}
+.mr {margin-right:30px;}
+ul,li {list-style:none;}
+a {text-decoration:none;border:none;}
+img {border:none;}
+.p-nav {height:33px;background-image:url(../images/Egame/pt/ga_01.jpg);background-repeat:no-repeat;}
+.p-navr {height:33px;width:222px;margin-left:4px;}
+.p-navr a {display:block;height:33px;width:222px;background-image:url(../images/Egame/pt/bbt.jpg);background-repeat:no-repeat;}
+.p-navr a:hover {background-image:url(../images/Egame/pt/bbt2.jpg);background-repeat:no-repeat;}
+.p-navm {height:33px;width:160px;}
+.p-nava {height:33px;width:222px;margin-left:4px;}
+.p-navm a {display:block;height:33px;width:161px;font-size:18px;color:#e8cb03;text-align:center;line-height:33px;background-image:url(../images/Egame/pt/P_NAV_BG.jpg);background-repeat:no-repeat;}
+.p-navm a:hover {background-image:url(../images/Egame/pt/P_NAV_BG_Hover.jpg);background-repeat:no-repeat;}
+.p-nava a {display:block;height:33px;width:222px;background-image:url(../images/Egame/pt/ag1.jpg);background-repeat:no-repeat;}
+.p-nava a:hover {background-image:url(../images/Egame/pt/ag2.jpg);background-repeat:no-repeat;}
+.p-imgl {width:100%; height:270px; margin-top: 2px; background:url(../images/Egame/pt/Banner_PTSlots1.jpg)no-repeat center; background-size: cover;}
+/*.p-imgr {height:268px;width:275px;background-image:url(../images/Egame/pt/ga_03.jpg);background-repeat:no-repeat;background-position:left;}*/
+.P-imgBtn{margin: 130px 0px 0px 230px; text-align: center; box-sizing: border-box; overflow: hidden; }
+.p-imglbt {height:40px;width:170px;background-image:url(../images/Egame/pt/kh-bt.jpg);background-repeat:no-repeat;margin-left:55px;margin-top:120px;margin-right:500px;}
+/*.p-imglsz {height:27px;width:160px;line-height:27px;font-size:16px;color:#FF0;margin-left:300px;margin-top:33px;}*/
+.p-imglsz{width: 350px; height: 40px; line-height: 28px; font-size: 18px; color: rgba(255,200,0,1); margin-left: 200px; margin-top: 40px; display: flex; justify-content: center;
+align-items: center; padding: 0px 15px 0px; background: rgba(0,0,0,.65); }
+.p-imglsz span{display: block; padding: 0px 10px; text-shadow: 2px 2px 0px rgba(0,0,0,.3); box-sizing: border-box; overflow: hidden;}
+.p-imglbt a:hover {height:42px;width:169px;background-image:url(../images/Egame/pt/kh-bt2.jpg);}
+.p-imglbt a {display:block;height:42px;width:169px;}
+.p-img {height:268px; display: flex; justify-content: center; box-sizing: border-box; overflow: hidden; }
+.p-navl {height:33px;width:160px;margin-left:4px;}
+.p-navl a {height:33px;width:161px;display:block;font-size:18px;color:#e8cb03;text-align:center;line-height:33px;background-image:url(../images/Egame/pt/P_NAV_BG.jpg);background-repeat:no-repeat;background-position:left;}
+.p-navl a:hover {height:33px;width:161px;background-image:url(../images/Egame/pt/P_NAV_BG_Hover.jpg);background-repeat:no-repeat;background-position:left;}
+.p-main {width:1002px;}
+.p-jc {height:70px; margin: 3px auto; padding: 3px; display: flex; align-items: center; border: 1px solid rgba(200,0,0,1); background:rgba(150,0,0,1); box-sizing: border-box; overflow: hidden; }
+.p-jc_Title{ width: 18%; height: 70px; line-height: 70px; text-align: center; font-size: 30px; color: rgba(255,200,0,1); cursor: default; }
+.jc-c_Box{width: 82%; height: 100%; line-height: 70px; display: flex; justify-content:space-around; align-items: center; border-radius:5px; background: linear-gradient(to bottom, rgba(0,0,0,.8) 0%, rgba(0,0,0,.5) 100%);}
+.jc-c {height:48px;width:145px;text-align:center;}
+.jc-cs {line-height:24px;height:24px;color:#FC0;font-size:15px;font-family:"黑体";width:145px;}
+.jc-cx {height:24px;color:#F00;font-size:14px;}
+.p-dh {height:50px; background: linear-gradient(to bottom, rgba(130,0,0,1) 0%, rgba(110,0,0,1) 100%); box-sizing: border-box; overflow: hidden; border-bottom: 1px solid rgba(180,0,0,1);}
+.p-dh ul li {float:left; height:48px; margin-right:5px;}
+.p-dh ul li a {display:block; height:48px; line-height:48px;text-align:center; padding-left:15px; padding-right:15px; color:#FAE800; font-size:14px;}
+.p-dh ul li a:hover {color:#C4870A;/* [disabled]text-decoration:underline;*/}
+.p-tp {background-color:#000;height:auto;padding-bottom:15px;}
+.p-tp-c {height:260px;width:910px;padding-top:35px;}
+.p-tp-cl {height:235px;width:270px;padding-top:25px;background-image:url(../images/Egame/pt/hb-bg.png);background-repeat:no-repeat;}
+.p-tp-cls {height:106px; border:1px solid #FF0; width:153px;}
+.p-tp-clz {height:30px;line-height:30px;text-align:center;color:#FF0;font-size:15px;font-family:"黑体";width:158px;padding-top:10px;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#FC0;}
+.p-tp-clx {height:35px; line-height:35px; text-align:center;color:#FC0; font-size:14px; width:230px;}
+.p-tp-clb {height:33px;width:243px;}
+.jc-cx object {height:24px;}
+.p-dh ul li a:hover, .p-dh .current {color: white; background:rgba(180,0,0,1); }
+
+/* 原MG游戏列表HTML页内样式 */
+.bolda{color:#Ff0;font-weight:bold;}
+.ptwebnav {width:775px;padding:10px 0 10px 0;text-align:center;}
+.ptwebnav a.current {font-weight:bold;background:#9d7635;}
+.ptwebnav li {display:inline;}
+.ptwebnav a {color:#ccc;font-size:12px;padding:5px 8px;border-radius:3px;background:#525252;}
+#mg_1 {display:block;}
+.p-tp-hide {display:none;}
+/**/
+
+#eleGameCamp6 {width:980px;height:auto;padding:8px 0;background:#520100;}
+#eleGameCamp6 h1 { font-family: Arial, 微软雅黑, 宋体; text-align: left; font-weight: normal; font-size: 22px; color: #fff; line-height: 42px; text-indent: 10px; background: url(../images/Egame/pt/PPbanner.jpg) no-repeat; height: 255px; }

@@ -1,0 +1,98 @@
+body{font-size:12px; color:#fff;font-family:Arial, 微软雅黑,宋体，黑体; background:#000000 url('/public/images/csoft/csoftbg.jpg') no-repeat center -50px;}
+.fl{float: left;}
+.fr{float: right;}
+.clearfix:after { content: "\0020"; display: block; height: 0; visibility: hidden;clear: both;}
+.clearfix { zoom: 1 }
+
+.ml10{margin-left: 10px;}
+.mrt20{margin-top: 20px;}
+#wrapper.csoft { background: url('/public/images/csoft/conbg.png') repeat; padding: 0; overflow: hidden; margin: 132px auto 12px; box-sizing: border-box; overflow: hidden; }
+.main_nav{background:#0d0b14;height: 60px;line-height: 60px;font-size: 18px;color: #fff;font-family: "微软雅黑";padding:0 15px;overflow: hidden;}
+.main_nav i{background: url('/public/images/csoft/tipicon.png') no-repeat;background-position:-2px -129px;width:30px;height: 30px;display: inline-block;margin-right: 2px;vertical-align: middle;}
+
+.dwml_main{width: 960px;margin:24px auto 20px;overflow: hidden;}
+.m_title{width: 100%;line-height: 35px;font-size: 16px;color: #ffffff;}
+.redline{background: #e30102;width:30px;height: 2px;display: block;}
+
+.mcon_row{width: 100%;padding:20px 0;}
+.mcon{width:440px;}
+.mcon a.mcon_logo{width:98px;height: 112px;display: block;position: relative;float: left;cursor: default;margin-top: 5px;}
+.mcon a.mcon_logo img{width:98px;height: 112px;display: block;}
+.mcon a.phone_qr{width:76px;height:150px;display: block;position: relative;float: left;margin-left: 12px;cursor: default;}
+.mcon a.phone_qr img{width:76px;height:150px;display: block;}
+.mcon a.phone_qr img.qrcon{width:68px;height: 68px;display: block;position: absolute;top: 39px;left: 4px;}
+.mcon a.mcon_logo strong{width:98px;line-height: 32px;height: 32px;font-size: 15px;color: #fff;display:block;position: absolute;left: 0;bottom: 0;text-align: center;font-weight: normal;}
+.minlogo img{width:100px;height: 35px;display: block;}
+.mcon .mcon_text{width: 324px;float: right;}
+.mcon_text .mg_logo img{width:130px;height: 33px;display: block;}
+.mcon_text .ag_logo img{width:109px;height: 31px;display: block;}
+.mcon_text .pt_logo img{width:163px;height:36px;display: block;}
+
+.mcon_text strong{width: 100%;display: block;line-height: 32px;font-size: 16px;color: #d4a804;font-family: "微软雅黑";font-weight: normal;cursor: default;}
+.mcon_text span.txt{width:315px;line-height: 15px;font-size: 12px;color: #fff;display: block;cursor: default;}
+.dwml_btn{background:#d42f2f;width:112px;height:26px;line-height: 24px;display: block;font-size: 16px;color: #fff;font-family: "黑体";text-align: center;border-radius: 12px;margin-top: 6px;}
+.dwml_btn:hover{box-shadow: 0px 1px 10px #d42f2f;-moz-box-shadow: 0px 1px 10px #d42f2f;-webkit-box-shadow: 0px 1px 10px #d42f2f;}
+.dwml_btn i,.qrtipbtn i.onleft{background: url('../images/csoft/tipicon.png') no-repeat;background-position: -10px -11px;width:20px;height:20px;display: inline-block;vertical-align: middle;margin-right: 3px;}
+.dwml_btn i.android{background-position:-13px -47px;width:16px;height: 18px;}
+.dwml_btn i.iphone{background-position:-9px -75px;width:16px;height: 18px;}
+.qrtipbtn{background:#d42f2f;width:140px;height:26px;line-height: 24px;display: block;font-size: 16px;color: #fff;font-family: "黑体";text-align: center;border-radius: 12px;margin-top: 13px;}
+.qrtipbtn i.onleft { background-position: -45px -11px; width: 27px; height: 19px; }
+.blackline{background:#000;width: 100%;height: 1px;display: block;}
+.dashed{width: 100%;height: 1px;border-bottom: 1px dashed #ff0000;display: block;}
+
+/* 浏览器下载 */
+.allbw{width:1048px;margin-left: -82px;}
+.BScon,.toolcon{width:180px;float: left;margin-left: 82px;}
+.BScon span.bser,.toolcon span.tool{background: url('/public/images/csoft/dwl_icon.png') no-repeat;width: 70px;height: 70px;display: block;float: left;}
+.toolcon span.tool{width: 75px;height: 75px;}
+.BScon span.ggl{background-position: -16px -8px;}
+.BScon span.greenbs{background-position: -108px -8px;}
+.BScon span.sg{background-position: -196px -8px;}
+.BScon span.iebs{background-position: -286px -8px;}
+.BScon span.title{width:101px;line-height:24px;display: block;float: left;margin-left: 9px;font-size:15px;color: #fff;font-family: "微软雅黑";}
+
+.toolcon span.bada{background-position: -388px -8px;}
+.toolcon span.qlq{background-position: -20px -120px;}
+.toolcon span.yh{background-position: -126px -120px;}
+.toolcon span.flash{background-position: -231px -120px;}
+.toolcon span.tver{background-position: -337px -120px;}
+.toolcon span.title{width:99px;margin-left: 6px;font-size: 14px;float: left;color: #fff;font-family: "微软雅黑";}
+.rowbr{padding:20px 0;}
+.yellow{color: #e3c102!important;display: block;}
+.mrt5{margin-top: 5px;}
+
+.dwbtn{background: #d42f2f;width:72px;line-height: 26px;height: 26px;text-align: center;border-radius: 12px;overflow: hidden;font-size: 13px;color: #fff;font-family: "微软雅黑";display: block;float: left;margin-left: 6px;margin-top: 13px;}
+.dwbtn:hover{box-shadow: 0px 1px 10px #d42f2f;-moz-box-shadow: 0px 1px 10px #d42f2f;-webkit-box-shadow: 0px 1px 10px #d42f2f;}
+.dwbtn i { background: url('/public/images/csoft/tipicon.png') no-repeat; background-position: -8px -99px; width: 22px; height: 26px; display: inline-block; vertical-align: middle; }
+
+/* 中奖榜 */
+.user_scroll{background:url('../images/cover.png') repeat;background-size:100%;width:100%;height:100px;position: relative;z-index: 5;}
+.user_scroll_cls{width: 37px;height: 100px;position: absolute;top: 0;right: 0;z-index: 7;}
+.zjb_cls{background:url('/public/images/new/zjb_cls.png') no-repeat;background-size:100%;width: 37px;height: 28px;display: block;}
+.zjb_cls:hover{cursor: pointer;opacity: 0.85;filter: aphal(opacity=85);}
+.zjb_cls_text{width: 37px;height: 72px;line-height:22px;background:#ffd014;display: block;font-size:18px;color: #fe0000;font-family: "微软雅黑";word-wrap: break-word; 
+letter-spacing: 1px; text-align: center;}
+.addfloat {position: fixed; bottom: 0; right: 0; }
+.user_scroll_open{width: 37px;height: 100px;position:fixed;bottom:0;right:0;z-index: 7;display: none;cursor: pointer;}
+.zjb_open{background:url('/public/images/new/open.png') no-repeat;background-size:100%;width: 37px;height: 28px;display: block;}
+
+
+/* .Rides_L_game a{opacity: 1;} */
+.marquee{width:1380px;height:100px;margin:0 auto;overflow: hidden;position: relative;}
+.marquee ul{height: 100px; overflow: hidden; width: 50000px}
+.marquee ul li{width: 188px;height: 100px;float: left;}
+.marquee ul li:hover{opacity: 0.8;}
+a.m_game {background-size:100%;width: 56px; height: 56px; display: block; border-radius: 50%; float: left;overflow: hidden;margin-top: 22px;}
+.m_text{width: 110px;margin-top:20px;margin-left:8px;float: left;overflow: hidden}
+.m_text span{width: 100%;line-height: 18px;height:18px;display: block;font-size:12px;font-family: "微软雅黑";overflow: hidden;}
+.m_text span.g_name{color: #f9d790}
+.user_name{color: #fff;font-size: 15px;}
+.win { color: #f6ff00; text-transform: uppercase; text-shadow: 0 0 10px #f60019, 0 0 10px #f60019, 0 0 10px #f60019, 0 0 20px #f60019; -webkit-transform: rotate(-.03deg); -ms-transform: rotate(-.03deg); transform: rotate(-.03deg); }
+.Footer{background:url('/public/images/footbg.png') repeat-x;width: 100%;height:181px;}
+
+
+
+/* 返回顶部 */
+.gotop{width:45px;height: 45px;position: fixed;top: 50%;left:50%;z-index: 4;display: none;margin-left: 505px;margin-top: 100px;}
+.gotop img{width:45px;height: 45px;display: block;cursor: pointer;}
+.gotop:hover{opacity: 0.9;filter: alpha(opacity=90);}

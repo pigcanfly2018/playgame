@@ -1,0 +1,38 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'联系资料 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'联系资料，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_3_2'/}
+<div id="wrapper" class="MainWrap"> 
+
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight">            	
+               <fieldset>
+	                <legend>联系资料</legend>
+	                <div><span style="color:white">${errorMsg}</span></div>
+	                <form action="/contact.php" method="post" autocomplete="off">
+	                   <table>
+	                      <tr>
+	                         <td>真实姓名</td>
+	                         <td>${customer.real_name}</td>
+	                      </tr>
+	                      <tr>
+	                         <td>电话号码</td>
+	                         <td>${customer.phone}</td>
+	                      </tr>
+	                      <tr>
+	                         <td>QQ</td>
+	                         <td>${customer.qq}</td>
+	                      </tr>
+	                      <tr>
+	                         <td>Email</td>
+	                         <td>${customer.email}</td>
+	                      </tr>
+	                   </table>
+	                </form>
+               </fieldset>
+            </div>
+                #{include '/templates/user_info.html' /}    
+                          
+</div>
+

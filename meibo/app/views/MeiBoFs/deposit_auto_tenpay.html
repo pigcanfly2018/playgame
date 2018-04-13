@@ -1,0 +1,96 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'极速网银充值-八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'极速网银充值，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_2'/}
+<script>
+function aa(){
+	$("#submit_btn").attr("disabled","disabled");
+}
+function copyData(id){
+	window.clipboardData.setData("Text", $('#'+id).innerHtml);  
+	alert('复制成功！');  
+}
+
+</script>
+<style>
+           #deposit_bank_table .first_td{
+              width:160px;
+              text-align:right;
+              color:#ffff00;
+            }
+            
+            #deposit_bank_table .sencond_td{
+              width:200px;
+              text-align:left;
+              color:#ffff00;
+            }
+            
+            #deposit_bank_table .three_td{
+              width:200px;
+              text-align:left;
+            }
+
+</style>
+<div id="wrapper"> 
+<div class="UserCenter">
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight">      
+		     <fieldset>
+	                <legend>财付通充值确认信息</legend>
+	                 	
+		    <table id="deposit_bank_table">  
+               
+               <tr>
+               	<td class="first_td">订单号</td>
+               	<td class="sencond_td">${result.get('order_no')}</td>
+               	<td class="three_td"></td>
+               
+               </tr>
+               <tr>
+               		<td class="first_td">姓名</td>
+                       <td class="sencond_td" id="account_name">${result.get('account_name')}</td>
+                       <td class="three_td"></td>
+               </tr> 
+           	    <tr>
+               		<td class="first_td">账号</td>
+                        <td class="sencond_td">${result.get('account')}</td>
+                        <td class="three_td"></td>
+               </tr> 
+            
+               <tr>
+               	<td class="first_td">金额</td>
+                    <td class="sencond_td">${momey}</td>
+                    <td class="three_td">务必与实际支付金额一致</td>
+               </tr>   
+               <tr>
+               	<td class="first_td">附言</td>
+               	<td class="sencond_td">${result.get('note')}</td>
+               	<td class="three_td">务必填附言</td>
+               </tr>
+                  <tr style="border-top:3px solid #f00">
+               	<td class="first_td">订单过期时间</td>
+               	<td class="sencond_td">${exp_date}</td>
+               	<td class="three_td">请在失效时间前完成充值</td>
+               
+               </tr> 
+            
+                <tr>
+               	<td colspan="3" style="text-align:left;">
+               	    <p>1. 请再30分钟内完成充值，系统将30分钟后关闭该订单。</p>
+               	    <p>2. 转账的时候的附言，务必按照系统的附言填写。</p>
+               	     <p>3. 请各位玩家，确定提交金额与您所实际支付的金额一致，如若出现不一致之情形,请勿充值,并烦请重新提交申请.感谢各位玩家配合。</p>
+               	</td>
+                </tr> 
+                                                                                                                                                                                 
+                    </table>
+              <div><input name="Submit" type="button" style="margin-left:15px;margin-top:20px" class="buttom02" value="返回" onclick="window.location.href='/deposit_tenpay.php'"></div>
+              </fieldset>   
+               
+                    
+            </div>
+            
+             #{include '/templates/user_info.html' /}
+</div>                           
+</div>
+

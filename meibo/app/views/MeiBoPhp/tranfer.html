@@ -1,0 +1,92 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'额度互换 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'额度互换，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_6'/}
+<div id="wrapper" class="MainWrap"> 
+
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight">            	
+               <fieldset>
+	                <legend>额度互换</legend>
+	                
+	                
+	                <div><span style="color:white">${errorMsg}</span></div>     
+	                <div >
+	            	    <span style="color:green">${successMsg}</span>
+	                </div>
+	                
+	                <div class="SYCentBlockWrap">
+					<div class="SYCentTitle">主账户 ➨ 游戏厅</div>
+					<div class="SYCentBlock">
+						<form action="/tranfer_game.php" method="post" autocomplete="off" onsubmit="return sa('a_submit')" >
+							<div>
+						   <label>主账户额度：</label>
+				           ${cust.credit}
+				       </div>
+							<div>
+				           <label>转进额度：</label>
+				           <input type="text" name="credit" value="" class="input" style="font-size:20px;color:red;font-weight:bold"/>
+				       </div>
+							<div>
+				           <label>转至游戏厅：</label>
+				           <select style="line-height: 32px;" name="plat" class="input">
+				              <option value="AGIN">AG厅</option>
+				              <option value="BBIN">波音厅(BBIN)</option>
+				              <option value="PT">PT厅</option>
+				              <option value="MG">MG厅</option>
+				              <option value="PP">PP厅</option>
+				              <option value="KG">KG厅</option>
+				              <option value="VS">申博厅</option>
+				           </select>
+
+				       </div>
+							<div class="BtnBox2"><button id="a_submit" class="Btn2 BtnSize_B3" type="submit">提交</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				
+				
+				<div class="SYCentBlockWrap">
+					<div class="SYCentTitle">游戏厅 ➨ 主账户</div>
+					<div class="SYCentBlock">
+						<form action="/tranfer_local.php" method="post" autocomplete="off" onsubmit="return sa('b_submit')">
+							<div>
+				           <label>从游戏厅：</label>
+				           <select style="line-height: 32px;" class="input" name="plat">
+				              <option value="AGIN">AG厅</option>
+				              <option value="BBIN">波音厅(BBIN)</option>
+				              <option value="PT">PT厅</option>
+				              <option value="MG">MG厅</option>
+				              <option value="PP">PP厅</option>
+				              <option value="KG">KG厅</option>
+				              <option value="VS">申博厅</option>
+				           </select>
+				       </div>
+							<div>
+				           <label>转出额度：</label>
+				           <input type="text" name="credit" value="" class="input" style="font-size:20px;color:red;font-weight:bold"/>
+				       </div>
+							
+							<div class="BtnBox2"><button id="b_submit" class="Btn2 BtnSize_B3" type="submit">提交</button>
+							</div>
+						</form>
+					</div>
+				</div>
+	                
+	                
+	                
+	                
+	                 <div class="cklc">
+	            	<span>温馨提示</span>
+	            	<div>1、 请勿重复提交转账申请。</div>
+	            	<div>2、 转账的额度需为整数，且低于1元无法转账。</div>
+	             </div>
+	                
+               </fieldset>
+               
+               
+            </div>
+                #{include '/templates/user_info.html' /}   
+</div>                           

@@ -1,0 +1,88 @@
+<!-- 中奖榜 -->
+<div class="user_scroll">
+  <div class="marquee">
+    <ul class="imglist">
+    
+      #{mb.winning_pool}
+      	${_winlist.raw()}
+      #{/mb.winning_pool}
+    </ul>
+  </div>
+  <div class="user_scroll_cls">
+    <span class="zjb_cls"></span>
+    <span class="zjb_cls_text">中奖榜</span>
+  </div>
+</div>
+ <div class="user_scroll_open fr">
+    <span class="zjb_open"></span>
+    <span class="zjb_cls_text">中奖榜</span>
+  </div>
+<!--wrapper-->
+<script src="#{mb.static '/public/js/banner.js' /}"></script>
+<script src="#{mb.static '/public/js/lower.js' /}"></script>
+<script type="text/javascript">
+ 
+ $('.marquee').kxbdMarquee({
+    direction:'left',
+    eventA:'mouseenter',
+    eventB:'mouseleave'
+  });
+  // 关闭滚动
+  $('.zjb_cls').click(function(){
+      $('.user_scroll').animate({
+        "right":"-100%"
+      },300).css({
+        "display":"none"
+      });
+      $('.user_scroll_open').show();
+  });
+  $('.zjb_open').click(function(){
+    $('.user_scroll_open').hide();
+    $('.user_scroll').animate({
+        "right":"0"
+      },300).css({
+        "display":"block"
+      });
+  });
+  
+
+</script>
+<div class="gotop"><img src="#{mb.static '/public/images/csoft/gotop.png' /}"></div>
+<div id="foot" class="Footer" style="height: 179px;">
+ <div class="FooterTopBox">
+  <div class="FooterTop">
+    <div class="FooterIcon"></div>
+
+    <!-- <a href="www.51.la/?17245262" target="_blank" title="51.La 网站流量统计系统" style="margin-left:-76px;"><img alt="51.La 网站流量统计系统" src="oldimg/icon_7.gif" style="border: medium none;"></a> -->
+    <p style="line-height: 40px;margin-top:-2px;font-size:14px;"> 
+      <a title="" href="about.html">关于我们</a>/
+      <a title="" href="terms.html"> 博彩责任</a>/
+      <a title="" href="faq.html">常见问题</a> /
+      <a title="" target="_blank" href="https://www.8da08.com/">加盟合作</a>/
+      <a title="" href="dns.html">DNS</a>
+    </p>
+  </div>
+</div>
+<!---->
+<div class="FooterColumnBox">
+  <div class="FooterColumn">
+    <div class="Column"><span>博彩责任</span>
+      <p>作为一个信誉好及富有强烈社会责任感的博彩公司，八达国际致力将博彩游戏带来的负面影响降至最低。</p>
+    </div>
+    <div class="Column"><span>加盟合作</span> 
+      <p>现在开始加入八达国际的合作伙伴项目，坐享佣金</p>
+    </div>
+    <div class="Column"><span>联络我们</span>
+      <p>如果您有任何关于游戏或者是娱乐场方面的疑问，您随时可通过在线客服、或者电话客服获取帮助。</p>
+    </div>
+    <div class="Column"><span>优惠活动</span>
+      <p>注册享有高达33%首存红利，周返水最高1%。</p>
+    </div>
+  </div>
+</div>
+</div>
+  <script data-cfasync="false" src="#{mb.static '/public/js/jquery.easing.js' /}" type="text/javascript"></script>
+<script data-cfasync="false" src="#{mb.static '/public/js/jquery.touchSwipe.min.js' /}" type="text/javascript"></script>
+<script data-cfasync="false" src="#{mb.static '/public/js/newindex.js' /}" type="text/javascript"></script>
+<script data-cfasync="false" src="#{mb.static '/public/js/script.js' /}" type="text/javascript"></script>
+        

@@ -1,0 +1,20 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'优惠活动 -八达国际官网（8dabet.com） - 八达博天下' /} 
+#{set keywords:'优惠活动，八达国际，'/}
+#{set description:'八达国际信誉品牌，赢天下豪客，洗码最高1%，不封顶，开户送豪礼，VIP会员 直升机澳门豪华游 菲律宾快乐三日行。'/}
+#{set menu_li:'index_5'/}                                			                                                	                             			                                                	
+<div id="wrapper" class="MainWrap">
+<div class="ProListBox">
+#{mb.discount}
+ <div class="ProList">
+ 		<div ><img src="${_discount.s_url}" alt=""/></div>
+         <div >
+             <span>${_discount.title}</span> <p>			 
+             ${_discount.summary}</p>
+             <button class="Btn2 BtnSize_B3" onClick="window.open('/promotion/${_discount.discount_id}','_self')" >查看详情》</button>
+		    <div class="clear"></div></div> 	          
+			 
+</div>
+#{/mb.discount}
+</div>
+</div>

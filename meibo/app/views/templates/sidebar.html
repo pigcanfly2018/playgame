@@ -1,0 +1,119 @@
+<link rel="stylesheet" href="#{mb.static '/public/style/popuplogin1.css' /}" type="text/css" />
+
+
+<div class="Rides_L" id="Rides_L">
+  <div class="Rides_L_Box" id="Rides_L_Cont" style="display: block;">
+    <ul>
+      <li style="height:130px"> <div src="/public/images/pixel.gif" alt="" class="ServiceImg" id=""></div>
+        <p class="">24H×7 在线</p>
+        <button class="Btn1" id="Btn1_Online" onclick="javascript:open800ChatBox('')">在线咨询</button>
+        <button class="Btn1" id="Btn1_QQService" onclick="window.open('http://wpa.qq.com/msgrd?v=3&uin=2399354999&site=qq&menu=yes')">QQ客服</button>
+        
+      </li>
+      <li class="CutOffRule"></li>
+      <li style="height:90px">
+      
+        
+        #{mb.callPhone}
+	            #{if !_call_flag}
+	               <button class="Btn1" id="Btn1_PhoneCall">免费回拨</button>
+	            #{/if}
+	            #{else}
+	            	<button class="Btn1" id="openphone" >免费回拨</button>
+				#{/else}
+	            
+	            #{/mb.callPhone}
+        
+        <a target="_blank" href=""></a>
+        <p class="PhoneNum">国际: 0063<br>
+          9988818888</p>
+      </li>
+      <li class="CutOffRule"></li>
+      <li style="height:120px">
+        <div class="WeChatCode"></div>
+        <p>微信客服</p> </li>
+      <!-- <li class="liQRCode" style="display:none">
+        <div class="MobileWeb"></div>
+        <p>手机Web</p>
+      </li> -->
+      
+    </ul>
+  </div>
+  <div class="Rides_L_Box" id="Rides_L_Fold"> <a style="display: none;" id="aRides_L_Show" class="btnOpen" title="展开在线客服" href="javascript:void(0);">在线客服<span class="RidesFoldIcon" id="RidesL_FoldIconOff"></span></a> <a style="display: block;" id="aRides_L_Hide" class="btnCtn" title="闭合在线客服" href="javascript:void(0);">在线客服<span class="RidesFoldIcon" id="RidesL_FoldIconOn"></span></a> </div>
+</div>
+
+
+<div class="Rides_R" id="Rides_R" >
+  <div class="Rides_R_Box" id="Rides_R_Fold"> 
+  	<a style="display:none; top:10px" id="aRides_R_Show" class="btnOpen" title="展开扫码支付" href="javascript:void(0);">扫码支付<span class="RidesFoldIcon" id="RidesR_FoldIconOn"></span></a>   	<a style="display:block; top:10px" id="aRides_R_Hide" class="btnCtn" title="闭合扫码支付" href="javascript:void(0);">扫码支付<span class="RidesFoldIcon" id="RidesR_FoldIconOff"></span></a> 
+  </div>
+  <div class="Rides_R_Box" id="Rides_R_Cont" style="display: block;">
+      <!--  RidesR Pay 微信通道 Start -->
+      <ul id="Module_PayAlipay">
+        <li style="height: 170px;">
+          <h3 class="titPay" id="zfnameid">微信支付</h3>
+          <input type="hidden" id="banktype" value="2">
+          <!-- <img src="public/images/pixel.gif" class="PayIcon" id="PayIcon_WeChat"> -->
+          <img src="/public/images/new/wechat.png" class="PayIcon" id="PayIcon_WeChat">
+          <div class="r_chiose_li">
+            <a href="javascript:void(0)" vv-src="/public/images/new/wechat.png" class="zhifubao onup" onclick="$('#zfnameid').text('微信支付');$('#banktype').val('2')">
+              <i></i>
+              <img src="/public/images/new/wechatcopy.png">
+            </a>
+            <a href="javascript:void(0)" vv-src="/public/images/new/zhufubao.png" class="wecha_t" style="display:none">
+              <i></i>
+              <img src="/public/images/new/zhufubaocopy.png">
+            </a>
+            <a href="javascript:void(0)" vv-src="/public/images/new/Layer4.png" class="qqimg" onclick="$('#zfnameid').text('QQ支付');$('#banktype').val('5')">
+              <i></i>
+              <img src="/public/images/new/Layer4copy.png" >
+            </a>
+          </div>
+          <!--<button class="Btn1" id="Btn1_PaySwitchToAlipay">切换支付宝</button>-->
+          <a target="_blank" href="#"></a> </li>
+          <li class="CutOffRule"></li>
+          <li style="height: 130px;">
+            <input class="Input_sum" id="wexinamount" placeholder="不低于100" maxlength="5" required="" type="text">
+            <button class="Btn1" id="Btn1_SubmitSumWechat">确定金额</button>
+            <a target="_blank" href="#"></a> </li>
+          </ul>
+          <!--  RidesR Pay 微信通道 End -->
+          <!--  RidesR Pay 支付宝通道 Start -->
+          <ul id="Module_PayWechat">
+            <li style="height: 170px;">
+              <h3 class="titPay">支付宝通道</h3>
+              <img src="/public/images/pixel.gif" class="PayIcon" id="PayIcon_Alipay">
+              <!-- button class="Btn1" id="Btn1_PaySwitchToWechat">切换至微信</button>
+                <a target="_blank" href="#"></a>  -->
+              </li>
+              <li class="CutOffRule"></li>
+              <li style="height: 130px;">
+                <input class="Input_sum" id="zhifubaoamount" placeholder="不低于100" maxlength="5" required="" type="text">
+                <button class="Btn1" id="Btn1_SubmitSumAlipay">确定金额</button>
+                <a target="_blank" href="#"></a> </li>
+              </ul>
+              <!--  RidesR Pay 支付宝通道 End -->
+            </div>
+</div>
+
+<div id="RidesAD_YoPlay" class="RidesAD">
+    <div class="RidesAD_Topbar"><span onclick="$('#RidesAD').hide();">╳</span></div>
+    <div class="RidesAD_ContBox">
+      <div onClick="window.open('/goToGame/2?gamecode=YP800');">
+        <div class="RidesADTitle">YoPlay街机</div>
+       
+        <img src="#{mb.static '/public/images/heyhey_logo_a.gif' /}" ></div>
+    </div>
+  </div>
+
+ <!--
+<div id="RidesAD" class="RidesAD">
+    <div class="RidesAD_Topbar"><span onclick="$('#RidesAD').hide();">╳</span></div>
+    <div class="RidesAD_ContBox">
+      <div id="RidesAD_MGLuckyDragon" onClick="window.open('https://www.lc88drt.com/tournaments/site/34');">
+        <div class="RidesADTitle">幸运之龙擂台赛</div>
+        <p>惊喜天天送</p>
+        <img src="#{mb.static '/public/images/RidesAD_MGLuckyDragon.jpg' /}" ></div>
+    </div>
+  </div>
+  -->

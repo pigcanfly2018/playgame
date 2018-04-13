@@ -1,0 +1,414 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'电子游艺 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'电子游艺，八达国际，申博电子游戏，波音电子游戏，电子老虎机。'/} 
+#{set description:'八达国际提供众多电子游戏项目，集成申博电子游戏，波音电子游戏，内设百余款电子老虎机，桌面游戏，棋牌游戏，总有一款适合您的游戏。'/}                       			                                                	                        			                                                	
+#{set menu_li:'index_2'/}  
+<style>
+.bolda{
+color:#Ff0;
+font-weight:bold;
+}
+</style>
+
+<div id="wrapper"> 
+	<div class="AccAllWrapper">
+    	<div class="EgameTop">
+        	<!-- <a href="#" class="on">申博平台电子游艺</a> -->
+            <a href="#" class="on">BBIN平台电子游艺</a>
+        </div>
+        <div class="SliderInner">
+        	            <!-- slider start -->           
+                <div class="BaDa02">
+                    <ul class="Bada02Pic">
+                        <li><a href="#" target="_blank"><img src="#{mb.static '/public/images/Egame/EgShow_Img01.jpg'/}" /></a></li>
+                        <li><a href="#" target="_blank"><img src="#{mb.static '/public/images/Egame/EgShow_Img02.jpg'/} " /></a></li>
+                    </ul>
+                    <a class="prev" href="javascript:void(0)"></a>
+                    <a class="next" href="javascript:void(0)"></a>
+                    <div class="num">
+                        <ul></ul>
+                    </div>
+                </div>
+                <script>
+                /*鼠标移过，左右按钮显示*/
+                $(".BaDa02").hover(function(){
+                    $(this).find(".prev,.next").fadeTo("show",0.1);
+                },function(){
+                    $(this).find(".prev,.next").hide();
+                })
+                /*鼠标移过某个按钮 高亮显示*/
+                $(".prev,.next").hover(function(){
+                    $(this).fadeTo("show",0.7);
+                },function(){
+                    $(this).fadeTo("show",0.1);
+                })
+                $(".BaDa02").slide({ titCell:".num ul" , mainCell:".Bada02Pic" , effect:"fold", autoPlay:true, delayTime:700 , autoPage:true });
+                </script>
+   			<!-- slider end -->                    
+        </div>
+        
+        
+     <!--start-->   
+     <script src="#{mb.static '/public/js/organictabs.jquery.js'/}"></script>
+	<script>
+		$(function() {
+		
+			// Calling the plugin
+			$("#example-one").organicTabs();
+		
+		});
+	</script>
+    <div class="EgameCon"> 
+        
+	<div id="example-one">
+		<ul class="Enav">
+			<li class="Enav-one"><a href="#tab01" class="current">最新游戏</a></li>
+			<li class="Enav-two"><a href="#tab02">热门游戏</a></li>
+			<li class="Enav-three"><a href="#tab03">老虎机</a></li>
+			<li class="Enav-four"><a href="#tab04">刮刮卡</a></li>
+            <li class="Enav-five"><a href="#tab05">电子扑克</a></li>
+            <li class="Enav-six"><a href="#tab06">桌上游戏</a></li>
+            <li class="Enav-seven"><a href="#tab07">大型电玩</a></li>
+		</ul>
+		<div class="list-wrap">
+		 #{mb.bbin}
+	      #{if _bbin_flag}
+			<ul id="tab01">
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5404.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">沙滩排球</a><a href="/goToGame/1?psite=game" target="_blank" class="right">进入游戏</a></p></div></li>
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5901.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">连环夺宝</a><a href="/goToGame/1?psite=game" target="_blank" class="right">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5095.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">斗鸡</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15006.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">3D肉蒲团</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15026.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">环游世界</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5039.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">鱼虾蟹</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15024.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">2014世足赛</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15023.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">连连看</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5204.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">2014 FIFA</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                 <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5070.png'/}" /></a>
+                 <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">黄金大转轮</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                 <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15021.png'/}" /></a>
+                 <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">全民狗仔</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                 <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15018.png'/}" /></a>
+                 <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">激情243</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <div class="clear"></div>                  
+			</ul>
+			<ul id="tab02" class="hide">
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5901.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">连环夺宝</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15026.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">环游世界</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5039.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">鱼虾蟹</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15024.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">2014世足赛</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>     
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15023.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">连连看</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5204.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">2014 FIFA</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li> 
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5070.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">黄金大转轮</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15018.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">激情243</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5403.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">七剑传说</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5402.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">夜市人生</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5030.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">幸运财神</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5029.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">圣诞派对</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+              <div class="clear"></div>                    			
+            </ul>
+			<ul id="tab03" class="hide">
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5004.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">足球拉霸</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5003.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">筒子拉霸</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5062.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">龙在囧途</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5061.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">超级7</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5095.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">斗鸡</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5094.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">金瓶梅2</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15006.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">3D肉蒲团</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5204.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">2014 FIFA</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5201.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">火焰山</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5202.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">月光宝盒</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5404.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">沙滩排球</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5403.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">七剑传说</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+               
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5403.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">七剑传说</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15019.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">倩女幽魂</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li> 
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5404.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">沙滩排球s</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame//Game_5083.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">钻石列车</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li> 
+         
+                <div class="clear"></div>                  			
+			</ul>
+			<ul id="tab04" class="hide">
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15026.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">环游世界</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15024.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">2014世足赛</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15023.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">连连看</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+               <div class="clear"></div>                  		
+			</ul>
+			<ul id="tab05" class="hide">
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5034.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">王牌5PK</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5023.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">7靶射击</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5021.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">7PK</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <div class="clear"></div>                    			
+			</ul>
+			<ul id="tab06" class="hide">
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5039.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">鱼虾蟹</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5089.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">红狗</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5088.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">斗大</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5035.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">加勒比扑克</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5131.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">皇家德州扑克</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>          
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5118.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">奖金21点</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>  
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5117.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">维加斯21点</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>               
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5116.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">西班牙21点</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>              
+                
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5115.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">经典21点</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>          
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5104.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">法式轮盘</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>  
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5103.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">彩金轮盘</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>               
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5102.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">美式轮盘</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li> 
+                <div class="clear"></div>                  		
+			</ul>
+			<ul id="tab07" class="hide">
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5901.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">连环夺宝</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+				 <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame//Game_5083.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">钻石列车</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li> 
+                
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5084.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">圣兽传说</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/e004.jpg'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">大闹天宫</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5070.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">黄金大转轮</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5080.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">乐透转轮</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5079.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">3D数字大转轮</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>  
+                 
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5078.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">象棋大转轮</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5004.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">足球拉霸</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5077.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">水果大转轮</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5076.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">数字大转轮</a><a href="/goToGame/1?psite=game" class="right" target="_blank">进入游戏</a></p></div></li>
+                <div class="clear"></div>                   			
+			</ul>  
+           #{/if}
+           #{else}
+           <ul id="tab01">
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5404.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">沙滩排球</a><a href="javascript:void(0)" target="_blank" class="right">游戏维护中</a></p></div></li>
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5901.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">连环夺宝</a><a href="javascript:void(0)" target="_blank" class="right">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5095.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">斗鸡</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15006.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">3D肉蒲团</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15026.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">环游世界</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5039.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">鱼虾蟹</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15024.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">2014世足赛</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15023.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">连连看</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5204.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">2014 FIFA</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                 <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5070.png'/}" /></a>
+                 <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">黄金大转轮</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                 <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15021.png'/}" /></a>
+                 <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">全民狗仔</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                 <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15018.png'/}" /></a>
+                 <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">激情243</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <div class="clear"></div>                  
+			</ul>
+			<ul id="tab02" class="hide">
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5901.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">连环夺宝</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15026.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">环游世界</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5039.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">鱼虾蟹</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15024.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">2014世足赛</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>     
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15023.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">连连看</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5204.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">2014 FIFA</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li> 
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5070.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">黄金大转轮</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15018.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">激情243</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5403.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">七剑传说</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5402.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">夜市人生</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5030.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">幸运财神</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5029.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">圣诞派对</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+              <div class="clear"></div>                    			
+            </ul>
+			<ul id="tab03" class="hide">
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5004.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">足球拉霸</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5003.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">筒子拉霸</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5062.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">龙在囧途</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5061.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">超级7</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5095.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">斗鸡</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5094.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">金瓶梅2</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15006.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">3D肉蒲团</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5204.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">2014 FIFA</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5201.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">火焰山</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5202.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">月光宝盒</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5404.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">沙滩排球</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5403.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">七剑传说</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+               
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5403.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">七剑传说</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15019.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">倩女幽魂</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li> 
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5404.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">沙滩排球s</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame//Game_5083.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">钻石列车</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li> 
+         
+                <div class="clear"></div>                  			
+			</ul>
+			<ul id="tab04" class="hide">
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15026.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">环游世界</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15024.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">2014世足赛</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_15023.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">连连看</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+               <div class="clear"></div>                  		
+			</ul>
+			<ul id="tab05" class="hide">
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5034.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">王牌5PK</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5023.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">7靶射击</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5021.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">7PK</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <div class="clear"></div>                    			
+			</ul>
+			<ul id="tab06" class="hide">
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5039.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">鱼虾蟹</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5089.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">红狗</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5088.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">斗大</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5035.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">加勒比扑克</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5131.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">皇家德州扑克</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>          
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5118.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">奖金21点</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>  
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5117.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">维加斯21点</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>               
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5116.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">西班牙21点</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>              
+                
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5115.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">经典21点</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>          
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5104.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">法式轮盘</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>  
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5103.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">彩金轮盘</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>               
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5102.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">美式轮盘</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li> 
+                <div class="clear"></div>                  		
+			</ul>
+			<ul id="tab07" class="hide">
+				<li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5901.png'/}" /></a>
+				<p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">连环夺宝</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+				 <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame//Game_5083.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">钻石列车</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li> 
+                
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5084.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">圣兽传说</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/e004.jpg'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">大闹天宫</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5070.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">黄金大转轮</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5080.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">乐透转轮</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5079.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">3D数字大转轮</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>  
+                 
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5078.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">象棋大转轮</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5004.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">足球拉霸</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5077.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">水果大转轮</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <li><div><a href="javascript:void(0)"><img src="#{mb.static '/public/images/Egame/Game_5076.png'/}" /></a>
+                <p><a href="javascript:void(0)" class="left bolda" style="color:#Ff0;">数字大转轮</a><a href="javascript:void(0)" class="right" target="_blank">游戏维护中</a></p></div></li>
+                <div class="clear"></div>
+           #{/else}
+           #{/mb.bbin}                               
+		</div> <!-- END List Wrap -->
+	</div> <!-- END Organic Tabs (Example One) -->
+   
+    <!--end-->                               	
+    </div>
+        
+    </div>                                                              
+</div>

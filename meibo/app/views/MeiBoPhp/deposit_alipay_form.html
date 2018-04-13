@@ -1,0 +1,79 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'提交支付宝存款信息 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'提交支付宝存款信息，八达国际'/} 
+#{set description:''/}       
+#{set cust_nav_li:'cust_1_2'/}      
+<script data-cfasync="false" type="text/javascript" src="#{mb.static '/public/My97DatePicker/WdatePicker.js'/}" charset="utf-8"></script>
+<script data-cfasync="false">
+function numberOnly(e){
+	if(window.event){
+		var keyCode=window.event.keyCode;
+		return (keyCode>=48&&keyCode<=57)||keyCode==46;
+	}else{
+		//mozailla
+		var keyCode=e.which;
+		return (keyCode>=48&&keyCode<=57)||keyCode==0||keyCode==8||keyCode==46;//allow backspace and delete
+	}
+} 
+function resetPoundage(i){
+	var k=parseFloat($(i).val())/100;
+	if(k>2888){
+	    $("#poundage").html("2888元");	
+	}else{
+		$("#poundage").html(k+"元");	
+	}
+}
+
+
+</script>
+
+<div id="wrapper"> 
+<div class="UserCenter">
+  #{include '/templates/user_left.html'/}  		
+ <div class="UserRight">            	
+          <fieldset>
+            <legend>提交存款信息</legend>
+            <div>${errorMsg}</div>
+            <form action="/deposit_alipay.php" method="post" autocomplete="off" onsubmit="return sa('b_submit')">
+                  <div>
+				       <label >存款金额：</label>
+                       <input type="text" style="width:200px;font-size:20px;color:red;font-weight:bold" name="amount" value="${amount}" class="input" onkeypress="return numberOnly(event)" onblur="resetPoundage(this)"/>
+                       <span>您本次已存款的金额。</span>
+			       </div>	
+			      <div>
+			          <label>转账红利：</label> 
+			          <span id="poundage" style="color:white;margin-right:165px;">0元</span>
+			      </div>		
+			      <div>
+			           <label>支付宝收款人：</label> 
+			           <input type="text" name="account_name" style="width:200px;" value="${account_name}" readOnly="readOnly" class="input"/>
+			           <span></span>         	
+			      </div>
+			        <div>
+			           <label>转账时间：</label> 
+			            <input type="text" class="Wdate" maxlength="10"  
+                                    value="${new Date().format('yyyy-MM-dd HH:mm:ss')}"style="width: 205px;height:33px" 
+                                    onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true})"  
+                                    id="deposit_date" name="deposit_date">
+			           <span>以转账凭证的时间为准。</span>         	
+			      </div>
+			      <div>
+			         <label>备注：</label>
+			         <input type="text" name="remarks" style="width:200px;" value="${remarks}" class="input"/>
+			         <span>您可以在这里填写您的支付宝转账单号。</span>   
+			      </div>	
+                <div>
+                     <input type="hidden" style="width:200px;" name="bank_name" value="${bank_name}" readOnly="readOnly" class="input"/>
+                     <input type="hidden" name="deposit_type" style="width:200px;" value="支付宝转账" readOnly="readOnly" class="input"/>
+                     <input type="hidden" name="location" style="width:200px;" value="支付宝" class="input"/>
+                      
+                     <input id="b_submit" name="Submit" type="submit" style="margin-left:150px;margin-top:20px" class="buttom02" value="提交" />
+                     <input name="Submit" type="button" style="margin-left:15px;margin-top:20px" class="buttom02" value="返回" onclick="window.location.href='/deposit_alipay.php'" />
+                </div>
+            </form>
+          </fieldset>
+       </div>
+         #{include '/templates/user_info.html' /}
+</div>                           
+</div>
+

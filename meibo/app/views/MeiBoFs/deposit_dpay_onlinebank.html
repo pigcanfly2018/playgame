@@ -1,0 +1,91 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'银联支付-八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'银联支付，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_2'/}
+<script>
+function aa(){
+	$("#submit_btn").attr("disabled","disabled");
+}
+function copyData(id){
+	window.clipboardData.setData("Text", $('#'+id).innerHtml);  
+	alert('复制成功！');  
+}
+
+</script>
+<style>
+           #deposit_bank_table .first_td{
+              width:200px;
+              text-align:right;
+              color:#ffff00;
+            }
+            
+            #deposit_bank_table .sencond_td{
+              width:200px;
+              text-align:left;
+              color:#ffff00;
+            }
+            
+            #deposit_bank_table .three_td{
+              width:160px;
+              text-align:left;
+            }
+
+</style>
+<div id="wrapper"> 
+<div class="UserCenter">
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight">      
+		     <fieldset>
+	                <legend>银联支付确认信息</legend>
+	         <form action="${result.get('break_url')}" method="post" onsubmit="return sa('b_submit')" >      	
+		    <table id="deposit_bank_table">  
+		    
+
+               
+               <tr style="border-top:3px solid #f00">
+               	<td class="first_td">订单号</td>
+               	<td class="sencond_td">${result.get('order_no')}</td>
+               	<td class="three_td"></td>
+               
+               </tr>
+      		  
+               <tr>
+               	<td class="first_td">金额</td>
+                    <td class="sencond_td">${amount}</td>
+                    <td class="three_td"></td>
+               </tr>   
+             
+                  <tr style="border-top:3px solid #f00">
+               	<td class="first_td">订单过期时间</td>
+               	<td class="sencond_td">${exp_date}</td>
+               	<td class="three_td">请在失效时间前完成充值</td>
+               
+               </tr> 
+            
+                <tr>
+               	<td colspan="3" style="text-align:left;">
+               	    <p>1. 请再30分钟内完成充值，系统将30分钟后关闭该订单。</p>
+               	    
+               	</td>
+                </tr> 
+                <tr>
+               	<td colspan="3" style="text-align:center;">
+               	   <div><input id="submit_btn" name="submit_btn" type="submit"  class="buttom02" value="前往支付"> 
+              </div>
+               	    
+               	</td>
+                </tr> 
+                                                                                                                                                                                 
+                    </table>
+                    </form>  
+              
+              </fieldset>   
+               
+                    
+            </div>
+            
+             #{include '/templates/user_info.html' /}
+</div>                           
+</div>
+

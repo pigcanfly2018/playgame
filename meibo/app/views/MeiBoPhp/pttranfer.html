@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>额度转换</title>
+<link rel="stylesheet" href="#{mb.static '/public/style/credit.css' /}" type="text/css" />
+
+<script type="text/javascript">
+	function pttransferin(){
+		 document.getElementById("inform").submit();
+	}
+	
+	function pttransferout(){
+		 document.getElementById("outform").submit();
+	}
+	
+</script>
+</head>
+<body>
+<div class="credit">
+  <div class="fields">
+    <h2>转账出纳</h2>
+    <h3><span>账户信息</span></h3>
+    <ul class="ulzcsm">
+    	 <li><span>${errorMsg}</span></li>
+    	  <li><span>${successMsg}</span></li>      
+    	<li><span>账户名：</span><a>${cust.login_name}</a></li>
+    	<li><span>账户余额：</span><a>${cust.credit}</a></li>
+    </ul>
+    <p class="zcsm">转出资金：请输入资料，通过银行转账进行提款。</p>
+    <h3><span>资金划转</span></h3>
+    <form action="/pttranferin.php" id="inform" method="post" autocomplete="off" >
+    <div class="turncont">
+    	<ul>
+        	<li>
+            	<p class="p1">
+                	<span>从 <select><option value="PT" >PT平台账户</option></select></span>
+                    <span>至 <select><option>本地账户</option></select></span>
+                </p>
+                <p class="p2">转出金额：<input type="text" name="credit" value="" /></p>
+                <input type="hidden" name="username" value="${cust.login_name}" />
+            </li>
+        </ul>
+        <p class="turnbut"><span><a class="but1" onclick="pttransferin()" href="#">提交</a><a class="but2" href="#">重置</a></span></p>
+    </div>
+    </form>
+    <form action="/pttranferout.php" id="outform" method="post" autocomplete="off" >
+    <div class="turncont">
+    	<ul>
+        	<li>
+            	<p class="p1">
+                	<span>从 <select><option>本地账户</option></select></span>
+                    <span>至 <select><option value="PT">PT平台账户</option></select></span>
+                </p>
+                <p class="p2">转出金额：<input type="text" name="credit" value="" /></p>
+                <input type="hidden" name="username" value="${cust.login_name}" />
+            </li>
+        </ul>
+        <p class="turnbut"><span><a class="but1" onclick="pttransferout()" href="#">提交</a><a class="but2" href="#">重置</a></span></p>
+    </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>

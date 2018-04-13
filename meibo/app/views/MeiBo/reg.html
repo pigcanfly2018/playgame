@@ -1,0 +1,198 @@
+#{extends '/templates/8da.html' /} 
+#{set isreg:'true' /} 
+#{set title:'快速注册 -八达国际官网（8dabet.com） - 八达博天下' /} 
+#{set keywords:'八达国际开户，八达国际，八达娱乐城注册'/}
+
+#{set description:'八达国际娱乐城提供在线博彩娱乐，设有真人百家乐，龙虎等真人项目，更有VIP包房；电子老虎机，桌面游戏等精彩电子游艺；彩票竞猜，体育竞技欢乐不断。内设申博厅，AG国际厅，波音厅，任君选择，24小时服务永不打烊！'/}
+<script language="JavaScript">
+if(self!=top){top.location=self.location;}
+</script>
+<script>
+function checkUserName(input){
+	var username=$(input).val();
+	if(username.length<5){
+		 $(input).next().html("帐号最少为5个字符!");
+		 $(input).next().css("color","yellow");
+		return false;
+	}
+	if(username.length>9){
+		 $(input).next().html("帐号最多为9个字符!");
+		 $(input).next().css("color","yellow");
+		return false;
+	}
+	if(!/^[a-z0-9]+$/.test(username)){
+		 $(input).next().html("帐号是小写与数字的组合!");
+		 $(input).next().css("color","yellow");
+		return false;
+	}
+	$.ajax({
+			type:'post',
+			url:'/ajax/checkLoginName',
+			data:{username:username},
+			dataType:'text',
+			success:function(msg){
+				var data =eval("("+msg+")");
+				if(!data.success){
+					$(input).next().html("该帐号已经被别人注册。");
+					$(input).next().css("color","yellow");
+				}else{
+					$(input).next().html("恭喜，该帐号可以使用!");
+					$(input).next().css("color","white");
+				}
+			},
+			error:function(){
+
+			}
+		});
+	return true;
+}
+function checkPhone(txt){
+	var phone=$(txt).val();
+	if(phone.length!=11){
+		$(txt).next().html("电话号码必须为11位数字!");
+		$(txt).next().css("color","yellow");
+		return false;
+	}
+	$.ajax({
+			type:'post',
+			url:'/ajax/checkPhone',
+			data:{phone:phone},
+			dataType:'text',
+			success:function(msg){
+				var data =eval("("+msg+")");
+				if(!data.success){
+					$(txt).next().html("该电话号码已经被占用。");
+					$(txt).next().css("color","yellow");
+				}else{
+					$(txt).next().html("恭喜，合格。温馨提醒：请确认是您的有效手机号码。");
+					$(txt).next().css("color","white");
+				}
+			},
+			error:function(){
+
+			}
+		});
+	return true;
+}
+function checkPassword(txt){
+	var filter=/^\s*[.A-Za-z0-9]{6,16}\s*$/;
+	if(!filter.test($(txt).val())) {
+		$(txt).next().html("您输入的密码不符合规范!");
+		$(txt).next().css("color","yellow");
+		return false;
+	}else{
+		$(txt).next().html("恭喜，该密码可以使用!");
+		$(txt).next().css("color","white");
+		return true;
+	}
+}
+function checkRealName(txt){
+	var realName=$('#real_name').val();
+	if(realName.length>1&&realName.length<15){
+		$(txt).next().html("恭喜，合格。 温馨提醒:请确认这是您的真实姓名。");
+		$(txt).next().css("color","white");
+		return true;
+	}else{
+		$(txt).next().html("请填写您的正确的真实姓名!");
+		$(txt).next().css("color","yellow");
+		return false;
+	}
+}
+function register(){
+	if(confirm("您确定提交您的注册信息吗?")){
+		 document.getElementById("reigsterForm").submit();
+	     return false;
+	}
+	return false;
+}
+</script>
+
+<div id="wrapper" class="MainWrap">
+	
+		#{include '/templates/index_left.html' /}
+		<div class="UserRight">
+			<fieldset>
+        <legend>开户注册</legend>
+			<form action="/reg.php" method="post" onsubmit="return sa('b_submit')">
+			<div id="formwrapper">
+			#{if errorMsg!=null}
+                <div><span style="color:white">${errorMsg}</span></div>
+            #{/if}
+            <div class="SYCentBlockWrap2">
+				
+					<input type="hidden" name="refer" id="referid">
+					<div>
+						<label for="Name"><i >*</i>会员账号</label> 
+						<input type="text" name="login_name" id="login_name" value="${login_name}" class="input" onblur="checkUserName(this)"/>
+						<span>由5-9位数字或者小写英文字母组成。</span>
+						<br />
+					</div>
+					<div>
+						<label for="password"><i>*</i>登录密码</label> 
+						<input type="password" name="login_pwd" id="login_pwd" class="input" onblur="checkPassword(this)" />
+						<span>由6-16位数字或字母组成。</span>
+						<br />
+					</div>
+				
+
+				
+					
+					<div>
+						<label for="Name"> <i >*</i> 真实姓名 </label>
+						<input type="text" name="real_name" id="real_name" value="${real_name}" class="input" onblur="checkRealName(this)"/> 
+						<span>必须与银行账号名称相同，否则不能出款。</span>
+						<br />
+					</div>
+					<div>
+						<label for="Phone"><i >*</i>手机号码</label>
+						 <input type="text" name="phone" id="phone" value="${phone}" class="input" onblur="checkPhone(this)" />
+						<span> 此为您取回登入密码的重要途径，务必真实！</span>
+						<br />
+					</div>
+				    <div>
+						<label for="QQ">QQ</label> 
+						<input type="text" name="qq" id="qq" value="${qq}" class="input" /> 
+						<span> 方便与您随时取得联系。</span>
+						<br />
+					</div>
+				
+					<div>
+						<label for="VerCode"><i >*</i>验证码 </label> 
+						<input type="text" name=veriCode id="veriCode" value="" class="input" />
+						<span for="Email" style="padding-left:5px;text-align:left;"><a href="javascript:void(0)">
+						<img src="/vericode.png?t=%{print System.currentTimeMillis()}%" onclick="refresh(this)"  alt="" /></a> <br /></span>
+					</div>
+					<div class="AgreeBox">
+                  <label for="AgreeToTerms"></label>
+                  <input  type="checkbox" name="AgreeToTerms" id="AgreeToTerms" value="1" checked="checked">
+                  我已满18岁，且同意以上条款 <a href="javascript:void(0)" title="您是否同意服务条款">用户协议</a> <i>*</i> </div>
+					<div class="enter">
+						<input id ="b_submit" name="Submit" type="submit" class="buttom01" value="提交" />
+						<input name="Reset" type="reset" class="buttom02" value="重置" />
+					</div>
+
+				
+				</div>
+			</div>
+        </form>
+        </fieldset>
+		</div>
+		
+	
+</div>
+<script>
+$(function(){
+	var referrer = document.referrer;
+    if (!referrer) {
+        try {
+            if (window.opener) {
+                // IE下如果跨域则抛出权限异常
+                // Safari和Chrome下window.opener.location没有任何属性
+                referrer = window.opener.location.href;
+            }
+        } 
+        catch (e) {}
+    }
+	$("#referid").val(referrer);
+})
+</script>

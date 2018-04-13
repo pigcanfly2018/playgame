@@ -1,0 +1,217 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'至尊VIP -八达国际官网（188da.com）- 八达博天下' /}
+#{set keywords:'至尊VIP ，八达国际'/} 
+#{set description:''/}  
+#{set menu_li:'index_6'/} 
+<link rel="stylesheet" href="#{mb.static '/public/style/vip.css' /}" type="text/css" />
+<script>
+window.onload=function()
+{
+	oCk=document.getElementById('ck')
+	oInbox=document.getElementById('inbox')
+	aInput=oInbox.getElementsByTagName('a')
+	oDibox=document.getElementById('dibox')
+	aDiv=oDibox.getElementsByTagName('div')
+	oCk.onclick=function(){
+		aDiv[0].style.display='none';	
+		aDiv[1].style.display='none';	
+		aDiv[2].style.display='block';	
+		aInput[0].className=''
+		aInput[1].className=''
+		aInput[2].className='activ'
+	}
+	for(var i=0;i<aInput.length;i++)
+	{
+		aInput[i].ind=i
+		aInput[i].onclick=function()
+		{
+			for(var i=0;i<aInput.length;i++)
+			{
+				aInput[i].className=''
+				aDiv[i].style.display='none'
+			}
+			this.className='activ';
+			aDiv[this.ind].style.display='block';
+		}
+	}
+}
+</script>
+
+<div class="vipcont">
+	<div class="vipcenter">
+    	<div class="vip-ck"><a id="ck" alt="点击查看" href="#"></a></div>
+        <ul id="inbox" class="vipbut">
+        	<li class="but1"><a class="activ" href="javascript:;"></a></li>
+        	<li class="but2"><a href="javascript:;"></a></li>
+        	<li class="but3"><a href="javascript:;"></a></li>
+        </ul>
+        <div id="dibox">
+       		<div class="vip-all">
+        	<h3>晋升要求——八达国际会员星级晋升要求</h3>
+            <table border="1">
+              <tr class="table-bt">
+                <td>星级</td>
+                <td>单笔存款</td>
+                <td>周有效投注</td>
+                <td>升级礼金</td>
+                <td>周年礼金</td>
+                <td>生日礼金</td>
+                <td>海外豪华游</td>
+                <td>特殊权利</td>
+              </tr>
+              <tr>
+                <td>1星级</td>
+                <td>无</td>
+                <td>10万以下</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>58</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>2星级</td>
+                <td>无</td>
+                <td>10万及以上</td>
+                <td>200</td>
+                <td>&nbsp;</td>
+                <td>118</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>3星级</td>
+                <td>无</td>
+                <td>50万及以上</td>
+                <td>600</td>
+                <td>88</td>
+                <td>288</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>4星（白金VIP）</td>
+                <td>10万以上</td>
+                <td>100万及以上</td>
+                <td>1000</td>
+                <td>188</td>
+                <td>588</td>
+                <td>&nbsp;</td>
+                <td>实时洗码</td>
+              </tr>
+              <tr>
+                <td>5星（黄金VIP）</td>
+                <td>50万以上</td>
+                <td>300万及以上</td>
+                <td>3600</td>
+                <td>288</td>
+                <td>1088</td>
+                <td>一年一次</td>
+                <td>实时洗码</td>
+              </tr>
+              <tr>
+                <td>6星（钻石VIP）</td>
+                <td>80万以上</td>
+                <td>1000万及以上</td>
+                <td>5000</td>
+                <td>588</td>
+                <td>2888</td>
+                <td>半年一次</td>
+                <td>实时洗码</td>
+              </tr>
+            </table>
+            <h3>VIP更多服务特权</h3>
+            <table border="1">
+              <tr>
+                <td class="table-td">黄金VIP</td>
+                <td>增加投注限额</td>
+                <td>优先申请存提款</td>
+                <td>VIP专属优惠</td>
+                <td>海外豪华游</td>
+                <td>个人VIP客户经理</td>
+              </tr>
+              <tr>
+                <td class="table-td">钻石VIP</td>
+                <td>增加投注限额</td>
+                <td>优先申请存提款</td>
+                <td>VIP专属优惠</td>
+                <td>海外豪华游</td>
+                <td>个人VIP客户经理</td>
+              </tr>
+             </table>
+             <h3>晋级要求</h3>
+             <span class="vipbox">
+             	<p>1）、玩家可通过有效投注额方式晋升，周有效投注额按照北京时间每周一中午12：00至下周一中午12:00，单个游戏大厅所产生的周有效投注进行计算。<br />
+2）、玩家可通过一次性单笔存款直接晋升为网站VIP会员， VIP会员可享更多好礼惊喜。</p>
+             </span>
+             <h3>礼金说明</h3>
+             <span class="vipbox">
+             	<p><font class="red">1）、升级礼金：</font><br />
+      凡达到升级要求晋级的玩家，即可享受网站升级礼金，该礼金无需申请当周自动添加。<br />
+<font class="red">2）、周年礼金：</font><br />
+      指网站所有三星级及以上会员，并在八达国际注册游戏满一周年的玩家即可申请享受。<br />
+<font class="red">3）、生日礼金：</font><br />
+      凡在网站注册游戏满一周年的玩家，且近期有进行充值。在生日前一天可直接联系客服申请，核实后24小时内添加到游戏账户中。<br />
+<font class="red">4）、海外豪华游：</font><br />
+      符合网站黄金VIP和钻石VIP会员可直接申请八达国际专属贵宾豪华海外游之旅，带您感受异国风情。<br />
+     （注：行程有特殊要求的玩家，可提前申请报备）。
+</p>
+             </span>
+             <h3>提款要求</h3>
+             <span class="vipbox">
+             	<p>1：升级礼金，周年礼金，生日礼金，所有礼金只需一倍流水即可提款。<br />
+2：一次性存款10万以上，需玩家达到2倍流水；一次性存款50万以上，需玩家达到1倍流水；一次性存款80万以上，需玩家达到1倍流水；
+</p>
+             </span>
+        </div>
+        	<div class="vip-all z2" style="display:none">
+            	<h4>免费豪华海外游</h4>
+                <p class="z2box"><i class="i01"></i>1、5星级的会员一年可申请一次澳门/菲律宾豪华游，6星级的会员半年可申请一次免费澳门/菲律宾豪华游。不但可实地感受八达国际在澳门、菲律宾的实体贵宾厅，更可到AG/BBIN现场观光。<br />
+2、提供3000元的机票报销、五星级酒店住宿（2晚）、豪车接送、专业VIP秘书陪同。详情请咨询在线客服。</p>
+                <h4>周年礼金</h4>
+                <p class="z2box"><i class="i02"></i>周年礼金：您只需要在八达国际首存满一周年以上，即可享受周年礼金。该礼金无需手动申请，电话客服会在周年的下个月5号致电通知满足条件的会员。并在通知后的24小时内发放，最高礼金为588元，仅需一倍流水即可提现。</p>
+                <h4>升级礼金人人有 最高10,400元</h4>
+                <p class="z2box"><i class="i03"></i>1、会员达到相应晋级要求后，其升级礼金将自动发放到游戏账户中，最高可达10,400元。<br />
+2、升级礼金仅需达到一倍流水即可提款（流水：有效投注额）。</p>
+                <h4>周周有洗码</h4>
+                <p class="z2box"><i class="i04"></i>1、周周有洗码，4-6星级的会员只要有效投注额≥100，即可享受“随时洗码”的专属服务。<br />
+2、星级越高保底洗码比例越高，洗码不封顶，用财力证明我们的实力。</p>
+            	<h4>生日礼金快乐送</h4>
+                <p class="z2box"><i></i>1：凡在网站注册游戏满一年的玩家，并近期均有充值游戏者，可在生日前一天联系客服申请，生日礼金最高可达2888。<br />
+2：生日礼金只需1倍流水即可提款。</p>
+				<h4>黄金/钻石VIP特殊权利</h4>
+                <p class="z2box"><i class="i2"></i>1：均可享受优先存提款特权，并可选择调整增加投注额。<br />
+2：专享VIP优惠以及独享VIP专人服务。</p>
+				
+            </div>
+            <div class="vip-all z3" style="display:none">
+        <h5>———— &nbsp;&nbsp;&nbsp;&nbsp;晋级标准&nbsp;&nbsp;&nbsp;&nbsp; ————</h5>
+         <ul>
+          <li>一星级会员：注册后存款即为一星级会员， 另，会员可通过一次性充值（达到一定额度）直接晋级到更高的相应级别。</li>
+          <li><span>★</span>二星会员 | 晋升要求：一周有效投注额达到10万及以上；</li>
+          <li><span>★</span>三星会员 | 晋升要求：一周有效投注额达到50万及以上；</li>
+          <li><span>★</span>四星会员 | 晋升要求：一周有效投注额达到100万及以上，或者，一次性充值10万以上，直接晋级；</li>
+          <li><span>★</span>五星会员 | 晋升要求：一周有效投注额达到300万及以上，或者，一次性充值50万以上，直接晋级；</li>
+          <li><span>★</span>六星会员 | 晋升要求：一周有效投注额达到1000万及以上，或者，一次性充值80万以上，直接晋级。</li>
+        </ul>
+        <h6><span>★</span>晋级后会被降级吗？</h6>
+        <ul>
+          <li>只要一周有效投注额达到晋级要求，晋级后将终身享受该级别的相应待遇，不会被降级。</li>
+        </ul>
+        <h6><span>★</span>什么是随时洗码？</h6>
+        <ul>
+          <li>晋级为四星级以上会员后即可享受“随时洗码”优惠 ，只要您未结算的有效投注额达到100以上，即可在北京时间中午12点后联系我们为您提前结算洗码，无需等到每周一统一发放洗码。</li>
+        </ul>
+        <h6><span>★</span>如何查询星级级别？？</h6>
+        <ul>
+          <li>您只需要登录八达国际“会员中心”即可查看到您的星级级别。</li>
+        </ul>
+        <h6><span>★</span>什么是升级礼金?</h6>
+        <ul>
+          <li>只要您晋级到相应的级别即可享受该级别的升级礼金，如您为2星级会员晋级为6星级会员，即可享受6星级的升级礼金5000元，我们会在升级的当周周一将礼金自动发放到您的游戏账户中，升级礼金只需一倍流水即可取款。</li>
+        </ul>
+      </div>
+		</div>
+    </div>
+</div>
+

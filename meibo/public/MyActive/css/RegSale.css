@@ -1,0 +1,127 @@
+@charset "utf-8";
+/* CSS Document */
+body{padding: 0px; margin: auto; font-family: Arial,Microsoft YaHei; box-sizing: border-box; outline: none; }
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color:rgba(200,200,200,1); } 
+input:-moz-placeholder, textarea:-moz-placeholder { color:rgba(200,200,200,1); } 
+input::-moz-placeholder, textarea::-moz-placeholder { color:rgba(200,200,200,1); } 
+input:-ms-input-placeholder, textarea:-ms-input-placeholder { color:rgba(200,200,200,1); } 
+
+.ContWrap button{ color: white;text-shadow: 1px 1px 0px rgba(0,0,0,.3); font-family: Arial,Microsoft YaHei; border-radius:8px;  border: 1px solid rgba(255,0,0,1); background: rgba(255,100,0,1); cursor: pointer; box-sizing: border-box; }
+.ContWrap button:hover,.ContWrap button:active {background: rgba(220,0,0,1);}
+.ContWrap button:disabled{opacity:.4;}
+.BtnBox{width: 100%; height: auto; margin: 20px; padding: 10px; display: flex;  justify-content: center; box-sizing: border-box; overflow: hidden;}
+
+
+
+/* 页头 */
+.header{width: 100%; height: 50px; position: absolute; color: white; border-bottom: 1px solid rgba(255,255,255,.2); background: rgba(0,0,0,.3); box-shadow: 0px 3px 5px rgba(0,0,0,.3); z-index: 999;}
+.cont_head{width: 1000px; height: 100%; margin: auto; padding: 0px 20px; display: flex; justify-content: space-between; align-items: center;}
+.logo{width: 150px; height: 100%; background: url(../../Image/logo.png) no-repeat center; background-size: 90%;}
+.cont_head p {color: rgba(255,255,255,.8); cursor: pointer;}
+.cont_head p:hover{color:rgba(255,255,255,1);}
+
+/* =======  内容部分 ======= */
+.main{width: 100%; margin: auto; position: relative; color: white; text-align: center; background: rgba(255,240,180,1) url(../images/Banner_RegSale.jpg) no-repeat center top; box-sizing: border-box; overflow:hidden; }
+.cont_main{width: 1200px; margin: auto; text-align: center;}
+.banner{width: 1000px; height: 430px; margin: auto; text-align: center; }
+.ActivityTime{width: 240px; height: 30px; line-height: 30px; font-size:16px; color: rgba(255,0,0,1); margin: auto; position:relative; padding: 65px 0px 170px;}
+.Reward{width: 220px; height:130px; margin: auto; background: url(../images/BannerReward1.png) no-repeat center;}
+
+/* 注册前准备页  Start */
+.ContWrap{width: 1200px; height:610px; margin: auto; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; position: relative; background: rgba(0,0,0,0);}
+.BoxFigure{width: 1000px; height: 0px ; border-top: 580px solid rgba(255,200,0,1); border-left: 10px solid transparent; border-right: 10px solid transparent; }
+.BoxSeam{width: 1000px; height: 0px ; border-bottom: 12px solid rgba(255,200,0,1); border-left: 100px solid transparent; border-right: 100px solid transparent; }
+.ContBox{width: 1000px; height: 600px; position: absolute; bottom: 5px; left: 50%; margin-left:-500px; background: rgba(255,255,255,1); }
+
+.RegReady{width:100%; padding: 0px 20px; box-sizing: border-box; overflow: hidden; cursor: default; }
+.RegReadyTop{ padding: 20px; display: flex; justify-content: center; align-items: center; font-size: 30px; font-weight: bold; color: rgba(200,0,0,1); border-bottom: 1px solid rgba(200,200,200,.5);}
+.RegReadyMain{ padding: 40px 0px 60px; display: flex; justify-content: center; flex-direction: column;  align-items: center; }
+.CountdownWrap{width: 690px; height: 230px; display: flex; align-items: center; background: url(../images/CountdownBG.png) no-repeat center; box-sizing:border-box; overflow: hidden; }
+.CountdownBox{width: 70%; height: 160px; display: flex; justify-content:center; flex-direction: column; align-items: center; }
+.CountdownText{width: 100%; height: 40%; font-size: 20px; padding: 20px 0px 0px 0px; display: flex; justify-content:space-around; align-items: center; background: rgba(255,255,255,.1); box-sizing: border-box; overflow: hidden; }
+.CountdownText .p1{ color: rgba(200,0,0,1); }
+.CountdownText .p2{ color: rgba(220,0,0,.5); }
+.CountdownCont{width: 100%; height: 60%; text-align: center;}
+.Countdown{width: 380px; height: 70px; line-height: 70px; padding: 0px 10px; font-size:50px; font-weight: bold; color: rgba(220,0,0,1); margin: auto; display: flex; justify-content: space-around; align-items: center; border: 2px solid rgba(200,0,0,1); background: rgba(255,255,255,1); box-sizing: border-box;}
+.Countdown p{display: flex; justify-content: center; align-items: center;}
+.Countdown span{line-height: 30px; font-size: 34px; font-weight: normal;}
+/* 名额进度 */
+.QuatoBox{width: 220px; height: 220px; position: relative; display: flex; justify-content: center; flex-direction: column; align-items: center; }
+.QuatoBox p{color: rgba(150,0,0,1); font-size: 20px;}
+.QuatoBox h{color: rgba(255,0,0,1); font-size: 36px; font-weight: bold; }
+.Circle2{width: 200px; height: 200px; display: flex; justify-content: center; flex-direction: column; align-items: center; border-radius: 50%; border: 5px solid rgba(255,255,0,1); box-sizing: border-box; overflow: hidden; }
+.Circle2 div{height: 30%;}
+
+.CircleWrap *{ margin: 0; padding: 0; }  
+.CircleWrap,.circle,.percent{ position: absolute; width: 200px; height: 200px; border-radius: 50%; margin: 0; padding: 0; }  
+.CircleWrap{width: 200px; height: 200px; position: absolute; left: -50%; margin-left: 115.6px; /*margin: 0px 8px;*/  border-radius: 50%; background:rgba(255,255,0,0); box-sizing: border-box; overflow: hidden;}  
+.circle{ box-sizing: border-box; border:5px solid rgba(255,255,0,0); clip:rect(0,200px,200px,100px);  }  
+.clip-auto{  clip:rect(auto, auto, auto, auto); }  
+.percent{  box-sizing: border-box; top:-5px; left:-5px; }  
+.CircleLeft{  transition:transform ease; border:5px solid rgba(255,0,0,1); clip: rect(0,100px,200px,0); }  
+.CircleRight{ border:5px solid rgba(255,0,0,1);  clip: rect(0,200px,200px,100px); }  
+.wth0{  width:0;  }  
+.num{width: 190px; height: 190px; line-height: 190px; text-align: center; font-size: 70px; font-weight: bold; color: rgba(255,0,0,1); left: 5px; top: 5px; position: absolute; border-radius: 50%; background:none; ; box-sizing: border-box; z-index: 1; }  
+/**/
+
+.RegReadyMainText{font-size: 20px; color: rgba(100,100,100,1); margin:-10px auto auto 28.5%;  }
+.RegReadyMain button{width: 260px; height: 60px; line-height: 60px; margin:5px auto auto 25%; font-size: 30px;}
+.RegReadyFoot{ padding: 10px 0px; display: flex; justify-content:space-between; align-items: center; border-top: 1px solid rgba(200,200,200,.5); }
+.AdTextBox{width: 50%; display: flex; flex-direction: column; align-items: center; }
+.RegReadyFoot h{ padding: 5px; display: flex; justify-content: center; align-items: center; font-size: 18px; font-weight: bold; color: rgba(200,0,0,1);}
+.RegReadyFoot p{ width: 95%; margin: 5px; text-align: justify; font-size: 14px; color: rgba(100,100,100,1); text-indent: 2em;  }
+
+/* 注册前准备页  End */
+
+
+/* 注册步填写页 Start */
+
+.RegStepWrap{padding: 0px 40px;}
+.RegStepWrap *{box-sizing: border-box; outline: none; cursor: default;}
+.RegProgressBar{ height: 40px; line-height: 40px; display: flex; justify-content: center; align-items: center; font-size: 20px; color: rgba(200,200,200,1); border-bottom: 2px solid rgba(200,200,200,.5);}
+.RegProgressBar li{width: 30%; list-style-type: none; }
+.RegProgressBar .active{ color: rgba(255,0,0,1); font-weight: bold; border-bottom: 2px solid rgba(255,0,0,1);}
+.RegStepCont{width: 100%; margin: 30px auto; display: flex; justify-content:center;flex-direction: column;}
+.RegFromItem{height: 34px; line-height: 34px; margin: 10px 0px; font-size: 14px; color: rgba(80,80,80,1); vertical-align: middle; box-sizing: border-box; overflow: hidden; cursor: default; }
+.RegFromItem img{width: auto; height: auto; position: absolute; margin: 8px auto auto -70px ; display: inline-block; vertical-align: middle;}
+.RegFromItem label{width: 25%; padding: 0px 5px; font-size: 16px; text-align: right; display: inline-block; vertical-align: middle; box-sizing: border-box; overflow: hidden;  }
+.RegFromItem label i{width: 20px; margin:auto 5px; font-size: 24px; color:red; display: inline-block; vertical-align: middle; box-sizing: border-box; overflow: hidden;  }
+.RegFromItem input,.RegFromItem select{width:35%; height: 32px; padding: 0px 5px; font-size: 14px; text-align: left; display: inline-block; vertical-align: middle; box-sizing: border-box; overflow: hidden; border: 1px solid rgba(180,180,180,1); outline: none; }
+.RegFromItem input:focus,.RegFromItem select:focus{border: 1px solid rgba(255,50,0,1);}
+.RegFromItem span{width: 35%; padding: 0px 5px; text-align: left; color: rgba(100,100,100,.5); display: inline-block; vertical-align: middle; box-sizing: border-box; overflow: hidden;}
+.RegFromItem span i{ width: 15px; height: 15px; margin:0px 5px auto; vertical-align: middle; display: inline-block;}
+.RegFromItem .RegConfor{ }
+.RegFromItem .RegConfor i{ background:url(/public/MyActive/Reg_Cueicon.png) no-repeat 0px 0px; }
+.RegFromItem .RegError{ color: rgba(255,0,0,1);}
+.RegFromItem .RegError i{ background:url(/public/MyActive/Reg_Cueicon.png) no-repeat 0px -15px; }
+.RegStepWrap button{width: 150px; height:40px; line-height: 40px; font-size: 16px; }
+.RegStepWrap .BtnBox{padding: 20px 25% 20px 5%;}
+
+#RegStep3 h{height: 100px;line-height: 100px; margin: 10px; font-size: 30px; color: red;}
+.RewardItem{width: 600px; height: 120px; margin:10px auto; position: relative; display: flex;justify-content:center; align-items: center; box-sizing: border-box; overflow: hidden; }
+.Overdue{display: none; width: 120px; height: 40px; line-height: 34px; font-size: 24px; color: rgba(255,0,0,1); transform:rotate(-20deg); top:30%; right: 20%; position: absolute; border: 3px solid rgba(255,0,0,.8);z-index: 1; text-shadow: 0px 2px 3px rgba(0,0,0,.5); box-shadow: 0px 2px 3px rgba(0,0,0,.5);}
+.RewardInfo{width: 70%; height: 100%; padding: 5px; display: flex; justify-content:space-between; align-items: center; border-radius: 0px 5px 5px 0px; border-right: 1px  dashed rgba(100,0,0,1); background: rgba(150,0,0,1);}
+.RewardImg{width: 25%;height: 100px;display: flex; justify-content: center; align-items: center; border-radius:5px; background: rgba(255,255,255,.2);}
+.RewardImg img{width: 90%; }
+.RewardExpiry{width: 45%; padding: 5% 5px 5px 5px; display: flex;justify-content:center; flex-direction: column; align-items:flex-start; }
+.RewardItem p{font-size: 14px;opacity:.8;}
+.RewardItem span{height: 35px; line-height: 40px; font-size: 30px; box-sizing: border-box;overflow: hidden;}
+.RewardItem span p{display: inline-block; margin: 0px 5px;}
+.RewardUse{width: 30%; padding: 5% 5px 5px 5px;}
+.RewardUse button{width: 80%;}
+.RewardExplain{width: 25%; height: 100%; padding-top: 6%; display: flex; justify-content: center;flex-direction: column; align-items: center; border-radius: 5px 0px 0px 5px; background: rgba(130,0,0,1);}
+.RewardExplain span {font-size: 45px!important;}
+
+/* 注册步填写页 End */
+
+
+/* 活动细则 */
+.ActRules{width: 1000px; margin: auto; padding: 10px; cursor: default; outline: none;}
+.ActRules .textTitle{height: 50px; line-height: 50px; margin: 10px 0px 5px 0px; font-size: 24px; color: rgba(120,50,0,1); text-align: left; font-weight: bold; }
+.ActRules p {line-height: 20px; font-size: 14px; color: rgba(120,50,0,1); text-align: justify; text-indent: 2em; margin: auto; padding:5px;}
+
+/* 页脚 */
+.footer{width: 100%; height: 40px; bottom: 0px; color: white; border-top: 1px solid rgba(255,255,255,.2); background: rgba(0,0,0,.1); }
+.cont_footer{width: 1000px; margin: auto; padding: 5px; color: rgba(100,20,0,.2);}
+.cont_footer a{color: rgba(100,20,0,.5); text-decoration: none; margin: 0px 5px }
+.cont_footer a:hover,.cont_footer a:active{color: rgba(100,20,0,1)}

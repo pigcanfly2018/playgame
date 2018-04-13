@@ -1,0 +1,160 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'留言板 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'留言板，八达国际，八达娱乐城'/} 
+#{set description:''/}
+#{set menu_li:'index_8'/}  
+<script>
+var page=1;
+function refresh(img){     
+	 $(img).attr("src","/vericode.png?rd="+new Date().getTime());
+} 
+function hideMore(){
+	$('#more_btn').hide();
+}
+function showMore(btn){
+	   var page=$(btn).attr("page");
+	   if($(btn).attr("done")){
+		   return ;
+	   }
+	   $(btn).attr("done",true);
+	   $.ajax({
+			type:'post',
+			url:'/ajax/getMoreMsg',
+			data:{
+				"page":page,
+			},
+			dataType:'json',
+			success:function(msg){
+				$(btn).removeAttr("done");
+				if(msg.length==0){
+					$(btn).remove();
+					$("#liuyan_items").append('<li><div class="Msg03"><p>没有更多留言。</p><div class="clear"></div></div></li>')
+				}else{
+					$(btn).attr("page",parseInt(page)+1);
+					for(var i=0;i<msg.length;i++){
+	                  var conent='<li>';
+	                  conent=conent+'<div class="Msg01"><span>'+msg[i].cust_name+'</span> 于 <span>'+msg[i].show_date+' </span> 进行留言</div>';
+	                  conent=conent+'<div class="Msg02"><p>'+msg[i].question+'</p></div>';
+	                  conent=conent+'<div class="Msg03">';
+	                  conent=conent+'<span>管理员回复:</span><p>'+msg[i].reply+'</p><div class="clear"></div>';
+	                  conent=conent+'</div>';
+	                  conent=conent+'</li>';
+	                  $("#liuyan_items").append(conent);
+					}
+					if(msg.length<10){
+						$(btn).remove();
+						$("#liuyan_items").append('<li><div class="Msg03"><p>没有更多留言。</p><div class="clear"></div></div></li>')
+					}
+					$(btn).attr("page",parseInt(page)+1);
+				}
+			},
+			error:function(){
+
+			}
+		});
+}
+
+function saveMsg(btn){
+	   var cust_name=$('#custname').val();
+	   var question=$('#question').val();
+	   var msgcode=$('#msgcode').val();
+	   if(cust_name==''){
+		   alert("请填写留言姓名!");
+		   return ;
+	   }
+	   if(question==''){
+		   alert("请填写留言内容!");
+		   return ;
+	   }
+	   if(msgcode==''){
+		   alert("请填写检验码!");
+		   return ;
+	   }
+	   if($(btn).attr("done")){
+		   return ;
+	   }
+	   $(btn).attr("done",true);
+	   
+	   $.ajax({
+			type:'post',
+			url:'/ajax/saveMsg',
+			data:{
+				"cust_name":cust_name,
+				"question":question,
+				"code":msgcode
+			},
+			dataType:'text',
+			success:function(data){
+				var msg=eval('('+data+')');
+				$(btn).removeAttr("done");
+				if(msg.success){
+					 $('#custname').val('');
+					 $('#question').val('');
+					 $('#msgcode').val('');
+					 alert("你的留言已经成功提交，我们将在24小时内处理您的留言，感谢您对八达国际的支持。")
+					 $('#vcode').attr("src","/vericode.png?rd="+new Date().getTime());
+				}else{
+					alert(msg.message);
+					 $('#vcode').attr("src","/vericode.png?rd="+new Date().getTime());
+				}
+			},
+			error:function(){
+
+			}
+		});
+}
+
+</script>
+<div id="wrapper" class="MainWrap">                                  
+    
+    		#{include '/templates/index_left.html' /}
+			<div class="UserRight ArticleCont">
+			<fieldset>
+            	<div class="InTit"><span>留言板</span></div>
+                
+                <div class="MessageBox">
+                <center><a href="#liuyan" class="buttom03" >我要留言</a></center>
+                <ul id="liuyan_items">
+                  #{mb.msg page:1,size:10}
+                  <li>
+                    	<div class="Msg01"><span>${_msg.cust_name} </span> 于 <span> ${_msg.show_date} </span> 进行留言</div>
+                        <div class="Msg02"><p>${_msg.question}</p></div>
+                        <div class="Msg03">
+                            <span>管理员回复:</span><p>${_msg.reply}</p><div class="clear"></div>
+                        </div>
+                    </li>
+	              #{/mb.msg}
+	               
+                </ul>
+                
+                <center id="more_btn"><a href="javascript:void(0)" page="1" class="buttom03" onclick="showMore(this)">查看更多留言》</a></center>
+                
+                 <table style=" border:1px #FF0000 solid; padding:10px; width:100%;">                       
+                        <tr>                          
+                          <td width="60" height="50" align="right" >姓 名：</td>
+                          <td><input type="text" name="custname" id="custname" style=" border:1px #be0001 solid; background:#3b0000; line-height:24px; height:24px;  width:200px;text-indent:5px; color:#FFF;"> 可填写游戏帐号</td>
+                        </tr>
+                        <tr>
+                          <td align="right">内 容：</td>
+                          <td><label for="textarea"></label>
+                          <textarea name="question" id="question" style="border:1px #be0001 solid; background:#3b0000; width:640px; height:80px;color:#FFF;text-indent:5px;"></textarea></td>
+                        </tr>
+                        <tr>
+                        
+                          <td height="50" align="right">验证码：</td>
+                          <td><input type="text" name="msgcode" id="msgcode" style="border:1px #be0001 solid; background:#3b0000;width:100px; height:24px; line-height:24px; text-indent:5px; color:#FFF;">
+                              <img src="/vericode.png?t=%{print System.currentTimeMillis()}%" onclick="refresh(this)" style="cursor:pointer" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td height="50"><a href="javascript:void(0);" class="buttom03" id="liuyan" onclick="saveMsg(this)">提交留言</a></td>
+                        </tr>
+                    </table>
+				</div>	
+				</fieldset>	
+            </div>
+            
+            
+       
+    </div>                             

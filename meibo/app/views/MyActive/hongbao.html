@@ -1,0 +1,95 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no" />
+<link rel="stylesheet" href="/public/MyActive/openhongbao/css/Popup_RedEnvelope.css">
+<title>拆红包</title>
+</head>
+<body ontouchstart="" class="RedEnvelope-body">
+<div class="Popup_mask" id="Popup_mask" >
+<div class="Wrapper">
+ <div class="PopupBarBtn" id="PopupBarBtn_Colse" onclick="window.open('/user_center.php?nextTime=1')"><a id="PopNotce_Colse"></a></div>
+  <div class="bg rotate"></div>
+  <div class="open-has" style="display:bock">
+    <div class="mod-chest">
+      <div class="chest-close show ">
+        <div class="gift">
+        <i class="arrow"></i> 
+        <div class="NotopenTitle">您剩余 <span>${count}</span> 次拆红包的机会</div>
+        </div>
+        
+        </div>
+      <div class="chest-open" >
+        <div class="RedEnvelope_Open1">
+        	 <button class="chest-btn" onclick="window.open('/')">查看收到的红包</button>
+        </div>
+        <div class="mod-chest-cont">
+          <div class="content" >
+            <div class="gift2">红包金额<br>
+              <span></span></div>
+            </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+  
+  <!---->
+  <div class="open-none" style="display:none">
+    <h3>你来晚啦，下次早点吧！</h3>
+    <div class="mod-chest">
+      <div class="chest-open show"></div>
+    </div>
+    <div class="func">
+      <button class="chest-btn" onclick="window.open('/user_hongbao.php')">查看领取详情</button>
+    </div>
+  </div>
+  </div>
+</div>
+<script type="text/javascript" src="/public/MyActive/openhongbao/js/zepto.min.js"></script> 
+<script type="text/javascript">
+
+  $(".chest-close,arrow").bind('click',function(){
+	  $(this).addClass("shake");
+	   $(this).unbind('click');
+	    $(".gift2").find("span").text("加载中...");
+	    var hongbaoid="${mb_hongbao_id}";
+		  $.ajax({
+				type:'post',
+				url:'/ajax/openHongbao',
+				data:{hongbaoid:hongbaoid},
+				dataType:'text',
+				success:function(msg){
+					var data =eval("("+msg+")");
+					if(!data.success){
+						alert(data.message);
+					}else{
+						 $(".gift2").find("span").text(data.message);
+						
+						 setTimeout(function(){
+							 location.reload();
+					        },500) 
+					}
+					
+				},
+				error:function(){
+
+				}
+			});
+   
+	 
+	  this.addEventListener("webkitAnimationEnd", function(){
+	      $(that).closest(".open-has").addClass("opened");
+	      setTimeout(function(){
+	        $(that).removeClass("show");
+	         $(that).closest(".mod-chest").find(".chest-open").addClass("show");
+	         setTimeout(function(){
+	          $(".chest-open").addClass("blur");
+	        },500) 
+	      },200)
+	    }, false);
+  })
+</script>
+</body>
+</html>

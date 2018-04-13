@@ -1,0 +1,25 @@
+@charset "utf-8";
+*{ padding:0; margin:0; border:0; list-style:none; text-decoration:none;}
+body{background:#ffb400 url(../images/znq-bg.jpg) no-repeat center top;}
+.znq-top{ height:688px; background:url(../images/znq-topbg.png) no-repeat center top;}
+.znq-cont{ margin:0 auto;  overflow:hidden;background:url(../images/znq-topbottom.png) center top repeat-y; }
+.znq-center{ width:1050px; margin:0 auto; overflow:hidden; }
+.znq-sm{position:relative; overflow:hidden;}
+.znq-sm dl{width:900px;float:left; overflow:hidden;border-left:3px solid #e20202; padding-left:20px; }
+.znq-sm .div-dt{ width:120px; float:left; }
+.znq-sm .div-dt span{ display:block; height:56px; height:56px; background:url(../images/znq-ico.png) no-repeat center center; margin:0 auto; padding-bottom:10px;}
+.znq-sm .div-dt p{ font-size:18px; color:#de0000; line-height:20px; text-align:center; font-weight:bold;}
+.znq-sm dt{cursor:pointer;min-height:167px;}
+.znq-sm dd{ display:none; padding-bottom:25px;}
+.znq-sm dl i{ width:23px; height:23px;  display:block; position:absolute; left:110px; top:-1px; background:url(../images/znq-ico2.png) no-repeat;}
+.znq-div h2{ font-size:24px; height:50px; line-height:50px; color:#8f0101; font-family:"微软雅黑"; text-align:center; font-weight:100;}
+.znq-div h3{ height:37px; border-bottom:3px solid #a70101; margin-bottom:30px; position:relative;}
+.znq-div h3 span{color:#fff; font-family:"微软雅黑";font-size:18px;  display:block; width:148px; height:37px; background:url(../images/c-bg.jpg) no-repeat; text-align:center; line-height:37px; font-weight:100; position:absolute; bottom:-20px; z-index:999999999;}
+.znq-div p{ font-size:14px; color:#000000; font-family:"微软雅黑"; line-height:20px;}
+.red{ color:#d60d00; font-weight:bold;}
+.znq-div table{ border-collapse:collapse; border:1px solid #c48a00; width:100%; margin-top:30px;} 
+.znq-div table td{ border:1px solid #c48a00; height:37px; line-height:37px; text-align:center; font-size:14px; color:#000000; background:#ffcc00}
+.znq-div table .table-bt td{ font-size:18px; font-family:"微软雅黑"; color:#fff; background:#a70101;}
+.znq-div ul li{ line-height:25px; color:#000000; font-size:14px;}
+.znq-foot{ height:60px; background:#ba0305; text-align:center; padding-top:18px;} 
+.znq-foot p{ line-height:25px; text-align:center; font-size:12px; color:#ffffff;}

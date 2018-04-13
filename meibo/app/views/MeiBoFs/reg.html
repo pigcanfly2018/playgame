@@ -1,0 +1,18 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'注册成功 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'注册成功 ，八达国际'/} 
+#{set description:''/}   
+<div id="wrapper"> 
+<div class="UserCenter">
+            #{include '/templates/user_left.html'/}            			
+			<div class="UserRight">
+                <fieldset>
+                   <legend>注册成功</legend> 
+                    <div>恭喜您，注册成功，您的账号为：<span>${cust.login_name}</span>，密码为：<span>${login_pwd}</span> 请您牢记您的注册信息</div>
+                    <div style="margin-top:30px; margin-bottom:50px; text-align:center;"><img src="#{mb.static '/public/images/regover.jpg' /}"  alt="" style="width: 550px;"/></div>
+                    <div align="center"><a href="/deposit.php" class="buttom03">立即存款</a></div>
+               </fieldset>
+            </div>
+            #{include '/templates/user_info.html' /}       
+</div>                           
+</div>

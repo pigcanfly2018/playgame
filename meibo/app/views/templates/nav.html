@@ -1,0 +1,51 @@
+ <div id="menu" >
+       	
+     	<ul>
+      <li class="menu_x MenuActive" id="index_0" onClick="window.open('/index.html','_self')">主页</li>
+      <li class="menu_x" id="index_1" onClick="window.open('/livedealer.html','_self')">真人娱乐</li>
+      <li class="menu_x" id="index_2" onClick="window.open('/pp_egame_hot.html','_self')">电子游艺</li>
+      <li class="menu_x" id="index_3" onClick="window.open('/lotto.html','_self')">彩票竞彩</li>
+      <li class="menu_x" id="index_4" onClick="window.open('/sports.html','_self')">体育竞技</li>
+      <li class="menu_x" id="index_5" onClick="window.open('/promotion.html','_self')">优惠活动<span class="NavBubble"><img src="#{mb.static '/public/images/icon_HotTxt.png' /}"> <p>◤</p> </span></li>
+      <li class="menu_x" id="index_6" onClick="window.open('/vip.html','_self')" style="color: rgb(255, 255, 255);">VIP俱乐部</li>
+      <li class="menu_x" id="index_7" onClick="window.open('/score.html','_self')">积分乐园</li>
+      <li class="menu_x" id="index_8" onClick="window.open('/message.html','_self')">留言板</li>
+    </ul>
+     	<div class="clear"></div>            
+</div>  
+<script>
+   var menu_li='${menu_li}';
+   try{
+	   if(menu_li != ''){
+		    document.getElementById('index_0').classList.remove("MenuActive");
+		  }
+ 	  if(document.getElementById(menu_li)){
+ 	      document.getElementById(menu_li).className="menu_x MenuActive";
+ 	      if(menu_li == "index_6"){
+ 	    	 showit();
+ 	      }
+ 	      
+ 	  }
+   }catch(e){}
+   
+   function showit()
+   {
+   
+   self.setInterval("changeit()", 500);
+   }
+
+   function changeit()
+   {
+	   
+   var bg = '#';
+   var color = new Array("#FF3300","#FFFF00","#FF3300","#FFFF00","#FF3300");
+   var node = document.getElementById("index_6");//#33FF33
+   var i = Math.round(Math.random()*10);
+   if (i>5)
+   {
+   i = i-5;
+   }
+   node.style.color = color[i];	
+   }
+
+</script>

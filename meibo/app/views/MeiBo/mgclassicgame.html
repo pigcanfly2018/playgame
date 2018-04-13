@@ -1,0 +1,497 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'MG电子游艺 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'电子游艺，八达国际，申博电子游戏，波音电子游戏，电子老虎机。'/} 
+#{set description:'八达国际提供众多电子游戏项目，集成PT电子游戏，申博电子游戏，波音电子游戏，内设百余款电子老虎机，桌面游戏，棋牌游戏，总有一款适合您的游戏。'/}                       			                                                	                        			                                                	
+#{set menu_li:'index_2'/}
+<link rel="stylesheet" type="text/css" href="#{mb.static '/public/style/electron.css'/}"> 
+<script type="text/javascript" src="#{mb.static '/public/js/jquery.lazyload.min.js'/}"></script> 
+<style>
+.bolda{
+color:#Ff0;
+font-weight:bold;
+}
+</style>
+<script type="text/javascript">				$(function(){	
+					//图片延迟载入
+					$(".campItem img").lazyload({
+						effect : "fadeIn"
+					});
+					$(".campShow ul li").mouseenter(function(){
+						$(this).children("span.gridMask").animate({
+							opacity:"0.68",
+							top:"0"
+						},"normal");
+						$(this).children("a").animate({
+							top:"0"
+						},"normal");
+					}).mouseleave(function(){
+						$(this).children("span.gridMask").animate({
+							opacity:"0",
+							top:"-100%"
+						},"normal");
+						$(this).children("a").animate({
+							top:"-100%"
+						},"normal");
+					});
+					
+					$(".campShow ul li:last-child").css("margin","0");//解决IE8-不兼容last-child伪元素
+					$("a#menu_games").addClass("curMenu");
+				});
+			</script>
+<div id="wrapper" class="p-main ma"> 
+   		 <div  class="p-nav">
+   		 	<div  class="p-navm l"><a href="/mghotgame.html" id="p-nav-on"></a></div>
+         	<div  class="p-navl l"><a href="#{mb.forward url:'/pt_egame_hot.html',uname:session.get('username')/}" ></a></div>
+            <div  class="p-navr l"><a href="/bbin_egame.html" id="p-nav-on"></a></div>
+            <div  class="p-nava l"><a href="/ag_egame_hot.html" id="p-nav-on"></a></div>
+            
+         </div>
+         
+        <!--电子游艺content begin-->
+        <div id="mg-container">
+        <div id="eleGameCamp">
+        	<h1> <br/><br/><div class="p-imglbt"><a href="#{mb.static '/public/8da_mg_new.exe' /}" target="_blank"></a></div></h1>
+           <div class="EgameTop" style="margin-top:0px; padding-top:0px; ">
+        	<a href="mghotgame.html" class="" style="width:21%; text-align:center">热门拉霸机</a>
+            <a href="mgclassicgame.html" class="on" style="width:21%; text-align:center">经典电子游戏</a>
+            <a href="mgpokergame.html" class="" style="width:20%; text-align:center">电子扑克</a>
+            <a href="mgtablegame.html" class="" style="width:20%; text-align:center">赌桌游戏</a>
+        </div>
+
+                 <div class="campShow campOne">
+                 <ul class="campRow">
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_BallisticBingo1.png'/}" style="display: block;">
+                    <h6>BallisticBingo</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyBallisticBingo" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_BeerFest1.png'/}" style="display: block;">
+                    <h6>BeerFest</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyBeerFest" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_InstantWin_BigBreak1.png'/}" style="display: block;">
+                    <h6>InstantWin_BigBreak</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;""></span>
+                    <a class="gridLink" style="top: -116.365px;" href="/goToGame/5?gamecode=RubyIWBigBreak" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                     <li class="campItem">
+                   <img src="#{mb.static '/public/images/mggame/b/BTN_BillandTeds_BogusJourney1.png'/}" style="display: block;">
+                   <h6>BogusJourney</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;""></span>
+                    <a class="gridLink" style="top: -116.365px;" href="/goToGame/5?gamecode=RubyIWBillAndTedsBJ" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+
+                    
+                    <li class="campItem" style="margin: 0px;">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_BingoBonanza1.png'/}" style="display: block;">
+                    <h6>BingoBonanza</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyBingoBonanza" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>                    
+                 </ul>
+                    
+                 <ul class="campRow">
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_BowledOver1.png'/}" style="display: block;">
+                    <h6>BowledOver</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyBowledOver" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_BunnyBoiler1.png'/}" style="display: block;">
+                    <h6>BunnyBoiler</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span><a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyBunnyBoiler" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_BunnyBoilerGold1.png'/}" style="display: block;">
+                    <h6>BunnyBoilerGold</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span><a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyBunnyBoilerGold" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_CardClimber1.png'/}" style="display: block;">
+                    <h6>CardClimber</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyCardClimber" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                   <img src="#{mb.static '/public/images/mggame/b/BTN_Cashapillar1.png'/}" style="display: block;">
+                   <h6>IWCashapillar</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyIWCashapillar" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>                    
+                </ul>
+                    
+                <ul class="campRow">
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_CryptCrusade1.png'/}" style="display: block;">
+                    <h6>CryptCrusade</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyCryptCrusade" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_CryptCrusadeGold1.png'/}" style="display: block;">
+                    <h6>CryptCrusadeGold</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyCryptCrusadeGold" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_DawnoftheBread1.png'/}" style="display: block;">
+                    <h6>DawnOfTheBread</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyDawnOfTheBread" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_DragonsFortune1.png'/}" style="display: block;">
+                    <h6>圣龙赐福</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyDragonsFortune" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem" style="margin: 0px;">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_ElectroBingo1.png'/}" style="display: block;">
+                    <h6>电子宾果</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=ElectroBingo" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                 </ul>
+                    
+                 <ul class="campRow">
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_EnchantedWoods1.png'/}" style="display: block;">
+                    <h6>EnchantedWoods</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=EnchantedWoods" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_FoamyFortunes1.png'/}" style="display: block;">
+                    <h6>FoamyFortunes</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyFoamyFortunes" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_FourByFour1.png'/}" style="display: block;">
+                    <h6>FourByFour</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span><a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=FourByFour" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_FreezingFuzzballs1.png'/}" style="display: block;">
+                    <h6>FreezingFuzzballs</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyFreezingFuzzballs" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem" style="margin: 0px;">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_GameSetandScratch1.png'/}" style="display: block;">
+                    <h6>GameSetAndScratch</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyGameSetAndScratch" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>
+                 </ul>
+                    
+                 <ul class="campRow">
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_Germinator1.png'/}" style="display: block;">
+                    <h6>Germinator</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=Germinator" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_GoldenGhouls1.png'/}" style="display: block;">
+                    <h6>GoldenGhouls</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyGoldenGhouls" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_GrannyPrix1.png'/}" style="display: block;">
+                    <h6>GrannyPrix</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyGrannyPrix" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_HairyFairies1.png'/}" style="display: block;">
+                    <h6>HairyFairies</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyHairyFairies" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem" style="margin: 0px;">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_Halloweenies1.png'/}" style="display: block;">
+                    <h6>IWHalloweenies</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyIWHalloweenies" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                 </ul>
+                 <ul class="campRow">
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_HandToHandCombat1.png'/}" style="display: block;">
+                     <h6>HandToHandCombat</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyHandToHandCombat" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem"><img src="#{mb.static '/public/images/mggame/b/BTN_Hexaline.png'/}" style="display: block;">
+                     <h6>Hexaline</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=Hexaline" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_InstantWinCardSelector1.png'/}" style="display: block;">
+                     <h6>InstantWinCardSelector</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=IWCardSelector" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_Kashatoa1.png'/}" style="display: block;">
+                     <h6>Kashatoa</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyKashatoa" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem" style="margin: 0px;">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_KillerClubs1.png'/}" style="display: block;">
+                     <h6>KillerClubs</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyKillerClubs" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>
+                 </ul>
+                    
+                 <ul class="campRow">
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_LuckyNumbers1.png'/}" style="display: block;">
+                    <h6>幸运数字</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyLuckyNumbers" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_MayanBingo1.png'/}" style="display: block;">
+                    <h6>玛雅宾果</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=MayanBingo" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_MumbaiMagic1.png'/}" style="display: block;">
+                    <h6>MumbaiMagic</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyMumbaiMagic" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_OffsideandSeek1.png'/}" style="display: block;">
+                    <h6>MumbaiMagic</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyOffsideAndSeek" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem" style="margin: 0px;">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_PharoahsGems1.png'/}" style="display: block;">
+                    <h6>PharaohsGems</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyPharaohsGems" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>                    
+                 </ul>
+                    
+                 <ul class="campRow">
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_PharaohBingo1.png'/}" style="display: block;">
+                    <h6>PharoahBingo</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=PharoahBingo" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_PickAndSwitch1.png'/}" style="display: block;">
+                    <h6>PickNSwitch</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=PickNSwitch" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_PlundertheSea1.png'/}" style="display: block;">
+                    <h6>PlunderTheSea</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyPlunderTheSea" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_PremierRacing1.png'/}" style="display: block;">
+                    <h6>PremierRacing</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span><a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=PremierRacing" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem" style="margin: 0px;">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_PremierTrotting1.png'/}" style="display: block;">
+                    <h6>PremierTrotting</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=PremierTrotting" target="_blank"><span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                 </ul>
+                 <ul class="campRow">
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_SambaBingo1.png'/}" style="display: block;">
+                    <h6>SambaBingo</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=SambaBingo" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_SixShooterLooter1.png'/}" style="display: block;">
+                    <h6>bySixShooterLooter</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubySixShooterLooter" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_SixShooterLooterGold1.png'/}" style="display: block;">
+                    <h6>SixShooterLooterGold</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubySixShooterLooterGold" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_SlamFunk1.png'/}" style="display: block;">
+                    <h6>SlamFunk</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubySlamFunk" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem" style="margin: 0px;">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_SpaceEvader1.png'/}" style="display: block;">
+                    <h6>SpaceEvader</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubySpaceEvader" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                 </ul>
+                    
+                 <ul class="campRow">
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_SpaceEvaderGold1.png'/}" style="display: block;">
+                    <h6>SpaceEvaderGold</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubySpaceEvaderGold" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_SuperBonusBingo1.png'/}" style="display: block;">
+                    <h6>超级奖金宾果</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubySuperBonusBingo" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_SuperZeroes1.png'/}" style="display: block;">
+                    <h6>超级零</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubySuperZeroes" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_ThreeWheeler1.png'/}" style="display: block;">
+                    <h6>三个轮子</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span><a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyThreeWheeler" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem" style="margin: 0px;">
+                    
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_Triangulation.png'/}" style="display: block;">
+                    <h6>Triangulation</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=Triangulation" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                 </ul>
+                    
+                 <ul class="campRow">
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_TurtleyAwesome1.png'/}" style="display: block;">
+                    <h6>TurtleyAwesome</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyTurtleyAwesome" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_WhackaJackpot1.png'/}" style="display: block;">
+                    <h6>WhackAJackpot</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyWhackAJackpot" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_WheelofRiches2.png'/}" style="display: block;">
+                    <h6>财富之轮</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyWheelOfRiches" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                    
+                    <li class="campItem" style="margin: 0px;">
+                    <img src="#{mb.static '/public/images/mggame/b/BTN_WildChampions1.png'/}" style="display: block;">
+                    <h6>野营</h6>
+                    <span class="gridMask" style="top: -100%; opacity: 0;"></span>
+                    <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=RubyWildChampions" target="_blank">
+                    <span class="gridBtn">进入游戏</span></a>
+                    </li>
+                 </ul>
+                    </div>
+                    </div>
+                    </div><!--电子游艺content end-->
+          
+   
+	</div>
+	

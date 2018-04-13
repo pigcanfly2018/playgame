@@ -1,0 +1,228 @@
+#{extends '/templates/help.html' /} 
+#{set title:'三公玩法-八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'三公玩法 ，八达国际'/} 
+#{set sub_title:'三公玩法 '/}
+<img src="#{mb.static '/public/images/help/bbin_sg.jpg' /}" style="width:720px"/>
+<h3>简介</h3>
+<p>三公(3 Face / 3 Picture)是百家乐玩法的一种变形。会员与庄家赌点数、赌公牌数，还可以赌特殊牌型。下注简单、节奏明快，在新兴的游戏中受到欢迎。</p>
+<h3>游戏玩法</h3>
+<p>游戏中共设计1门庄家及3门闲家，会员可任意进行投注。</p>
+<p>使用1副扑克牌，下注结束后开始发牌，发牌时先开头牌决定发牌顺序，再以逆时钟方向进行，每门连续发3张牌。</p>
+<p>游戏主旨为闲家与庄家比较牌的 点数高低来决定胜负。</p>
+<p>会员可以有以下的下注选择 ： </p>
+<p>闲 1 ： 赢、输、和、三公、对牌以上 </p>
+<p>闲 2 ： 赢、输、和、三公、对牌以上 </p>
+<p>闲 3 ： 赢、输、和、三公、对牌以上 </p>
+<p>庄家 ： 对牌以上 </p>
+<p>注 ：各下注以及对牌以上赔率请见派彩说明。</p>
+<p>头牌 ：荷官每局开始会先开「头牌」，依据头牌点数(从庄家方位逆时针方向算起)决定开牌位置。</p>
+<p>开牌顺序 ： 以逆时针方向开牌 (如下) </p>
+<p>头牌为A、5、9、K	发牌顺序为庄，闲1，闲2，闲3</p>
+<p>头牌为2、6、10	发牌顺序为闲1，闲2，闲3，庄</p>
+<p>头牌为3、7、J	发牌顺序为闲2，闲3，庄，闲1</p>
+<p>头牌为4、8、Q	发牌顺序为闲3，庄，闲1，闲2</p>
+<p>按上方表列顺序 ，每家发 3 张 再轮到下一家</p>
+<h3>牌面点数</h3>
+<p>三公以牌面点数的总和来比较大小，加上公牌(J，Q，K)来变化大小牌型。</p>
+<p>公牌及10点以「0」点计，其它牌则以牌面点数来计算，总和超过10或20则取其个位数字来看。</p>
+<p>公牌以「P」来代表，1张公牌显示为「P」，2张公牌显示为「2P」，3张公牌（三公）显示为「3P」。</p>
+<p>牌面的显示方法为「公牌+点数」，例如拿到1张公牌与点数和为8，则显示「P8」，2张公牌与点数和为0，则显示「2P0」。</p>
+<p>最大牌型为「三公」，其次为「双公9」；牌型中若无公牌，则最大牌型为9点，扑克牌的花色无任何影响。</p>
+<p>双方点数与公牌数相同时则为和，出现和牌时，会员若下注「输」或「赢」则退回注额。</p>
+<p>基本的牌型大小 ：</p>
+<table >
+  <tbody>
+    <tr>
+      <td><strong>三公 (3P)</strong></td>
+      <td>J、Q、K为公</td>
+      <td><strong>双公4 (2P4)</strong></td>
+      <td>其中2牌为公，另1张牌为4点</td>
+    </tr>
+    <tr>
+      <td ><strong>双公9 (2P9)</strong></td>
+      <td >其中2牌为公，另1张牌为9点</td>
+      <td align="left" ><strong>单公4 (P4)</strong></td>
+      <td align="left" >其中1牌为公，合计点数为4点</td>
+    </tr>
+    <tr>
+      <td ><strong>单公9 (P9)</strong></td>
+      <td >其中1牌为公，合计点数为9点</td>
+      <td align="left" ><strong>4点 (4)</strong></td>
+      <td align="left" >合计点数为4点</td>
+    </tr>
+    <tr >
+      <td><strong>9点 (9)</strong></td>
+      <td>合计点数为9点</td>
+      <td align="left"><strong>双公3 (2P3)</strong></td>
+      <td align="left">其中2牌为公，另1张牌为3点</td>
+    </tr>
+    <tr>
+      <td ><strong>双公8 (2P8)</strong></td>
+      <td >其中2牌为公，另1张牌为8点</td>
+      <td align="left" ><strong>单公3 (P3)</strong></td>
+      <td align="left" >其中1牌为公，合计点数为3点</td>
+    </tr>
+    <tr >
+      <td><strong>单公8 (P8)</strong></td>
+      <td>其中1牌为公，合计点数为8点</td>
+      <td align="left"><strong>3点 (3)</strong></td>
+      <td align="left">合计点数为3点</td>
+    </tr>
+    <tr>
+      <td ><strong>8点 (8)</strong></td>
+      <td >合计点数为8点</td>
+      <td align="left" ><strong>双公2 (2P2)</strong></td>
+      <td align="left" >其中2牌为公，另1张牌为2点</td>
+    </tr>
+    <tr >
+      <td><strong>双公7 (2P7)</strong></td>
+      <td>其中2牌为公，另1张牌为7点</td>
+      <td align="left"><strong>单公2 (P2)</strong></td>
+      <td align="left">其中1牌为公，合计点数为2点</td>
+    </tr>
+    <tr>
+      <td ><strong>单公7 (P7)</strong></td>
+      <td >其中1牌为公，合计点数为7点</td>
+      <td align="left" ><strong>2点 (2)</strong></td>
+      <td align="left" >合计点数为2点</td>
+    </tr>
+    <tr >
+      <td><strong>7点 (7)</strong></td>
+      <td>合计点数为7点</td>
+      <td align="left"><strong>双公1 (2P1)</strong></td>
+      <td align="left">其中2牌为公，另1张牌为1点</td>
+    </tr>
+    <tr>
+      <td ><strong>双公6 (2P6)</strong></td>
+      <td >其中2牌为公，另1张牌为6点</td>
+      <td align="left" ><strong>单公1 (P1)</strong></td>
+      <td align="left" >其中1牌为公，合计点数为1点</td>
+    </tr>
+    <tr >
+      <td><strong>单公6 (P6)</strong></td>
+      <td>其中1牌为公，合计点数为6点</td>
+      <td align="left"><strong>1点 (1)</strong></td>
+      <td align="left">合计点数为1点</td>
+    </tr>
+    <tr>
+      <td ><strong>6点 (6)</strong></td>
+      <td >合计点数为6点</td>
+      <td align="left" ><strong>双公0 (2P0)</strong></td>
+      <td align="left" >其中2牌为公，另1张牌为10点</td>
+    </tr>
+    <tr >
+      <td><strong>双公5 (2P5)</strong></td>
+      <td>其中2牌为公，另1张牌为5点</td>
+      <td align="left"><strong>单公0 (P0)</strong></td>
+      <td align="left">其中1牌为公，合计点数为10或20点</td>
+    </tr>
+    <tr>
+      <td ><strong>单公5 (P5)</strong></td>
+      <td >其中1牌为公，合计点数为5点</td>
+      <td align="left" ><strong>0点 (0)</strong></td>
+      <td align="left" >合计点数为10或20点</td>
+    </tr>
+    <tr >
+      <td><strong>5点 (5)</strong></td>
+      <td>合计点数为5点</td>
+      <td align="left">&nbsp;</td>
+      <td align="left">&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+<p>「对牌以上」的定义 ： </p>
+<table>
+   <tbody>
+     <tr >
+       <td  width="90" scope="col"><div >同花顺</div></td>
+       <td align="left"  scope="col">手牌中的3张牌为连续且同花色的牌，如<strong>「10<img src="#{mb.static '/public/images/help/Spade.png' /}" width="15" height="14">，J<img src="#{mb.static '/public/images/help/Spade.png' /}" width="15" height="14">，Q<img src="#{mb.static '/public/images/help/Spade.png' /}" width="15" height="14">」</strong>，A可大可小<span class="style4">注</span>。</td>
+       </tr>
+     <tr>
+       <td ><div>三条</div></td>
+       <td align="left" >手牌中的3张牌皆为相同牌面的牌，如<strong>「10<img src="#{mb.static '/public/images/help/Spade.png' /}" width="15" height="14">，<span class="style4">10<img src="#{mb.static '/public/images/help/Diamond.png' /}" width="15" height="14"></span>，10<img src="#{mb.static '/public/images/help/Club.png' /}" width="15" height="14">」</strong>。</td>
+       </tr>
+     <tr>
+       <td ><div>顺子</div></td>
+       <td >手牌中的3张牌为连续时，如「<strong>10<img src="#{mb.static '/public/images/help/Spade.png'/}" width="15" height="14">，<span class="style4">J<img src="#{mb.static '/public/images/help/Diamond.png'/}" width="15" height="14"></span>，Q<img src="#{mb.static '/public/images/help/Club.png'/}" width="15" height="14">」</strong>，不分花色，A可大可小<span class="style4">注</span>。</td>
+       </tr>
+     <tr >
+       <td ><div>同花</div></td>
+       <td >手牌中的3张牌皆为同花色时(不需连续)，如「<strong>2<img src="#{mb.static '/public/images/help/Spade.png'/}" width="15" height="14"></strong><strong>，7<img src="#{mb.static '/public/images/help/Spade.png'/}" width="15" height="14">，Q<img src="#{mb.static '/public/images/help/Spade.png'/}" width="15" height="14">」</strong>。</td>
+       </tr>
+     <tr>
+       <td ><div>一对</div></td>
+       <td >手牌中的3张牌其中两张点数相同时，即为一对，如「<strong>10<img src="#{mb.static '/public/images/help/Spade.png'/}" width="15" height="14"></strong><strong>，10<img src="#{mb.static '/public/images/help/Club.png'/}" width="15" height="14">，Q<img src="#{mb.static '/public/images/help/Spade.png'/}" width="15" height="14">」</strong>。</td>
+       </tr>
+   </tbody>
+ </table>
+<h3>派彩</h3>
+<p>基本赔率设定如下</p>
+
+
+
+
+
+
+
+
+
+<table >
+   <tbody>
+       <tr >
+           <td ><strong>开牌结果</strong></td>
+           <td ><strong>赔率</strong></td>
+       </tr>
+       <tr>
+           <td>(闲)赢</td>
+           <td>1 : 1</td>
+       </tr>
+       <tr >
+           <td >(闲)输</td>
+           <td >1 : 1</td>
+       </tr>
+       <tr>
+           <td >和</td>
+           <td >1 : 8</td>
+       </tr>
+          <tr>
+           <td >三公</td>
+           <td >1 : 16</td>
+       </tr>
+   </tbody>
+</table>
+<p>无抽水的设计，但下列两种状况有特殊赔率 ：</p>
+<p>投注「赢」，闲家以6点的任意牌型组合胜出，则获1赔0.5。</p>
+<p>投注「输」，庄家以6点的任意牌型组合胜出，则获1赔0.5。</p>
+<p>对牌以上的赔率设定如下</p>
+<table >
+   <tbody>
+       <tr >
+           <td ><strong>牌型</strong></td>
+           <td ><strong>赔率</strong></td>
+       </tr>
+       <tr>
+           <td>同花顺</td>
+           <td>1 : 40</td>
+       </tr>
+       <tr >
+           <td >三条</td>
+           <td >1 : 30</td>
+       </tr>
+       <tr>
+           <td >顺子</td>
+           <td >1 : 6</td>
+       </tr>
+          <tr>
+           <td >同花</td>
+           <td >1 : 3</td>
+       </tr>
+        <tr>
+           <td >一对</td>
+           <td >1 : 1</td>
+       </tr>
+   </tbody>
+</table>
+
+<h3>其他说明</h3>
+<p>1. 掉牌／曝露的牌：洗牌过程中若掉牌或牌被曝露出来，将重新进行洗牌。</p>
+<p>2. 若发牌过程中掉牌或错误的发牌顺序、位置，该局将判定为无效，并退还所有下注本金。</p>

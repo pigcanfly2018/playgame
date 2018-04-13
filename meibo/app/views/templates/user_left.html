@@ -1,0 +1,37 @@
+ <div class="UserLeft">
+     <ul>
+         <li> <a href="javascript:void(0)" class="user0_btn" style="text-align:left">会员服务</a></li>
+         <li> <a href="/user.php" class="user1_btn" id="cust_1_1">会员中心</a></li>
+         <li> <a href="/deposit.php" class="user1_btn" id="cust_1_2">会员存款</a></li>
+         <li> <a href="/withdraw.php" class="user1_btn" id="cust_1_3">会员提款</a></li>
+         <li> <a href="/tranfer.php" class="user1_btn" id="cust_1_6">额度互换</a></li>
+         <li> <a href="/letter_list.php" class="user1_btn" id="cust_1_4">站内消息</a></li>
+         <li> <a href="/discount.php" class="user1_btn" id="cust_1_1_1">自助优惠</a></li>
+         <li> <a href="/egg_list.php" class="user1_btn" id="cust_1_5">抽奖记录</a></li>
+         <li> <a href="/newyearhongbao.php" class="user1_btn" id="cust_1_7">存款红包</a></li>
+         
+         <li> <a href="/mgalias.php" class="user1_btn" id="cust_1_8">MG 别名</a></li>
+           
+         <li> <a href="javascript:void(0)" class="user0_btn" style="text-align:left">会员账单</a></li>
+         <li> <a href="/deposit_list.php" class="user1_btn" id="cust_2_1">存款账单</a></li>
+         <li> <a href="/withdraw_list.php" class="user1_btn" id="cust_2_2">提款账单</a></li>
+         <li> <a href="/gift_list.php" class="user1_btn" id="cust_2_3" >礼金账单</a></li>
+         <li> <a href="/score_list.php" class="user1_btn" id="cust_2_4" >积分账单</a></li>
+         
+         <li> <a href="javascript:void(0)" class="user0_btn" style="text-align:left">会员资料</a></li>
+         <li> <a href="/bank.php" class="user1_btn" id="cust_3_1">银行资料</a></li>
+         <li> <a href="/contact.php" class="user1_btn" id="cust_3_2">联系资料</a></li>
+         <li> <a href="/password.php" class="user1_btn" id="cust_3_3">修改密码</a></li>
+         <li> <a href="/logout.php" class="user1_btn" id="cust_3_4">安全退出</a></li>
+     </ul>
+</div>
+<script data-cfasync="false">
+   var cust_nav_li='${cust_nav_li}';
+   try{
+ 	  if(document.getElementById(cust_nav_li)){
+ 	      document.getElementById(cust_nav_li).style.color="#Ff0";
+ 	      document.getElementById(cust_nav_li).style.border="1px #F00 solid";
+ 	  }
+   }catch(e){}
+
+</script>

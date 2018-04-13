@@ -1,0 +1,22 @@
+/* Code tidied up by ScrapBook */
+* { border: 0px none; padding: 0px; margin: 0px; }
+.phonecall { width: 250px; height: 250px; clear: both; position: relative; }
+.PopupLayer { width: 250px; height: 250px; background: rgba(0, 0, 0, 0) url("../images/phonebg.jpg") no-repeat scroll 0% 0% padding-box; position: fixed; z-index: 1000000; left: 55%; margin-left: -300px; border-radius: 10px; border: 15px solid rgba(0, 0, 0, 0.2); }
+.phonecen { padding: 37px 0px 0px 72px; }
+.phonecen p { font-size: 12px; color: rgb(255, 255, 255); line-height: 30px; }
+.phonecen input {
+    height: 30px;
+    line-height: 30px;
+    padding: 0px 5px;
+    background: rgba(0, 0, 0, 0) url(../images/phoneinput.jpg) no-repeat scroll 0% 0%;
+    margin: 5px 0;
+}
+.phonecen a {     display: block;
+    width: 141px;
+    height: 40px;
+    line-height: 48px;
+    text-indent: 1000px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0) url('../images/phonebut.jpg') no-repeat scroll;
+    background-size: 100%; }
+.phoneclose { width: 28px; height: 29px; line-height: 29px; text-indent: 1000px; overflow: hidden; background: rgba(0, 0, 0, 0) url("../images/phoneclose.jpg") no-repeat scroll 0% 0%; display: block; position: absolute; right: 3px; top: 3px; }

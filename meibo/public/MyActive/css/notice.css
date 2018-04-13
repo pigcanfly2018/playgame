@@ -1,0 +1,25 @@
+* {border:0;padding:0;margin:0;}
+.Popup {width:100%;height:100%;display:block;background:#000000;position:fixed;top:0px;left:0px;z-index:1000000;margin:0;padding:0;outline:none;-webkit-font-smoothing:antialiased;filter:Alpha(opacity=70);/* 只支持IE6、7、8、9 */ *zoom:1;/* 激活IE6、7的haslayout属性，让它读懂Alpha */filter:Alpha(opacity=70);background-color:rgba(0,0,0,0.7);}
+.PopupTable {display:table;height:100%;margin:0 auto;padding:0;outline:none;}
+.PopupDT {display:table-cell;vertical-align:middle;margin:0;padding:0;outline:none;}
+.PopupWrap {width:auto;height:auto;min-height:50%;max-height:100%;min-width:50%;max-width:100%;margin:auto;position:relative;padding:0;outline:none;display:block;clear:both;overflow:hidden;background-clip:padding-box;border-radius:0px;box-shadow:0 0 20px 5px rgba(0,0,0,.5);border:solid 1px #ff0;background:url(#)/*tpa=http://www.338da.com/public/images/phonebg.jpg*/ no-repeat;}
+.PopupBody {/*width:100%;height:100%;min-height:30%;max-height:100%;min-width:50%;max-width:100%;border:0px solid #Fff000;*/background:#500000;overflow:hidden;}
+
+/*--窗口标题区--*/
+.PopupBar {width:100%;height:30px;line-height:30px;background:rgba(0,0,0,0.8);}
+.PopupBarBtn {width:12px;height:12px;position:absolute;right:10px;top:10px;cursor:pointer;border-radius:5px;margin:0;padding:0;outline:none;display:block;line-height:12px;overflow:hidden;opacity:0.5;filter:alpha(opacity=50);/* 针对 IE8 以及更早的版本 */}
+.PopupBarBtn:hover {opacity:1.0;filter:alpha(opacity=100);/* 针对 IE8 以及更早的版本 */}
+#PopupBarBtn_Colse {background:url(../images/windowsBtn.png)/*tpa=http://www.338da.com/public/images/windowsBtn.png*/ left 0px no-repeat;right:15px;top:10px;}
+.PopupBarTitle {white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:80%;padding-left:10px;height:30px;line-height:30px;}
+
+/*----正文内容区----*/
+.contTextBox {width:100%;height:100%;min-height:95.0%;max-height:95.0%;min-width:99.8%;max-width:99.8%;overflow:auto;background:#500000;padding:20px 10px;margin:auto;box-sizing:border-box;}
+::-webkit-scrollbar {width:4px;height:4px;filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity:0.5;opacity:0.5;}
+/*滚动条 start*/::-webkit-scrollbar-track {-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity:0.5;opacity:0.5;}
+/*定义滚动条轨道 内阴影+圆角*/::-webkit-scrollbar-thumb {border-radius:3px;-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity:0.5;opacity:0.8;}
+/*定义滑块 内阴影+圆角*//*--正文内容文字样式--*/.ContTitle1 {color:#ffffff;font-size:24px;font-weight:bold;line-height:28px;text-align:center;margin:20px 20px 20px 20px;}
+/*正文标题*/.ContTitle2 {color:#fff000;font-size:18px;font-weight:bold;line-height:24px;text-align:left;text-indent:2em;margin:5px 5px 5px 5px;}
+/*正文着重文字*/.ContText {color:#ffffff;font-size:14px;font-weight:normal;line-height:20px;text-align:left;text-indent:2em;margin:5px 5px 5px 5px;}
+/*正文文字*/.ContText_Open {color:#ffffff;font-size:14px;font-weight:normal;line-height:20px;text-align:left;margin:5px 5px 5px 5px;}
+/*正文起首语*/.ContText_Sponsor {color:#ffffff;font-size:14px;font-weight:normal;line-height:20px;text-align:right;margin:5px 5px 5px 5px;}
+/*正文落款*/

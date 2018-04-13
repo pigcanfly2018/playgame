@@ -1,0 +1,20 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'查看站内消息 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'查看站内消息 ，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_4'/}
+<div id="wrapper"> 
+<div class="UserCenter">
+           #{include '/templates/user_left.html'/}
+		    <div class="UserRight">            	
+               <fieldset>
+	                <legend>查看站内消息</legend>
+	                <p style="text-align:center;margin-top:20px;font-size:18px;">${letter.title}</p>
+	                <p style="text-align:center;">${letter.create_date}</p>
+	                <p style="text-align:left;margin-top:20px;font-size:16px;">${letter.content}</p>
+               </fieldset>
+            </div>
+
+            <div class="clear"></div>       
+</div>                           
+</div>

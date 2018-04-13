@@ -1,0 +1,49 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'支付宝二维码-八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'支付宝二维码，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_2'/}
+<script>
+function aa(){
+	$("#submit_btn").attr("disabled","disabled");
+}
+</script>
+<div id="wrapper"> 
+<div class="UserCenter">
+           #{include '/templates/user_left.html'/}  	
+		   <div class="UserRight">            	
+		    <form action="/deposit_auto_alipay.php" method="post" autocomplete="off" onsubmit="return sa('a_submit')">
+               <fieldset>
+	                <legend>支付宝二维码充值</legend>
+	                 <div>
+	                    <div style="color:red">${errorMsg}</div>
+	                </div>
+	                 <div>
+                         <label>您的支付宝姓名：</label>
+		                 <span>${cust.alipay_name}</span>
+		                 
+                     </div>
+                       <div>
+                         <label>您的支付宝账号：</label>
+		                 <span>${cust.alipay_account}</span>
+		                 <span style="color:#ffff00; font-weight:normal"><a href="/deposit_alipay_account.php"  style="color:#ffff00; font-weight:normal">重新绑定</a></span>
+                     </div>
+	                
+	                <div>
+                         <label>充值金额：</label>
+		                 <input type="text" style="font-weight:bolder;font-size:20px" name="momey" value ="1000"  class="input">
+		                 <span style="color:#FFF; font-weight:normal">支持100元到5000元之间的充值。</span> 
+                     </div>
+	                
+                 <div >
+                    <input id="b_submit" name="Submit" type="submit" style="margin-left:150px;margin-top:20px" class="buttom02" value="提交">
+                     <input name="Submit" type="button" style="margin-left:15px;margin-top:20px" class="buttom02" value="返回" onclick="window.location.href='/deposit.php'">
+  
+                </div>
+               </fieldset>
+               </form>
+            </div>
+            #{include '/templates/user_info.html' /}
+</div>                           
+</div>
+

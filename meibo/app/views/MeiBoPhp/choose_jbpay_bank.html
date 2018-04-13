@@ -1,0 +1,38 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'聚宝充值-八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'聚宝充值，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_2'/}
+<script>
+function aa(){
+	$("#submit_btn").attr("disabled","disabled");
+}
+</script>
+<div id="wrapper" class="MainWrap"> 
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight">            	
+		    <form action="/deposit_jbpay_bank.php" method="post" autocomplete="off" onsubmit="return sa('a_submit')">
+               <fieldset>
+	                <legend>聚宝充值</legend>
+	                <div>
+	                    <div style="color:red">${errorMsg}</div>
+	                 </div>
+	                <div><p style="margin-left:60px;">支持微信支付/支付宝支付</p></div>
+	                <div>
+                         <label>存款金额：</label>
+		                 <input type="text" style="color:red;font-weight:bolder;font-size:20px" name="amount" value="1000" class="input">
+		                 <span style="color:#FFF; font-weight:normal">元   最低金额为100元，最高金额为500000元</span>
+                     </div>
+
+                 <div >
+                    <input id="b_submit" name="Submit" type="submit" style="margin-left:150px;margin-top:20px" class="buttom02" value="提交">
+                     <input name="Submit" type="button" style="margin-left:15px;margin-top:20px" class="buttom02" value="返回" onclick="window.location.href='/deposit.php'">
+  
+                </div>
+                  
+               </fieldset>
+               </form>
+            </div>
+             #{include '/templates/user_info.html' /}
+</div>                           
+

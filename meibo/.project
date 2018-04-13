@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>meibo</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.playframework.playclipse.playNature</nature>
+	</natures>
+	<linkedResources><link><name>agent</name><type>2</type><location>D:/work/modules/agent/app</location></link>
+<link><name>conf/agent</name><type>2</type><location>D:/work/modules/agent/conf</location></link>
+<link><name>mobile</name><type>2</type><location>D:/work/modules/mobile/app</location></link>
+<link><name>conf/mobile</name><type>2</type><location>D:/work/modules/mobile/conf</location></link>
+</linkedResources>
+</projectDescription>

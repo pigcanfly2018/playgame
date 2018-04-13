@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>八达国际 |十一周年之红包派送  - 三百万红包让您抢到手软</title>
+<meta name="keywords" content="八达国际，八达娱乐城，红包派送，抢红包" />
+<link rel="shortcut icon" href="#{mb.static '/public/favicon.ico' /}" /> 
+<link href="#{mb.static '/public/10years/css.css' /}" rel="stylesheet">
+<script data-cfasync="false" src="https://cdn.bootcss.com/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+<script data-cfasync="false" src="#{mb.static '/public/10years/js/showBo.js' /}" type="text/javascript"></script>
+<script type="text/javascript">
+       var serverTime=parseInt('${serverTime}');
+       var clientTime=new Date().getTime();
+       var error=(serverTime-clientTime);
+       
+       var stop =parseInt('${stop1}');
+       function setCss(css){
+    	   $('#btn').attr("class",css);
+       }
+       function show_time2(leftsecond){
+		    var d=parseInt(leftsecond/3600/24);  
+		    var h=parseInt((leftsecond/3600)%24);  
+		    var m=parseInt((leftsecond/60)%60);  
+		    var s=parseInt(leftsecond%60);  
+		    $("#str_time").html("<span>倒计时:</span>"+h+"<span>小时</span>"+m+"<span>分</span>"+s+"<span>秒</span>");
+       }
+       function show_time(){
+    	  var now =new Date(new Date().getTime()+error);
+    	  var h=now.getHours();
+    	  var m =now.getMinutes();
+    	  var month=now.getMonth()+1;
+    	  var f=0;
+    	  if(month==8){
+	    	  if(h==8||h==20){
+	    		   if(m>=18&&m<=33){
+	    			    f=1;
+	    			    if(stop==0){
+	    			    	 setCss("one");
+	    			    	 $('#str_time').html("抢红包正在进行...");
+	    			    	 
+	    			    }
+	    		   }
+	    	  }
+	    	   //在活动时间外，显示倒计时
+	    	   var now1 =new Date(new Date().getTime()+error);
+	    	   if(f==0||stop==1){
+	    		   if(h<8||(h==8&&m<18)){
+	    			    //08:18
+	    			   now1.setHours(8);
+	    			   now1.setMinutes(18);
+	    			   now1.setSeconds(0);
+	    			   show_time2((now1.getTime()-now.getTime())/1000); 
+	    		   }else if((h==8&&m>18)||(h<20)||(h==20&&m<18)){
+	    			   //20:18
+	    			   now1.setHours(20);
+	    			   now1.setMinutes(18);
+	    			   now1.setSeconds(0);
+	    			   show_time2((now1.getTime()-now.getTime())/1000);
+	    		   }else{
+	    			   //第二天 08:18
+	    			   now1.setDate(now1.getDate()+1);
+	    			   now1.setHours(8);
+	    			   now1.setMinutes(18);
+	    			   now1.setSeconds(0);
+	    			   show_time2((now1.getTime()-now.getTime())/1000);
+	    		   }
+	    		  setCss("stop");
+	    	   }
+	    	  
+    	  }else{
+    		  //超出活动时间
+    		  if(f==0){
+	    		  $('#str_time').html("<span>很遗憾，抢红包活动已结束!</span>");
+	    	  }
+    		  setCss("stop");
+    	  }
+       }
+       
+      function getData(){
+    	  var now =new Date(new Date().getTime()+error);
+    	  var h=now.getHours();
+    	  var m =now.getMinutes();
+    	  var month=now.getMonth()+1;
+    	  if(month==8&&(h==8||h==20)&&(m>=10&&m<=40)){
+				    	  var now =new Date(new Date().getTime()+error);
+				        	$.ajax({
+				   			type:'post',
+				   			url:'/10years/getData.php',
+				   			data:{},
+				   			dataType:'text',
+				   			success:function(msg){
+				   				var data =eval("("+msg+")");
+				   				if(data.success){
+				   					var msg=data.message;
+				   					var dd=msg.split("|");
+				   					stop=parseInt(dd[0]);
+				   					$("#data_1").html(dd[1]);
+				   					$("#data_2").html(dd[2]);
+				   					$("#data_3").html(dd[3]);
+				   					$("#data_4").html(dd[4]);
+				   					$("#data_5").html(dd[5]);
+								}
+				   			},
+				   			error:function(){
+				   			}
+				   		});
+    	  }
+     }
+      
+      function loot(btn){
+    	  if(!btn){
+    		  return ;
+    	  }
+    	  var c=$(btn).attr("class");
+    	  if(c=='stop'){
+    		  return ;
+    	  }
+    	  setCss("stop");
+      	  $.ajax({
+ 			type:'post',
+ 			url:'/10years/loot.php',
+ 			data:{},
+ 			dataType:'text',
+ 			success:function(msg){
+ 				var data =eval("("+msg+")");
+ 				if(data.success){
+ 					Showbo.Msg.alert(data.message);
+				}else{
+					Showbo.Msg.alert("<span style='color:black'>"+data.message+"</span>");
+				}
+ 				setCss("one");
+ 			},
+ 			error:function(){
+ 			}
+ 		});
+   }
+</script>
+</head>
+<body>
+<img class="layer z8 logo"  src="#{mb.static '/public/10years/images/logo.png' /}" > 
+<div id="wrapper">
+	<div class="main_left">
+		 <div class="topbanner"></div>
+   		 <div class="main_cont">
+       		 <div class="mc_m" >
+       		     <a href="javascript:void(0)"  id="btn" class="stop" onclick="loot(this)"></a>          
+            <!--倒计时开始-->
+           
+            <div id="str_time">
+            <SCRIPT LANGUAGE="JavaScript">  
+            show_time()  
+            var vod_show=setInterval(show_time,1000); 
+            setInterval(getData,3000); 
+            </SCRIPT>                                 
+            </div>  
+            <!--倒计时结束-->  
+        	</div>               	
+   		 </div>
+   </div> 
+        <div class="main_right">
+            <ul>
+                <li><span style=" margin-top:95px; color:#F00;" id="data_1">${sum_credit}</span></li>
+                <li><span id="data_2">${all_credit}</span></li>
+                <li><span id="data_3">${all_count}</span></li>
+                <li><span id="data_4">${current_day_credit}</span></li>
+                <li><span id="data_5">${current_day_count}</span></li>
+            </ul>    
+        </div>
+	<div class="clear"></div>
+</div>
+ 	
+<div class="mycontent_wrap">
+	<div class="mycontent">    
+    <span style=" font-size:24px;" id="tit">活动说明：</span>
+
+<p>
+<span>活动详情：</span>
+
+八达国际邀您一同庆祝十一周年诞辰！八百万现金红包连续派送19天，让您红包抢到手软，收钱收到手酸！八月十日起每日早晚八点十八分，八达国际官网，您抢红包了吗？
+
+
+
+    <span>
+  活动条款：
+    </span>
+   1、活动时间：2016-8-10日00:00至2016-8-28日23:59（北京时间）。<br />
+2、活动名额：八达国际一星级以上VIP玩家（立即注册成为八达国际尊贵会员）。<br />
+3、申请条件：成功在八达国际官网注册并完成一次充值。<br />
+4、申请方式：活动期间每日早8:18分和晚8:18分打开八达国际官网进行抢红包活动。<br />
+5、发放时间：活动期间抽中红包后系统自动派发。<br />
+<font color="#FFCC00">6、特殊说明：</font><br />
+●十一周年百万红包礼金需达到礼金的一倍有效投注额即可提款；<br />
+●八达国际一星级以上会员可不限次领取十一周年百万红包；<br />
+●十一周年百万红包礼金可与网站其他优惠共享，投注额需达到所享受礼金的投注额之和即可提款；<br />
+●十一周年百万红包礼金无投注游戏之限制；<br />
+●如您尚未注册八达国际会员，您可由此进入（<a href="/reg.html" target="_blank">注册链接</a>）注册并充值成为一星级会员。<br />
+</p>
+</div>
+</div>
+</body>
+</html>
+<script data-cfasync="false" language="javascript" type="text/javascript" src="http://js.users.51.la/17245262.js"></script>

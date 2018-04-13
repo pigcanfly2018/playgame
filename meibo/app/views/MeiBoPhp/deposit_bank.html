@@ -1,0 +1,86 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'收款银行列表 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'收款银行列表，八达国际'/} 
+#{set description:''/}       
+#{set cust_nav_li:'cust_1_2'/}      
+<div id="wrapper"> 
+<div class="UserCenter">
+  #{include '/templates/user_left.html'/}  		
+ <div class="UserRight PayChan">
+           	
+          <fieldset>
+            <legend>收款银行列表</legend>
+            <div class="SYCentBlockWrap2">
+            <table>
+               	   <tr>
+	                   	<td width="16%">收款银行</td>
+	                   	<td width="13%">账户名</td>
+	                   	<td width="25%">账户</td>
+	                   	<td width="28%">开户网点</td>
+	                   	<td width="35%">存款后操作</td>
+                   </tr> 
+                   #{mb.getNewBanks level:cust.cust_level,loginname:cust.login_name,bankpay:cust.bank_pay}
+                          #{if _bank0!=null}
+                              <tr>
+			                   	<td >中国工商银行</td>
+			                   	<td>${_bank0.account_name}</td>
+			                   	<td>${_bank0.account}</td>
+			                   	<td>${_bank0.bank_dot}</td>
+			                   	<td><a class="check_sure"  href="/deposit_form.php?bank_id=${_bank0.bank_id}">已存款</a></td>
+                             </tr> 
+                          #{/if}
+                          
+                           #{elseif _bank1!=null}
+                              <tr>
+			                   	<td>中国农业银行</td>
+			                   	<td>${_bank1.account_name}</td>
+			                   	<td>${_bank1.account}</td>
+			                   	<td>${_bank1.bank_dot}</td>
+			                   	<td><a class="check_sure"  href="/deposit_form.php?bank_id=${_bank1.bank_id}">已存款</a></td>
+                             </tr> 
+                          #{/elseif}
+                          
+                          #{elseif _bank2!=null}
+                              <tr>
+			                   	<td>招商银行</td>
+			                   	<td>${_bank2.account_name}</td>
+			                   	<td>${_bank2.account}</td>
+			                   	<td>${_bank2.bank_dot}</td>
+			                   	<td><a class="check_sure" href="/deposit_form.php?bank_id=${_bank2.bank_id}">已存款</a></td>
+                             </tr> 
+                          #{/elseif}
+                          
+                          
+                           
+                   #{/mb.getNewBanks}                                                                                                                                                                 
+               </table>
+               
+                <div class="cklc">
+	            	<span>	网银转账 ，ATM转账，柜台转账，手机转账方式存款流程:</span>
+	           		<ul>
+	                	<li class="cbor">存款转账<br />到<br />收款账号</li>
+						<li class="crrr"></li>
+	             		<li class="cbor">提交存款</li>
+	             		<li class="crrr"></li>
+	            		<li class="cbor"> 三分钟内<br />审核到账</li><br />
+						<div class="clear"></div>
+	                 </ul>
+                </div>
+                 <div class="cklc">
+	            	<span>温馨提示</span>
+	            	<div>1. 存款之前请核对我们的存款账号，以该网页公布的为准。这点重要！</div>
+	            	<div>2. 正常情况下，提交了存款信息后，系统会在5分钟内审核您的存款。建议您先存款后提交存款信息。</div>
+	            	<div>3. 存入小数点，让您更快入款。</div>
+	            	<div>4. 使用该存款方式入款，您将获取到1%的存款红利，系统为您自动添加，无需额外申请。</div>
+	            	<div>5. 在存款未审核通过之前，请您保留好您的存款凭证，以便在发生纠纷时，我们核对您的信息。</div>
+	            	<div>6. 存款过程，无论您在什么地方，什么时候遇到什么样的问题，都可以联系我们24小时在线客服为您解答。</div>
+	             </div>
+	             <div style="text-align:center">
+                     <div class="BtnBox"> <button onClick="window.open('/deposit.php','_self')" class="Btn2 BtnSize_B3" >返回存款</button> </div>
+                 </div></div>
+          </fieldset>
+       </div>
+         #{include '/templates/user_info.html' /}
+</div>                           
+</div>
+

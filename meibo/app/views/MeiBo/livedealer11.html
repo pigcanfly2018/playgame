@@ -1,0 +1,281 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'真人娱乐 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'真人娱乐，八达国际，申博厅，AG厅，BBIN厅，真人百家乐，龙虎，温州牌九，轮盘'/} 
+#{set description:'八达国际提供众多真人游戏，设有申博厅，AG厅，BBIN厅，精选了真人百家乐，极速百家乐，连环百家乐，龙虎，轮盘，21点，牌九等经典真人娱乐，高清直播视讯，重现赌坛盛况。'/}                       			                                                	
+#{set menu_li:'index_1'/}  
+<div id="wrapper"> 
+<script type="text/javascript" src="jquery-latest.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+$('.acc_container').hide(); //Hide/close all containers
+$('.acc_trigger:first').addClass('active').next().show(); //Add "active" class to first trigger, then show/open the immediate next container
+//On Click
+$('.acc_trigger').click(function(){
+	if( $(this).next().is(':hidden') ) { 
+		$('.acc_trigger').removeClass('active').next().slideUp(); 
+		$(this).toggleClass('active').next().slideDown(); 
+	}else{
+		$('.acc_trigger').removeClass('active').next().slideUp();
+		//$(this).toggleClass('active').last().slideDown(); 
+
+	}
+	return false; //Prevent the browser jump to the link anchor
+});
+
+});
+</script> 
+               
+        <div class="AccAllWrapper"> 
+           							 <script>
+                                        $(function () {
+                                            $(".block ul li").hover(
+                                                function () {
+                                                    $(this).find(".dask").stop().delay(50).animate({"top":0,opacity:0.8},300)
+                                                 },
+                                                function () {
+                                                    $(this).find(".dask").stop().animate({"top":-200,opacity:0},300)
+                                                }
+                                                
+                                            )
+                                        })
+                                    </script> 
+             <!--               
+            <h2 class="acc_trigger"><a href="#">申博厅</a></h2>
+            <div class="acc_container">
+                <div class="block">
+        <ul class="GameList">
+                    	<li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_b01.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="#" class="buttom01">游戏规则</a><a href="#" class="buttom02">进入游戏</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_b02.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="#" class="buttom01">游戏规则</a><a href="#" class="buttom02">进入游戏</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_b03.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="#" class="buttom01">游戏规则</a><a href="#" class="buttom02">进入游戏</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_b04.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="#" class="buttom01">游戏规则</a><a href="#" class="buttom02">进入游戏</a></div>
+                        </li>  
+                    	<li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_b05.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="#" class="buttom01">游戏规则</a><a href="#" class="buttom02">进入游戏</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_b06.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="#" class="buttom01">游戏规则</a><a href="#" class="buttom02">进入游戏</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_b07.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="#" class="buttom01">游戏规则</a><a href="#" class="buttom02">进入游戏</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_b08.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="#" class="buttom01">游戏规则</a><a href="#" class="buttom02">进入游戏</a></div>
+                        </li>                                           
+                    </ul>
+                </div>
+            </div>
+             -->         
+<!---->                                                    
+            
+<!---->              
+<h2 class="acc_trigger"><a href="#">AG国际厅</a></h2>
+#{mb.ag}
+   #{if _ag_flag}
+       <div class="acc_container">
+                <div class="block">	                                                  
+                    <ul class="GameList">
+                    	<li>
+                        	<a href="/goToGame/2"><img src="#{mb.static '/public/images/LiveDealer/gImg_a01.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/ag_bjl.html" target="_blank" class="buttom01">游戏规则</a><a href="/goToGame/2" target="_blank" class="buttom02">进入游戏</a></div>
+                        </li>
+                        <li>
+                        	<a href="/goToGame/2"><img src="#{mb.static '/public/images/LiveDealer/gImg_a02.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/ag_bjl.html" target="_blank" class="buttom01">游戏规则</a><a href="/goToGame/2" target="_blank"  class="buttom02">进入游戏</a></div>
+                        </li>
+                        <li>
+                        	<a href="/goToGame/2"><img src="#{mb.static '/public/images/LiveDealer/gImg_a03.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/ag_lhd.html" target="_blank" class="buttom01">游戏规则</a><a href="/goToGame/2" target="_blank" class="buttom02">进入游戏</a></div>
+                        </li>
+                        <li>
+                        	<a href="/goToGame/2"><img src="#{mb.static '/public/images/LiveDealer/gImg_a04.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/ag_sb.html" target="_blank" class="buttom01">游戏规则</a><a href="/goToGame/2" target="_blank"  class="buttom02">进入游戏</a></div>
+                        </li>
+                        <li>
+                        	<a href="/goToGame/2"><img src="#{mb.static '/public/images/LiveDealer/gImg_a05.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/ag_bjl.html" target="_blank" class="buttom01">游戏规则</a><a href="/goToGame/2" target="_blank" class="buttom02">进入游戏</a></div>
+                        </li>  
+                         <li>
+                        	<a href="/goToGame/2"><img src="#{mb.static '/public/images/LiveDealer/gImg_a06.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/ag_bjl.html" target="_blank" class="buttom01">游戏规则</a><a href="/goToGame/2" target="_blank"  class="buttom02">进入游戏</a></div>
+                        </li>
+                        <li>
+                        	<a href="/goToGame/2"><img src="#{mb.static '/public/images/LiveDealer/gImg_a07.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/ag_lp.html" target="_blank" class="buttom01">游戏规则</a><a href="/goToGame/2" target="_blank" class="buttom02">进入游戏</a></div>
+                        </li>                         
+                    </ul>
+                </div>
+            </div>
+   #{/if}
+   #{else}
+           <div class="acc_container">
+                <div class="block">	                                                  
+                    <ul class="GameList">
+                    	<li>
+                        	<a href="/goToGame/2"><img src="#{mb.static '/public/images/LiveDealer/gImg_a01.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/ag_bjl.html" target="_blank" class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank" class="buttom02">维护中</a></div>
+                        </li>
+                        <li>
+                        	<a href="/goToGame/2"><img src="#{mb.static '/public/images/LiveDealer/gImg_a02.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/ag_bjl.html" target="_blank" class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank"  class="buttom02">维护中</a></div>
+                        </li>
+                        <li>
+                        	<a href="/goToGame/2"><img src="#{mb.static '/public/images/LiveDealer/gImg_a03.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/ag_lhd.html" target="_blank" class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank" class="buttom02">维护中</a></div>
+                        </li>
+                        <li>
+                        	<a href="/goToGame/2"><img src="#{mb.static '/public/images/LiveDealer/gImg_a04.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/ag_sb.html" target="_blank" class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank"  class="buttom02">维护中</a></div>
+                        </li>
+                        <li>
+                        	<a href="/goToGame/2"><img src="#{mb.static '/public/images/LiveDealer/gImg_a05.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/ag_bjl.html" target="_blank" class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank" class="buttom02">维护中</a></div>
+                        </li>  
+                         <li>
+                        	<a href="/goToGame/2"><img src="#{mb.static '/public/images/LiveDealer/gImg_a06.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/ag_bjl.html" target="_blank" class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank"  class="buttom02">维护中</a></div>
+                        </li>
+                        <li>
+                        	<a href="/goToGame/2"><img src="#{mb.static '/public/images/LiveDealer/gImg_a07.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/ag_lp.html" target="_blank" class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank" class="buttom02">维护中</a></div>
+                        </li>                         
+                    </ul>
+                </div>
+            </div>
+   #{/else}
+#{/mb.ag}
+           
+
+            <h2 class="acc_trigger"><a href="#">波音厅</a></h2>
+        #{mb.bbin}
+	    #{if _bbin_flag}
+	        <div class="acc_container">
+                <div class="block">
+                    <ul class="GameList">
+                    	<li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c01.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_bjl.html" target="_blank" class="buttom01">游戏规则</a><a href="/goToGame/1?psite=live" target="_blank" class="buttom02">进入游戏</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c02.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_zzpk.html" target="_blank" class="buttom01">游戏规则</a><a href="/goToGame/1?psite=live" target="_blank" class="buttom02">进入游戏</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c03.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_p9.html" target="_blank" class="buttom01">游戏规则</a><a href="/goToGame/1?psite=live" target="_blank" class="buttom02">进入游戏</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c04.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_21p.html" target="_blank" class="buttom01">游戏规则</a><a href="/goToGame/1?psite=live" target="_blank" class="buttom02">进入游戏</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c05.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_sb.html" target="_blank" class="buttom01">游戏规则</a><a href="/goToGame/1?psite=live" target="_blank" class="buttom02">进入游戏</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c06.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_28g.html" target="_blank"  class="buttom01">游戏规则</a><a href="/goToGame/1?psite=live" target="_blank" class="buttom02">进入游戏</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c07.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_lhd.html" target="_blank" class="buttom01">游戏规则</a><a href="/goToGame/1?psite=live" target="_blank" class="buttom02">进入游戏</a></div>
+                        </li>  
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c08.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_lp.html" target="_blank" class="buttom01">游戏规则</a><a href="/goToGame/1?psite=live" target="_blank" class="buttom02">进入游戏</a></div>
+                        </li>   
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c09.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_nn.html" target="_blank" class="buttom01">游戏规则</a><a href="/goToGame/1?psite=live" target="_blank" class="buttom02">进入游戏</a></div>
+                        </li>   
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c10.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_sg.html" target="_blank" class="buttom01">游戏规则</a><a href="/goToGame/1?psite=live" target="_blank" class="buttom02">进入游戏</a></div>
+                        </li>   
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c11.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_sd.html" target="_blank" class="buttom01">游戏规则</a><a href="/goToGame/1?psite=live" target="_blank" class="buttom02">进入游戏</a></div>
+                        </li>                    
+                    </ul>
+                </div>        
+            </div>
+	    #{/if}
+	    #{else}
+	     <div class="acc_container">
+                <div class="block">
+                    <ul class="GameList">
+                    	<li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c01.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_bjl.html" target="_blank" class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank" class="buttom02">维护中</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c02.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_zzpk.html" target="_blank" class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank" class="buttom02">维护中</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c03.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_p9.html" target="_blank" class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank" class="buttom02">维护中</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c04.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_21p.html" target="_blank" class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank" class="buttom02">维护中</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c05.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_sb.html" target="_blank" class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank" class="buttom02">维护中</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c06.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_28g.html" target="_blank"  class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank" class="buttom02">维护中</a></div>
+                        </li>
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c07.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_lhd.html" target="_blank" class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank" class="buttom02">维护中</a></div>
+                        </li>  
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c08.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_lp.html" target="_blank" class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank" class="buttom02">维护中</a></div>
+                        </li>   
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c09.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_nn.html" target="_blank" class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank" class="buttom02">维护中</a></div>
+                        </li>   
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c10.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_sg.html" target="_blank" class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank" class="buttom02">维护中</a></div>
+                        </li>   
+                        <li>
+                        	<a href="javascript:void(0)"><img src="#{mb.static '/public/images/LiveDealer/gImg_c11.jpg' /}" alt="" /></a>
+							<div class="dask"><a href="/help/bbin_sd.html" target="_blank" class="buttom01">游戏规则</a><a href="javascript:void(0)" target="_blank" class="buttom02">维护中</a></div>
+                        </li>                    
+                    </ul>
+                </div>        
+            </div>
+	    #{/else}
+	    #{/mb.bbin}
+   
+           
+            
+            
+            
+            
+        </div> 
+
+<div class="clear"></div>                                                                  
+</div>
+<!--wrapper-->        
+              

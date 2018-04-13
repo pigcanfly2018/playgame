@@ -1,0 +1,88 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                                       MeiBo.index
+GET     /ip                                     IPApp.ip
+GET     /addIp                                  IPApp.addIp
+GET     /addNoIp                                IPApp.addNoIp
+GET     /help/{sub}.html                        MeiBo.help
+GET     /hit1.html        						MyActive.index
+POST 	/ajax/doHit        						MyActive.doHit
+GET     /{method}.html                          MeiBo.html
+GET     /vericode.png                           VeriCode.index
+GET     /{method}.php                           MeiBoPhp.{method}
+POST    /{method}.php                           MeiBoFs.{method}
+POST    /ajax/{method}                          Ajax.{method}
+POST    /egg/{method}                           EggApp.{method}
+GET     /promotion/{id}                         MeiBo.proDetail
+GET     /goToGame/{type}                        MeiBo.goToGame
+GET     /goToPTGameForIndex/{type}              MeiBo.goToPTGameForIndex
+GET     /dinpay/{order_no}                      DinpayApp.show
+GET     /dinweixinpay/{order_no}                DinpayApp.showweixin
+GET     /xunhuibaopay/{order_no}                XunHuiBaoApp.show
+GET     /yingtongbaopay/{order_no}              YingTongBaoApp.show
+GET     /dincardpay/{order_no}                  DinpayApp.cardshow
+GET     /queryJbOrder/{order_no}                JbPayApp.queryJbOrder
+GET     /queryYbOrder/{orderid}                 YbPayApp.queryYbOrder
+GET     /queryXbOrder/{orderid}                 XBPayApp.queryXbOrder
+GET     /queryYinbOrder/{ordernumber}           YinbPayApp.queryYinbOrder
+GET     /queryLyOrder/{orderID}                 LyPayApp.queryLyOrder
+GET     /queryThOrder/{order_no}                ThPayApp.queryThOrder
+GET    	/tonghuipayNotify.do                	ThPayApp.tonghuipayNotify
+GET    	/tonghuiweixinpayNotify.do              ThPayApp.tonghuiweixinpayNotify
+GET    	/yingbaopayNotify.do                	YbPayApp.yingbaopayNotify
+GET    	/yinbaopayNotify.do                		YinbPayApp.yinbaopayNotify
+GET    	/gaotongpayNotify.do                	GaoTongPayApp.gaotongpayNotify
+*   	/leyingpayNotify.do                	    LyPayApp.leyingpayNotify
+*   	/geturl.do                	    		UrlApp.geturl
+
+*    	/xinbeipayNotify.do                		XBPayApp.xinbeipayNotify
+*    	/changfupayNotify.do                	ChangFuApp.changfupayNotify
+*    	/huitongNotify.do                	    PayApp.huitongNotify
+*    	/antongpayNotify.do                	    PayApp.antongpayNotify.do
+*    	/jinyangpayNotify.do                	JinYangApp.jinyangpayNotify
+*    	/sanvpayNotify.do                		SanVApp.sanvpayNotify
+*       /dingyipayNotify.do      				DingYiPayApp.dingyibaopayNotify
+*       /adultBinding.do      				    AdultApp.binding
+*       /adultQuery.do      				    AdultApp.adultQuery
+
+*    	/rpnpayNotify.do                	    RpnPayApp.rpnpayNotify
+*    	/huibopayNotify.do                	    HuiBoPayApp.huibopayNotify
+
+
+*    	/queryRpnOrder/?                	    RpnPayApp.queryRpnOrder
+
+*       /xunhuibaopayNotify.do					XunHuiBaoApp.xunhuibaopayNotify
+*       /yingtongbaopayNotify.do				YingTongBaoApp.yingtongbaopayNotify
+*       /saomafupayNotify.do				    SaoMaFuApp.saomafupayNotify
+
+*       /xunfutongpayNotify.do					XunFuTongApp.xunfutongpayNotify
+*       /yfpay.do                               DinpayApp.yfpay
+*       /yfweixinpay.do                         DinpayApp.weixinpay
+*       /ptcenter.do                            MeiBo.ptCenter
+*       /chpay_return.do                        MeiBo.chpay_return
+*       /chpay.do                               HcpayApp.chpay
+GET     /egg.swf                                MeiBo.eggswf
+GET     /10years/{method}.html                  YearGiftApp.{method}
+POST    /10years/loot.php                       YearGiftApp.loot
+POST    /10years/getData.php                    YearGiftApp.getData
+GET     /11years/index.php                      ElevenYear.index
+GET     /tokenForward.do                        TokenApp.forward
+#modules#
+GET     /mobile	                               module:mobile
+GET     /agent	                               module:agent
+
+##jsonp
+GET	     /regjsonp								RegisterApp.index
+GET      /login.do									RegisterApp.login
+
+
+GET     /public/images/score/egg.swf            staticFile:/public/images/score/egg.swf
+GET     /public/                                staticDir:public
+GET     /zhifu/                                	staticDir:zhifu
+*       /client/login                           ClientApp.login
+*       /360.js                                  staticFile:/public/360.js
+
+

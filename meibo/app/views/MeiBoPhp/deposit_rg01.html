@@ -1,0 +1,106 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'会员存款 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'会员存款，八达国际'/} 
+#{set description:''/}       
+#{set cust_nav_li:'cust_1_2'/}      
+<script data-cfasync="false" type="text/javascript" src="#{mb.static '/public/My97DatePicker/WdatePicker.js'/}" charset="utf-8"></script>
+<script data-cfasync="false">
+function numberOnly(e){
+	if(window.event){
+		var keyCode=window.event.keyCode;
+		return (keyCode>=48&&keyCode<=57)||keyCode==46;
+	}else{
+		//mozailla
+		var keyCode=e.which;
+		return (keyCode>=48&&keyCode<=57)||keyCode==0||keyCode==8||keyCode==46;//allow backspace and delete
+	}
+} 
+
+function resetPoundage(i){
+	var k=parseFloat($(i).val())/100;
+	if(k>2888){
+	    $("#poundage").html("2888元");	
+	}else{
+		$("#poundage").html(k+"元");	
+	}
+}
+
+
+</script>
+
+<div id="wrapper"> 
+<div class="UserCenter">
+  #{include '/templates/user_left.html'/}  		
+ <div class="UserRight">            	
+          <fieldset>
+            <legend>收款银行</legend>
+            <div>${errorMsg}</div>
+            <form action="/deposit.php" method="post" autocomplete="off">
+                  <div>
+				       <label >存款金额：</label>
+                       <input type="text" style="width:200px;" name="amount" value="${amount}" class="input" onkeypress="return numberOnly(event)" onblur="resetPoundage(this)"/>
+                       <span>填写您已存款的金额。</span>
+			       </div>	
+			      <div>
+			          <label>转账红利：</label> 
+			          <span id="poundage" style="color:white;margin-right:165px;">0元</span>
+			          <span>转账红利将与存款金额一起添加到您的账户里。</span>
+			      </div>	
+			      <div>
+			           <label>存款银行：</label> 
+			           <select style="width: 207px" name="bank_name" class="input">
+                            <option value="工行">中国工商银行</option>
+                            <option value="农行">中国农业银行</option>
+                            <option value="建行">中国建设银行</option>
+                            <option value="招行">招商银行</option>
+                            <option value="民生">中国民生银行</option>
+                            <option value="支付宝">支付宝</option>
+                        </select>
+			           <span></span>         	
+			      </div>	
+			      <div>
+			           <label>收款人：</label> 
+			           <input type="text" name="account_name" style="width:200px;" value="${account_name}" class="input"/>
+			           <span></span>         	
+			      </div>
+			       <div>
+			           <label>存款方式：</label> 
+			           <select class="input" style="width: 207px" name="deposit_type">
+                                        <option value="网银转账">网银转账</option>
+                                        <option value="手机银行转账">手机银行转账</option>
+                                        <option value="ATM转账">ATM转账</option>
+                                        <option value="ATM存现">ATM存现</option>
+                                        <option value="柜台存现">柜台存现</option>
+                                        <option value="柜台转账">柜台转账</option>
+				                        <option value="支付宝转账">支付宝转账</option>
+                                    </select>
+			           <span></span>         	
+			      </div>
+			        <div>
+			           <label>存款时间：</label> 
+			            <input type="text" class="Wdate" maxlength="10"  
+                                    value="${new Date().format('yyyy-MM-dd HH:mm:ss')}"style="width: 205px;height:33px" 
+                                    onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true})"  
+                                    id="deposit_date" name="deposit_date">
+			           <span>您的存款时间。</span>         	
+			      </div>
+			       <div>
+			           <label>存款地址：</label> 
+			           <input type="text" name="location" style="width:200px;" value="${location}" class="input"/>
+			           <span>您存款时的地点。</span>         	
+			      </div>
+			      <div>
+			         <label>备注：</label>
+			         <input type="text" name="remarks" style="width:200px;" value="${remarks}" class="input"/>
+			         <span></span>
+			      </div>	
+                <div>
+                    <input name="Submit" type="submit" style="margin-left:150px;margin-top:20px" class="buttom02" value="提交" />
+                </div>
+            </form>
+          </fieldset>
+       </div>
+         #{include '/templates/user_info.html' /}
+</div>                           
+</div>
+

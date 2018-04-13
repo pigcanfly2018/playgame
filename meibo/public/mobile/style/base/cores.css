@@ -1,0 +1,287 @@
+/* 公共样式 */
+@charset "utf-8";
+
+
+/******** @ Element Reset ********/
+html,body,div,ul,ol,dl,li,dt,dd,
+table,caption,thead,tbody,tfoot,tr,th,td,
+a,span,b,i,s,ins,del,em,strong,dfn,code,samp,kbd,var,cite,address,blockquote,p,pre,h1,h2,h3,h4,h5,h6,
+form,button,label,input,object,select,option,textarea,fieldset,legend,img,iframe,progress,
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section,strong,b{margin:0;padding:0;font:inherit;vertical-align:baseline;outline:0 none!important;font-family:"微软雅黑";}
+html{min-height:101%;}
+body{font:14px/2 simsun,microsoft yahei,simhei;color:#444;background-color:#320a00;-webkit-text-size-adjust:none;}
+article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block;}
+ul,ol,dl{list-style:none;}
+table{border-collapse:collapse;border-spacing:0;}
+table,caption,th,td{text-align:left;vertical-align:middle;}
+table,form,fieldset,img{border:0 none;}
+a,a:visited{color:#444;cursor:pointer;}
+a:hover,a:active{color:#eb4835;}
+a,s,ins,del{text-decoration:none;}
+b,strong,i{font-weight:bold;}
+i,em,dfn,var,cite,address{font-style:normal;}
+p{word-wrap:break-word;word-break:break-all;}
+input,select,textarea{font-weight:normal;border:1px solid #d8d8d8;}
+
+/******** @ Special Style ********/
+.hidden{position:absolute!important;left:-9999px!important;top:-9999px!important;}/* 解决display:none导致的搜索引擎获不收录的问题 */
+
+/******** @ Layout ********/
+.wrapper{width:640px;min-width:240px;max-width:640px;margin:auto;}
+
+
+/******** @ Float Preinstall ********/
+.float-left{float:left;display:inline;}
+.float-right{float:right;display:inline;}
+.fn{float:none;}
+.fc{display:block;width:0;height:0;overflow:hidden;clear:both;visibility:hidden;}/* 清除同级样式浮动，配合其他样式使用 */
+.clear:after{display:block;height:0;content:"";clear:both;visibility:hidden;}.clear{zoom:1;}/* 清除子级元素样式浮动，配合其他样式使用 */
+
+/* 主导航样式 */
+.top{
+	width:100%;
+	background:url(../../images/img.png) -500px -20px no-repeat #310800;
+	}
+.nav{
+	color:#f60;
+	width:100%;
+	height:70px;
+	line-height:50px;
+	font-weight:bold;
+	}
+.nav a.back{
+    color:#f60;
+	padding:10px 15px;
+	margin:0 10px;
+	}
+.nav-tit{
+	font-size:32px;
+	font-weight:bold; 
+	 background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(255, 240, 0, 1)), to(rgba(255, 60, 0, 1)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    background-image: -moz-gradient(linear, 0 0, 0 bottom, from(rgba(255, 240, 0, 1)), to(rgba(255, 60, 0, 1)));
+    -moz-background-clip: text;
+    -wmoz-text-fill-color: transparent; 
+	background-image: -o-gradient(linear, 0 0, 0 bottom, from(rgba(255, 240, 0, 1)), to(rgba(255, 60, 0, 1)));
+    -o-background-clip: text;
+    -o-text-fill-color: transparent; 
+	}
+.nav span.nav-title{
+	padding:10px 15px;
+	margin:20px 10px 0 170px;
+	line-height:70px;
+	font-size:32px;
+	font-weight:bold; 
+    background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(255, 240, 0, 1)), to(rgba(255, 60, 0, 1)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+	background-image: -moz-gradient(linear, 0 0, 0 bottom, from(rgba(255, 240, 0, 1)), to(rgba(255, 60, 0, 1)));
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent; 
+	background-image: -o-gradient(linear, 0 0, 0 bottom, from(rgba(255, 240, 0, 1)), to(rgba(255, 60, 0, 1)));
+    -o-background-clip: text;
+    -o-text-fill-color: transparent; 
+	}
+/* 按钮样式 */
+input.btn,.btn a,.btn a:hover,a.btn,.btn a:visited{
+	background-color: #ee432e;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ee432e), color-stop(50%, #c63929), color-stop(50%, #b51700), color-stop(100%, #891100));
+	background-image: -webkit-linear-gradient(top, #ee432e 0%, #c63929 50%, #b51700 50%, #891100 100%);
+	background-image: -moz-linear-gradient(top, #ee432e 0%, #c63929 50%, #b51700 50%, #891100 100%);
+	background-image: -ms-linear-gradient(top, #ee432e 0%, #c63929 50%, #b51700 50%, #891100 100%);
+	background-image: -o-linear-gradient(top, #ee432e 0%, #c63929 50%, #b51700 50%, #891100 100%);
+	background-image: linear-gradient(top, #ee432e 0%, #c63929 50%, #b51700 50%, #891100 100%);
+	border: 1px solid #951100;
+	border-radius: 5px;
+	-webkit-box-shadow: inset 0 0 0 1px rgba(255, 115, 100, 0.4), 0 1px 3px #333333;
+	box-shadow: inset 0 0 0 1px rgba(255, 115, 100, 0.4), 0 1px 3px #333333;
+	color: #fff;
+	font: bold 20px/1 "helvetica neue", helvetica, arial, sans-serif;
+	padding:10px 20px;
+	text-align: center;
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.8);
+	}
+/* 边距公用样式 */
+.pad10{
+	padding:10px;
+	}
+.pad5{
+	padding:5px;
+	}
+.padleft20{
+	padding-left:20px;
+	}
+.padleft40{
+	padding-left:40px;
+	}
+.padright20{
+	padding-right:20px;
+	}
+.pad-top5{
+	padding-top:5px;
+	}
+.pad-top10{
+	padding-top:10px;
+	}
+.block{
+	display:block;
+	}
+.marb10{
+	margin-bottom:10px;
+	}
+.marb40{
+	margin-bottom:40px;
+	}
+.marb20{
+	margin-bottom:20px;
+	}
+.marr10{
+	margin-right:10px;
+	}
+.mar10{
+	margin:10px;
+	}
+.marl40{
+	margin:0 0 0 40px;
+	}
+.marl50{
+	margin:0 0 0 50px;
+	}
+.marr60{
+	margin-right:60px;
+	}
+.marr40{
+	margin-right:40px;
+	}
+.marr20{
+	margin-right:20px;
+	}
+.martop10{
+	margin-top:10px;
+	}
+.martop60{
+	margin-top:60px;
+	}
+.marleft10{
+	margin-left:60px;
+	}
+.marleft20{
+	margin-left:20px;
+	}
+.marauto{
+	margin:0 auto;
+	}
+.marlr20{
+	margin:10px 40px;
+	}
+/*显示*/
+.display-none{
+	display:none;
+	}
+.display-inline{
+	display:inline-block;
+	}
+/* 颜色样式 */
+.deep-yellow{
+	color:#FFC669;
+	}
+.write{
+	color:#fff;
+	}
+.yellow{
+	color:#FEFF00;
+	}
+.deep-red{
+	color:#dc740f;
+	}
+.gref{
+	color:#ccc;
+	}
+.red{
+	color:#f00;
+	}
+.blue{
+	color:#00DFFF;
+	}
+
+/* 字体样式 */
+.font18{
+	font-size:18px;
+	}
+.font24{
+	font-size:24px;
+	}
+.font40{
+	font-size:40px;
+	}
+.textcenter{
+	text-align:center;
+	}
+.textright{
+	text-align:right;
+	}
+.text-indent{
+	text-indent:2em;
+	}
+.underline{
+	text-decoration:underline;
+	}
+/* 边框样式 */
+.border-bottom{
+	border-bottom:1px dashed #999;
+	}
+.border-bottom-red{
+	border-bottom:1px dashed #682c0f;
+	}
+.border-solid-bottom{
+	border-bottom:1px solid #791800;
+	}
+/* 定位样式 */
+.relative{
+	position:relative;
+	}
+/* 登录／注册 input样式 */
+.input-style{
+	margin:10px 40px 20px 40px;
+	background:#870b0b;
+	border:6px solid #c26204;
+	padding:5px 10px;
+	border-radius:55px;
+	}
+.input-style span:nth-child(1){
+	display:inline-block;
+	width:100px;
+	text-align:right;
+	color:#ff8900;
+	font-size:24px;
+	padding-left:10px;
+	}
+.input-style input{
+	color:#ccc;
+	font-size:24px;
+	padding:2px;
+	background:#870b0b;
+	border:none;
+	padding-left:15px;
+	}
+.input-message{
+	border-radius:55px;
+	padding:5px 10px;
+	background:#5b1503;
+	color:#fde800;
+	padding-left:25px;
+	font-size:20px;
+	margin:10px 40px;
+	}
+/* 高度宽度 */
+.wid70{
+	width:50%;
+	}
+.height200p{
+	height:200px;
+	}
+.height50{
+	height:50px;
+	line-height:50px;
+	}

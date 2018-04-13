@@ -1,0 +1,121 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'申博电子游艺 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'电子游艺，八达国际，申博电子游戏，波音电子游戏，电子老虎机。'/} 
+#{set description:'八达国际提供众多电子游戏项目，集成PT电子游戏，申博电子游戏，波音电子游戏，内设百余款电子老虎机，桌面游戏，棋牌游戏，总有一款适合您的游戏。'/}                       			                                                	                        			                                                	
+#{set menu_li:'index_2'/}  
+#{mb.sb_pool type:'all'}
+<style>
+.bolda{
+color:#Ff0;
+font-weight:bold;
+}
+</style>
+<div id="wrapper" class="p-main ma"> 
+   		 <div  class="p-nav">
+   		 	<div class="p-navm l"><a href="/pp_egame_hot.html" id="p-nav-on">PP电子游戏</a></div>
+    		<div class="p-navl l"><a href="/mghotgame.html" id="p-nav-on">MG电子游戏</a></div>
+         	<div  class="p-navl l"><a href="#{mb.forward url:'/pt_egame_hot.html',uname:session.get('username')/}" >PT电子游戏</a></div>
+            <div class="p-navl l"><a href="/bbin_egame.html" id="p-nav-on">BBIN电子游戏</a></div>
+    		<div class="p-navl l"><a href="/ag_egame_hot.html" id="p-nav-on">AG电子游戏</a></div>
+    		<div class="p-navl l"><a href="/sb_egame_hot.html" id="p-nav-on">申博电子游戏</a></div>
+            
+         </div>
+         
+         
+         <div class="AccAllWrapper">
+        <div class="SliderInner">
+        	            <!-- slider start -->           
+                <div class="BaDa02">
+                    <ul class="Bada02Pic">
+                        <li><a href="#" target="_blank"><img src="#{mb.static '/public/images/Egame/shenbobanner.jpg'/}" /></a></li>
+                  
+                    </ul>
+                    <a class="prev" href="javascript:void(0)"></a>
+                    <a class="next" href="javascript:void(0)"></a>
+                    <div class="num">
+                        <ul></ul>
+                    </div>
+                </div>
+                <script>
+                /*鼠标移过，左右按钮显示*/
+                $(".BaDa02").hover(function(){
+                    $(this).find(".prev,.next").fadeTo("show",0.1);
+                },function(){
+                    $(this).find(".prev,.next").hide();
+                })
+                /*鼠标移过某个按钮 高亮显示*/
+                $(".prev,.next").hover(function(){
+                    $(this).fadeTo("show",0.7);
+                },function(){
+                    $(this).fadeTo("show",0.1);
+                })
+                //$(".BaDa02").slide({ titCell:".num ul" , mainCell:".Bada02Pic" , effect:"fold", autoPlay:true, delayTime:700 , autoPage:true });
+                </script>
+   			<!-- slider end -->                    
+        </div>
+        
+        
+     <!--start-->   
+     <script src="#{mb.static '/public/js/organictabs.jquery.js'/}"></script>
+	<script>
+	
+	function toShenbo(gamecode){
+		//alert(gamecode);
+		window.open("goToGame/6?gamecode="+gamecode,"_blank");
+	}
+	
+		$(function() {
+		
+			// Calling the plugin
+			$("#example-one").organicTabs();
+		
+			
+			
+		});
+	</script>
+    <div class="EgameCon"> 
+        
+	<div id="example-one">
+		<ul class="Enav">
+			<li class="Enav-one"><a href="#tab01" class="current">电子游戏</a></li>
+		</ul>
+		<div class="list-wrap">
+		
+			<ul id="tab01">
+			 #{mb.shenbo_page pages:_pages}
+			 
+			 	#{mb.sb_row page:_page}
+			 	#{mb.sb_cell row:_row}
+		 			<li class="GameList_Item_li">
+              <div class="GameList_Item">
+                <div class="GameList_ItemHover">
+                  <button class="GameStartBtn" onclick="toShenbo('${_cell.game_code}')"  tppabs="" target="_blank">进入游戏</button>
+                  <img src="#{mb.static _previewjpg/}" tppabs="" /> </div>
+                <div class="GameList_ItemImg"> <img src="#{mb.static _jpg/}" tppabs="" /></div>
+                <div class="GameList_ItemInfo">
+                  <p><a class="GameList_ItemTitle" href="javascript:void(0)">${_cell.game_name}</a></p>
+                </div>
+              </div>
+            </li>
+            #{/mb.sb_cell}
+            #{/mb.sb_row}
+			#{/mb.shenbo_page}
+		
+				
+				
+				 <div class="clear"></div>                  
+			</ul>
+			
+                                         
+		</div> <!-- END List Wrap -->
+	</div> <!-- END Organic Tabs (Example One) -->
+   
+    <!--end-->                               	
+    </div>
+        
+    </div>       
+   
+	</div>
+	
+	
+	#{/mb.sb_pool}

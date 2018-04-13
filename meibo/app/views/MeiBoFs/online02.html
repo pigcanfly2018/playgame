@@ -1,0 +1,54 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'汇潮在线支付确认 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'汇潮在线支付确认，八达国际'/} 
+#{set description:''/} 
+<script>
+        
+</script>
+<div id="wrapper"> 
+<div class="UserCenter">
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight"> 
+		       <fieldset>
+	               <legend>汇潮通道订单确认</legend>
+				   <form name="dinpayForm" method="post" action="http://8da.lyxykdh.com/huichao.php" target="_blank">
+				        <input type="hidden" name="MerNo" value="${MerNo}">
+					    <input type="hidden" name="BillNo" value="${BillNo}">
+					    <input type="hidden" name="Amount" value="${amount}">
+					    <input type="hidden" name="ReturnURL" value="${ReturnURL}" >
+					    <input type="hidden" name="AdviceURL" value="${AdviceURL}" >
+					    <input type="hidden" name="orderTime" value="${orderTime}">
+					    <input type="hidden" name="defaultBankNumber" value="${defaultBankNumber}">
+					    <input type="hidden" name="SignInfo" value="${SignInfo}">
+					    <input type="hidden" name="Remark" value="${Remark}">
+					    <input type="hidden" name="products" value="${products}">
+				
+					<table style="margin-top:20px">
+					   <tr>
+				        	<td width="25%">订单单号</td>
+				        	<td width="25%" style="text-align:left"><span>${BillNo}</span></td>
+				        </tr>
+				    	<tr>
+				        	<td>存款金额</td>
+				        	<td style="text-align:left"><span>${amount}  元</span></td>
+				        </tr>  
+				        <tr>
+				        	<td>存款银行</td>
+				        	<td style="text-align:left"><span>${defaultBankNumber}</span></td>
+				        </tr>  
+				        <tr>
+				        	<td colspan="2">
+				        	     <input name="Submit" type="submit" class="buttom02" value="确认提交" style="margin-left:15px;" onclick="$(this).hide();$('#resumbit').show();"/>
+				        	     <input style="display:none" id="resumbit" name="Submit" type="button" class="buttom02" value="查看结果" style="margin-left:15px;" onclick="window.location.href='/dinpay/${order_no}'"/>
+				        	     <input name="button" type="button" class="buttom02" value="返回修改" style="margin-left:15px;" onclick="window.location.href='/deposit_zx01.php'"/>
+				        	</td>
+				        </tr>                                                                                                                                                                 
+				    </table>
+	
+	</form>
+	</fieldset>
+</div>
+#{include '/templates/user_info.html' /}    
+  
+</div>
+</div>

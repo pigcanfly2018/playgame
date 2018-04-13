@@ -1,0 +1,127 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'快捷支付下单 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'快捷支付下单，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_2'/}
+<script data-cfasync="false">
+    function click_bank(td){
+    	//$("input[name='bank']").removeAttr("checked");
+    	$(td).children("input").attr("checked","checked");
+    	$(td).siblings().children("input").removeAttr("checked");
+    	$("#bank_span").html($(td).children("label").attr('id'));
+    	var limix = $(td).children("input").next().val();
+    	if(limix == 1){
+    		
+    		$("#maxlimit").val($("#onelimit").val());
+    	}else if(limix == 2){
+    		
+    		$("#maxlimit").val($("#twolimit").val());
+    	}else if(limix == 3){
+    		
+    		$("#maxlimit").val($("#threelimit").val());
+    	
+    		
+    	}else if(limix == 4){
+    		
+    		$("#maxlimit").val($("#fourlimit").val());
+    	}
+    	
+    	
+    	
+    }
+
+
+</script>
+<div id="wrapper" class="MainWrap"> 
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight PayChan">           	
+               <fieldset>
+	                <legend>银联钱包快捷支付</legend>
+	    
+	         <form action="/deposit_yinlian.php" method="post" autocomplete="off" onsubmit="return sa('a_submit')">
+	         <div style="color:red">${errorMsg}</div>
+         	<div>
+            <label>存款金额：</label><input type="text" style="color:red;font-weight:bolder;font-size:20px" name="amount" value="${momey==null?'1000':momey}" 
+            class="input"/><span style="color:#FFF; font-weight:normal">元</span>
+            <input name="Submit" type="submit" class="buttom02" value="提交" style="margin-left:15px;"/>
+            </div>
+         	<div><label >温馨提示：</label> <span>单笔最低100元</span> </div>
+         	<div><label >选择银行：</label><span id="bank_span" style="font-size:20px"></span></div>
+         	<!-- 
+        	<div style=" margin-bottom:10px;"><p> 温馨提示：如果您存款超过5000元，建议您采用网银转账，联系在线客服索要银行账号，我们会补偿您的手续费。</p></div>
+            -->
+          <div style=" height:auto;">      
+          <table>
+           <tr>
+           #{mb.getNewMaxlimit channelname:'yinlian'}
+         <input type="hidden"  name="maxlimit" id="maxlimit" />
+         <input type="hidden"  name="onelimit" id="onelimit" value="${_onelimit}" />
+         <input type="hidden"  name="twolimit" id="twolimit" value="${_twolimit}" />
+         <input type="hidden"  name="threelimit" id="threelimit" value="${_threelimit}" />
+         <input type="hidden"  name="fourlimit" id="fourlimit" value="${_fourlimit}" />
+         
+        
+          #{mb.showNewDepositwayBycustLevel uname:session.get("username"),sortpriority:'银联1'}
+           #{if _depositwayFlag}
+             <td onclick="click_bank(this)"><input type="radio" id="WECHAT_bank" name="bank" value="${_para}" />(通道一)
+             <input type="hidden"  name="type" value="1" />
+                 <label id="银联支付通道1(该通道目前单笔最高${_onelimit})" style="background:url(../public/images/unionpay.jpg); cursor:pointer; width:140px; height:40px; display:inline-block;"></label>
+             </td>
+             #{/if}
+           #{/mb.showNewDepositwayBycustLevel}	
+                		
+            
+            
+            
+            #{mb.showNewDepositwayBycustLevel uname:session.get("username"),sortpriority:'银联2'}
+			#{if _depositwayFlag}
+             	<td onclick="click_bank(this)"><input type="radio" id="ALIPAY_bank" name="bank" value="${_para}" />(通道二)
+             	<input type="hidden"  name="type" value="2" />
+                 <label id="银联支付通道2(该通道目前单笔最高${_twolimit})" style="background:url(../public/images/unionpay.jpg); cursor:pointer; width:140px; height:40px; display:inline-block;"></label>
+             	</td>
+           			#{/if}
+           		#{/mb.showNewDepositwayBycustLevel}
+			   </tr>    
+			   <tr>
+           #{mb.showNewDepositwayBycustLevel uname:session.get("username"),sortpriority:'银联3'}
+           #{if _depositwayFlag}
+             <td onclick="click_bank(this)"><input type="radio" id="WECHAT_bank" name="bank" value="${_para}" />(通道三)
+             <input type="hidden"  name="type" value="3" />
+                 <label id="银联支付通道3(该通道目前单笔最高${_threelimit})" style="background:url(../public/images/unionpay.jpg); cursor:pointer; width:140px; height:40px; display:inline-block;"></label>
+             </td>
+             #{/if}
+           #{/mb.showNewDepositwayBycustLevel}
+            
+            
+            #{mb.showNewDepositwayBycustLevel uname:session.get("username"),sortpriority:'银联4'}
+           #{if _depositwayFlag}
+             <td onclick="click_bank(this)"><input type="radio" id="WECHAT_bank" name="bank" value="${_para}" />(通道四)
+             <input type="hidden"  name="type" value="4" />
+                 <label id="银联支付通道4(该通道目前单笔最高${_fourlimit})" style="background:url(../public/images/unionpay.jpg); cursor:pointer; width:140px; height:40px; display:inline-block;"></label>
+             </td>
+             #{/if}
+           #{/mb.showNewDepositwayBycustLevel}
+             
+           		
+           		</tr>
+           		 
+           		  
+			#{/mb.getNewMaxlimit}     
+			                            
+          </table>
+        </div>
+        
+         </form>
+         	<div style="text-align:center">
+               <a href="deposit.php" class="buttom02" style="padding:0">返回支付</a>
+            </div>
+            <div style="margin-bottom:20px;">
+                    <!--1,使用网银支付 / 柜台 / ATM / 手机转账以及支付宝转账方式存款，可以自动获取1%的存款红利。-->
+                    	支持银联扫码的手机APP包括<br/><br/>云闪付、工行、农行（包括信用卡）、中国银行（包括信用卡）、建行、交行（包括信用卡）、邮政（包括信用卡）、招行、光大（包括信用卡）<br/>
+                    	浦发（包括信用卡）、民生（包括信用卡）、广发（包括信用卡）、华夏（包括信用卡）、上海银行（包括信用卡）、兴业（包括信用卡）、渤海银行<br/>
+                    	京东、平安、快钱、美团、徽商银行（包括信用卡）、浙商银行（包括信用卡），江西银行、家乐福、南京银行、齐鲁银行、江苏银行等。</div>
+               </fieldset>
+            </div>
+            #{include '/templates/user_info.html' /}    
+</div>                           
+

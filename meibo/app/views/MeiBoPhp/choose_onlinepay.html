@@ -1,0 +1,99 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'快捷支付下单 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'快捷支付下单，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_2'/}
+<script data-cfasync="false">
+    function click_bank(td){
+    	//$("input[name='bank']").removeAttr("checked");
+    	$(td).children("input").attr("checked","checked");
+    	$(td).siblings().children("input").removeAttr("checked");
+    	$("#bank_span").html($(td).children("label").attr('id'));
+    	
+    	
+    }
+
+
+</script>
+<div id="wrapper" class="MainWrap"> 
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight PayChan">           	
+               <fieldset>
+	                <legend>在线支付捷支付</legend>
+	    
+	         <form action="/deposit_onlinepay.php" method="post" autocomplete="off" onsubmit="return sa('a_submit')">
+	         <div style="color:red">${errorMsg}</div>
+         	
+         	<div><label >温馨提示：</label> <span>请先选择支付通道</span> </div>
+         	<div><label >选择通道：</label><span id="bank_span" style="font-size:20px">在线支付通道一</span></div>
+         	<!-- 
+        	<div style=" margin-bottom:10px;"><p> 温馨提示：如果您存款超过5000元，建议您采用网银转账，联系在线客服索要银行账号，我们会补偿您的手续费。</p></div>
+            -->
+          <div style=" height:auto;">      
+          <table>
+           <tr>
+          
+        
+          #{mb.showNewDepositwayBycustLevel uname:session.get("username"),sortpriority:'zaixian1'}
+           #{if _depositwayFlag}
+             <td onclick="click_bank(this)"><input type="radio" id="WECHAT_bank" name="tongdao" value="${_para}" checked="checked"/>(通道一)
+             <input type="hidden"  name="type" value="1" />
+                 <label id="在线支付通道一" style="background:url(../public/images/uniononlinepay.jpg); cursor:pointer; width:140px; height:40px; display:inline-block;"></label>
+             </td>
+             #{/if}
+           #{/mb.showNewDepositwayBycustLevel}	
+                		
+            
+            
+            
+            #{mb.showNewDepositwayBycustLevel uname:session.get("username"),sortpriority:'zaixian2'}
+			#{if _depositwayFlag}
+             	<td onclick="click_bank(this)"><input type="radio" id="ALIPAY_bank" name="tongdao" value="${_para}" />(通道二)
+             	<input type="hidden"  name="type" value="2" />
+                 <label id="在线支付通道二" style="background:url(../public/images/uniononlinepay.jpg); cursor:pointer; width:140px; height:40px; display:inline-block;"></label>
+             	</td>
+           			#{/if}
+           		#{/mb.showNewDepositwayBycustLevel}
+			   </tr>    
+			   <tr>
+           #{mb.showNewDepositwayBycustLevel uname:session.get("username"),sortpriority:'zaixian3'}
+           #{if _depositwayFlag}
+             <td onclick="click_bank(this)"><input type="radio" id="WECHAT_bank" name="tongdao" value="${_para}" />(通道三)
+             <input type="hidden"  name="type" value="3" />
+                 <label id="在线支付通道三" style="background:url(../public/images/uniononlinepay.jpg); cursor:pointer; width:140px; height:40px; display:inline-block;"></label>
+             </td>
+             #{/if}
+           #{/mb.showNewDepositwayBycustLevel}
+            
+            
+            #{mb.showNewDepositwayBycustLevel uname:session.get("username"),sortpriority:'zaixian4'}
+           #{if _depositwayFlag}
+             <td onclick="click_bank(this)"><input type="radio" id="WECHAT_bank" name="tongdao" value="${_para}" />(通道四)
+             <input type="hidden"  name="type" value="4" />
+                 <label id="在线支付通道四" style="background:url(../public/images/uniononlinepay.jpg); cursor:pointer; width:140px; height:40px; display:inline-block;"></label>
+             </td>
+             #{/if}
+           #{/mb.showNewDepositwayBycustLevel}
+             
+           		
+           		</tr>
+           		 
+           		  
+			
+			                            
+          </table>
+        </div>
+        
+         
+         	<div style="text-align:center">
+         	<input name="Submit" type="submit" class="buttom02" value="提交" style="margin-left:15px;"/>
+         	
+         	<input name="fanhui" type="button" class="buttom02" value="返回支付" style="margin-left:15px;" onclick="window.location.href='/deposit.php'"/>
+              
+            </div>
+            </form>
+               </fieldset>
+            </div>
+            #{include '/templates/user_info.html' /}    
+</div>                           
+

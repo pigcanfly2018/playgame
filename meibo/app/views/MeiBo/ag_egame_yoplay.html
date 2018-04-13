@@ -1,0 +1,70 @@
+#{extends '/templates/ag.html' /} 
+#{set title:'yoplay游戏 -AG老虎机 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{mb.ag_pool type:'yoplay'}
+<style>
+.p-dh ul li {
+    float: left;
+    height: 48px;
+    margin-right: 5px;
+    position: relative;
+}
+.p-dh ul li .NavBubble {
+    top: 7px;
+    right: 7px;
+    position: absolute;
+    display: block;
+}
+.p-dh ul li .NavBubble p{
+  top:1px;
+}
+</style>
+<div class="p-dh">
+     	<ul>
+     	    <li><a href="/ag_egame_hot.html">热门游戏  </a></li>
+     	    <li><a href="/ag_egame_all.html" >全部游戏  </a></li>
+         	<li><a href="/ag_egame_new.html">最新游戏  </a></li>
+            <li><a href="/ag_egame_slot.html">老虎机  </a></li>
+            <li><a href="/ag_egame_tablegame.html">桌面游戏 </a></li>
+            <li><a href="/ag_egame_videopoker.html">视频扑克</a></li>
+             <li> <a href="/ag_egame_yoplay.html" class="current" >YoPlay街机</a> <span class="NavBubble"> <img src="/public/images/icon_HotTxt.png">  <p style="top: 1px;">◤</p>
+  </span>
+</li>
+        </ul>
+</div>
+
+#{mb.ag_page pages:_pages}
+<div class="campShow campOne p-tp-hide" id="ag_${_p}">
+		
+		#{mb.ag_row page:_page}
+		<ul class="campRow" >
+			#{mb.ag_cell row:_row}
+				<li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static _jpg/}"  >
+            <h6>${_cell.game_name}</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=${_cell.game_code}" 
+            target="_blank"><span class="gridBtn">进入游戏</span></a> </li>
+			#{/mb.ag_cell}
+			</ul>
+		#{/mb.ag_row}
+	
+</div>
+#{/mb.ag_page}
+
+
+#{if _pages.size()!=1}
+<ul class="ptwebnav">
+#{mb.ag_page pages:_pages}
+#{if _p==1}
+    <li><a href="#pt_${_p}" class="current" pt="ag_${_p}">${_p}</a></li>
+#{/if}
+#{else}
+    <li><a href="#pt_${_p}" pt="ag_${_p}">${_p}</a></li>
+#{/else}
+#{/mb.ag_page}
+</ul>
+#{/if}
+
+#{/mb.ag_pool} 
+
+
+     
+

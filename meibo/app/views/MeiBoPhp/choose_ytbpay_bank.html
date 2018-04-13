@@ -1,0 +1,113 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'快捷支付下单 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'快捷支付下单，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_2'/}
+<script data-cfasync="false">
+function click_bank(td){
+	//$("input[name='bank']").removeAttr("checked");
+	$(td).children("input").attr("checked","checked");
+	$(td).siblings().children("input").removeAttr("checked");
+	$("#bank_span").html($(td).children("label").html());
+}
+
+
+</script>
+<div id="wrapper"> 
+<div class="UserCenter">
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight PayChan">        	
+               <fieldset>
+	                <legend>在线支付</legend>
+	    
+	         <form action="/deposit_ytbpay_bank.php" method="post" autocomplete="off" onsubmit="return sa('a_submit')">
+	         <div style="color:red">${errorMsg}</div>
+         	<div>
+            <label>存款金额：</label><input type="text" style="color:red;font-weight:bolder;font-size:20px" name="amount" value="${momey==null?'1000':momey}" 
+            class="input"/><span style="color:#FFF; font-weight:normal">元</span>
+            <input name="Submit" type="submit" class="buttom02" value="提交" style="margin-left:15px;"/>
+            </div>
+         	<div><label >温馨提示：</label> <span>单笔最低100元，最高5万</span> </div>
+         	<div><label >选择银行：</label><span id="bank_span" style="font-size:20px">中国工商银行</span></div>
+         	<!-- 
+        	<div style=" margin-bottom:10px;"><p> 温馨提示：如果您存款超过5000元，建议您采用网银转账，联系在线客服索要银行账号，我们会补偿您的手续费。</p></div>
+            -->
+          <div style=" height:auto;">      
+          <table>
+           <tr>
+             <td onclick="click_bank(this)"><input type="radio" id="ICBC_bank" name="bank" value="3002" checked="checked"/>
+                 <label id="ICBC_label" class="bank gongshang">中国工商银行</label>
+             </td>										
+			 <td onclick="click_bank(this)"><input type="radio" id="ABC_bank" name="bank" value="3005" />
+			      <label  id="ABC_label"  class="bank nongye">中国农业银行</label>
+			 </td>
+			 <td onclick="click_bank(this)"><input type="radio" id="CCB_bank" name="bank" value="3003"/>
+			      <label  id="ABC_label"  class="bank jianshe">中国建设银行</label>
+			 </td>
+			 </tr>
+             <tr>
+			  <td onclick="click_bank(this)"><input type="radio" id="CMB_bank" name="bank" value="3001"/>
+			      <label  id="CMB_label"  class="bank zhaoshang">中国招商银行</label>
+			 </td>
+            
+             <td onclick="click_bank(this)"><input type="radio" id="BCOM_BCOM" name="bank" value="3020"/>
+                 <label id="BCOM_label" class="bank jiaotong">交通银行</label>
+             </td>										
+			 <td onclick="click_bank(this)"><input type="radio" id="BOC_bank" name="bank" value="3026"/>
+			      <label  id="BOC_label"  class="bank zhongguo">中国银行</label>
+			 </td>
+			 </tr>
+             <tr>
+			 <td onclick="click_bank(this)"><input type="radio" id="GDB_BCOM" name="bank" value="3036"/>
+                 <label id="GDB_label" class="bank guangfa">广东发展银行</label>
+             </td>
+			  <td onclick="click_bank(this)"><input type="radio" id="CEBB_bank" name="bank" value="3022"/>
+			      <label  id="CEBB_label"  class="bank guangda">中国光大银行</label>
+			 </td>
+             <td onclick="click_bank(this)"><input type="radio" id="CIB_BCOM" name="bank" value="3009"/>
+                 <label id="CIB_label" class="bank xingye">兴业银行</label>
+             </td>	
+             </tr>
+             <tr>		
+             							
+			 <td onclick="click_bank(this)"><input type="radio" id="SPDB_bank" name="bank" value="3004"/>
+			      <label  id="SPDB_label"  class="bank pufa">浦发银行</label>
+			 </td>
+			 <!-- 
+			  <td onclick="click_bank(this)"><input type="radio" id="NBB_bank" name="bank" value="NBB"/>
+			      <label  id="NBB_label"  class="bank ningbo">宁波银行</label>
+			 </td>
+			  -->
+			 <td onclick="click_bank(this)"><input type="radio" id="SPABANK_bank" name="bank" value="3035"/>
+			      <label  id="SPABANK_label"  class="bank pingan">平安银行</label>
+			 </td>
+			  <td onclick="click_bank(this)"><input type="radio" id="ECITIC_bank" name="bank" value="3039"/>
+			      <label  id="ECITIC_label"  class="bank zhongxin">中信银行</label>
+			 </td>
+            </tr>
+           <tr>
+           <!-- 
+             <td onclick="click_bank(this)">
+                <input type="radio" id="GDB_BCOM" name="bank" value="GDB"/>
+                 <label id="GDB_label" class="bank guangfa">广东发展银行</label>
+             </td>	 -->
+          								
+			 
+			 
+			 
+			  
+            </tr>    
+                                                
+          </table>
+        </div>
+        
+         </form>
+         	<div style="text-align:center">
+               <a href="deposit.php" class="buttom02" style="padding:0">返回支付</a>
+            </div>
+               </fieldset>
+            </div>
+            #{include '/templates/user_info.html' /}    
+</div>                           
+</div>
+

@@ -1,0 +1,66 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'极速网银充值-八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'极速网银充值，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_2'/}
+<script>
+function aa(){
+	$("#submit_btn").attr("disabled","disabled");
+}
+</script>
+<div id="wrapper" class="MainWrap"> 
+
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight PayChan">  
+		    <fieldset>  
+		    <legend>极速网银充值</legend>        	
+		    <form action="/deposit_auto_bank.php" method="post" autocomplete="off" onsubmit="return sa('a_submit')">
+               
+	                
+	                
+	                    <div style="color:red">${errorMsg}</div>
+	                  
+	                  
+	                <div>
+                         <label>存款金额：</label>
+		                 <input type="text" style="color:red;font-weight:bolder;font-size:20px" name="momey" value="1000" class="input">
+		                 <span style="color:#FFF; font-weight:normal">元   最低金额为100元，最高金额为5万元</span>
+                     </div>
+                     <div>
+                         <label>您的网银银行：</label>
+		                 <select style="line-height: 32px;" name="bank_id" class="input">
+				              <option value="1">中国工商银行</option>
+				              <option value="2">招商银行</option>
+				              <option value="3">中国建设银行</option>
+				              <option value="4">中国农业银行</option>
+				              <option value="5">中国银行</option>
+				              <option value="6">交通银行</option>
+				              <option value="7">中国民生银行</option>
+				              <option value="8">"中信银行</option>
+				              <option value="9">上海浦东发展银行</option>
+				              <option value="10">邮政储汇</option>
+				              <option value="11">中国光大银行</option>
+				              <option value="12">平安银行</option>
+				              <option value="13">广发银行</option>
+				              <option value="14">华夏银行</option>
+				              <option value="15">兴业银行</option>
+				           </select>
+		                 <span style="color:#FFF; font-weight:normal">元 </span>
+                     </div>
+                     
+                     
+              
+                 <div >
+                    <input id="b_submit" name="Submit" type="submit" style="margin-left:150px;margin-top:20px" class="buttom02" value="提交">
+                     <input name="Submit" type="button" style="margin-left:15px;margin-top:20px" class="buttom02" value="返回" onclick="window.location.href='/deposit.php'">
+  
+                </div>
+                  
+               
+               </form>
+               </fieldset>
+            </div>
+             #{include '/templates/user_info.html' /}
+                           
+</div>
+

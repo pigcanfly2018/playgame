@@ -1,0 +1,15 @@
+#mg-container{ margin:0 auto; width:1000px;}
+#eleGameCamp {width:966px;height:auto;padding:16px;background:#520100;}
+#eleGameCamp h1 {font-family:Arial, 微软雅黑,宋体; text-align:left;font-weight:normal;font-size:22px;color:#fff;line-height: 42px; text-indent:10px;background:url(../images/Egame/mg-top.jpg) no-repeat; height:255px;}
+#eleGameCamp2 h1 {font-family:Arial, 微软雅黑,宋体; text-align:left;font-weight:normal;font-size:22px;color:#fff;line-height: 42px; text-indent:10px;background:url(../images/agbanner.jpg) no-repeat; height:255px;}
+#eleGameCamp3 h1 {font-family:Arial, 微软雅黑,宋体; text-align:left;font-weight:normal;font-size:22px;color:#fff;line-height: 42px; text-indent:10px;background:url(../images/shenbobanner.jpg) no-repeat; height:255px;}
+.campShow {width: 100%;height: auto; margin-top:20px;}
+.campShow ul.campRow {width: 100%;height:160px;overflow: hidden;margin-bottom: 20px;}
+.campShow ul li {width: 180px;height: 160px;background: url(../images/Egame/gridBg.jpg) no-repeat;margin-right:15px;float:left;padding-top:130px;position: relative;overflow:hidden;display:block;}
+.campShow ul li img {width: 146px;height: 136px;position: absolute;left: 50%;margin-left: -73px;top:0}
+.campShow ul li span,.campShow ul li a {float:left;width: 180px;height: 160px;position: absolute;left: 0;top:-160px}
+.campShow span.gridMask {background: #000;}
+.campShow span.gridBtn {text-align: center;background: #900;height: 32px;line-height: 32px;width: 100px;color: #fff;font-size: 14px;font-weight: 700;left: 50%;margin-left: -50px;top: 60%;}
+.campShow span.gridBtn:hover {background:#ff9600}
+
+.campItem h6{display:block; line-height:30px; height:30px;text-align:center; background:#900;}

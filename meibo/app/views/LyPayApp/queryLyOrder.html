@@ -1,0 +1,57 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'支付订单查询 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'支付订单查询，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_1'/}
+<div id="wrapper"> 
+<div class="UserCenter">
+           #{include '/templates/user_left.html'/}  		
+			<div class="UserRight">
+                <fieldset>
+                   <legend>支付订单查询</legend> 
+               		<table>
+               		   <tr>
+                        	<td width="40%">订单号</td>
+                        	<td width="50%">${result.get('pay_id')}</td>
+
+                        </tr>
+                        <tr>
+                        	<td width="40%">创建时间</td>
+                        	<td width="50%">${result.get('create_date')}</td>
+
+                        </tr>
+                       <tr>
+                        	<td width="40%">金额</td>
+                        	<td width="50%">${result.get('amount')}</td>
+
+                        </tr>    
+                         <tr>
+                        	<td width="40%">支付状态</td>
+                        	<td width="50%">${result.get('state')=='2'?"<span>支付成功</span>".raw():"支付未完成或失败"}</td>
+
+                        </tr>    
+                          <tr>
+                        	<td width="40%">支付时间</td>
+                        	   	<td width="50%">${result.get('finished_date')=="null"?"":result.get('finished_date')}</td>
+
+                        </tr>
+                        
+                         <tr>
+                        	<td colspan="2">如果您已经成功支付,但页面仍然显示支付状态为支付未完成或失败,请过几分钟 点击下面刷新按钮</td>
+
+                        </tr>
+                        <tr>
+                        	<td colspan="2"><a onclick="window.location.href='/queryLyOrder/${orderID}'" class="buttom02" style="padding:0">点击刷新</a></td>
+
+                        </tr>
+                                                                                                                                                                                    
+                    </table>
+               		
+                   
+                  
+               </fieldset>
+            </div>
+           #{include '/templates/user_info.html' /}
+</div>                           
+</div>
+

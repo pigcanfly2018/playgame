@@ -1,0 +1,60 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'会员存款 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'会员存款，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_2'/}
+<div id="wrapper" class="MainWrap"> 
+
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight">            	
+               <fieldset>
+	                <legend>会员存款</legend>
+	                #{include '/templates/deposit_table.html' /}
+	                
+	                <!-- 
+	                <div class="huikuan">
+	                   #{if payOn01}
+	                      <span><a href="/deposit_zx.php" class="buttom04">在线支付</a></span>
+	                   #{/if}
+	                   #{else}
+	                       <span><a href="javascript:alert('在线支付正在维护中')" class="buttom04">在线支付</a></span>
+	                   #{/else}
+	                    <span><a href="/deposit_rg.php" class="buttom03">人工存款</a> </span>
+	                    <span><a href="/getBank.php" class="buttom03">获取收款卡号</a> </span>
+                    </div> 
+                    
+                 <div class="cklc"> 
+            	<span>在线支付：</span>
+           		<ul>
+                	<li class="cbor">1.填写金额<br />2.选择银行</li>
+					<li class="crrr"></li>
+            		<li class="cbor">确定充值</li>
+            		<li class="crrr"></li>
+             		<li class="cbor">登录银行支付</li>
+             		<li class="crrr"></li>
+             		<li class="cbor">充值完毕<br />实时到账</li>
+					<div class="clear"></div>
+                 </ul>
+            </div>
+                    		<div class="cklc">
+            	<span>人工存款流程:</span>
+           		<ul>
+                	<li class="cbor">获取<br />收款卡号</li>
+					<li class="crrr"></li>
+            		<li class="cbor">1.网银转账<br />2.ATM转账<br />3.柜台转账<br />4.手机转账</li>
+            		<li class="crrr"></li>
+             		<li class="cbor">提交方式<br />1.人工提交<br />2.客服提交</li>
+             		<li class="crrr"></li>
+            		<li class="cbor"> 三分钟内<br />审核到账</li><br />
+					<div class="clear"></div>
+                 </ul>
+            </div>
+            -->
+        
+                    
+               </fieldset>
+            </div>
+             #{include '/templates/user_info.html' /}
+</div>                           
+
+

@@ -1,0 +1,39 @@
+#{if error=='1'} 
+	${errorMsg}
+#{/if} 
+#{else}
+<script src="#{mb.static '/public/js/jquery1.42.min.js' /}" type="text/javascript"></script>
+	<script src="#{mb.static '/public/js/jquery.qrcode.js' /}" type="text/javascript"></script>
+			 <script src="#{mb.static '/public/js/qrcode.js' /}" type="text/javascript"></script>
+            <script type="text/javascript">
+       		/* $(document).ready(function(){
+
+	   			$("#qrcodeTable").qrcode({
+				 	render	: "canvas",
+		 			text	: '${barCode}',
+		 			width:"200",
+		 			height:"200"
+	   			});	
+	
+			}); */
+	</script>
+	<table style="margin-top:20px">
+	<tr>
+				        	<td width="25%">订单单号</td>
+				        	<td width="25%" style="text-align:left"><span>${result.get('pay_id')}</span></td>
+				        </tr>
+				    	<tr>
+				        	<td>存款金额
+				        	</td>
+				        	<td style="text-align:left"><span>${result.get('amount')}  元</span></td>
+				        </tr>
+		<tr>
+               	<td class="first_td">二维码</td>
+               	<td class="sencond_td"><img alt="二维码" src="${barCode.raw()}"  id="qrcodeTable" height ="200"  width="200" /></td>
+                   
+               </tr>
+	</table>
+	<div id="qrcodeTable"></div>
+	
+	
+#{/else}

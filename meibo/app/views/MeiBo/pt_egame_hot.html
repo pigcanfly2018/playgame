@@ -1,0 +1,54 @@
+#{extends '/templates/pt.html' /} 
+#{set title:'热门游戏 -PT老虎机 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{mb.pt_pool type:'hot'}
+<div class="p-dh">
+     	<ul>
+     	    <li><a href="/pt_egame_hot.html" class="current">热门游戏  </a></li>
+     	    <li><a href="/pt_egame_all.html" >全部游戏  </a></li>
+         	<li><a href="/pt_egame_pool.html">奖池游戏  </a></li>
+            <li><a href="/pt_egame_slot.html">老虎机  </a></li>
+            <li><a href="/pt_egame_scratchcards.html">刮刮卡   </a></li>
+            <li><a href="/pt_egame_pokers.html">电子扑克   </a></li>
+            <li><a href="/pt_egame_card.html">纸牌游戏   </a></li>
+            <li><a href="/pt_egame_live.html">真人游戏 </a></li>
+        </ul>
+</div>
+#{mb.pt_page pages:_pages}
+
+<div class="p-tp p-tp-hide" id="pt_${_p}" >
+    #{mb.pt_row page:_page}
+    <div class="p-tp-c  ma" id="">
+                   #{mb.pt_cell row:_row}
+		               <div class="p-tp-cl mr l  ma">
+		                  <div class="p-tp-cls ma"><a href="javascript:void(0)"><img src="#{mb.static _jpg/}" width="153" height="106" /></a></div>
+		                   #{if _cell.progressive==null||_cell.progressive==''}
+		                      <div class="p-tp-clz ma">&nbsp;</div>
+		                   #{/if}
+		                   #{else}
+		                   <div class="p-tp-clz ma">
+		                     <embed wmode="transparent" src="http://tickers.playtech.com/jackpots/new_jackpot.swf?font_face=arial&amp;bold=true&amp;font_color=FF3300&amp;bg_color=1E1E1E&amp;currency=cny&amp;font_size=22&amp;sign_align=right&amp;update=--------&amp;info=1&amp;casino=playtech&amp;game=${_cell.pool_name}" quality="high" bgcolor="#1E1E1E" width="130" height="30" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash">
+		                   </div>
+		                   #{/else}
+		                   <div class="p-tp-clx ma">${_cell.cn_name}</div>
+		                   <div class="p-tp-clb ma">
+		                   <div  class="l"><a href="/goToGame/3?ptcode=${_cell.game_code}&mode=1" target="_blank"><img src="#{mb.static '/public/images/Egame/pt/ga_12.jpg' /}" /></a></div> 
+		                   <div class="r" ><a href="/goToGame/3?ptcode=${_cell.game_code}&mode=0" target="_blank"><img src="#{mb.static '/public/images/Egame/pt/ga_14.jpg' /}" /></a></div></div>
+		               </div>
+	               #{/mb.pt_cell}
+    </div>
+    #{/mb.pt_row}
+</div>
+#{/mb.pt_page}
+#{if _pages.size()!=1}
+<ul class="ptwebnav">
+#{mb.pt_page pages:_pages}
+#{if _p==1}
+    <li><a href="#pt_${_p}" class="current" pt="pt_${_p}">${_p}</a></li>
+#{/if}
+#{else}
+    <li><a href="#pt_${_p}" pt="pt_${_p}">${_p}</a></li>
+#{/else}
+#{/mb.pt_page}
+</ul>
+#{/if}
+#{/mb.pt_pool}  

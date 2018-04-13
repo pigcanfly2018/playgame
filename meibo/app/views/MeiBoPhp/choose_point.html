@@ -1,0 +1,78 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'在线支付通道 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'在线支付通道，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_2'/}
+<div id="wrapper" class="MainWrap"> 
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight">            	
+               <fieldset>
+	                <legend>在线支付通道</legend>
+	                <div>
+	                    <p>八达国际为会员提供多通道在线支付，会员可以最选择喜欢的方式支付。</p>
+	                </div>
+	                <table>
+                    	<tr>
+                        	<td>支付通道</td>
+                        	<td width="60%">支付提示</td>
+                        	<td></td>
+                        	
+                        </tr> 
+                        <tr>
+                        	<td>点卡通道</td>
+                        	<td>专业，安全，稳定的点卡支付，共支持16家不同的点卡。支付费率由客人支付</td>
+                        	<td>
+                        	 #{mb.payPoint}
+						          #{if !_payPoint}
+						             <a class="check_sure" href="javascript:void(0)">维护中..</a>
+						          #{/if} 
+						          #{else}
+						             <a class="check_sure" href="/deposit_point.php">立即存款</a>  
+						          #{/else}
+	                         #{/mb.payPoint}
+                        	</td>
+                        </tr>  
+                        <!-- 
+                        <tr>
+                        	<td>汇潮通道</td>
+                        	<td>国内互联网支付的商家提供国内一流服务的第三方支付平台</td>
+                        	<td>
+                        	 #{mb.payOn02}
+						          #{if !_payOn02}
+						             <a class="check_sure" href="javascript:void(0)">维护中..</a>
+						          #{/if} 
+						          #{else}
+						             <a class="check_sure" href="/deposit_zx02.php">立即存款</a>  
+						          #{/else}
+	                         #{/mb.payOn02}
+                        	</td>
+                        </tr>    
+                         -->                                                                                                                                                                 
+                    </table>
+	                  <div class="cklc"> 
+            	<div>
+	                    <p>在线支付流程</p>
+	            </div>
+           		<ul>
+                	<li class="cbor">1.填写金额<br />2.选择点卡名称</li>
+					<li class="crrr"></li>
+            		<li class="cbor">确定充值</li>
+            		<li class="crrr"></li>
+             		<li class="cbor">填写卡号和密码</li>
+             		<li class="crrr"></li>
+             		<li class="cbor">充值完毕<br />实时到账</li>
+					<div class="clear"></div>
+                 </ul>
+            </div>
+            
+            <div>
+	               <p>温馨提示：使用点卡支付时请确认点卡面值与支付金额一致，对支付流程不了解，可以拨打我们的7 x 24 小时在线客服热线电话: 400-6666-858 （免国际长途费用）。我们的客服妹妹将为您详细解答。</p>
+	        </div>
+	        <div style="text-align:center">
+                     <a href="/deposit.php" class="buttom02" style="padding:0">返回存款</a>
+                 </div>
+               </fieldset>
+            </div>
+             #{include '/templates/user_info.html' /}
+</div>                           
+

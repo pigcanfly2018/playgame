@@ -1,0 +1,55 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'领红包 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'领红包，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_1'/}
+<script data-cfasync="false">
+	function check(s){
+		var cishu = document.getElementById('cishu').value;
+		if(cishu == 1){
+			document.getElementById('cishu').value=2;
+			setTimeout(function(){click()},Math.random()*6000);
+		}else{
+			//alert('');
+		}
+		
+		
+	}
+	
+	function click(){
+		window.location.href='/hongbao_1.php';
+	}
+	
+	
+</script>
+<style>
+   
+</style>
+<div id="wrapper"> 
+<div class="UserCenter">
+           #{include '/templates/user_left.html'/}  
+           <input type="hidden" name="cishu"   id="cishu" value='1'>		
+			<div class="UserRight">
+                <fieldset>
+                   <legend>领红包</legend> 
+                   <div class="hb_bg">
+                       <div class="hb_btn">
+                           <a onclick="check(this)"><img src="#{mb.static '/public/images/hongbao/btn_1.png' /}" /></a>
+                       </div>
+                       <div class="hb_info2">
+                           
+                       </div>
+                   </div>
+                   #{if msg!=''}
+                     <script language="JavaScript" data-cfasync="false">
+                     $(function(){
+                    	 alert('${msg}');
+                     });
+                     </script>
+                   #{/if}
+               </fieldset>
+            </div>
+           #{include '/templates/user_info.html' /}
+</div>                           
+</div>
+

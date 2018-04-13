@@ -1,0 +1,362 @@
+#{extends '/templates/8da.html' /}
+#{set title:'八达国际官网（8da2017.com）_真人娱乐_电子游艺_彩票竞彩_体育竞技  - 八达博天下' /}
+#{set keywords:'八达国际，八达娱乐城，真人百家乐，龙虎，电子老虎机，电子游艺，彩票竞猜，体育投注，申博，AG国际，波音娱乐'/}
+#{set description:'八达国际娱乐城提供在线博彩娱乐，真人荷官，超强阵容，设有真人百家乐，龙虎等真人项目，更有VIP包房；电子老虎机，桌面游戏等精彩电子游艺；彩票竞猜，体育竞技欢乐不断。内设申博厅，AG国际厅，波音厅，任君选择，24小时服务永不打烊！' /}
+
+
+<link rel="stylesheet" type="text/css" href="#{mb.static '/public/style/notice.css' /}" />
+
+<!--公告弹出层-->
+  <div class="Popup" id="NoticePopup" style="display:none">
+    <div class="PopupTable">
+      <div class="PopupDT">
+        <div class="PopupWrap" >
+          <div class="PopupBody">
+            <div class="PopupBar">
+              <div class="PopupBarTitle" id=""><p style="color:white">关于谨防诈骗的公告</p></div>
+              <div class="PopupBarBtn" id="PopupBarBtn_Colse" onclick="$('#NoticePopup').hide();"><a id="PopNotce_Colse" ></a></div>
+            </div>
+            <div class="contTextBox">
+              <h2 class="ContTitle1">关于谨防诈骗的公告通知</h2>
+              <div class="">
+                <p class="ContText_Open">尊敬的会员您好： </p>
+                <p class="ContText">近期有不法之徒通过各种渠道方式利用我司之名，诱导我司会员进行资金转移和登录钓鱼网站进行诈骗行为。 </p>
+                <p class="ContTitle2">现我司郑重声明：此类信息，纯属虚假诈骗! </p>
+                <p class="ContText">此类信息，纯属虚假诈骗，请谨防上当受骗，如有发现，请及时联系我们反馈核实。以下列举一些不法之徒假我司之名进行诈骗的方式（包含或不限于此的其他方式），请广大会员予以甄别。 </p>
+                <p class="ContTitle2"><strong>案例1：冒充网站QQ客服提供充值渠道扫码截图或账号，要求客户存款后提供存款截图和会员账号。</strong> </p>
+                <p class="ContText">八达官方：请广大会员认准我们的QQ号，不要以昵称或者QQ头像为准，谨防上当受骗！切记网站的所有存款通道均显示在网站“会员存款”，绝不存在任何单独发送扫码截图要求充值的情况，如发现任何异常请第一时间与网站“在线客服”确认。 </p>
+                <p class="ContTitle2">案例2：服务器被攻击，网站不能存取款，请到新网站进行操作。 </p>
+                <p class="ContText">八达官方：此类回复并不属于八达国际官方标答，请各会员谨慎而行，一切以八达官网公告信息为准。我司一直以诚信服务为准则，客户至上为理念。如您发现任何可疑行为，请第一时间联系网站QQ客服核实。 </p>
+                <p class="ContTitle2">案例3：网站跳转或跳转提示公司合并等信息时。 </p>
+                <p class="ContText">八达官方：八达国际娱乐城隶属于八达国际集团，公司涉足行业广泛资金雄厚，绝不存在合并一说，且当会员遇到此类情况时，请不要将自己的信息注册至此类网站或进行存款操作，以免信息泄露造成骚扰和资金损失。 </p>
+                <p class="ContTitle2">请会员认准： </p>
+                <p class="ContText">八达官方网址：https://www.8da2017.com  &emsp;&emsp;&emsp;&emsp;   备用网址：https://www.8da2018.com </p>
+                <p class="ContText">QQ客服：800186517 </p>
+                <p class="ContText_Sponsor">八达国际运营总部致 </p>
+                <p class="ContText_Sponsor">2016年11月19日 </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+    
+       <script language="JavaScript" data-cfasync="false">
+//	function closeDialog(o){
+//		document.getElementById('dialog-flash').style.display = 'none';
+//		document.getElementById('_overlay_').style.display = 'none';
+//	}
+	
+	function closeNotice(o){
+		$('#NoticePopup').hide();
+	}
+	
+//	function showDialog(o){
+//		document.getElementById('dialog-flash').style.display = 'block';
+//		document.getElementById('_overlay_').style.display = 'block';
+//	}
+	 $(document).ready( function(){	
+//		 var date =new Date();
+//		 var d1 = new Date('2016/02/08 12:00:00'); 
+//		 var d2 = new Date('2016/02/11 12:00:00'); 
+//		 if(d1.getTime()<date.getTime()&&date.getTime()<d2.getTime()){
+//			if(getCookie("show_zhufu")==""){
+//				showDialog(); 
+//				var d3 =new Date();
+//				d3.setTime(d3.getTime()+6*60*60*1000);
+//				setCookie("show_zhufu","1",d3);
+//			}
+//		 }
+		 
+		 
+		 if(getCookie("notice")==""){
+			 document.getElementById('NoticePopup').style.display = 'block';
+			 var d3 =new Date();
+			 d3.setTime(d3.getTime()+3*24*60*60*1000);
+			 setCookie("notice","1",d3);
+			 
+			setTimeout("closeNotice()",10000);
+			 
+		 }
+		 
+	 });
+	</script>
+	 
+<div id="wrapper" class="cent">
+  <div class="centbg">
+    <!-- banner star-->
+    <section class="bnslider">
+      <div class="banner">
+         <ul class="list b-img">
+        #{mb.ad}
+        <li>
+        <a href="${_ad.target_url}" target="_blank"><img src="${_ad.pic_url}" title="${_ad.ad_title}"></a></li> 
+      #{/mb.ad}
+          
+        </ul>
+        <a href="javascript:void(0);" class="left-btn bar-left"></a>
+        <a href="javascript:void(0);" class="right-btn bar-right"></a> 
+        <div class="img-btn-list b-list"></div>
+      </div>
+    </section><!-- end banner -->
+    <!--star 奖池box -->
+    <style type="text/css">
+	.PTbox_text{width:100%;height: 31px;position: relative;}
+	.p2box .con span{width:40%;}
+	.p2box .con strong{position: absolute;top: 4px;left:130px;}
+	.p2box .con .into-btn { background: #960000; width: 140px; height: 32px;border-radius:15px;-webkit-border-radius:15px;-moz-border-radius:15px;overflow:hidden;display: block; font-size: 16px; color: #ffffff; line-height: 28px; text-align: center; margin: 16px auto 0; text-shadow: #000 2px 3px 1px; -moz-text-shadow: #000 2px 3px 1px; -webkit-text-shadow: #000 2px 3px 1px; }
+</style>
+    <section class="p2box">
+      <div class="p2main clearfix">
+        <div class="con con01">
+          <div class="PTbox_text">
+        		<span class="txt1">PT总奖池</span>
+        		<strong class="txt2">
+        			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/sw flash.cab#version=7,0,0,0" width="208" height="26" style="background:#fff;">
+        				<param name="movie" value="https://tickers.playtech.com/jackpots/new_jackpot.swf?info=2&amp;casino=playtech&amp;font_face=Arial&amp;bold=true&amp;currency=cny&amp;font_size=24&amp;bg_color=000000&amp;font_color=FFDF0F">
+        				<param name="quality" value="high">
+        				<param name="wmode" value="transparent">
+        				<embed src="https://tickers.playtech.com/jackpots/new_jackpot.swf?info=2&amp;casino=playtech&amp;font_face=Arial&amp;bold=true&amp;font_size=24&amp;bg_color=000000&amp;font_color=FFDF0F" quality="high" bgcolor="#000000" width="180" height="26" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash">
+        				</object>
+        			</strong>
+        		</div>
+        		<a href="/goToPTGameForIndex/3?gotourl=/pt_egame_hot.html" class="into-btn">进入游戏</a>
+         
+        </div>
+        <div class="linkbox">
+          <ul class="ullist">
+            <li><a #{if session.get("username")==null}href="/reg.html"#{/if}#{else}href="javascript:void(0)"#{/else} class="col1"><i></i>立即开户</a></li>
+            <li><a href="/csoft.html" class="col2"><i></i>下载中心</a></li>
+            <li><a href="/vip.html" class="col3"><i></i>VIP俱乐部</a></li>
+            <li><a href="javascript:void(0);" onclick="window.open('https://www.8da08.com','_blank')" class="col4"><i></i>加盟合作</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!--end 奖池box -->
+    <!-- star 热门推荐 -->
+    <section class="p3box clearfix">
+      <!-- 左边tab -->
+      <div class="l_p3box">
+        <div class="navtb">
+          <span class="disable_c"><img src="#{mb.static '/public/images/new/hotnav.png' /} "/></span>
+          <a href="/mghotgame.html"  class="on"><em>MG电子</em></a>
+          <a href="/goToPTGameForIndex/3?gotourl=/pt_egame_hot.html"><em>PT电子</em></a>
+          <a href="/bbin_egame.html"><em>BBIN电子</em></a>
+          <a href="/ag_egame_hot.html"><em>AG电子</em></a>
+          <a href="/sb_egame_hot.html"><em>申博电子</em></a>
+        </div>
+        <div class="tabmain tab01">
+          <div class="tabcon clearfix">
+            
+            
+            #{mb.mg_hot_pool type:'hot'}
+           	 	<a href="" target="_blank">
+              <img src="#{mb.static '/public/images/mggames/' /}${_mg_hots.Image_File_Name}" style="width: 127px;height: 99px"/>
+              <div class="li_lay li_lay02">
+                <span class="ltxt">${_mg_hots.CHINESE_SIMP_Game_Name}</span>
+                
+                #{if _mg_hots.is_html5 == true}
+	                <button class="orgbtn" onclick="window.open('/goToGame/5?gamecode=${_mg_hots.pchtml5code}&is_html5=${_mg_hots.is_html5}&mode=0','_blank')">试玩</button>
+	             #{/if}
+	             #{else}
+	             	<button class="orgbtn" onclick="window.open('/goToGame/5?gamecode=${_mg_hots.GameCode}&is_html5=${_mg_hots.is_html5}&mode=0','_blank')">试玩</button>
+	             #{/else} 
+	             
+                #{if _mg_hots.is_pchtml5 == true}
+	                <button class="redbtn" onclick="window.open('/goToGame/5?gamecode=${_mg_hots.pchtml5code}&is_html5=${_mg_hots.is_pchtml5}&mode=1','_blank')">进入游戏</button>
+	             #{/if}
+	             #{else}
+	             	<button class="redbtn" onclick="window.open('/goToGame/5?gamecode=${_mg_hots.pchtml5code}&is_html5=${_mg_hots.is_pchtml5}&mode=1','_blank')">进入游戏</button>
+	             #{/else}   
+	                
+              </div>
+            </a>
+         	 #{/mb.mg_hot_pool}
+          </div>
+        </div>
+        <div class="tabmain tab02" style="display: none;">
+          <div class="tabcon clearfix">
+              #{mb.pt_hot_pool type:'hot'}
+           	 	<a href="javascript:void(0)">
+           	 	<img src="#{mb.static '/public/images/Egame/ptgames/' /}${_pt_hots.game_code}.jpg " style="width: 127px;height: 99px"/>
+	              <div class="li_lay li_lay02">
+	                <span class="ltxt">${_pt_hots.cn_name}</span>
+	                <button class="orgbtn" onclick="window.open('/goToPTGameForIndex/3?ptcode=${_pt_hots.game_code}&mode=0','_blank')">试玩</button>
+	                <button class="redbtn" onclick="window.open('/goToPTGameForIndex/3?ptcode=${_pt_hots.game_code}&mode=1','_blank')">进入游戏</button>
+	              </div>
+	            </a>
+         	 #{/mb.pt_hot_pool}
+          </div>
+        </div>
+        <div class="tabmain tab03" style="display: none;">
+          <div class="tabcon clearfix">
+            #{mb.bbin_hot_pool type:'hot'}
+           	 	<a href="/goToGame/1?gamecode=${_bbin_hots.game_code}" target="_blank">
+           	 	<img src="#{mb.static '/public/images/bbingames/' /}${_bbin_hots.Image_File_Name} " style="width: 127px;height: 99px"/>
+	              <div class="li_lay li_lay02">
+	                <span class="ltxt">${_bbin_hots.game_name}</span>
+	                <button class="redbtn">进入游戏</button>
+	              </div>
+	            </a>
+         	 #{/mb.bbin_hot_pool}
+          </div>
+        </div>
+        <div class="tabmain tab04" style="display: none;">
+          <div class="tabcon clearfix">
+           #{mb.ag_hot_pool type:'hot'}
+           	 	<a href="/goToGame/2?gamecode=${_ag_hots.game_code}" target="_blank">
+           	 	<img src="#{mb.static '/public/images/aggames/' /}${_ag_hots.Image_File_Name} " style="width: 127px;height: 99px"/>
+	              <div class="li_lay li_lay02">
+	                <span class="ltxt">${_ag_hots.game_name}</span>
+	                <button class="redbtn">进入游戏</button>
+	              </div>
+	            </a>
+         	 #{/mb.ag_hot_pool}
+          </div>
+        </div>
+        <div class="tabmain tab05" style="display: none;">
+          <div class="tabcon clearfix">
+             #{mb.sb_hot_pool type:'all'}
+           	 	<a href="goToGame/6?gamecode=${_sb_hots.game_code}" target="_blank">
+           	 	<img src="#{mb.static '/public/images/sbgames/' /}${_sb_hots.image_game_name} " style="width: 127px;height: 99px"/>
+	              <div class="li_lay li_lay02">
+	                <span class="ltxt">${_sb_hots.game_name}</span>
+	                <button class="redbtn">进入游戏</button>
+	              </div>
+	            </a>
+         	 #{/mb.sb_hot_pool}
+           
+          </div>
+        </div>
+      </div>
+      <!-- 右边手机二维码 -->
+      <div class="r_p3box">
+        <p class="r_p3box_name">八达 Web 手机版 </p>
+        <div class="qrcon">
+          <img src="#{mb.static '/public/images/new/qr.png' /} "/>
+          <span>用手机扫一扫</span>
+          <span>进入八达手机web</span>
+        </div>
+      </div>
+    </section>
+    <span class="grayline"></span>
+    <!-- 真人 -->
+    <section class="p4box clearfix">
+      <div class="l_p4box">
+        <div class="p4nav nav01 curt">
+          <img src="#{mb.static '/public/images/new/sc44.png' /} "/>
+          <span>真人</span>
+        </div>
+        <div class="p4nav nav02">
+          <img src="#{mb.static '/public/images/new/sc46.png' /} "/>
+          <span>体育</span>
+        </div>
+        <div class="p4nav nav03">
+          <img src="#{mb.static '/public/images/new/sc47.png' /} "/>
+          <span>彩票</span>
+        </div>
+        <div class="p4nav nav04">
+          <img src="#{mb.static '/public/images/new/sc48.png' /} "/>
+          <span>捕鱼</span>
+        </div>
+      </div>
+      <div class="r_p4box box01">
+        <ul class="clearfix">
+          
+           <li>
+            <img src="#{mb.static '/public/images/new/AG.png' /} "/>
+            <div class="intogray">
+              <strong class="gameinfo">AG真人视讯</strong>
+              <a href="/goToGame/2"  target="_blank" class="into_ganme"></a>
+            </div>
+          </li>
+          
+          <li>
+            <img src="#{mb.static '/public/images/new/BBIN.png' /} "/>
+            <div class="intogray">
+              <strong class="gameinfo">BBIN真人视讯</strong>
+              <a href="/goToGame/1?psite=live" target="_blank"  class="into_ganme"></a>
+            </div>
+          </li>
+          <li>
+            <img src="#{mb.static '/public/images/new/PT.png' /} "/>
+            <div class="intogray">
+              <strong class="gameinfo">PT真人视讯</strong>
+              
+              <a href="/goToPTGameForIndex/3?ptcode=bal&mode=1"  target="_blank" class="into_ganme"></a>
+             
+            </div>
+          </li>
+          <li>
+            <img src="#{mb.static '/public/images/new/SB.png' /} "/>
+            <div class="intogray">
+              <strong class="gameinfo">申博真人视讯</strong>
+              <a href="/goToGame/6"  target="_blank" class="into_ganme"></a>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="r_p4box box02" style="display: none;">
+        <div class="tiyu">
+          <img src="#{mb.static '/public/images/new/BBIN_ty_01.jpg' /} "/>
+          <div class="tiyu_lay_con zrl">
+            <strong>BBIN体育</strong>
+            <button class="tiyu_into" onclick="window.open('/goToGame/1?psite=ball','_blank')"></button>
+          </div>
+        </div>
+      </div>
+      <div class="r_p4box box03" style="display: none;">
+       <div class="BBINcon">
+        <img src=" #{mb.static '/public/images/new/BBIN_C01.jpg' /} " class="bb_bg"/>
+        <div class="bblay zrl">
+         <strong>BBIN彩票</strong>
+         <button class="tiyu_into" onclick="window.open('/goToGame/1?psite=Ltlottery','_blank')"></button>
+       </div>
+     </div>
+     <div class="KGcon">
+      <img src="#{mb.static '/public/images/new/BBIN_C02.jpg' /} " class="bb_bg"/>
+      <div class="bblay zrl">
+       <strong>KG竞彩</strong>
+       <button class="tiyu_into" onclick="window.open('/goToGame/4','_blank')"></button>
+     </div>
+   </div>
+ </div>
+ <div class="r_p4box box04" style="display: none;">
+
+   <div class="PTcon">
+    <img src="#{mb.static '/public/images/new/AG_C02.jpg' /} " class="bb_bg"/>
+    <div class="bblay zrl">
+     <strong>PT捕鱼</strong>
+     <button class="tiyu_into2" onclick="window.open('/goToPTGameForIndex/3?ptcode=cashfi&mode=0','_blank')"></button>
+     <button class="tiyu_into" onclick="window.open('/goToPTGameForIndex/3?ptcode=cashfi&mode=1','_blank')"></button>
+	                
+   </div>
+ </div>
+ <div class="AGcon">
+  <img src="#{mb.static '/public/images/new/AG_C01.jpg' /}" class="bb_bg"/>
+  <div class="bblay zrl">
+   <strong>AG捕鱼</strong>
+   <button class="tiyu_into" onclick="window.open('/goToGame/2?gamecode=6','_blank')"></button>
+ </div>
+</div>
+</div>
+</section><!-- end 真人 -->
+<!-- <div class="clear"></div> -->
+</div>
+</div>
+
+<script type="text/javascript">
+ $(document).ready( function(){	
+		showYears();
+		var th=setTimeout(function () { 
+		    if(!($('#years-content').css("display")=='none')){
+		         closeYears();
+		    }
+		}, 10*1000);
+		
+});
+ </script>

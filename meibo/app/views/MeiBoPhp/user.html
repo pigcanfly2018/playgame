@@ -1,0 +1,515 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'会员中心 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'会员中心，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_1'/}
+
+ 
+<script>
+    var record= '${record}';
+              function LoadCredit(plat){
+            	  if($('#ba_'+plat).length > 0){
+		            	  $('#ba_'+plat).remove();
+		            	  $('#load_'+plat).show();
+		            	  $.ajax({
+		          			type:'post',
+		          			url:'/ajax/getPlatCredit',
+		          			data:{plat:plat},
+		          			dataType:'text',
+		          			success:function(msg){
+		          				$('#load_'+plat).remove();
+		          				var data =eval("("+msg+")");
+		          				if(data.success){
+		          					$('#balance_'+plat).html(data.message);
+		          					var total=$('#balance_00').html();
+		          					var t=parseFloat(total);
+		          					var t2=parseFloat(data.message);
+		          					$('#balance_00').html((t+t2).toFixed(2));
+		          				}
+		          			},
+		          			error:function(){
+		          			}
+		          		});
+		              }
+              }
+              
+              function transferInCredit(plat){
+            	  if($('#tr_'+plat).length > 0){
+            		  
+            		  $('#tr_02').remove();
+            		  $('#tr_03').remove();
+            		  $('#tr_04').remove();
+            		  $('#tr_05').remove();
+            		  $('#tr_06').remove();
+            		  $('#tr_07').remove();
+            		  $('#tr_08').remove();
+	            	  $('#load_'+plat).show();
+	            	  
+            		  $.ajax({
+		          			type:'post',
+		          			url:'/ajax/transferInCredit',
+		          			data:{plat:plat},
+		          			dataType:'text',
+		          			success:function(msg){
+		          				$('#load_'+plat).remove();
+		          				var data =eval("("+msg+")");
+		          				if(data.success){
+		          					alert(data.message);
+		          					window.location.reload();
+		          				}else{
+		          					alert(data.message);
+		          				}
+		          			},
+		          			error:function(){
+		          			}
+		          		});
+            		  
+            	  }
+              }
+              
+              function LoadDataAll(a){
+            	  $(a).remove();
+            	  LoadCredit('02');
+            	  LoadCredit('03');
+            	  LoadCredit('04');
+            	  LoadCredit('05');
+            	  LoadCredit('06');
+            	  LoadCredit('07');
+            	  LoadCredit('08');
+              }
+              
+              function getSignReward(){
+            	  $('#signid').attr("disabled", "disabled");
+            	  $.ajax({
+	          			type:'post',
+	          			url:'/ajax/getSignReward',
+	          			data:{},
+	          			dataType:'text',
+	          			success:function(msg){
+	          				
+	          				var data =eval("("+msg+")");
+	          				if(data.success){
+	          					alert(data.message);
+	          					//window.location.reload();
+	          				}
+	          			},
+	          			error:function(){
+	          			}
+	          		});
+              }
+            
+             
+            </script>
+
+<!-- #{if false} 
+<link rel="stylesheet" href="#{mb.static '/public/style/2017hongbao/Popup_RedEnvelope.css' /}" type="text/css" />
+
+
+<input type="hidden" name="cishu"   id="cishu" value='1'>
+<input type="hidden" name="num"   id="num" value=${num}>
+<div class="Popup_mask" id="Popup_mask" >
+<div class="Wrapper">
+ <div class="PopupBarBtn" id="PopupBarBtn_Colse" onclick="$(Popup_mask).hide();"><a id="PopNotce_Colse"></a></div>
+  <div class="bg rotate"></div>
+  <div class="open-has" style="display:block">
+    <div class="mod-chest">
+      <div class="chest-close show ">
+        <div class="gift">
+        <i class="arrow"></i> 
+        <i class="NotopenTitle">恭喜您获得了一个红包<br/>
+        (红包剩余个数：${num})</i>
+        </div>
+        
+        </div>
+      <div class="chest-open" >
+      <div class="RedEnvelope_Open1">
+        	 <a href="/gift_list.php"><button class="chest-btn" >查看收到的红包<br/>
+        	 (红包剩余个数：<span id="hongbao_num"></span>)</button></a>
+        	 
+        </div>
+        
+        <div class="mod-chest-cont">
+          <div class="content" >
+            <div class="gift2">天天抢红包<br>
+              <div id="hongbao_credit"></div> </div>
+            
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+  
+  </div>
+</div>
+<script type="text/javascript">
+    var num = 0;
+	function hongbao(){
+		$.ajax({
+ 			type:'get',
+ 			url:'/newyear.php',
+ 			data:{},
+ 			dataType:'text',
+ 			success:function(msg){
+ 				var data =eval("("+msg+")");
+ 				if(data.success){
+ 					var msg=data.message;
+ 					//$("#hongbao_credit").html(msg);
+ 					var num = document.getElementById('num').value-1;
+ 					//$("#hongbao_num").html(num);
+ 					
+ 					if(data.dianquanflag==1){
+					 	$("#boxinfo").text("恭喜您 <b>抽中现金"+data.gift_flag+"元</b><br/>，请注意查收");
+					}else if(data.dianquanflag==2){
+						$("#boxinfo").text("恭喜您 <b>抽中"+data.gift_flag+"</b><br/>24小时内客服将联系您，请务必确保手机通畅");
+					}else if(data.dianquanflag==3){
+						$("#boxinfo").text("恭喜您 <b>抽中"+data.gift_flag+"</b><br/>24小时内客服将联系您，请务必确保手机通畅");
+					}
+				}
+ 			},
+ 			error:function(){
+ 			}
+ 		});
+		
+		
+		
+	}
+  $(".chest-close,arrow").click(function(){
+	  
+	  
+	  var cishu = document.getElementById('cishu').value;
+		if(cishu == 1){
+			document.getElementById('cishu').value=2;
+			setTimeout(function(){hongbao()},Math.random()*500);
+			
+			
+		}else{
+			
+		}  
+	
+    $(this).addClass("shake");
+    var that=this;
+    
+    this.addEventListener("webkitAnimationEnd", function(){
+      
+      $(that).closest(".open-has").addClass("opened");
+      setTimeout(function(){
+        $(that).removeClass("show");
+        $(that).closest(".mod-chest").find(".chest-open").addClass("show");
+        setTimeout(function(){
+          $(".chest-open").addClass("blur");
+        },500)
+        
+        
+      	setTimeout(function(){window.location.reload()},1000);
+       
+        
+      },200)
+      
+      
+      
+      
+    }, false);
+    
+    
+  })
+</script>
+
+
+#{/if} -->
+
+
+<div id="wrapper" class="MainWrap"> 
+
+
+           #{include '/templates/user_left.html'/}  		
+			<div class="UserRight">
+                <fieldset>
+                		<legend>会员中心</legend>
+					<div id="AccInfoWrap" class="SYCentBlockWrap">
+          <div  class="SYCentTitle">我的账户 <a href="javascript:void(0)" onclick="LoadDataAll(this);" >全部刷新</a></div>
+          
+          #{mb.cust uname:session.get("username")}
+          <div class="SYCentBlock">
+            <div class="AccGeneral" >
+              <div class="AccInfo_GeneralItem">
+                <p>主账户余额:</p>
+                <span id="balance_01">${cust.credit} 元</span>
+                <p class="WeakenText">[<a href="/deposit.php"> 充值 </a>|<a href="/withdraw.php"> 取款 </a>]</p>
+              </div>
+              <div class="AccInfo_GeneralItem">
+                <p>总金额:</p>
+                <span id="balance_00">${cust.credit} 元</span>
+                <p class="WeakenText">[<a href="/tranfer.php"> 转账 </a>]</p>
+              </div>
+              <div class="AccInfo_GeneralItem">
+                <p>会员等级:</p>
+                <span>#{mb.custLevel level:_cust.cust_level /}</span>
+                <p class="WeakenText">[<a href="/vip.html"> VIP专区 </a>]</p>
+              </div>
+              <div class="AccInfo_GeneralItem">
+                <p>积分:</p>
+                <span>${_cust.score}</span>
+                <p class="WeakenText">[<a href="/score.html"> 兑换 </a>]</p>
+              </div>
+            </div>
+            <div class="AccInfo_Game">
+              <table>
+                <colgroup>
+                <col width="8%">
+                <col width="34%">
+                <col width="8%">
+                <col width="34%">
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <td>AG余额</td>
+                    <td><div><span style="display: block;" id="balance_02" ></span>
+                    <span id="load_02" class="Loading" style="display: none;"></span> </div>
+                    <button class="Btn2" id="tr_02" onclick="transferInCredit('02');">一键转入</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <button class="Btn2" id="ba_02" onclick="LoadCredit('02');">刷新</button>
+                      <a target="_blank" href="/goToGame/2">| 进入游戏</a></td>
+                    <td>MG余额</td>
+                    <td><div><span style="display: block;" id="balance_06"></span>
+                     <span id="load_06" class="Loading" style="display: none;"></span></div>
+                     <button class="Btn2" id="tr_06" onclick="transferInCredit('06');">一键转入</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <button class="Btn2" id="ba_06" onclick="LoadCredit('06');">刷新</button>
+                      <a target="_blank" href="/mghotgame.html">| 进入游戏</a></td>
+                  </tr>
+                  <tr>
+                    <td>波音余额</td>
+                    <td><div><span style="display: block;" id="balance_03" ></span> 
+                    <span id="load_03" class="Loading" style="display:none;"></span></div>
+                    <button class="Btn2" id="tr_03" onclick="transferInCredit('03');">一键转入</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <button class="Btn2" id="ba_03" onclick="LoadCredit('03');">刷新</button>
+                      <a target="_blank" href="/goToGame/1?psite=live">| 进入游戏</a></td>
+                    <td>申博余额</td>
+                    <td><div><span style="display: block;" id="balance_07"> </span>
+                     <span id="load_07" class="Loading" style="display:none;"></span></div>
+                     <button class="Btn2" id="tr_07" onclick="transferInCredit('07');">一键转入</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <button class="Btn2" id="ba_07" onclick="LoadCredit('07');">刷新</button>
+                      <a target="_blank" href="/goToGame/6">| 进入游戏</a></td>
+                  </tr>
+                  <tr>
+                    <td>PT余额</td>
+                    <td><div><span style="display: block;" id="balance_04"></span> 
+                    <span id="load_04" class="Loading" style="display:none;"></span></div>
+                    <button class="Btn2" id="tr_04" onclick="transferInCredit('04');">一键转入</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <button class="Btn2" id="ba_04" onclick="LoadCredit('04');">刷新</button>
+                      <a target="_blank" href="#{mb.forward url:'/pt_egame_hot.html',uname:session.get('username')/}" >| 进入游戏</a></td>
+                    <td>KG余额</td>
+                    <td><div><span style="display: block;" id="balance_05" ></span> 
+                    <span id="load_05" class="Loading" style="display:none;"></span></div>
+                    <button class="Btn2" id="tr_05" onclick="transferInCredit('05');">一键转入</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <button class="Btn2" id="ba_05" onclick="LoadCredit('05');">刷新</button>
+                      <a target="_blank" href="/goToGame/4">| 进入游戏</a></td>
+                  </tr>
+                  <tr>
+                    <td>PP余额</td>
+                    <td><div><span style="display: block;" id="balance_08"></span> 
+                    <span id="load_08" class="Loading" style="display:none;"></span></div>
+                    <button class="Btn2" id="tr_08" onclick="transferInCredit('08');">一键转入</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <button class="Btn2" id="ba_08" onclick="LoadCredit('08');">刷新</button>
+                      <a target="_blank" href="/pp_egame_hot.html" >| 进入游戏</a></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          #{/mb.cust}
+          
+        </div>
+        
+        
+        
+        
+       
+
+  
+    
+   
+  
+  <!--今日推荐(常规版) -->
+      <div class="SYCentBlockWrap">
+      
+        <div class="SYCentTitle">今日推荐 <a href="javascript:void()" onclick="window.open('/promotion.html')">查看更多</a></div>
+         <div class="SYCentBlock"  onclick="window.open('/newyearredbag.php')" style="display:none">
+          <div class="RecommendImg" > <img src="/public/images/8Da_VitalityPoint_201801_1000x256.jpg" > </div>
+          <div class="SYContText">
+            <p>活动期间，根据玩家存款的金额1:1比例累计活力分值，达到活力值要求即可获得所有奖励，更多豪礼相送不要停！</p>
+          </div>
+        </div>
+        #{mb.hotDiscount}
+        <div class="SYCentBlock" onclick="window.open('/promotion.html')">
+          <div class="RecommendImg" > <img src="${_discount.s_url}" > </div>
+          <div class="SYContText">
+            <p>${_discount.summary}</p>
+          </div>
+        </div>
+        #{/mb.hotDiscount}
+      </div>
+      
+
+
+        
+               		<!-- 
+                    #{mb.hotDiscount}
+                        <div>今日为您推荐的优惠 <span>${_discount.title}</span>&nbsp;&nbsp;<a target="_blank" href="/promotion/${_discount.discount_id}">查看详情</a></div>
+	                     <div class="ProList">
+          	                    <img src="${_discount.s_url}" alt="" style="width:550px;height:280px;">         
+			                  <p style="height:80px">${_discount.summary}</p>
+				             
+						    <div class="clear"></div>
+				       </div>
+                    #{/mb.hotDiscount}
+               -->
+               
+                   
+                  
+               </fieldset>
+            </div>
+           #{include '/templates/user_info.html' /}
+                           
+</div>
+<!-- <div class="Popup" id="MoleHitWarp" style="display:none">
+  <div class="PopupTable">
+    <div class="PopupDT">
+      <div class="PopupWrap">
+        <div class="PopupBody">
+			<iframe src="/hit1.html" style="width: 720px; height: 500px; margin-top: 0px;" scrolling="no" frameborder="0" ></iframe>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<link rel="stylesheet" type="text/css" href="#{mb.static '/public/style/notice.css' /}" />
+
+  <div class="Popup" id="MoleHitWarp" 
+    #{if true}style="display: none;" #{/if}
+  #{else} style="display: none;"#{/else}>
+    <div class="PopupTable">
+      <div class="PopupDT">
+        <div class="PopupWrap">
+          <div class="PopupBody">
+            <div class="PopupBar">
+              <div class="PopupBarTitle" id=""><p style="color:white">打地鼠赢现金</p></div>
+              <div class="PopupBarBtn" id="PopupBarBtn_Colse" onclick="$('#MoleHitWarp').hide();"><a id="PopNotce_Colse"></a></div>
+            </div>
+            <div class="contTextBox">
+              <iframe src="/hit1.html" style="width: 720px; height: 500px; margin-top: 0px;" scrolling="no" frameborder="0" ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!-- 2018元宵拆宝箱 -->
+ <link rel="stylesheet" href="public/style/2018hongbao/Popup_RedEnvelope.css" type="text/css" />
+
+
+<input type="hidden" name="cishu"   id="cishu" value='1'>
+<input type="hidden" name="num"   id="num" value=0>
+<div class="Popup_mask" id="Popup_mask" 
+#{if hongbaoflag==1}
+style="display:block"
+#{/if}
+#{else}
+style="display:none"
+#{/else}
+>
+	<div class="Wrapper">
+		<div class="PopupBarBtn" id="PopupBarBtn_Colse" onclick="$(Popup_mask).hide();"><a id="PopNotce_Colse"></a></div>
+		<div class="bg rotate"></div>
+		<div class="open-has" style="display:bock">
+			<div class="mod-chest">
+				<div class="chest-close show" id="chest-close">
+					<div class="gift">
+						<i class="arrow"></i> 
+						<i class="NotopenTitle">您还有<em>${num}</em>次打开宝箱机会<br/>
+						赶快去充值获得开箱机会吧</i>
+						<a href="javascript:void(0);"><button class="close-btn">取消</button><button class="Recharge-btn" onclick="window.open('/deposit.php','_self')">去充值</button></a>
+					</div>
+				</div>
+				<div class="chest-open" >
+					<div class="RedEnvelope_Open1">
+						<i class="NotopenTitle" id="boxinfo"></i>
+						<a href="/newyearhongbao.php"><button class="chest-btn">确定</button></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    var num = 0;
+	function hongbao(){
+		$.ajax({
+ 			type:'get',
+ 			url:'/newyear.php',
+ 			data:{},
+ 			dataType:'text',
+ 			success:function(msg){
+ 				var data =eval("("+msg+")");
+ 				
+				if(!data.success){
+					alert("抽奖失败请联系客服。");
+				}else{
+						
+					if(data.message.dianquanflag==1){
+					 	$("#boxinfo").html("恭喜您 <b>抽中现金"+data.message.gift_flag+"元</b><br/>，请注意查收");
+					}else if(data.message.dianquanflag==2){
+						$("#boxinfo").html("恭喜您 <b>抽中"+data.message.gift_flag+"</b><br/>24小时内客服将联系您，请务必确保手机通畅");
+					}else if(data.message.dianquanflag==3){
+						$("#boxinfo").html("恭喜您 <b>抽中"+data.message.gift_flag+"</b><br/>24小时内客服将联系您，请务必确保手机通畅");
+					}
+					
+				
+				}
+ 			},
+ 			error:function(){
+ 			}
+ 		});
+
+	}
+
+  $(".arrow").click(function(){
+	  var cishu = document.getElementById('cishu').value;
+		if(cishu == 1){
+			document.getElementById('cishu').value=2;
+			setTimeout(function(){hongbao()},Math.random()*500);
+		}else{
+		}
+
+    $('.chest-close,.arrow').addClass("shake");
+    var that=$(".chest-close");
+    var o = document.getElementById("chest-close");
+
+    o.addEventListener("webkitAnimationEnd", function(){
+      $(that).closest(".open-has").addClass("opened");
+      setTimeout(function(){
+        $(that).removeClass("show");
+        $(that).closest(".mod-chest").find(".chest-open").addClass("show");
+        setTimeout(function(){
+          $(".chest-open").addClass("blur");
+        },500)
+
+      	setTimeout(function(){window.location.reload()},2000);
+
+      },200)
+
+    }, false);
+  });
+  $(".close-btn").click(function(){
+  	$(".Popup_mask").css("display","none");
+
+  });
+if($('.gift a button').length==2){
+	$('.gift a button').addClass('doublebtn');
+}
+
+</script> 

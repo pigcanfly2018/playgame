@@ -1,0 +1,65 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'礼金账单 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'礼金账单，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_2_3'/}
+
+<script data-cfasync="false">
+function resetMyform(){
+	$('#start_date').val('');
+	$('#end_date').val('');
+}
+
+</script>
+<script data-cfasync="false" type="text/javascript" src="#{mb.static '/public/My97DatePicker/WdatePicker.js'/}" charset="utf-8"></script>
+<div id="wrapper" class="MainWrap"> 
+
+           #{include '/templates/user_left.html'/}  
+<div class="UserRight">            	
+<form id="myform" method="get" action="/gift_list.php">
+
+                <fieldset>
+               <legend>礼金账单</legend>                      
+                <table><tbody><tr><td> <label style="text-align:left; width:60px;margin-right:0;">开始时间：</label>
+                <input type="text" class="Wdate" maxlength="10" style="width: 130px;height:25px" 
+                                    onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd HH:mm',alwaysUseStartDate:true})"  
+                                    name="start_date" id="start_date" value="${start_date}">
+
+               </td>
+               <td><label style="text-align:left; width:65px;margin-right:0;">结束时间：</label>
+                <input type="text" class="Wdate" maxlength="10" style="width: 130px;height:25px" 
+                                    onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd HH:mm',alwaysUseStartDate:true})"  
+                                    name="end_date" id="end_date" value="${end_date}">
+                </td>
+               <td><input type="submit" class="buttom02" style="width:60px;height" value="查询" ></td>
+               <td><input type="button" class="buttom02" style="width:60px;"  value="重设" onclick="resetMyform()"></td>
+               </tr></tbody></table>
+           		<table>
+                    	<tbody><tr>
+                        	<th style="width:180px">礼金时间</th>
+                        	<th style="width:150px">礼金单号</th>
+                        	<th style="width:120px">礼金类型</th>
+                        	<th style="width:100px">礼金金额</th>
+                        	<th>状态</th>
+                        </tr>
+                    	#{mb.queryList queryList:giftList}
+                    	<tr>
+                        	<td>${_obj.create_date.getTime().asdate('yyyy-MM-dd HH:mm:ss')}</td>
+                        	<td>${_obj.gift_no}</td>
+                        	<td>${_obj.gift_type}</td>
+                        	<td class="on">${_obj.payout}</td>
+                        	<td>${dict.dictName('gift_flag',_obj.status)}</td>
+                        </tr>  
+                         #{/mb.queryList}                                                                                                                                        
+                                                                                                                                                             
+                    </tbody></table>
+                     	<div class="mypage">
+                     	 #{mb.page count:count,page:page,start_date:start_date,end_date:end_date}#{/mb.page} 
+                        </div>			
+               </fieldset>
+             </form>
+            </div>
+            #{include '/templates/user_info.html' /}  
+
+</div>
+ 

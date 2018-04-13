@@ -1,0 +1,216 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'AG电子游艺 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'电子游艺，八达国际，申博电子游戏，波音电子游戏，电子老虎机。'/} 
+#{set description:'八达国际提供众多电子游戏项目，集成PT电子游戏，申博电子游戏，波音电子游戏，内设百余款电子老虎机，桌面游戏，棋牌游戏，总有一款适合您的游戏。'/}                       			                                                	                        			                                                	
+#{set menu_li:'index_2'/}
+<link rel="stylesheet" type="text/css" href="#{mb.static '/public/style/electron.css'/}"> 
+<script type="text/javascript" src="#{mb.static '/public/js/jquery.lazyload.min.js'/}"></script> 
+<style>
+.bolda{
+color:#Ff0;
+font-weight:bold;
+}
+</style>
+<script type="text/javascript">				$(function(){	
+					//图片延迟载入
+					$(".campItem img").lazyload({
+						effect : "fadeIn"
+					});
+					$(".campShow ul li").mouseenter(function(){
+						$(this).children("span.gridMask").animate({
+							opacity:"0.68",
+							top:"0"
+						},"normal");
+						$(this).children("a").animate({
+							top:"0"
+						},"normal");
+					}).mouseleave(function(){
+						$(this).children("span.gridMask").animate({
+							opacity:"0",
+							top:"-100%"
+						},"normal");
+						$(this).children("a").animate({
+							top:"-100%"
+						},"normal");
+					});
+					
+					$(".campShow ul li:last-child").css("margin","0");//解决IE8-不兼容last-child伪元素
+					$("a#menu_games").addClass("curMenu");
+				});
+			</script>
+<div id="wrapper" class="p-main ma">
+  <div class="p-nav">
+    <div class="p-navm l"><a href="/mghotgame.html" id="p-nav-on"></a></div>
+    <div class="p-navl l"><a href="#{mb.forward url:'/pt_egame_hot.html',uname:session.get('username')/}"></a></div>
+    <div class="p-navr l"><a href="/bbin_egame.html" id="p-nav-on"></a></div>
+    <div class="p-nava l"><a href="/ag_egame.html" id="p-nav-on"></a></div>
+  </div>
+  <!--电子游艺content begin-->
+  <div id="mg-container">
+    <div id="eleGameCamp2">
+      <h1> <br>
+        <br>
+        
+      </h1>
+      <div class="EgameTop" style="margin-top:0px; padding-top:0px; "> 
+      <a href="ag_egame.html" class="on" style="width:21%; text-align:center">电子游戏</a> 
+      
+      <a href="ag_xggame.html" style="width:20%; text-align:center"></a> </div>
+      
+      <div class="campShow campOne">
+        <ul class="campRow">
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/Fish.jpg'/}"  >
+            <h6>捕鱼王</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=6" target="_blank"><span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB02.jpg'/}" >
+            <h6>复古花园</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=509" target="_blank"><span class="gridBtn">进入游戏</span></a></li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB03.jpg'/}">
+            <h6>关东煮</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=510" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB04.jpg'/}">
+            <h6>牧场咖啡</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=511" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem" style="margin: 0px;"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB05.jpg'/}" >
+            <h6>甜一甜</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=512" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+        </ul>
+        <ul class="campRow">
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB06.jpg'/}" >
+            <h6>牧场武士</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=513" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB07.jpg'/}" >
+            <h6>象棋老虎机</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=514" target="_blank"><span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB08.jpg'/}" >
+            <h6>麻将老虎机</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=515" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB09.jpg'/}" >
+            <h6>西洋棋老虎机</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=516" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem" style="margin: 0px;"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB10.jpg'/}" >
+            <h6>开心农场</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=517" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+        </ul>
+        <ul class="campRow">
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB11.jpg'/}" >
+            <h6>夏日营地</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=518" target="_blank"><span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB12.jpg'/}" >
+            <h6>海底漫游</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=519" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB13.jpg'/}" >
+            <h6>鬼马</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=520" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB14.jpg'/}" >
+            <h6>激动乐园</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=521" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem" style="margin: 0px;"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB15.jpg'/}" >
+            <h6>惊吓鬼屋</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=522" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+        </ul>
+        <ul class="campRow">
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB16.jpg'/}" >
+            <h6>疯狂马戏团</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=523" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB17.jpg'/}">
+            <h6>海洋剧场</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=524" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB18.jpg'/}">
+            <h6>水上乐园</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=525" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB19.jpg'/}">
+            <h6>空中战争</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=526" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem" style="margin: 0px;"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB20.jpg'/}">
+            <h6>摇滚狂迷</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=527" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+        </ul>
+        
+        <ul class="campRow">
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB21.jpg'/}">
+            <h6>越野机车</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=528" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB22.jpg'/}">
+            <h6>埃及奥秘</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=529" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB23.jpg'/}">
+            <h6>欢乐时光</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=530" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB24.jpg'/}">
+            <h6>侏罗纪</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=531" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem" style="margin: 0px;"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB25.jpg'/}">
+            <h6>土地神</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=532" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+        </ul>
+        
+        <ul class="campRow">
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB26.jpg'/}" >
+            <h6>布袋和尚</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=533" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB27.jpg'/}" >
+            <h6>正财神</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=534" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB28.jpg'/}" >
+            <h6>武财神</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=535" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB29.jpg'/}" >
+            <h6>赌财神</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=536" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem" style="margin: 0px;"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB30.jpg'/}" >
+            <h6>灵猴献瑞</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=539" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+        </ul>
+        
+        <ul class="campRow">
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB31.png'/}">
+            <h6>天空守护者</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=542" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB32.gif'/}">
+            <h6>齐天大圣</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=543" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SB33.gif'/}">
+            <h6>糖果碰碰乐</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=544" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/PKBJ.jpg'/}">
+            <h6>杰克高手</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=502" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+            <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SLM1.jpg'/}">
+            <h6>美女沙排</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=503" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+        </ul>
+        <ul class="campRow">
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SLM2.jpg'/}">
+            <h6>运财羊</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=504" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/SLM3.jpg'/}">
+            <h6>武圣传</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=505" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/TGLW.jpg'/}">
+            <h6>极速幸运轮</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=507" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/FRU.jpg'/}">
+            <h6>水果拉霸</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=501" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+            <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/FRU2.gif'/}">
+            <h6>水果拉霸2</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=546" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+        </ul>
+         <ul class="campRow">
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/PKBB.gif'/}">
+            <h6>红利百搭</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=541" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          <li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static '/public/images/aggame/PKBD.gif'/}">
+            <h6>百搭二王</h6>
+            <span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/2?gamecode=540" target="_blank"> <span class="gridBtn">进入游戏</span></a> </li>
+          
+          
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+  <!--电子游艺content end-->
+</div>
+	

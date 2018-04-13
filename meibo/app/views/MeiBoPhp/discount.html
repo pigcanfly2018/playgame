@@ -1,0 +1,232 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'自助优惠 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'自助优惠，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_1_1'/}
+<style>
+  .letter_tr td p{text-indent:2em};
+  .letter_tr td p a{color:#ff0}
+</style>
+<script data-cfasync="false">
+function resetMyform(){
+	$('#start_date').val('');
+	$('#end_date').val('');
+}
+
+</script>
+<div id="wrapper" class="MainWrap"> 
+           #{include '/templates/user_left.html'/}  
+
+<div class="UserRight">
+		<fieldset>
+			<legend>自助优惠</legend>
+			<table class="zz_tbox">
+				<tbody>
+					<tr class="">
+						<td colspan="3" height="30">申请优惠</td>
+					</tr>
+					<tr>
+						<td width="13%"></td>
+					</tr>
+					<tr>
+						<td width="13%">优惠类型：</td>
+						<td width="40%">
+							<select id="selectoption" onChange="selectoption(this)" >
+							#{if _selfdic!=null}
+								#{mb.queryListNoMes queryList:_selfdic}
+								
+								<option startdate="${_obj.startdate}" enddate="${_obj.enddate}" actbill="${_obj.actbill}"
+								moneyflag="${_obj.moneyflag}">${_obj.itemname}</option>
+								 
+								#{/mb.queryListNoMes}
+								#{/if}
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td width="13%">开始时间：</td>
+						<td width="40%">
+						#{if _selfdic!=null && _selfdic.size!=0}
+							<input type="text" class="Wdate  WdateFmtErr" name="start_date" id="start_date" 
+							disabled="true" value="#{if _selfdic[0].startdate!=null}${_selfdic[0].startdate.substring(0,19)}#{/if}">
+						#{/if}
+						#{else}
+						
+							<input type="text" class="Wdate  WdateFmtErr" name="start_date" id="start_date" value="">
+						#{/else}
+
+						</td>
+					</tr>
+					<tr>
+						<td width="13%">结束时间：</td>
+						<td width="40%">
+						#{if _selfdic!=null && _selfdic.size!=0}
+							<input type="text" class="Wdate  WdateFmtErr" name="end_date" id="end_date" disabled="true" 
+							readonly="readonly" value="${_selfdic[0].enddate.substring(0,19)}">
+						#{/if}
+						#{else}
+							<input type="text" class="Wdate WdateFmtErr" name="end_date" id="end_date" value="">
+						#{/else}
+						</td>
+						
+					</tr>
+					<tr>
+						<td width="13%">活动流水：</td>
+						<td width="40%">
+						#{if _selfdic!=null && _selfdic.size!=0}
+							<input type="text" class="Wdate  WdateFmtErr" name="actbill" id="actbill" disabled="true" 
+							value="${_selfdic[0].actbill}">
+						#{/if}
+						#{else}
+							<input type="text" class="Wdate WdateFmtErr" name="actbill" id="actbill" value="" disabled="true" >
+						#{/else}
+						</td>
+						
+					</tr>
+						#{if _selfdic!=null && _selfdic.size!=0 && _selfdic[0].moneyflag==1}
+						<tr id="moneyinput">
+							<td width="13%">输入金额：</td>
+							<td width="40%">
+								<input type="text" class="Wdate  WdateFmtErr" name="moneyflag" id="moneyflag"  maxlength="10" 
+								value="" onkeyup="value=value.replace(/[^1234567890-]+/g,'')">
+							</td>
+						</tr>
+						#{/if}	
+						#{else}
+						<tr style="display:none" id="moneyinput">
+							<td width="13%">输入金额：</td>
+							<td width="40%">
+								<input type="text" class="Wdate  WdateFmtErr" name="moneyflag" id="moneyflag"  maxlength="10" onkeyup="value=value.replace(/[^1234567890-]+/g,'')">
+							</td>
+						</tr>
+						#{/else}						
+						<tr>
+						<td width="13%">备注：</td>
+						<td width="40%">
+							<input type="text" class="Wdate WdateFmtErr" name="remark" id="remark" maxlength="100">
+						</td>
+						<td width="20%"><a href="javascript:void(0);" class="silbm" id="submit">提交</a></td>
+					</tr>
+					
+					<tr class="tipc_x">
+						<td width="10%">温馨提示：</td>
+						<td class="otip">派发结果请在（会员账单）->（礼金账单）中查询.</td>
+					</tr>
+				</tbody>
+			</table>
+			<style>
+		.UserRight .zz_tbox tbody{height: auto;}
+		.sq_rule{width:100%;border:1px solid #7c0000;overflow: hidden;border-radius: 5px;margin-bottom: 20px;}
+		.sq_rule_tit{background:#7c0000;line-height: 36px;height: 36px;font-size:14px;text-indent: 30px}
+		.sq_rule span{width: 100%;text-indent: 30px;line-height: 18px;display: block;}
+		.sq_rule span b { background-image: linear-gradient(to top, rgba(255, 180, 0, 20), rgba(255, 180, 0, 20), rgb(255, 255, 118), rgb(255, 255, 230), rgb(255, 255, 118), rgba(255, 180, 0, 20), rgba(255, 180, 0, 20)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; *filter: Glow(color=#000, strength=1); }
+		.sq_rule span.txtin { text-indent: 60px; }
+		.sqbox tr:first-child td{text-indent: 30px;}
+	</style>
+		<div class="sq_rule">
+			<p class="sq_rule_tit">申请规则</p>
+			<span style="margin-top: 15px;">1、<b>【申博连赢礼金】、【AG百家乐连赢】</b>  申请时，请在【备注】中按下述任意格式填写：</span>
+			<span class="txtin">格式1：下注时间+下注金额</span>
+			<span class="txtin">格式2：申请局号</span>
+			<span style="margin: 15px 0;">2、<b>【推荐朋友】</b>申请时，请在以上【备注】中填写：被推荐人姓名+会员账号。</span>
+		</div>
+			<table row="10" class="tb sqbox">
+				<tbody>
+					<tr>
+						<td colspan="3">申请记录</td>
+					</tr>
+					<tr class="sqboxnav">
+						<td width="30%">创建时间</td>
+						<td width="40%">优惠类型</td>
+						<td width="30%">状态</td>
+					</tr>
+					#{mb.queryList queryList:_selflist}
+					
+					<tr>
+						<td width="30%">${_obj.create_date.getTime().asdate('yyyy-MM-dd HH:mm:ss')}</td>
+						<td width="40%">${_obj.gift_type}</td>
+						<td width="30%">
+						#{if _obj.status==1}
+						审核中
+						#{/if}
+						#{elseif _obj.status==3}
+						审核通过
+						#{/elseif}
+						#{elseif _obj.status==2}
+						已拒绝
+						#{/elseif}
+						</td>
+					</tr>
+					#{/mb.queryList}
+					
+				</tbody>
+				
+			</table>
+					<tr class="tipc_x">
+						<td width="10%">温馨提示：</td>
+						<td class="otip">只显示最新8条申请记录。</td>
+					</tr>
+    </fieldset>
+</div>
+
+</div>
+<script type="text/javascript">
+
+function selectoption(){
+	var start = $('#selectoption option:selected').attr("startdate");
+	$("#start_date").val(start.substr(0,19));
+	var end = $('#selectoption option:selected').attr("enddate");
+	$("#end_date").val(end.substr(0,19));
+	var actbill = $('#selectoption option:selected').attr("actbill");
+	$("#actbill").val(actbill);
+	var moneyflag = $('#selectoption option:selected').attr("moneyflag");
+	if(moneyflag==1){
+		$("#moneyinput").show();
+	
+	}else{
+		$("#moneyinput").hide();
+	}
+}
+var sub = false;
+$("#submit").click(function(){
+	if(sub){
+		alert("请勿重复提交");
+		return;		
+	}else{
+		sub=true;
+		  var itemname=$('#selectoption').val();
+		  var moneyflag =$("#moneyflag").val();
+		   if(itemname==null){
+			   alert("优惠类型不为空");
+		   }else{
+
+			   $.ajax({
+					type:'post',
+					url:'/ajax/selfAppSave',
+					data:{itemname:itemname,remark:$("#remark").val(),moneyflag:moneyflag},
+					dataType:'text',
+					success:function(msg){
+						var data =eval("("+msg+")");
+						if(data.success){
+							alert("提交成功。");
+							location.reload();
+							
+						}else{
+							
+							alert(data.message);
+							
+						}
+						sub=false;
+					},
+					error:function(){
+
+					}
+				});
+		   }
+		
+	}
+});
+
+
+</script>
+ 

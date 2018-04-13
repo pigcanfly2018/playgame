@@ -1,0 +1,82 @@
+<html>
+<head>
+  <title>${game_name}-PT老虎机-八达国际</title>
+  <link rel="shortcut icon" href="/public/favicon.ico" /> 
+</head>
+<body style="margin:0;padding:0;border:0;">
+<style>
+  .cstyle{
+     margin:0;
+     padding:0;
+     border:0;
+     width:100%;
+     height:100%
+  }
+</style>
+<script src="/public/js/jquery1.42.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="https://login.greatfortune88.com/jswrapper/integration.js.php?casino=greatfortune88"></script>
+<!-- <iframe src="http://cache.download.banner.luckystar88.com/flash/5/casino_luckystar88/launchcasino.html?language=zh-cn&amp;game=fm&amp;mode=offline#fm" class="cstyle">
+</iframe> -->
+<script type="text/javascript">
+    iapiSetCallout('Login', calloutLogin);
+    iapiSetCallout('Logout', calloutLogout);
+    var mode="${mode}";
+    function login() {
+    	if(mode=='1'){
+	    	//iapiLogin("", "", 0, "zh-cn");
+	    	//iapiLogout(1,1);
+			iapiLogin('${u}', '${p}', 1, "zh-cn");
+    	}else{
+    		iapiLogin("", "", 0, "zh-cn");
+    	}
+    }
+    function logout(allSessions, realMode) {
+        iapiLogout(allSessions, realMode);
+    }
+    function calloutLogin(response) {
+    	//iapiLogin("", "", 0, "zh-cn");
+    }
+    function calloutLogout(response) {
+        if (response.errorCode) {
+            alert("退出失败, " + response.errorCode);
+        }
+        else {
+            alert("退出成功");
+        }
+    }
+    var t1 = window.setInterval(show, 5000);
+    function show() {
+    	login();
+    	window.clearInterval(t1); 
+    } 
+
+
+</script>
+<div>
+   #{if mode=='1'}
+       <iframe id="ptFrame" src="http://cache.download.banner.greatfortune88.com/casinoclient.html?language=zh-cn&game=${ptcode}" class="cstyle"></iframe>
+      <!--  <iframe id="ptFrame" src="http://cache.download.banner.mightypanda88.com/casinoclient.html?language=zh-cn&game=${ptcode}" class="cstyle"></iframe> -->
+       
+   #{/if}
+   #{else}
+       <iframe id="ptFrame" src="http://cache.download.banner.greatfortune88.com/casinoclient.html?mode=offline&language=zh-cn&affiliates=1&game=${ptcode}" class="cstyle"></iframe>
+     <!-- <iframe id="ptFrame" src="http://cache.download.banner.mightypanda88.com/casinoclient.html?mode=offline&language=zh-cn&affiliates=1&game=${ptcode}" class="cstyle"></iframe>-->
+   #{/else}
+</div>
+
+        <script language="javascript" src="http://szzero.livechatvalue.com/chat/chatClient/floatButton.js?jid=4597905042&companyID=412708&configID=43742&codeType=custom"></script>
+        <script language="javascript" src="http://szzero.livechatvalue.com/chat/chatClient/monitor.js?jid=4597905042&companyID=412708&configID=43741&codeType=custom"></script>   
+        <script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-53914229-23']);
+ _gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+ })();
+</script>
+<div style='display:none;'><a href='http://en.live800.com'>live chat</a></div>
+<div style='display:none;'><a href='http://www.live800.com'>客服软件</a></div>  
+</body>
+</html>

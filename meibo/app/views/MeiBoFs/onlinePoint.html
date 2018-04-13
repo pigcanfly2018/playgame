@@ -1,0 +1,63 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'在线支付确认 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'在线支付确认，八达国际'/} 
+#{set description:''/} 
+<script>
+        
+</script>
+<div id="wrapper"> 
+<div class="UserCenter">
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight"> 
+		       <fieldset>
+	               <legend>订单确认</legend>
+				   <form name="dinpayForm" method="post" action="http://8d01.32993ae.cn/myPay08.php" target="_blank">
+					<input type="hidden" name="sign" value="${sign}" />
+					<input type="hidden" name="merchant_code" value="${merchant_code}" />
+					<input type="hidden" name="bank_code" value="${bank_code}"/>
+					<input type="hidden" name="order_no" value="${order_no}"/>
+					<input type="hidden" name="order_amount" value="${order_amount}"/>
+					<input type="hidden" name="service_type" value="${service_type}"/>
+					<input type="hidden" name="input_charset" value="${input_charset}"/>
+					<input type="hidden" name="notify_url" value="${notify_url}">
+					<input type="hidden" name="interface_version" value="${interface_version}"/>
+					<input type="hidden" name="sign_type" value="${sign_type}"/>
+					<input type="hidden" name="order_time" value="${order_time}"/>
+					<input type="hidden" name="product_name" value="${product_name}"/>
+					<input Type="hidden" Name="client_ip" value="${client_ip}"/>
+					<input Type="hidden" Name="extend_param" value="${extend_param}"/>
+					<input Type="hidden" Name="extra_return_param" value="${extra_return_param}"/>
+					<input Type="hidden" Name="product_code" value="${product_code}"/>
+					<input Type="hidden" Name="product_desc" value="${product_desc}"/>
+					<input Type="hidden" Name="product_num" value="${product_num}"/>
+					<input Type="hidden" Name="return_url" value="${return_url}"/>
+					<input Type="hidden" Name="show_url" value="${show_url}"/>
+					<table style="margin-top:20px">
+					   <tr>
+				        	<td width="25%">订单单号</td>
+				        	<td width="25%" style="text-align:left"><span>${order_no}</span></td>
+				        </tr>
+				    	<tr>
+				        	<td>存款金额</td>
+				        	<td style="text-align:left"><span>${order_amount}  元</span></td>
+				        </tr>  
+				        <tr>
+				        	<td>点卡名称</td>
+				        	<td style="text-align:left"><span>${pointcard_name}</span></td>
+				        </tr>  
+				        <tr>
+				        	<td colspan="2">
+				        	     <input name="Submit" type="submit" class="buttom02" value="确认提交" style="margin-left:15px;" onclick="$(this).hide();$('#resumbit').show();"/>
+				        	     <input style="display:none" id="resumbit" name="Submit" type="button" class="buttom02" value="查看结果" style="margin-left:15px;" onclick="window.location.href='/dincardpay/${order_no}'"/>
+				        	     <input name="button" type="button" class="buttom02" value="返回修改" style="margin-left:15px;" onclick="window.location.href='/deposit_point.php'"/>
+				        	</td>
+				        </tr>                                                                                                                                                                 
+				    </table>
+	
+	</form>
+	</fieldset>
+</div>
+#{include '/templates/user_info.html' /}    
+  
+</div>
+</div>

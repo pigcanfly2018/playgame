@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>#{get 'title' /}</title>
+<meta name="keywords" content="#{get 'keywords' /}" />
+<link rel="shortcut icon" href="#{mb.static '/public/favicon.ico' /}" /> 
+<meta name="description" content="#{get 'description' /}" />
+<link rel="stylesheet" href="#{mb.static '/public/style/style.css' /}" type="text/css" />
+<link rel="stylesheet" href="#{mb.static '/public/style/8da.css' /}" type="text/css" />
+<script src="#{mb.static '/public/js/jquery1.42.min.js' /}" type="text/javascript"></script>
+<script src="#{mb.static '/public/js/jquery.superslide.2.1.1.js' /}" type="text/javascript"></script>
+<script src="#{mb.static '/public/js/8da.js' /}" type="text/javascript"></script>
+</head>
+<body>
+		<div class="TopWrap">
+            <div  class="TopBar">
+                <div class="TopBar_right">
+                    <p>
+                       <a href="/csoft.html">客户端</a>|
+                       <!-- <a href="javascript:void(0)">桌面快捷</a>|	 -->
+                       <a href="javascript:addtoFavor()">加入收藏</a>|
+                       <a href="javascript:setHome()">设为首页</a> |
+                       <a href="/license.html" class="Licence">牌照展示</a>
+                     </p>
+                 </div>
+             </div>
+             <div class="clear"></div>
+        </div>   
+	   	<!---->
+    	<div id="header">
+        	<div class="logo"><a href="/"></a></div>      
+        	#{if session.get("username")==null}
+        	#{if isreg==null}
+        	 <div class="HeaderRight">
+                	<form autocomplete="off" method="post">
+                	<div class="left">
+                   		<div>
+                   		     <label>用户名：</label>
+                   		        <input type="text" id="loginnameId" name="username" value=""/>
+                   		</div>
+                   	 	<div> 
+                   	 	      <label>密码：</label>
+                   	 	      <input type="password" id="loginPwd"  name="pwd"  value=""/>
+                   	 	</div>
+                  		<div>
+                  		       <label>验证码：</label>
+                  		       <input type="text" name="code" id="logincaptchCode" style="width:60px;" />  
+                  		       <a href="javascript:void(0)"><img src="/vericode.png" id="vericode" onclick="refresh(this)"   alt=""/></a>
+                  		</div>
+                   </div>
+                   <div class="right">
+                   		<a href="/reg.html"><img src="#{mb.static '/public/images/LoginRegBtn.png' /}" class="LoginBtn"/></a><br />
+                   		<a href="javascript:void(0)" onclick="submit2()"><img src="#{mb.static '/public/images/LoginBtn.png' /}" class="LoginBtn"/></a>				
+                   </div> 
+                </form>						                       
+            </div> 
+        	#{/if}
+        	#{else}
+        	  <div class="HeaderRight">
+        	    <a href="/reg.html" class="HeaderBtn01"></a>
+                <a href="/livedealer.html" class="HeaderBtn02"></a>	
+              </div>
+        	#{/else}    
+           
+            #{/if}
+            #{else}
+               <div class="HeaderRight">
+				<div class="loginEnTop">
+                         <p>欢迎回来：<span>${session.get("username")}</span>账户额度：<span id="credit_span">正在查询..</span>                         
+                         </p>    
+                         <p>
+                          <a href="/deposit.php" class="buttom01">会员存款</a>
+                          <a href="/withdraw.php" class="buttom01">会员取款</a>                                                
+                          <a href="/user.php" class="buttom02">会员中心</a>
+                          <a href="/logout.php" class="buttom01">安全退出</a>
+                         <p> 
+                </div>         					                       
+            </div>  
+            <script>
+            $(function(){
+            	$.ajax({
+        			type:'post',
+        			url:'/ajax/getTotalCredit',
+        			data:{},
+        			dataType:'text',
+        			success:function(msg){
+        				var data =eval("("+msg+")");
+        				if(data.success){
+        					$('#credit_span').html(data.message);
+        				}
+        			},
+        			error:function(){
+
+        			}
+        		});
+        	})
+            
+            </script>
+            #{/else}          
+            <div class="clear"></div>
+            #{include '/templates/nav.html' /}
+            <!---->
+            <div class="notice">
+            	<span><a href="#" class="NoticeTitle">最新公告：</a></span>                	
+                <marquee  width=880 scrollAmount=4 onmouseover="this.stop();" onmouseout="this.start();"  class="rel" >
+                 #{mb.notice} 
+					  <P> ${_notice.content}</p>
+				#{/mb.notice}
+                </marquee>
+                <div class="clear"></div>
+			</div>
+        </div>    
+        <!---->  
+        #{doLayout /}
+<!--wrapper-->        
+   #{include '/templates/footer.html'/}     
+</body>
+</html>
+
+<!--kefu-->
+<!-- 
+ <script type="text/javascript" src="#{mb.static '/public/js/footerbar.js'/}"></script>
+<div class="login_panel" isLogin="">
+  <div class="panel_center">
+  	<div class="f_kefu"><a href="javascript:openChatBox()"> <img src="#{mb.static '/public/images/f_kefu.png'/}" /></a></div>
+    <div class="f_tel"><span>国内热线：400-6666-858<br />
+						          </span></div>
+    <div class="f_qq"><span>QQ客服①：80308559 <a href="http://wpa.qq.com/msgrd?v=3&uin=80308559&menu=yes&site=qq" target="blank" title="点击进行在线咨询">
+      <img src="#{mb.static '/public/images/qq.png' /}" >
+      </a><br /> QQ客服②：80308698<a href="http://wpa.qq.com/msgrd?v=3&uin=80308698&menu=yes&site=qq" target="blank" title="点击进行在线咨询">
+      <img src="#{mb.static '/public/images/qq.png' /}" >
+      </a></span></div>
+     <div class="f_vist"><a href="/reg.html" target="_blank" class="buttom02">AG国际厅</a></div>
+     <div class="f_qreg"><a href="/reg.html" target="_blank" class="buttom02">波音娱乐厅</a></div>     
+      <div class="clear"></div>
+  </div>
+</div>
+ -->
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/17245262.js"></script>
+

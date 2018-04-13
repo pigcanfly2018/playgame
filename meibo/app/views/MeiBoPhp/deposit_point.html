@@ -1,0 +1,157 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'点卡智付支付下单 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'点卡智付支付下单，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_2'/}
+<script data-cfasync="false">
+    function click_bank(td){
+    	$("input[name='bank']").removeAttr("checked");
+    	$(td).children("input").attr("checked","checked");
+    	var pointname = $(td).children("input").val();
+    	var money = $("#money").val();
+    	if(money==""){
+    		$("#money").val(100);
+    		money = 100;
+    	}
+    	if(pointname=="YDSZX"){
+    		$("#bank_span").html("费率:0.05,到账额度等于"+money+"*(1-0.05)="+(money-money*0.05));
+    	}else if(pointname=="DXGK"){
+    		$("#bank_span").html("费率:0.05,到账额度等于"+money+"*(1-0.05)="+(money-money*0.05));
+    	}else if(pointname=="QBCZK"){
+    		$("#bank_span").html("费率:0.14,到账额度等于"+money+"*(1-0.14)="+(money-money*0.14));
+    	}else if(pointname=="LTYKT"){
+    		$("#bank_span").html("费率:0.05,到账额度等于"+money+"*(1-0.05)="+(money-money*0.05));
+    	}else if(pointname=="JWYKT"){
+    		$("#bank_span").html("费率:0.16,到账额度等于"+money+"*(1-0.16)="+(money-money*0.16));
+    	}else if(pointname=="SDYKT"){
+    		$("#bank_span").html("费率:0.13,到账额度等于"+money+"*(1-0.13)="+(money-money*0.13));
+    	}else if(pointname=="WMYKT"){
+    		$("#bank_span").html("费率:0.14,到账额度等于"+money+"*(1-0.14)="+(money-money*0.14));
+    	}else if(pointname=="ZTYKT"){
+    		$("#bank_span").html("费率:0.13,到账额度等于"+money+"*(1-0.13)="+(money-money*0.13));
+    	}else if(pointname=="WYYKT"){
+    		$("#bank_span").html("费率:0.14,到账额度等于"+money+"*(1-0.14)="+(money-money*0.14));
+    	}else if(pointname=="SHYKT"){
+    		$("#bank_span").html("费率:0.16,到账额度等于"+money+"*(1-0.16)="+(money-money*0.16));
+    	}else if(pointname=="JYYKT"){
+    		$("#bank_span").html("费率:0.2,到账额度等于"+money+"*(1-0.2)="+(money-money*0.2));
+    	}else if(pointname=="THYKT"){
+    		$("#bank_span").html("费率:0.14,到账额度等于"+money+"*(1-0.14)="+(money-money*0.14));
+    	}else if(pointname=="TXYKT"){
+    		$("#bank_span").html("费率:0.18,到账额度等于"+money+"*(1-0.18)="+(money-money*0.18));
+    	}else if(pointname=="ZYYKT"){
+    		$("#bank_span").html("费率:0.16,到账额度等于"+money+"*(1-0.16)="+(money-money*0.16));
+    	}else if(pointname=="TXYKTZX"){
+    		$("#bank_span").html("费率:0.19,到账额度等于"+money+"*(1-0.19)="+(money-money*0.19));
+    	}else if(pointname=="SFYKT"){
+    		$("#bank_span").html("费率:0.14,到账额度等于"+money+"*(1-0.14)="+(money-money*0.14));
+    	}
+    	//$("#bank_span").html($(td).children("label").html());
+    }
+
+
+</script>
+<div id="wrapper"> 
+<div class="UserCenter">
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight">            	
+               <fieldset>
+	                <legend>智付支付</legend>
+	    
+	         <form action="/onlinePoint.php" method="post">
+	         <div style="color:red">${errorMsg}</div>
+         	<div>
+            <label>存款金额：</label><input type="text" style="color:red;font-weight:bolder;font-size:20px" id="money" name="momey" value="${momey==null?'100':momey}" 
+            class="input"/><span style="color:#FFF; font-weight:normal">元</span>
+            <input name="Submit" type="submit" class="buttom02" value="提交" style="margin-left:15px;"/>
+            </div>
+         	<div><label >温馨提示：</label> <span>单笔最低100元，最高500元，支付费率由客人支付</span> </div>
+         	<div><label >选择银行：</label><span id="bank_span" style="font-size:20px">费率:0.05,到账额度等于100*0.95=95</span></div>
+         	<!-- 
+        	<div style=" margin-bottom:10px;"><p> 温馨提示：如果您存款超过5000元，建议您采用网银转账，联系在线客服索要银行账号，我们会补偿您的手续费。</p></div>
+            -->
+          <div style=" height:auto;">      
+          <table>
+           <tr>
+             <td onclick="click_bank(this)"><input type="radio" id="YDSZX" name="bank" value="YDSZX" checked="checked"/>
+                 
+                 <label id="YDSZX_label" style="background:url(#{mb.static '/public/images/point/YDSZX.png' /}); cursor:pointer; width:140px; height:40px;"></label>
+             </td>										
+			 <td onclick="click_bank(this)"><input type="radio" id="DXGK" name="bank" value="DXGK" />
+			      <label  id="DXGK_label"  style="background:url(#{mb.static '/public/images/point/DXGK.png' /}); cursor:pointer; width:140px; height:40px;"></label>
+			 </td>
+			 <td onclick="click_bank(this)"><input type="radio" id="QBCZK" name="bank" value="QBCZK"/>
+			      <label  id="QBCZK_label"  style="background:url(#{mb.static '/public/images/point/QBCZK.png' /}); cursor:pointer; width:140px; height:40px;"></label>
+			 </td>
+			 </tr>
+             <tr>
+			  <td onclick="click_bank(this)"><input type="radio" id="LTYKT" name="bank" value="LTYKT"/>
+			      <label  id="LTYKT_label"  style="background:url(#{mb.static '/public/images/point/LTYKT.png' /}); cursor:pointer; width:140px; height:40px;"></label>
+			 </td>
+            
+             <td onclick="click_bank(this)"><input type="radio" id="JWYKT" name="bank" value="JWYKT"/>
+                 <label id="JWYKT_label" style="background:url(#{mb.static '/public/images/point/JWYKT.png' /}); cursor:pointer; width:140px; height:40px;"></label>
+             </td>										
+			 <td onclick="click_bank(this)"><input type="radio" id="SDYKT" name="bank" value="SDYKT"/>
+			      <label  id="SDYKT_label"  style="background:url(#{mb.static '/public/images/point/SDYKT.png' /}); cursor:pointer; width:140px; height:40px;"></label>
+			 </td>
+			 </tr>
+             <tr>
+			 <td onclick="click_bank(this)"><input type="radio" id="WMYKT" name="bank" value="WMYKT"/>
+			      <label  id="WMYKT_label"  style="background:url(#{mb.static '/public/images/point/WMYKT.png' /}); cursor:pointer; width:140px; height:40px;"></label>
+			 </td>
+			  <td onclick="click_bank(this)"><input type="radio" id="ZTYKT" name="bank" value="ZTYKT"/>
+			      <label  id="ZTYKT_label"  style="background:url(#{mb.static '/public/images/point/ZTYKT.png' /}); cursor:pointer; width:140px; height:40px;"></label>
+			 </td>
+             <td onclick="click_bank(this)"><input type="radio" id="WYYKT" name="bank" value="WYYKT"/>
+                 <label id="WYYKT_label" style="background:url(#{mb.static '/public/images/point/WYYKT.png' /}); cursor:pointer; width:140px; height:40px;"></label>
+             </td>	
+             </tr>
+             <tr>									
+			 <td onclick="click_bank(this)"><input type="radio" id="SHYKT" name="bank" value="SHYKT"/>
+			      <label  id="SHYKT_label"  style="background:url(#{mb.static '/public/images/point/SHYKT.png' /}); cursor:pointer; width:140px; height:40px;"></label>
+			 </td>
+			 <td onclick="click_bank(this)"><input type="radio" id="JYYKT" name="bank" value="JYYKT"/>
+			      <label  id="JYYKT_label"  style="background:url(#{mb.static '/public/images/point/JYYKT.png' /}); cursor:pointer; width:140px; height:40px;"></label>
+			 </td>
+			  <td onclick="click_bank(this)"><input type="radio" id="THYKT" name="bank" value="THYKT"/>
+			      <label  id="THYKT_label"  style="background:url(#{mb.static '/public/images/point/THYKT.png' /}); cursor:pointer; width:140px; height:40px;"></label>
+			 </td>
+            </tr>
+           <tr>
+          								
+			 <td onclick="click_bank(this)"><input type="radio" id="TXYKT" name="bank" value="TXYKT"/>
+			      <label  id="TXYKT_label"  style="background:url(#{mb.static '/public/images/point/TXYKT.png' /}); cursor:pointer; width:140px; height:40px;"></label>
+			 </td>
+			 <td onclick="click_bank(this)"><input type="radio" id="ZYYKT" name="bank" value="ZYYKT"/>
+			      <label  id="ZYYKT_label"  style="background:url(#{mb.static '/public/images/point/ZYYKT.png' /}); cursor:pointer; width:140px; height:40px;"></label>
+			 </td>
+			  <td onclick="click_bank(this)"><input type="radio" id="TXYKTZX" name="bank" value="TXYKTZX"/>
+			      <label  id="TXYKTZX_label"  style="background:url(#{mb.static '/public/images/point/TXYKTZX.png' /}); cursor:pointer; width:140px; height:40px;"></label>
+			 </td>
+				
+            </tr>
+             <tr>
+          								
+			 <td onclick="click_bank(this)"><input type="radio" id="SFYKT" name="bank" value="SFYKT"/>
+			      <label  id="SFYKT_label"  style="background:url(#{mb.static '/public/images/point/SFYKT.png' /}); cursor:pointer; width:140px; height:40px;"></label>
+			 </td>
+			 <td >
+			 </td>
+			  <td >
+			 </td>
+				
+            </tr>                                       
+          </table>
+        </div>
+        
+         </form>
+         	<div style="text-align:center">
+               <a href="choose_point.php" class="buttom02" style="padding:0">返回支付</a>
+            </div>
+               </fieldset>
+            </div>
+            #{include '/templates/user_info.html' /}    
+</div>                           
+</div>
+

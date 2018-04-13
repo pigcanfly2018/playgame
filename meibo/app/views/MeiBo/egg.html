@@ -1,0 +1,81 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'彩蛋砸奖 -八达国际官网（8dabet.com） - 八达博天下' /} 
+#{set keywords:'彩蛋砸奖，八达国际，'/}
+#{set description:'八达国际娱乐城提供在线博彩娱乐，设有真人百家乐，龙虎等真人项目，更有VIP包房；电子老虎机，桌面游戏等精彩电子游艺；彩票竞猜，体育竞技欢乐不断。内设申博厅，AG国际厅，波音厅，任君选择，24小时服务永不打烊！'/}                               			                                                	
+#{set menu_li:'index_4'/}  
+<script>
+	//是否登录
+	function isLogin()
+	{
+		return true;
+	}
+	//去注册页面
+	function goToReg()
+	{
+		window.location.href=" http://www.8dabet.com/reg.html";
+	}
+	//去登录页面
+	function goToLogin()
+	{
+		alert("请您先登录！");
+	}
+	//获取积分
+	function getUserScore()
+	{
+		return 120;
+	}
+	//抽奖了
+	function getLottery(egg)
+	{
+		return '{"flag":1,"messag":{"code":"K11223","name":"5元金币","count":1}}';
+	}
+	$(document).ready(function(){loadFlash();});
+	</script>
+<div id="wrapper">    
+    <div id="flash1_div" style="margin:0 auto; border:0px red solid; ">
+		
+		<object id="flash1_ie" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" >
+			<param name="movie" value="#{mb.static '/public/images/score/loading.swf?v=16'/}" />
+			<param name="quality" value="high" />
+			<param name="wmode" value="transparent" />
+			<param name="swfversion" value="15.0.0.0" />
+			<param name="expressinstall" value="Scripts/expressInstall.swf" />
+			<param name="allowFullScreen" value="true" />
+			<param name="allowScriptAccess" value="always" />
+			<embed id="flash1_other" src="#{mb.static '/public/images/score/loading.swf?v=16'/}" width="700" height="350" 
+				quality="high" wmode="transparent" allowscriptaccess="always"  allowFullScreen="true" 
+				pluginspage="http://www.macromedia.com/go/getflashplayer" 
+				type="application/x-shockwave-flash"></embed>
+		</object>
+	</div>                                
+    <div class="LottoBox">
+        <ul>
+            <li class="lr">
+            	<div><img src="#{mb.static '/public/images/score/zadan.png'/}" />
+                <p style="height:100px;"><span>彩蛋砸奖</span>
+                                                     提供简单但刺激的彩蛋砸奖小游戏，可以砸出金币，话费卡，IPHONE6，IPAD，精美礼品，双倍洗码卡等。
+               </p>
+                <a href="/goToGame/1?psite=ball"  target="_blank" class="buttom02">参加砸奖</a>
+                </div>
+            </li>
+            
+        	<li >
+            	<div><img src="#{mb.static '/public/images/score/zadan.png'/}" />
+                <p style="height:100px;"><span>更多等待推出</span>
+                                                       八达国际致力于给客户提供优质的在线娱乐服务，我们一直都在努力！
+                </p>
+                </div>
+            </li>
+        </ul>	
+        <div class="clear"></div>
+        <div>
+             <div>积分用途</div>
+             <div> 积分可以在积分乐园里参与活动，获取各种各样的奖励。</div>
+        </div>
+         <div>
+             <div>获取积分</div>
+             <div> 每个八达会员都会拥有一个积分帐号，每笔存款都会自动产生积分。每存款100元可得到1个八达积分。</div>
+        </div>
+        <div class="clear"></div>
+    </div>                             
+</div>

@@ -1,0 +1,57 @@
+#{extends '/templates/mg.html' /} 
+#{set title:'html5版游戏 -MG老虎机 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{mb.mg_pool type:'html5'}
+<div class="p-dh">
+     	<ul>
+     	    <li><a href="/mghotgame.html"  >热门游戏  </a></li>
+     	    <li><a href="/mgallgame.html" >全部游戏  </a></li>
+         	<li><a href="/mgnewgame.html">最新游戏  </a></li>
+         	<li><a href="/mghtml5game.html" class="current" >HTML5(支持平板)</a></li>
+            <li><a href="/mgslotgame.html">老虎机  </a></li>
+            <li><a href="/mgtablegame.html">赌桌游戏 </a></li>
+            <li><a href="/mgpokergame.html">视频扑克</a></li>
+            <li><a href="/mgscratchcardgame.html">刮刮卡游戏</a></li>
+            <li><a href="/mgothergame.html">其他游戏</a></li>
+        </ul>
+</div>
+
+#{mb.mg_page pages:_pages}
+<div class="campShow campOne p-tp-hide" id="mg_${_p}">
+		
+		#{mb.mg_row page:_page}
+		<ul class="campRow" >
+			#{mb.mg_cell row:_row}
+				<li class="campItem"> <img  style="left:55%; top:9px; width:130px; height:113px;" src="#{mb.static _jpg/}"  >
+            <h6>${_cell.CHINESE_SIMP_Game_Name}</h6>
+            #{if _cell.is_pchtml5 == true}
+            	<span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=${_cell.pchtml5code}&is_html5=${_cell.is_pchtml5}" target="_blank"><span class="gridBtn">进入游戏</span></a> </li>
+            #{/if}
+            #{else}
+            	<span class="gridMask" style="top: -100%; opacity: 0;"></span> <a class="gridLink" style="top: -100%;" href="/goToGame/5?gamecode=${_cell.GameCode}&is_html5=${_cell.is_pchtml5}" target="_blank"><span class="gridBtn">进入游戏</span></a> </li>
+            #{/else}
+            #{/mb.mg_cell}
+			</ul>
+		#{/mb.mg_row}
+	
+</div>
+#{/mb.mg_page}
+
+
+#{if _pages.size()!=1}
+<ul class="ptwebnav">
+#{mb.mg_page pages:_pages}
+#{if _p==1}
+    <li><a href="#pt_${_p}" class="current" pt="mg_${_p}">${_p}</a></li>
+#{/if}
+#{else}
+    <li><a href="#pt_${_p}" pt="mg_${_p}">${_p}</a></li>
+#{/else}
+#{/mb.mg_page}
+</ul>
+#{/if}
+
+#{/mb.mg_pool} 
+
+
+     
+

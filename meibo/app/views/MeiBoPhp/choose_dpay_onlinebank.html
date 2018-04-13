@@ -1,0 +1,45 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'在线支付下单 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'在线支付下单，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_2'/}
+<script data-cfasync="false">
+    function click_bank(td){
+    	$("input[name='bank']").removeAttr("checked");
+    	$(td).children("input").attr("checked","checked");
+    	$("#bank_span").html($(td).children("label").html());
+    }
+
+
+</script>
+<div id="wrapper" class="MainWrap"> 
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight">            	
+               <fieldset>
+	                <legend>银联支付</legend>
+	    
+	         <form action="/deposit_dpay_onlinebank.php" method="post" autocomplete="off" onsubmit="return sa('a_submit')">
+	         <div style="color:red">${errorMsg}</div>
+         	<div>
+            <label>存款金额：</label><input type="text" style="color:red;font-weight:bolder;font-size:20px" name="amount" value="${amount==null?'100':amount}" 
+            class="input"/><span style="color:#FFF; font-weight:normal">元</span>
+            <input type="hidden"  name="bank" value="51" />
+            <input name="Submit" type="submit" class="buttom02" value="提交" style="margin-left:15px;"/>
+            </div>
+         	<div><label >温馨提示：</label> <span>单笔最低100元，最高5万</span> </div>
+         	
+         	<!-- 
+        	<div style=" margin-bottom:10px;"><p> 温馨提示：如果您存款超过5000元，建议您采用网银转账，联系在线客服索要银行账号，我们会补偿您的手续费。</p></div>
+            -->
+          
+        
+         </form>
+         	<div style="text-align:center">
+               <a href="deposit.php" class="buttom02" style="padding:0">返回</a>
+            </div>
+               </fieldset>
+            </div>
+            #{include '/templates/user_info.html' /}    
+</div>                           
+
+

@@ -1,0 +1,59 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'在线支付确认 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'在线支付确认，八达国际'/} 
+#{set description:''/} 
+<script src="#{mb.static '/public/js/jquery.qrcode.js' /}" type="text/javascript"></script>
+<script src="#{mb.static '/public/js/qrcode.js' /}" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$("#qrcodeTable").qrcode({
+		render	: "canvas",
+		text	: '${barCode}',
+		width:"200",
+		height:"200"
+	});	
+	
+});
+</script>
+<div id="wrapper"> 
+<div class="UserCenter">
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight"> 
+		       <fieldset>
+	               <legend>订单确认</legend>
+				   <form name="dinpayForm" method="post"  target="_blank">
+					
+					<table style="margin-top:20px">
+					   <tr>
+				        	<td width="25%">订单单号</td>
+				        	<td width="25%" style="text-align:left"><span>${result.get('pay_id')}</span></td>
+				        </tr>
+				    	<tr>
+				        	<td>存款金额</td>
+				        	<td style="text-align:left"><span>${result.get('amount')}  元</span></td>
+				        </tr>
+				        
+				        <tr>
+               	<td class="first_td">二维码<br/>(请用手机微信扫一扫功能扫描该二维码)</td>
+               	<td class="sencond_td"><div id="qrcodeTable"></div></td>
+                   
+               </tr>
+                 
+				          
+				        <tr>
+				        	<td colspan="2">
+				        	     <input name="Submit" type="button" class="buttom02" value="确认提交" style="margin-left:15px;" onclick="$(this).hide();$('#resumbit').show();"/>
+				        	     <input style="display:none" id="resumbit" name="Submit" type="button" class="buttom02" value="查看结果" style="margin-left:15px;" onclick="window.location.href='/xunhuibaopay/${result.get('pay_id')}'"/>
+				        	     <input name="button" type="button" class="buttom02" value="返回修改" style="margin-left:15px;" onclick="window.location.href='/choose_xhb.php'"/>
+				        	</td>
+				        </tr>                                                                                                                                                                 
+				    </table>
+	
+	</form>
+	</fieldset>
+</div>
+#{include '/templates/user_info.html' /}    
+  
+</div>
+</div>

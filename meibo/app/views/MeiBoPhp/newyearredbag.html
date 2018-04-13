@@ -1,0 +1,353 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'会员中心 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'会员中心，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_9'/}
+<script data-cfasync="false">
+	function getgift(s){
+		var cishu = document.getElementById('cishu').value;
+		if(cishu == 1){
+			document.getElementById('cishu').value=2;
+			setTimeout(function(){click(s)},Math.random()*1000);
+		}else{
+			//alert('');
+		}
+		
+		
+	}
+	
+	function click(s){
+		document.getElementById('level').value=s;
+		document.getElementById("form1").submit();
+	}
+	
+	function MM_swapImgRestore() { //v3.0
+		  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+		}
+	
+		function MM_preloadImages() { //v3.0
+		  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+		    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+		    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+		}
+
+		function MM_findObj(n, d) { //v4.01
+		  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+		    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+		  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+		  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+		  if(!x && d.getElementById) x=d.getElementById(n); return x;
+		}
+
+		function MM_swapImage() { //v3.0
+		  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+		   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+		}
+	
+	
+</script>
+<script type="text/javascript" src="#{mb.static '/public/js/zepto.min.js'/}"></script> 
+
+
+<link rel="stylesheet" href="#{mb.static '/public/style/huoli.css' /}" type="text/css" />
+<link rel="stylesheet" href="#{mb.static '/public/style/2017hongbao/Popup_RedEnvelope.css' /}" type="text/css" />
+
+
+<form action="/getGift.php" method="post" name="form1" id="form1" autocomplete="off"  >
+<input type="hidden" name="level"   id="level" value='0'>
+</form>
+
+
+#{if hongbaoflag==1} 
+<div class="Popup_mask" id="Popup_mask" style="display:none">
+<div class="Wrapper">
+ <div class="PopupBarBtn" id="PopupBarBtn_Colse" onclick="$(Popup_mask).hide();"><a id="PopNotce_Colse"></a></div>
+  <div class="bg rotate"></div>
+  <div class="open-has" style="display:bock">
+    <div class="mod-chest">
+      <div class="chest-close show ">
+        <div class="gift">
+        <i class="arrow"></i> 
+        <i class="NotopenTitle">恭喜您获得了一个红包</i>
+        </div>
+        
+        </div>
+      <div class="chest-open" >
+      <div class="RedEnvelope_Open1">
+        	 <a href="/newyearhongbao.php"><button class="chest-btn" >查看收到的红包</button></a>
+        </div>
+        
+        <div class="mod-chest-cont">
+          <div class="content" >
+            <div class="gift2">春节红包<br>
+              <div id="hongbao_credit"></div> </div>
+            
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+  
+  </div>
+</div>
+
+<script type="text/javascript">
+
+	function hongbao(){
+		$.ajax({
+ 			type:'get',
+ 			url:'/newyear.php',
+ 			data:{},
+ 			dataType:'text',
+ 			success:function(msg){
+ 				var data =eval("("+msg+")");
+ 				if(data.success){
+ 					var msg=data.message;
+ 					$("#hongbao_credit").html(msg);
+				}
+ 			},
+ 			error:function(){
+ 			}
+ 		});
+		
+		
+		
+	}
+  $(".chest-close,arrow").click(function(){
+	  
+	  
+	  var cishu = document.getElementById('cishu').value;
+		if(cishu == 1){
+			document.getElementById('cishu').value=2;
+			setTimeout(function(){hongbao()},Math.random()*500);
+			
+			
+		}else{
+			
+		}  
+	
+    $(this).addClass("shake");
+    var that=this;
+    
+    this.addEventListener("webkitAnimationEnd", function(){
+      
+      $(that).closest(".open-has").addClass("opened");
+      setTimeout(function(){
+        $(that).removeClass("show");
+        $(that).closest(".mod-chest").find(".chest-open").addClass("show");
+        setTimeout(function(){
+          $(".chest-open").addClass("blur");
+        },500)
+      },200)
+    }, false);
+    
+    
+  })
+</script>
+#{/if}
+
+
+<input type="hidden" name="cishu"   id="cishu" value='1'>
+<div id="wrapper"> 
+
+
+<div class="UserCenter">
+           #{include '/templates/user_left.html'/}  		
+			<div class="UserRight">
+                <fieldset>
+                
+                #{if huoliflag==0} 
+                	
+                #{/if} 
+                #{else}
+                
+                	<div class="Activities">
+  					<div style="margin-top:20px">
+    					<p>玩家在2018-01-01 00:00:00到2018-01-12 23:59:59活动期间根据存款1:1比例增加账户活力分值，达到规定活力分值即可获得所有累计奖励 。</p>
+    					<span>您当前的活力值为 ：</span>
+    					<strong>${deposittotalvalue}</strong>
+  					</div>
+  					
+  					<div class="list" style="margin-top:30px;">
+  						<ul>
+  							<li><img src="#{mb.static '/public/images/huoli/hl9.png' /}" ><p>5个积分</p></li>
+        					<li><img src="#{mb.static '/public/images/huoli/hl10.png' /}" ><p>8元红包</p></li>
+        					<div class="uldiv" > 
+        活力值: <b>1000</b>
+        <p>可领取奖品区</p>
+        #{if leveloneflag==0}
+                            <a href="javascript:void(0)"><img src="#{mb.static '/public/images/huoli/hl3.png' /}" alt="" width="102" height="32" id="Image3"></a>
+                            #{/if}
+                            #{if leveloneflag==1}
+                            <a style="cursor:pointer" onclick="getgift(1)" onMouseOut="MM_swapImgRestore()"><img src="/public/images/huoli/hl1.png" alt="" width="102" height="32" id="Image3"></a>      
+                            #{/if}
+                            #{if leveloneflag==2}
+                            <a ><img src="#{mb.static '/public/images/huoli/hl15.png' /}" alt="" width="102" height="32" id="Image3"></a>
+                            #{/if}
+        
+          </div>
+  						</ul>
+  						
+  						<ul>
+        <li><img src="#{mb.static '/public/images/huoli/hl9.png' /}" > <p>10个积分</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl10.png' /}" > <p>28元红包</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl2.png' /}" > <p>1%转账红利</p></li>
+      <div class="uldiv" > 
+        活力值: <b>5000</b>
+        <p>可领取奖品区</p>
+		#{if leveltwoflag==0}
+                            <a href="javascript:void(0)"><img src="#{mb.static '/public/images/huoli/hl3.png' /}" alt="" width="102" height="32" id="Image3"></a>
+                            #{/if}
+                            #{if leveltwoflag==1}
+                            <a style="cursor:pointer" onclick="getgift(2)" onMouseOut="MM_swapImgRestore()"><img src="/public/images/huoli/hl1.png" alt="" width="102" height="32" id="Image3"></a>      
+                            #{/if}
+                            #{if leveltwoflag==2}
+                            <a ><img src="#{mb.static '/public/images/huoli/hl15.png' /}" alt="" width="102" height="32" id="Image3"></a>
+                            #{/if}        
+     </div>
+  </ul>
+  
+  <ul>
+        <li><img src="#{mb.static '/public/images/huoli/hl9.png' /}" > <p>20个积分</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl10.png' /}" > <p>58元红包</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl7.png' /}" > <p>2%存款送</p></li>
+      <div class="uldiv" > 
+        活力值: <b>10000</b>
+        <p>可领取奖品区</p>
+        #{if levelthreeflag==0}
+                            <a href="javascript:void(0)"><img src="#{mb.static '/public/images/huoli/hl3.png' /}" alt="" width="102" height="32" id="Image3"></a>
+                            #{/if}
+                            #{if levelthreeflag==1}
+                            <a style="cursor:pointer" onclick="getgift(3)" onMouseOut="MM_swapImgRestore()" ><img src="/public/images/huoli/hl1.png" alt="" width="102" height="32" id="Image3"></a>      
+                            #{/if}
+                            #{if levelthreeflag==2}
+                            <a ><img src="#{mb.static '/public/images/huoli/hl15.png' /}" alt="" width="102" height="32" id="Image3"></a>
+                            #{/if}   
+        
+             </div>
+  </ul>
+  
+  
+  <ul>
+        <li><img src="#{mb.static '/public/images/huoli/hl9.png' /}" > <p>30个积分</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl10.png' /}" > <p>88元红包</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl4.png' /}" > <p>一周双倍积分</p></li>
+      <div class="uldiv" > 
+        活力值: <b>50000</b>
+        <p>可领取奖品区</p>
+        #{if levelfourflag==0}
+                            <a href="javascript:void(0)"><img src="#{mb.static '/public/images/huoli/hl3.png' /}" alt="" width="102" height="32" id="Image3"></a>
+                            #{/if}
+                            #{if levelfourflag==1}
+                            <a style="cursor:pointer" onclick="getgift(4)" onMouseOut="MM_swapImgRestore()" ><img src="/public/images/huoli/hl1.png" alt="" width="102" height="32" id="Image3"></a>      
+                            #{/if}
+                            #{if levelfourflag==2}
+                            <a ><img src="#{mb.static '/public/images/huoli/hl15.png' /}" alt="" width="102" height="32" id="Image3"></a>
+                            #{/if} 
+        
+              </div>
+  </ul>
+  
+  <ul>
+        <li><img src="#{mb.static '/public/images/huoli/hl9.png' /}" > <p>50个积分</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl10.png' /}" > <p>188元红包</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl11.png' /}" > <p>周日保险结算特权</p></li>
+      <div class="uldiv" > 
+        活力值: <b>100000</b>
+        <p>可领取奖品区</p>
+        #{if levelfiveflag==0}
+                            <a href="javascript:void(0)"><img src="#{mb.static '/public/images/huoli/hl3.png' /}" alt="" width="102" height="32" id="Image3"></a>
+                            #{/if}
+                            #{if levelfiveflag==1}
+                            <a style="cursor:pointer" onclick="getgift(5)" onMouseOut="MM_swapImgRestore()" ><img src="/public/images/huoli/hl1.png" alt="" width="102" height="32" id="Image3"></a>      
+                            #{/if}
+                            #{if levelfiveflag==2}
+                            <a ><img src="#{mb.static '/public/images/huoli/hl15.png' /}" alt="" width="102" height="32" id="Image3"></a>
+                            #{/if}       
+        
+         </div>
+  </ul>
+  
+  
+  <ul>
+        <li><img src="#{mb.static '/public/images/huoli/hl9.png' /}" > <p>80个积分</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl10.png' /}" > <p>288元红包</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl5.png' /}" > <p>双倍周年礼盒</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl6.png' /}" > <p>洗码+0.2%</p></li>
+      <div class="uldiv" > 
+        活力值: <b>300000</b>
+        <p>可领取奖品区</p>
+        #{if levelsixflag==0}
+                            <a href="javascript:void(0)"><img src="#{mb.static '/public/images/huoli/hl3.png' /}" alt="" width="102" height="32" id="Image3"></a>
+                            #{/if}
+                            #{if levelsixflag==1}
+                            <a style="cursor:pointer" onclick="getgift(6)" onMouseOut="MM_swapImgRestore()" ><img src="/public/images/huoli/hl1.png" alt="" width="102" height="32" id="Image3"></a>      
+                            #{/if}
+                            #{if levelsixflag==2}
+                            <a ><img src="#{mb.static '/public/images/huoli/hl15.png' /}" alt="" width="102" height="32" id="Image3"></a>
+                            #{/if}       
+        
+        </div>
+  </ul>
+  
+  
+  <ul>
+        <li><img src="#{mb.static '/public/images/huoli/hl9.png' /}" > <p>100个积分</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl10.png' /}" > <p>518元红包</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl7.png' /}" > <p>+5%提款送</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl2.png' /}" > <p>双倍生日礼金</p></li>
+      <div class="uldiv" > 
+        活力值: <b>600000</b>
+        <p>可领取奖品区</p>
+        #{if levelsevenflag==0}
+                            <a href="javascript:void(0)"><img src="#{mb.static '/public/images/huoli/hl3.png' /}" alt="" width="102" height="32" id="Image3"></a>
+                            #{/if}
+                            #{if levelsevenflag==1}
+                            <a style="cursor:pointer" onclick="getgift(7)" ><img src="/public/images/huoli/hl1.png" alt="" width="102" height="32" id="Image3"></a>      
+                            #{/if}
+                            #{if levelsevenflag==2}
+                            <a ><img src="#{mb.static '/public/images/huoli/hl15.png' /}" alt="" width="102" height="32" id="Image3"></a>
+                            #{/if}        
+        </div>
+  </ul>
+  
+  <ul>
+        <li><img src="#{mb.static '/public/images/huoli/hl9.png' /}" > <p>180个积分</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl10.png' /}" > <p>888元红包</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl11.png' /}" > <p>双倍保险礼金</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl5.png' /}" > <p>节日生日礼盒</p></li>
+        <li><img src="#{mb.static '/public/images/huoli/hl12.png' /}" > <p>iphone8Plus</p></li>
+      <div class="uldiv" > 
+        活力值: <b>1000000</b>
+        <p>可领取奖品区</p>
+        #{if leveleightflag==0}
+           <a href="javascript:void(0)"><img src="#{mb.static '/public/images/huoli/hl3.png' /}" alt="" width="102" height="32" id="Image3"></a>
+         #{/if}
+         #{if leveleightflag==1}
+            <a style="cursor:pointer" onclick="getgift(8)" ><img src="/public/images/huoli/hl1.png" alt="" width="102" height="32" id="Image3"></a>      
+         #{/if}
+         #{if leveleightflag==2}
+              <a ><img src="#{mb.static '/public/images/huoli/hl15.png' /}" alt="" width="102" height="32" id="Image3"></a>
+          #{/if}        
+        </div>
+  </ul>
+  
+  
+  
+  
+  
+  
+  
+  					</div>
+   
+  </div>
+  
+                #{/else}
+                   
+                  
+               </fieldset>
+            </div>
+           #{include '/templates/user_info.html' /}
+</div>                           
+</div>

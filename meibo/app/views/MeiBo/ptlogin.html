@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>八达客户端登录</title>
+<link rel="stylesheet" href="#{mb.static '/public/style/login.css' /}" type="text/css" />
+<script type="text/javascript">
+
+function dopageloaded(){
+	window.location='htcmd:pageloaded'; 
+}
+</script>
+
+<script type="text/javascript">
+
+function login(){
+
+window.location='htcmd:login?username=' + document.getElementById('username').value + '&password=' + document.getElementById('password').value + '';
+
+}
+</script>
+</head>
+
+<body OnContextMenu="return false" onload="dopageloaded()">
+<div class="login-big">
+	<div class="login-cont">
+    	<div class="cont">
+    	<input class="login-user pad-b" type="text" value="" id="username" name="username" />
+        <input class="login-user" type="password" id="password" name="password" value="" />
+        <input class="login-sub" type="submit" onclick="javascript:login()" />
+        </div>
+    </div>
+</div>
+</body>
+</html>

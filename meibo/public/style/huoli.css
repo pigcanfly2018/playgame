@@ -1,0 +1,88 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.Activities{
+	padding: 0;
+	list-style: none;
+	margin-bottom: 0;
+	margin-left: 0;
+	margin-right: 2px;
+	margin-top: 0;
+}
+a{text-decoration:none}
+.Activities{width:560px; 
+            height:1197px; 
+            background-image:url(../images/huoli/huoliback.gif);
+            background-repeat:no-repeat; 
+            margin:0 auto; padding:12px;
+			font-size:14px;
+			font-family:"微软雅黑", "宋体", Arial, "Arial Black";
+			color:#f9ad00;
+			white-space:normal;  
+            word-break:break-all;  
+            overflow:hidden;  
+			}
+.Activities div {
+    padding-bottom: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.Activities div span{
+	        font-size:20px;
+			color:#f7ec54;
+            }
+.Activities div strong{
+	        font-size:27px;
+			color:#f7ec54;
+            }
+.list{
+	padding: 0 3px;
+	height: auto;
+	width: auto;
+	margin-bottom: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 0px;
+            } 
+.list ul {
+    padding: 0;
+    clear: both;
+    height: 117px;
+    margin-top: 13px;
+}
+.list ul li{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	float: left;
+	text-align: center;
+	padding-bottom: 3px;
+	padding-left: 1px;
+	padding-right: 2px;
+	padding-top: 2px;
+	width:81px;
+            }
+.list ul li img{display:block;
+                 clear:both;
+                }
+.list ul li p{ font-size:12px;
+               font-family:"微软雅黑", "宋体", Arial, "Arial Black";
+			   color:#e8c848;
+			   text-decoration:underline;
+			   clear:both;
+            }
+.uldiv{color:#ffff00;
+       float:right;
+	   padding:13px 5px 0 0;
+	   font-size:12px;
+	   clear : none;
+	   text-align:center;
+	   display:inline  ;
+	   width:122px;
+       }
+.uldiv b{ font-size:15px;
+          font-style:italic;
+        }
+.uldiv p{color:f4dc4e;
+          height:30px;
+        }
+.uldiv a:hover{ b

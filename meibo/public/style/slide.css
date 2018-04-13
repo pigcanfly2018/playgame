@@ -1,0 +1,20 @@
+/* Code tidied up by ScrapBook */
+.lof-slidecontent { position: relative; overflow: hidden; width: 1002px; height: 300px; }
+.lof-slidecontent .preload { height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; z-index: 100000; color: rgb(255, 255, 255); text-align: center; }
+.lof-slidecontent .preload div { height: 100%; width: 100%; background: transparent url("../images/load-indicator.gif") no-repeat scroll 50% 50%; }
+.lof-main-outer { position: relative; height: 100%; width: 706px; overflow: hidden; }
+ul.lof-main-wapper { background: transparent url("../images/load-indicator.gif") no-repeat scroll 50% 50%; padding: 0px; margin: 0px; height: 300px; width: 706px; position: absolute; overflow: hidden; }
+ul.lof-main-wapper li { overflow: hidden; padding: 0px; margin: 0px; height: 100%; width: 706px; float: left; }
+ul.lof-main-wapper li img { padding: 0px; width: 706px; }
+ul.lof-navigator { top: 0px; padding: 0px; margin: 0px; position: absolute; width: 100%; }
+ul.lof-navigator li { cursor: pointer; list-style: outside none none; width: 100%; padding: 0px; margin: 0px; overflow: hidden; }
+.lof-navigator-outer { position: absolute; right: 0px; top: 0px; z-index: 100; height: 300px; width: 310px; overflow: hidden; color: rgb(255, 255, 255); }
+.lof-navigator li.active { background: rgba(0, 0, 0, 0) url("../images/arrow-bg.png") no-repeat scroll left center; color: rgb(255, 255, 255); }
+.lof-navigator li:hover {  }
+.lof-navigator li h3 { line-height: 28px; color: rgb(255, 153, 0); font-size: 100%; padding: 15px 0px 0px !important; margin: 0px; }
+.lof-navigator li div { background: rgb(69, 0, 0) none repeat scroll 0% 0%; line-height: 18px; color: rgb(255, 255, 255); height: 100%; position: relative; padding-right: 15px; margin-left: 15px; padding-left: 15px; border-top: 1px solid rgb(101, 0, 0); }
+.lof-navigator li div span { height: 36px; overflow: hidden; display: block; }
+.lof-navigator li.active div { background: rgba(0, 0, 0, 0) url("../images/grad-bg.png") repeat scroll 0% 0%; color: rgb(255, 255, 255); }
+.lof-navigator li img { height: 60px; width: 60px; margin: 15px 15px 10px 0px; float: left; padding: 3px; border: 1px solid rgb(255, 0, 0); }
+.lof-navigator li.active img { border: 1px solid rgb(255, 204, 0); }
+.lof-navigator li.active h3 { color: rgb(255, 255, 255); }

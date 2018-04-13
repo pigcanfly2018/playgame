@@ -1,0 +1,99 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'会员提款 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'会员提款，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_3'/}
+<script data-cfasync="false">
+function numberOnly(e){
+	if(window.event){
+		var keyCode=window.event.keyCode;
+		return (keyCode>=48&&keyCode<=57)||keyCode==46;
+	}else{
+		var keyCode=e.which;
+		return (keyCode>=48&&keyCode<=57)||keyCode==0||keyCode==8||keyCode==46;//allow backspace and delete
+	}
+} 
+function aa(){
+	$("#submit_btn").attr("disabled","disabled");
+}
+</script>
+<div id="wrapper" class="MainWrap"> 
+
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight">            	
+               <fieldset>
+	                <legend>会员提款</legend>
+	                <div id="" class="SYCentBlockWrap2">
+	                <div>${errorMsg}</div>
+	                <form action="/withdraw.php" method="post" autocomplete="off" onsubmit="return sa('b_submit')" >
+				       <div>
+				           <label>提款金额：</label>
+				           <input type="text" name="amount" value=""   class="input" onkeypress="return numberOnly(event)"/>
+				           <span>最低为100元。</span>         
+				       </div>	
+				       <div>
+				            <label>提款密码：</label> 
+				            <input type="password" name="login_pwd" value=""   class="input"/>
+				            <span>您登录网站的密码。</span>         	
+				       </div>	
+				       <div>
+				          <label>备注：</label>
+				          <input type="text" name="remarks" value=""   class="input"/>
+				          <span></span>
+				       </div>	
+	               		#{if showBank}
+	               		<div style="color:#FF0">
+	               		    填写您的银行资料，首次提款成功后，以下银行资料将会自动绑定您的帐号，银行卡户名必与注册真实姓名一致。
+	               		</div>
+	               		<div class="clear"></div> 
+	               		<div>
+		               		<label>提款银行：</label>
+		               		                <select  name="bank_name" class="input">
+		                                          <option value="工行">中国工商银行</option>
+											      <option value="农行">中国农业银行</option>
+											      <option value="招行">招商银行</option>
+											      <option value="建行">中国建设银行</option>
+											      <option value="民生">中国民生银行</option>
+											      <option value="中行">中国银行</option>
+											      <option value="兴业">兴业银行</option>
+											      <option value="华夏">华夏银行</option>
+											      <option value="邮政">邮政储蓄</option>
+											      <option value="中信">中信银行</option>
+						                          <option value="光大">光大银行</option>
+						                          <option value="广发">广发银行</option>
+						                          <option value="平安">平安银行(原深发展)</option>
+						                          <option value="恒丰">恒丰银行</option>
+						                          <option value="浙商">浙商银行</option>
+						                          <option value="徽商">徽商银行</option>
+						                          <option value="广西农信社">广西农信社</option>
+		                                    </select>
+	                    </div>   
+	                    <div>
+	               		    <label>银行账号：</label><input type="text" name="account"  class="input" value="" />
+	               		</div>
+	               		
+	                    
+	                    <div>
+	                         <label>开户网点：</label><input type="text" name="bank_dot"   class="input"/>
+	                    </div>
+	                    
+	                    <div>
+		                    <label>账户类型：</label><select class="account_type"  name="account_type">
+		                                        <option value="借记卡">借记卡</option>
+		                                        <option value="信用卡">信用卡</option>
+		                                        <option value="存折">存折</option>
+		                                    </select>
+	                    </div>
+	                    
+	                    #{/if}
+	                    <div style="width: 50%;" >
+	                        <input id="b_submit" name="Submit" type="submit" class="Btn2 BtnSize_B3" value="提交" />
+	                    </div>
+	                </form>
+	                </div>
+               </fieldset>
+            </div>
+           #{include '/templates/user_info.html' /}
+                           
+</div>
+

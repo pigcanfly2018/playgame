@@ -1,0 +1,74 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'获取存款卡号 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'获取存款卡号，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_2'/}
+<script data-cfasync="false">
+function select(s){
+	var bank_name=$(s).val();
+	$('#account_name').val("");
+	$('#account').val("");
+	$('#location').val("");
+	if(bank_name!=''){
+		$.ajax({
+			type:'post',
+			url:'/ajax/getBank',
+			data:{bank_name:bank_name},
+			dataType:'text',
+			success:function(msg){
+				var data =eval("("+msg+")");
+				if(data.success){
+					$('#account_name').val(data.message.account_name);
+					$('#account').val(data.message.account);
+					$('#location').val(data.message.location);
+				}
+			},
+			error:function(){
+			}
+		});
+	}
+}
+</script>
+<div id="wrapper"> 
+<div class="UserCenter">
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight">            	
+               <fieldset>
+	                <legend>获取存款卡号</legend>
+	                <div><span style="color:white">${errorMsg}</span></div>
+	                <form action="/password.php" method="post" autocomplete="off">
+	                   <div>
+						   <label>存款银行：</label>
+				           <select class="input" style="width: 207px" name="bank_name" onchange="select(this);">
+                                        <option value="">请选择银行</option>
+                                        <option value="工行">中国工商银行</option>
+                                        <option value="农行">中国农业银行</option>
+                                        <option value="建行">中国建设银行</option>
+                                        <option value="招行">招商银行</option>
+                                        <option value="民生">中国民生银行</option>
+                            </select>
+				           <span>选择你想要存款的银行。</span>
+				       </div>	
+				       
+				       <div> 以下为收款银行卡信息</div>
+				       <div>
+				           <label>收款人：</label>
+				           <input type="text" class="input"
+				           style="width: 200px" name="account_name"   id="account_name" readonly="true" >
+				       </div>
+				       <div>
+				           <label>收款帐号：</label>
+				           <input type="text" class="input" style="width: 200px" readonly="true"
+                                     name="account" id="account">
+				       </div>	
+				       <div>
+				           <label>开户网点：</label>
+				           <input type="text" class="input" style="width: 200px" readonly="true"
+                                     name="location" id="location">
+				       </div>
+	                </form>
+               </fieldset>
+            </div>
+            <div class="clear"></div>       
+</div>                           
+</div>

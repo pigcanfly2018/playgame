@@ -1,0 +1,236 @@
+.menu_x_hover{background:url(../images/MenuBgHover.png) no-repeat center top; height:39px;color:#fff; text-align:center; }
+a.HeaderBtn01{background:url(../images/HeaderBtn.png) no-repeat 0px 0px; width:122px; height:36px; display: inline-block; margin-top:50px; margin-right:5px;}
+a.HeaderBtn02{background:url(../images/HeaderBtn.png)no-repeat -122px 0px; width:122px; height:36px; display: inline-block; margin-top:50px;}
+a:hover.HeaderBtn01{background:url(../images/HeaderBtn.png) no-repeat 0px -36px; width:122px; height:36px; display: inline-block; margin-top:50px;margin-right:5px;}
+a:hover.HeaderBtn02{background:url(../images/HeaderBtn.png) no-repeat -122px -36px; width:122px; height:36px; display: inline-block; margin-top:50px;}
+#wrapper .container_inner_right h3{border-bottom:solid 1px #ff0}
+.user0_btn{background:url(../images/MidBtnBg1.png) repeat-x; padding-left:10px; height:34px; width:100%; display:inline-block; text-align:center; line-height:34px; font-size:16px; font-weight:bold; color:#Fff; margin-bottom:5px; box-sizing: border-box;}
+a:hover.user0_btn{background:url(../images/MidBtnBg1.png)repeat-x; display:inline-block; color:#ff0;}
+.user1_btn{background:url(../images/MidBtnBg0.png) repeat-x right; border:1px #990203 solid; height:34px; width:100%; display:inline-block; text-align:center; line-height:34px; font-size:14px; font-weight:bold; color:#Fff; margin-bottom:5px;box-sizing: border-box;}
+a:hover.user1_btn{background:url(../images/MidBtnBg0.png) repeat-x right; display:inline-block;color:#Ff0; border:1px #F00 solid;}
+#user00_btn{color:#Ff0; border:1px #F00 solid;}
+.left-JRico {
+background: url(../images/img/zhongqiu.png) no-repeat;
+width: 235px;
+height: 154px;
+}
+.left_ad{ width:115px; position:absolute; top:200px; left:0px; z-index:999; }
+.left_ad a{ display:block; cursor:pointer; }
+.left_ad .left_link{ width:115px; height:266px; background:url('../images/kfleft.png')no-repeat; }
+.ma{margin:auto;}
+.t-ma{width:1002px;}.pt {
+	height: 300px;
+	background-image: url(../images/LiveDealer/img/pt.jpg);
+	background-repeat: no-repeat;
+	/* [disabled]margin-bottom: 10px; */
+}
+.pt-b {
+	height: 43px;
+	width: 396px;
+	float: right;
+	margin-top: 248px;
+	background-image: url(../images/LiveDealer/img/pbg.png);
+	background-repeat: no-repeat;
+}
+.p-1 {
+	display: block;
+	height: 43px;
+	width: 205px;
+	float:left;
+}
+.p-2 {
+	display: block;
+	height: 43px;
+	width: 191px;
+	float:right;
+}
+.p-1:hover {
+	
+	height: 43px;
+	width: 205px;
+	background:url(../images/LiveDealer/img/p-1.png)no-repeat left;
+}
+.p-2:hover {
+	
+	height: 43px;
+	width: 191px;
+	background:url(../images/LiveDealer/img/p-2.png)no-repeat left;
+}
+.sb {
+	height: 300px;
+	background-image: url(../images/LiveDealer/img/sb.jpg);
+	background-repeat: no-repeat;
+	border-bottom: solid 5px white;
+}
+.bbin {
+	height: 300px;
+	background-image: url(../images/LiveDealer/img/bbin.jpg);
+	background-repeat: no-repeat;
+	border-bottom: solid 5px white;
+}
+.bbin-b {
+	height: 63px;
+	width: 406px;
+	float: right;
+	margin-top: 230px;
+	background-image: url(../images/LiveDealer/img/b-b.png);
+	background-repeat: no-repeat;
+}
+.b-1 {
+	display: block;
+	height: 63px;
+	width: 212px;
+	float:left;
+}
+.b-2 {
+	display: block;
+	height: 63px;
+	width: 193px;
+	float:right;
+}
+.b-1:hover {
+	
+	height: 63px;
+	width: 212px;
+	background:url(../images/LiveDealer/img/b-b1.png)no-repeat left;
+}
+.b-2:hover {
+	
+	height: 63px;
+	width: 194px;
+	background:url(../images/LiveDealer/img/b-b2.png)no-repeat left;
+}
+.ag {
+	height: 300px;
+	background-image: url(../images/LiveDealer/img/AG.jpg);
+	background-repeat: no-repeat;
+	border-bottom: solid 5px white;
+}
+.ag-b {
+	height: 59px;
+	width: 242px;
+	float: right;
+	margin-top: 240px;
+	margin-right: 75px;
+	background-image: url(../images/LiveDealer/img/ag-b.png);
+	background-repeat: no-repeat;
+}
+.ag-c {
+	height: 59px;
+	width: 242px;
+	float: right;
+	margin-top: 240px;
+	margin-right: 75px;
+	background-image: url(../images/LiveDealer/img/ag-c.png);
+	background-repeat: no-repeat;
+}
+.a-1 {
+	display: block;
+	height: 59px;
+	width: 121px;
+	float:left;
+}
+.a-2 {
+	display: block;
+	height: 59px;
+	width: 121px;
+	float:right;
+}
+.a-3 {
+	display: block;
+	height: 59px;
+	width: 121px;
+	float:right;
+}
+.a-1:hover {
+	
+	height: 59px;
+	width: 121px;
+	background:url(../images/LiveDealer/img/ag-b1.png)no-repeat left;
+}
+.a-2:hover {
+	height: 59px;
+	width: 121px;
+	background:url(../images/LiveDealer/img/ag-b2.png)no-repeat left;
+}
+.a-3:hover {
+	height: 59px;
+	width: 121px;
+	background:url(../images/LiveDealer/img/ag-c2.png)no-repeat left;
+}
+
+
+
+
+/*-----客服 start -----*/
+.dianhua {
+	float: left;
+	height: 90px;
+	width: 320px;
+	margin-top: 25px;
+	margin-left: 5px;
+	background-image: url(../images/kefu88phone.png);
+	position:relative;
+}
+
+.ann-x {
+	height: 27px;
+	width: 310px;
+	margin-left: 10px;
+	margin-top: 60px;
+}
+.ann-x2 {
+	width: 310px;
+	height: 27px;
+	float: left;
+}
+.ann-x2 a {
+	width: 310px;
+	height: 25px;
+	display: block;
+}
+.pcall {
+	position:absolute;
+	width:100px;
+	height:28px;
+	line-height:28px;
+	text-indent:10000px;
+	overflow:hidden;
+	top:5px;
+	right:0px;
+}
+	
+/*-----客服 end -----*/
+
+/*-----红包--------*/
+.hb_bg{
+       background: #350000 url(../images/hongbao/bg.jpg) no-repeat center top;
+       width:580px;
+       height:735px;
+}
+   
+  
+.hb_btn{
+    padding-top:300px;
+    padding-left:170px;
+}
+.hb_btn img{
+	cursor:pointer;
+}
+.hb_info{
+    background:  url(../images/hongbao/info_1.png)no-repeat center top;
+     width:580px;
+     height:169px;
+     margin-top:130px;
+}
+
+.hb_info2{
+    background:  url(../images/hongbao/info_2.png)no-repeat center top;
+     width:580px;
+     height:169px;
+     margin-top:130px;
+}
+#dialog-flash{border:3px solid red;width:800px;height:400px;display:none;}
+#dialog-flash .btn-close{background:url(../images/hongbao/close.png)no-repeat 0 0;width:54px;height:54px;display:block;overflow:hidden;text-indent:-9999px;position:absolute;top:-56px;right:-4px;}
+
+

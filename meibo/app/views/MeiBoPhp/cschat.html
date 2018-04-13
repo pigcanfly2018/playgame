@@ -1,0 +1,12 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body onLoad="document.dinpayForm.submit();">
+<form name="dinpayForm" method="post" action="${url}?username=${username}&IPaddr=${IPaddr}">
+    <input type="hidden" name="chatID" value="${chatID}" />
+    <input type="hidden" name="workgroup" value="${workgroup}" />
+    <input type="hidden" name="key" value="${key}"/>
+</form>
+</body>
+</html>

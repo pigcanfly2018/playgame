@@ -1,0 +1,9 @@
+body,div,a,h1,h2,h3,h4,span,img,ul,li,p,input{ padding:0; margin:0; border:0;}
+body{ background:url(../pt/login-bg.jpg) repeat-y center top}
+.login-big{ background:url(../pt/login-bg.jpg) repeat-y center top}
+.login-cont{ width:626px; height:455px; margin:0 auto; background:url(../pt/login-input.jpg) no-repeat; margin-top:105px;}
+.login-cont .cont{ padding-top:153px;}
+.login-user{ width:335px; height:64px; line-height:64px; background:none; margin:0 auto; display:block; padding-left:75px; font-size:14px; color:#9c9fae;}
+.login-cont .pad-b{ margin-bottom:9px;}
+
+.login-sub{ width:412px; height:68px; line-height:68px; background:url(../pt/login-but.jpg) no-repeat; display:block; margin:0 auto; text-indent:1000px; overflow:hidden; margin-top:30px; cursor:pointer;}

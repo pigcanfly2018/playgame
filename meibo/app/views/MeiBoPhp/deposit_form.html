@@ -1,0 +1,101 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'提交存款信息 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'提交存款信息，八达国际'/} 
+#{set description:''/}       
+#{set cust_nav_li:'cust_1_2'/}      
+<script data-cfasync="false" type="text/javascript" src="#{mb.static '/public/My97DatePicker/WdatePicker.js'/}" charset="utf-8"></script>
+<script data-cfasync="false">
+function numberOnly(e){
+	if(window.event){
+		var keyCode=window.event.keyCode;
+		return (keyCode>=48&&keyCode<=57)||keyCode==46;
+	}else{
+		//mozailla
+		var keyCode=e.which;
+		return (keyCode>=48&&keyCode<=57)||keyCode==0||keyCode==8||keyCode==46;//allow backspace and delete
+	}
+} 
+function resetPoundage(i){
+	var k=parseFloat($(i).val())/100;
+	if(k>2888){
+	    $("#poundage").html("2888元");	
+	}else{
+		$("#poundage").html(k+"元");	
+	}
+}
+</script>
+
+<div id="wrapper"> 
+<div class="UserCenter">
+  #{include '/templates/user_left.html'/}  		
+ <div class="UserRight">            	
+          <fieldset>
+            <legend>提交存款信息</legend>
+            <div>${errorMsg}</div>
+            <form action="/deposit.php" method="post" autocomplete="off"  onsubmit="return sa('b_submit')">
+                  <div>
+				       <label >存款金额：</label>
+                       <input type="text" style="width:200px;font-size:20px;color:red;font-weight:bold" name="amount" value="${amount}" class="input" onkeypress="return numberOnly(event)" onblur="resetPoundage(this)"/>
+                       <span>您本次已存款的金额。</span>
+			       </div>	
+			      <div>
+			          <label>转账红利：</label> 
+			          <span id="poundage" style="color:white;margin-right:165px;">0元</span>
+			      </div>	
+			      <div>
+			           <label>存款银行：</label> 
+			           <input type="text" style="width:200px;" name="bank_name" value="${bank_name}" readOnly="readOnly" class="input"/>
+			           <span></span>         	
+			      </div>	
+			      <div>
+			           <label>收款人：</label> 
+			           <input type="text" name="account_name" style="width:200px;" value="${account_name}" readOnly="readOnly" class="input"/>
+			           <span></span>         	
+			      </div>
+			       <div>
+			           <label>存款方式：</label> 
+			           <select class="input" style="width: 207px" name="deposit_type">
+			           					
+                                        <option value="网银转账">网银转账</option>
+                                        <option value="手机银行转账">手机银行转账</option>
+                                        #{if bank_name=="招行"}
+			           					<option value="支付宝转招行">支付宝转招行</option>
+			           					#{/if}
+			           					<option value="微信转银行">微信转银行</option>
+                                        <option value="ATM转账">ATM转账</option>
+                                        <option value="ATM存现">ATM存现</option>
+                                        <option value="柜台存现">柜台存现</option>
+                                        <option value="柜台转账">柜台转账</option>
+                                    </select>
+			           <span></span>         	
+			      </div>
+			        <div>
+			           <label>存款时间：</label> 
+			            <input type="text" class="Wdate" maxlength="10"  
+                                    value="${new Date().format('yyyy-MM-dd HH:mm:ss')}"style="width: 205px;height:33px" 
+                                    onclick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true})"  
+                                    id="deposit_date" name="deposit_date">
+			           <span>以存款凭证的时间为准。</span>         	
+			      </div>
+			       <div>
+			           <label>存款地址：</label> 
+			           <input type="text" name="location" style="width:200px;" value="${location}" class="input"/>
+			           <span>存款时的地点。</span>         	
+			      </div>
+			      <div>
+			         <label>备注：</label>
+			         <input type="text" name="remarks" style="width:200px;" value="${remarks}" class="input"/>
+			         <span></span>
+			      </div>	
+                <div>
+                    <input id ="b_submit" name="Submit" type="submit" style="margin-left:150px;margin-top:20px" class="buttom02" value="提交" />
+                     <input name="Submit" type="button" style="margin-left:15px;margin-top:20px" class="buttom02" value="返回" onclick="window.location.href='/deposit_bank.php'" />
+  
+                </div>
+            </form>
+          </fieldset>
+       </div>
+         #{include '/templates/user_info.html' /}
+</div>                           
+</div>
+

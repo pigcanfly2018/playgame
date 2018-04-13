@@ -1,0 +1,36 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'会员中心 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'会员中心，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_1'/}
+<div id="wrapper"> 
+<div class="UserCenter">
+           #{include '/templates/user_left.html'/}  		
+			<div class="UserRight">
+                <fieldset>
+                   <legend>会员中心</legend> 
+                   <div style="background: #300000;padding:10px;color:#ffff00;">
+                      <p >尊敬的会员:</p>
+					  <p style="text-indent:2em">您好，羊年春节临近，八达国际全体人员祝福您春节快乐，在新一年里身体健康，财源滚滚，好运连连，阖家幸福，万事顺意！ 
+					   为了庆祝春节，八达国际客服服务部和彩金部门全体放假一天，即北京时间 2015-02-18 12点整（大年三十中午） 至 2015-02-19 12点整(春节中午)。
+					在此期间，网站将正常开放,可正常投注，但部分业务受到影响，人工存款，提款，电话咨询等服务将延迟到春节中午12点后处理，请您知悉，给您带来不便，敬请谅解！</p>
+					                                                                                                 <p style="text-align:right">八达国际全体人员致上</p>
+                   </div>
+               		#{include '/templates/deposit_table.html' /}
+                    
+                    #{mb.hotDiscount}
+                        <div>今日为您推荐的优惠 <span>${_discount.title}</span>&nbsp;&nbsp;<a target="_blank" href="/promotion/${_discount.discount_id}">查看详情</a></div>
+	                     <div class="ProList">
+          	                    <img src="${_discount.s_url}" alt="" style="width:550px;">         
+			                  <p style="height:80px">${_discount.summary}</p>
+				             
+						    <div class="clear"></div>
+				       </div>
+                    #{/mb.hotDiscount}
+                  
+               </fieldset>
+            </div>
+           #{include '/templates/user_info.html' /}
+</div>                           
+</div>
+

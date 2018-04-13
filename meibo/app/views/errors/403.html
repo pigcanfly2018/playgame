@@ -1,0 +1,16 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'403-禁止访问-八达国际官网（8dabet.com） - 八达博天下' /} 
+#{set keywords:'八达娱乐客户端，八达国际，'/}
+#{set description:''/}   
+<div id="wrapper"> 
+	<div class="ErrPage">
+    	<img src="#{mb.static '/public/images/403.png' /}" />
+    	#{if errorMsg==null}
+        <p>禁止访问：服务器拒绝了您的浏览请求，请确认您的访问权限!</p>
+        #{/if}
+        #{else}
+         <p>禁止访问：${errorMsg}</p>
+        #{/else}
+        <p><a href="/" class="buttom01">返回首页</a></p>
+    </div>
+</div>

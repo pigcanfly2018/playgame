@@ -1,0 +1,186 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'彩票竞猜 -八达国际官网（8dabet.com） - 八达博天下' /} 
+#{set keywords:'彩票竞猜，八达国际，'/}
+#{set description:'八达国际娱乐城提供在线博彩娱乐，设有真人百家乐，龙虎等真人项目，更有VIP包房；电子老虎机，桌面游戏等精彩电子游艺；彩票竞猜，体育竞技欢乐不断。内设申博厅，AG国际厅，波音厅，任君选择，24小时服务永不打烊！'/}                               			                                                	
+#{set menu_li:'index_3'/}  
+<div id="wrapper"> 
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.LottoBox').show();
+	//$('.acc_trigger:first').addClass('active').next().show(); //Add "active" class to first trigger, then show/open the immediate next container
+	
+	
+	//On Click
+	$('.acc_trigger').click(function(){
+		if( $(this).next().is(':hidden') ) { //If immediate next container is closed...
+			$('.acc_trigger').removeClass('active').next().slideUp(); //Remove all .acc_trigger classes and slide up the immediate next container
+			$(this).toggleClass('active').next().slideDown(); //Add .acc_trigger class to clicked trigger and slide down the immediate next container
+		}else{
+			
+			$('.acc_trigger').removeClass('active').next().slideUp(); //Remove all .acc_trigger classes and slide up the immediate next container
+			$(this).toggleClass('active').next().slideDown(); //Add .acc_trigger class to clicked trigger and slide down the immediate next container
+		}
+		return false; //Prevent the browser jump to the link anchor
+	});
+	
+});
+</script>        
+    <!-- <div ><img src="#{mb.static '/public/images/lottoTop.jpg' /}" /></div>  -->
+    #{mb.kg}
+    	#{if _kg_flag}
+    	<h2 class="acc_trigger"><a href="#">KG平台</a></h2>
+    	<div class="LottoBox">
+    	     <a href="/goToGame/4" target="_blank" ><img src="#{mb.static '/public/meibo/images/lotto/1000x190.jpg'/}" style="width:980px;margin-top:8px;margin-bottom:8px;"/></a>
+    	</div>
+    	#{/if}
+    	#{else}
+    	    <h2 class="acc_trigger"><a href="#">KG平台</a></h2>
+	    	<div class="LottoBox">
+	    	     <a href="javascript:alert('KG正在维护中!')" target="_blank" ><img src="#{mb.static '/public/meibo/images/lotto/1000x190.jpg'/}" style="width:980px;margin-top:8px;margin-bottom:8px;"/></a>
+	    	</div>
+    	#{/else}
+    #{/mb.kg}  
+    
+    <h2 class="acc_trigger"><a href="#">BBIN平台</a></h2> 
+                 
+    <div class="LottoBox">
+     #{mb.bbin}
+     #{if _bbin_flag}
+        <ul>
+        
+            <li class="lr">
+            	<div><img src="#{mb.static '/public/images/lotto/LottoImg02.jpg'/}" />
+                <p><span>BB彩</span>
+                 BB真人彩票是一个专业而且开奖迅速的彩票游戏，每日以视讯进行公开开奖直播，开设有BB3D彩，BB快乐彩，BB滚球王等彩票项目。
+               </p>
+                <a href="/goToGame/1?psite=Ltlottery" target="_blank"  class="buttom02">进入游戏</a>
+                <a href="/help/bbin_bbc.html" target="_blank" class="buttom02">游戏规则</a>
+                </div>
+            </li>
+            
+        	<li >
+            	<div><img src="#{mb.static '/public/images/lotto/LottoImg01.jpg'/}" />
+                <p><span>六合彩</span>
+                                                   六合彩是由香港赛马会主办的唯一彩票，历史悠久，玩法多样，投注灵活，高收益特点广受彩迷喜欢，是一项普及率很高的彩票品种。
+                </p>
+                <a href="/goToGame/1?psite=Ltlottery" target="_blank"  target="_blank" class="buttom02">进入游戏</a>
+                <a href="/help/bbin_lhc.html" target="_blank" class="buttom02">游戏规则</a>
+                </div>
+            </li>
+         
+            
+            <li class="lr">
+            	<div><img src="#{mb.static '/public/images/lotto/LottoImg03.jpg'/}" />
+                <p><span>时时彩</span>
+                                                   时时彩是属于高频彩系列的彩种，八达国际开设有上海时时乐，重庆时时彩，  天津时时彩，江西时时彩等四项时时彩彩种。                
+                </p>
+                <a href="/goToGame/1?psite=Ltlottery" target="_blank"  class="buttom02">进入游戏</a>
+                <a href="/help/bbin_ssc.html" target="_blank" class="buttom02">游戏规则</a>
+                </div>
+            </li>
+            
+            <li>
+            	<div><img src="#{mb.static '/public/images/lotto/LottoImg04.jpg'/}" />
+                <p><span>十分彩</span>
+                                                     十分彩以每10分钟为一个周期开奖一次得名，丰富的玩法，投注灵活，派彩迅速。开设有广西十分彩，广东十分彩，天津十分彩，北京PK拾等彩票项目。
+                </p>
+                <a href="/goToGame/1?psite=Ltlottery" target="_blank"  class="buttom02">进入游戏</a>
+                <a href="/help/bbin_sfc.html" target="_blank" class="buttom02">游戏规则</a>
+                </div>
+            </li>    
+            
+             
+            <li class="lr">
+            	<div><img src="#{mb.static '/public/images/lotto/LottoImg05.jpg'/}" />
+                <p><span>KENO（快乐彩）</span>
+                KENO(基诺)又称快乐彩，以中国（北京）、加拿大的官方结果为准，
+                                          随机摇出20个号码变化成各式不同的玩法。开设有北京快乐8，加拿大卑斯彩票等快乐彩投注项目。
+                 </p>
+                <a href="/goToGame/1?psite=Ltlottery" target="_blank"  class="buttom02">进入游戏</a>
+                <a href="/help/bbin_lkc.html" target="_blank" class="buttom02">游戏规则</a>
+                </div>
+            </li>
+            
+            <li>
+            	<div><img src="#{mb.static '/public/images/lotto/LottoImg06.jpg'/}" />
+                <p><span>十一选五</span>
+                                                       体彩十一选五，从十一个号码选5个作为开奖号码，投注方式灵活，开奖频次高，全面满足不同彩民的投注需要。
+                </p>
+                <a href="/goToGame/1?psite=Ltlottery" target="_blank"  class="buttom02">进入游戏</a>
+                <a href="/help/bbin_11x5.html" target="_blank" class="buttom02">游戏规则</a>
+                </div>
+            </li>        
+        </ul>
+     #{/if}
+     
+     #{else}
+       <ul>
+            <li class="lr">
+            	<div><img src="#{mb.static '/public/images/lotto/LottoImg02.jpg'/}" />
+                <p><span>BB彩</span>
+                 BB真人彩票是一个专业而且开奖迅速的彩票游戏，每日以视讯进行公开开奖直播，开设有BB3D彩，BB快乐彩，BB滚球王等彩票项目。
+               </p>
+                <a href="javascript:void(0)" target="_blank"  class="buttom02">维护中</a>
+                <a href="/help/bbin_bbc.html" target="_blank" class="buttom02">游戏规则</a>
+                </div>
+            </li>
+            
+        	<li >
+            	<div><img src="#{mb.static '/public/images/lotto/LottoImg01.jpg'/}" />
+                <p><span>六合彩</span>
+                                                   六合彩是由香港赛马会主办的唯一彩票，历史悠久，玩法多样，投注灵活，高收益特点广受彩迷喜欢，是一项普及率很高的彩票品种。
+                </p>
+                <a href="javascript:void(0)" target="_blank"  target="_blank" class="buttom02">维护中</a>
+                <a href="/help/bbin_lhc.html" target="_blank" class="buttom02">游戏规则</a>
+                </div>
+            </li>
+         
+            
+            <li class="lr">
+            	<div><img src="#{mb.static '/public/images/lotto/LottoImg03.jpg'/}" />
+                <p><span>时时彩</span>
+                                                   时时彩是属于高频彩系列的彩种，八达国际开设有上海时时乐，重庆时时彩，  天津时时彩，江西时时彩等四项时时彩彩种。                
+                </p>
+                <a href="javascript:void(0)" target="_blank"  class="buttom02">维护中</a>
+                <a href="/help/bbin_ssc.html" target="_blank" class="buttom02">游戏规则</a>
+                </div>
+            </li>
+            
+            <li>
+            	<div><img src="#{mb.static '/public/images/lotto/LottoImg04.jpg'/}" />
+                <p><span>十分彩</span>
+                                                     十分彩以每10分钟为一个周期开奖一次得名，丰富的玩法，投注灵活，派彩迅速。开设有广西十分彩，广东十分彩，天津十分彩，北京PK拾等彩票项目。
+                </p>
+                <a href="javascript:void(0)" target="_blank"  class="buttom02">维护中</a>
+                <a href="/help/bbin_sfc.html" target="_blank" class="buttom02">游戏规则</a>
+                </div>
+            </li>    
+            
+             
+            <li class="lr">
+            	<div><img src="#{mb.static '/public/images/lotto/LottoImg05.jpg'/}" />
+                <p><span>KENO（快乐彩）</span>
+                KENO(基诺)又称快乐彩，以中国（北京）、加拿大的官方结果为准，
+                                          随机摇出20个号码变化成各式不同的玩法。开设有北京快乐8，加拿大卑斯彩票等快乐彩投注项目。
+                 </p>
+                <a href="javascript:void(0)" target="_blank"  class="buttom02">维护中</a>
+                <a href="/help/bbin_lkc.html" target="_blank" class="buttom02">游戏规则</a>
+                </div>
+            </li>
+            
+            <li>
+            	<div><img src="#{mb.static '/public/images/lotto/LottoImg06.jpg'/}" />
+                <p><span>十一选五</span>
+                                                       体彩十一选五，从十一个号码选5个作为开奖号码，投注方式灵活，开奖频次高，全面满足不同彩民的投注需要。
+                </p>
+                <a href="javascript:void(0)" target="_blank"  class="buttom02">维护中</a>
+                <a href="/help/bbin_11x5.html" target="_blank" class="buttom02">游戏规则</a>
+                </div>
+            </li>        
+        </ul>
+     #{/else}
+     #{/mb.bbin}   
+    	
+        <div class="clear"></div>
+    </div>                             
+</div>

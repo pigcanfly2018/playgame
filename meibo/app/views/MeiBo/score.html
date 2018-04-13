@@ -1,0 +1,364 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'积分乐园 -八达国际官网（8dabet.com） - 八达博天下' /} 
+#{set keywords:'积分乐园，八达国际，'/}
+#{set description:'八达国际娱乐城提供在线博彩娱乐，设有真人百家乐，龙虎等真人项目，更有VIP包房；电子老虎机，桌面游戏等精彩电子游艺；彩票竞猜，体育竞技欢乐不断。内设申博厅，AG国际厅，波音厅，任君选择，24小时服务永不打烊！'/}                               			                                                	
+#{set menu_li:'index_7'/}  
+<link rel="stylesheet" href="#{mb.static '/public/style/score.css' /}" type="text/css" />
+<style>
+#round {
+    padding:10px; width:300px; height:50px;
+    border: 5px solid #dedede;
+    -moz-border-radius: 15px;      /* Gecko browsers */
+    -webkit-border-radius: 15px;   /* Webkit browsers */
+    border-radius:15px;            /* W3C syntax */
+}
+.LottoBox ul li{
+	float: left;
+    border:0px;
+	padding:0px;
+	margin-right:2px;
+	height:115px;
+	background-image: url(#{mb.static '/public/images/score/jfbg.jpg'/})
+}
+.scoreleft{
+	width: 265px;
+	float: left;
+	height:352px;
+	background-image: url(#{mb.static '/public/images/score/zjbg.jpg'/})
+}
+.scoreright{
+	width: 700px;
+	float: right;
+}
+table{
+border-collapse: collapse;
+line-height: 22px;
+text-align: left;
+font-size: 12px;
+background: #400000;
+margin-bottom: 10px;
+width: 100%;
+text-align: left;
+}
+table td{
+border: 1px solid #800000;
+padding: 8px;
+text-align: center;
+}
+</style>
+
+
+<script>
+	
+	//去注册页面
+	function goToReg()
+	{
+		window.location.href=" http://www.8dabet.com/reg.html";
+	}
+	//去登录页面
+	function goToLogin(){
+		alert("请您在右上方的登录口处登录。")
+	    //window.location.href=" http://www.8dabet.com/login.html";
+	}
+	function eggInit(){
+		var msg='{"egg1":0,"egg2":0,"egg3":0}';
+		$.ajax({  
+	          type : "post",  
+	          url : "/egg/eggInit",  
+	          data : {},  
+	          async : false,  
+	          success : function(result){  
+	        	  msg=result;
+	          }  
+	          });  
+        return msg;
+	}
+	//获取积分
+	function getUserScore()
+	{
+		var score="0";
+		$.ajax({  
+	          type : "post",  
+	          url : "/egg/getUserScore",  
+	          data : {},  
+	          async : false,  
+	          success : function(result){  
+	            var data = eval("(" + result + ")");  
+	            if(data.success){
+	            	score=data.message;
+	            }
+	          }  
+	          });  
+
+        return score;
+	}
+	//抽奖了
+/* 	function getLottery(egg) {
+		//判断是否登录
+			alert(1);
+		if(!isLogin()){
+			$(".login_btn").click();
+			$("#gift_layerid").removeAttr("class");
+			reutrn false;
+		}else{
+			//抽奖
+			$.ajax({  
+		          type : "post",  
+		          url : "/egg/getLottery",  
+		          data : {egg:egg},  
+		          async : false,  
+		          success : function(result){ 
+		        	  var flag=result.flag;
+		        	  alert("flag="+flag);
+		        	 $("#gift_layerid").show();
+		        	 
+		          }  
+		          });  
+	
+		}
+		}
+		 */
+		
+	//$(document).ready(function(){loadFlash();});
+	</script>
+<div id="wrapper">
+	<div class="maintopbar"><img src="#{mb.static '/public/images/score/mainbar.png' /}"></div>
+	<!-- 彩蛋砸奖 -->
+	<section class="sec_con clearfix">
+		<div class="sec_con_l">
+			<div class="sec_animate">
+				<div class="eggcom">
+					<div class="egg egg01"><img src="#{mb.static '/public/images/score/scroll01.png' /}"/><span class="eggpic" eggType="金蛋"></span><span class="eggtip">温馨提示：砸一次金蛋<em>需要<i>50个</i>积分</em></span></div>
+					<div class="egg egg02"><img src="#{mb.static '/public/images/score/scroll02.png' /}"/><span class="eggpic" eggType="银蛋"></span><span class="eggtip">温馨提示：砸一次银蛋<em>需要<i>20个</i>积分</em></span></div>
+					<div class="egg egg03"><img src="#{mb.static '/public/images/score/scroll03.png' /}"/><span class="eggpic" eggType="白蛋"></span><span class="eggtip">温馨提示：砸一次白蛋<em>需要<i>5个</i>积分</em></span></div>
+				</div>
+				 <div class="gold" style="width:200px;height:180px;top:0;left:0;"><img src="#{mb.static '/public/images/score/hammer.png' /}" id="img"></div>
+			</div>
+			<!-- <img src="public/images/score/flash.png"> -->
+			<div class="gifcon clearfix">
+				<span><img src="#{mb.static '/public/images/score/img_01.png' /}" title="iphone/plus"/></span>
+				<span><img src="#{mb.static '/public/images/score/img_02.png' /}" title="神秘大礼包"/></span>
+				<span><img src="#{mb.static '/public/images/score/img_03.png' /}" title="高达1000元点卡"/></span>
+				<span><img src="#{mb.static '/public/images/score/img_04.png' /}" title="保险礼金双倍卡"/></span>
+				<span><img src="#{mb.static '/public/images/score/img_05.png' /}" title="iPad"/></span>
+				<span><img src="#{mb.static '/public/images/score/img_06.png' /}" title="高达500元话费卡"/></span>
+				<span><img src="#{mb.static '/public/images/score/img_07.png' /}" title="保险礼金双倍卡"/></span>
+				<span><img src="#{mb.static '/public/images/score/img_08.png' /}" title="50元点卡"/></span>
+				<span><img src="#{mb.static '/public/images/score/img_09.png' /}" title="神秘礼包"/></span>
+			</div>
+		</div>
+		<div class="sec_con_r">
+		
+			<!-- 登录前 -->
+			#{if session.get("username")==null}
+			<div class="login01">
+				<a href="javascript:void(0);" class="login_btn redbtn">立即登录</a>
+				<a href="/reg.html" target="_blank" class="account_btn yellowbtn">立即开户</a>
+			</div>
+			#{/if}
+			#{else}
+			<!-- 登录后 -->
+			<div class="login02">
+				<div id="usermsg">
+					<span class="welcome">欢迎您：</span>
+					<a href="javasctipt:void(0)" vivi-src="#{mb.static '/public/images/score/login-user.png' /}" class="usrtx"></a>
+					<span class="usern">${session.get("username")}</span>
+					<span class="rank">
+					#{mb.myforeach uname:session.get("username")}
+						
+						<i></i>
+						
+					#{/mb.myforeach}
+					
+					
+					</span>
+				</div>
+				<div id="jifencon">
+					<span class="txt01">您当前积分：</span>
+					<strong>#{mb.cust uname:session.get("username")}${_cust.score}#{/mb.cust}</strong>
+					<input type="hidden" id="currentscoreid" value="#{mb.cust uname:session.get("username")}${_cust.score}#{/mb.cust}"></input>
+				</div>
+			</div>
+			#{/else}
+			#{if session.get("username")==null}
+			<a href="javascript:void(0);" class="send_btn" id="login_btn"></a>
+			#{/if}
+			#{else}
+			<a href="/deposit.php" class="send_btn"></a>
+			#{/else}
+			
+			<p class="chioce_txt">
+				#{if session.get("username")==null}
+				<a href="javascript:void(0);" id="login_btn">我的奖品</a>
+				#{/if}
+				#{else}
+				<a href="/egg_list.php" target="_blank">我的奖品</a>
+				#{/else}
+				<a href="javascript:open800ChatBox('')" target="_blank">联系客服</a>
+			</p>
+		</div>
+	</section><!-- end 彩蛋砸奖 -->
+	<!-- 砸奖 中奖榜 -->
+	<div class="scroll_bar01">
+		<span class="barnav fl"><img src="#{mb.static '/public/images/score/zjbnav.png' /}"></span>
+		<div class="scroll_bar_con">
+			<div class="barmain">
+			<ul class="bar_list">
+			#{mb.list key:'ranking_list'}				   
+				   <li>
+					<span>#{mb.hideMid key:_obj.login_name}#{/mb.hideMid}在</span>
+					<span>${_obj.create_date.format('yyyy-MM-dd')}砸中${_obj.trophy_name}${_obj.trophy_count}个</span>
+				</li>
+			 #{/mb.list}
+				
+			</ul>
+			</div>
+		</div>
+	</div><!-- end 砸奖 中奖榜 -->
+	<!-- 积分介绍 -->
+<section class="sec_con02">
+	<div class="jifen_tip">
+		<p class="m_title">积分介绍</p>
+		<span class="redline"></span>
+		<p class="jftext">八达国际娱乐积分乐园旨在为会员提供更多的娱乐奖励项目，在您享受八达国际优质博彩服务的同时，让您获取更多意外好礼，玩法简单，奖品多多。 我们将会陆续推出更多好玩的乐园项目，为广大八达国际粉丝提供更多的有趣的福利。充值送积分，抽奖送好礼，期待您的参与！</p>
+	</div>
+	<div class="jf_list">
+		<ul class="clearfix">
+			<li>
+				<strong>积分作用</strong>
+				<span>八达国际积分可以参与积分乐园的所有项目，包括抽奖以及兑换实物等。让您在娱乐的同时，得到意外的惊喜。</span>
+			</li>
+			<li>
+				<strong>获取积分</strong>
+				<span>存款立即送积分，每存100元，累计1个八达国际积分。签到活动，每日第一笔存款签到即可另外获取1积分。</span>
+			</li>
+			<li>
+				<strong>消费积分</strong>
+				<span>参与积分乐园的活动将会消耗积分，并为您带来意外好礼以及更加好运。</span>
+			</li>
+			<li>
+				<strong>更多活动</strong>
+				<span>八达国际致力提供多元的娱乐在线服务，将会在未来陆续推出更多好玩的积分乐园活动。</span>
+			</li>
+		</ul>
+	</div>
+	<div class="gamerule">
+		<div class="game_tip">
+			<p class="m_title">游戏规则</p>
+			<span class="redline"></span>
+		</div>
+		<ul class="rulelist">
+			<li>
+				<span>彩蛋</span>
+				<span>消耗积分</span>
+				<span>次数</span>
+			</li>
+			<li>
+				<span>金色彩蛋</span>
+				<span>50积分</span>
+				<span>1次</span>
+			</li>
+			<li>
+				<span>银色彩蛋</span>
+				<span>20积分</span>
+				<span>1次</span>
+			</li>
+			<li>
+				<span>白色彩蛋</span>
+				<span>5积分</span>
+				<span>1次</span>
+			</li>
+		</ul>
+		<div class="ruletext">注：开始游戏后，请您轮起锤子猛的那么一砸，立刻就中奖。每砸一次将会消耗一次积分，不同的彩蛋，消耗的积分不一样。当您的积分不足，则无法参与游戏。不同的彩蛋获取到大奖的几率是不一样，金色彩蛋中大奖记录最高，其次是银色彩蛋，再次是白色彩蛋。</div>
+	</div>
+	<div class="giftip">
+		<div class="game_tip">
+			<p class="m_title">游戏规则</p>
+			<span class="redline"></span>
+		</div>
+		<ul class="tiplist">
+			<li>
+				<span>品种</span>
+				<span>奖品介绍</span>
+			</li>
+			<li>
+				<span>点数类</span>
+				<span>提供有<i> 5 - 1000面值不等的点卡</i>，点数类奖品一旦中奖，自动使用，并把点数添加与您的账户里。</span>
+			</li>
+			<li>
+				<span>话费卡</span>
+				<span>提供有<i> 20 - 500面值不等的话费卡</i>，凭中奖号码和需要充值的电话号码与客服联系，办理话费充值。</span>
+			</li>
+			<li>
+				<span>电子产品</span>
+				<span>有机会赢取<i> iphone，plus,ipad </i>等高科技电子产品，凭中奖号码与客服联系，我们立即发货后，将物流单通知您。</span>
+			</li>
+			<li>
+				<span>优惠类</span>
+				<span><i>保险礼金双倍卡</i>（使用时效一周），<i>周双倍洗码卡</i>（限当周）。<i>保险礼金双倍卡</i>，联系客服处理。</span>
+			</li>
+			<li>
+				<span>其他类</span>
+				<span>价值<i> 200-500元 </i>的神秘礼包。</span>
+			</li>
+		</ul>
+		<div class="ruletext">注：八达国际有权利随时终止、修改、变更该活动说明、条款、声明、注解内容。<br/>
+			中奖号码以及中奖时间将是领取奖品的重要数据，八达国际以第一个客户联系的为准，如果出现多个客户有争议或者冒领情况，八达国际有权暂停发放该奖品。<br/>
+			八达国际对此项活动保留最终解释权。
+		</div>
+	</div>
+</section><!-- end 积分介绍 -->
+
+</div>
+<div class="graycover" style="display:none;"></div>
+<!-- tip_layer -->
+<!-- 中奖提示 -->
+
+<div class="gif_layer" style="display:none;"  id="gift_layerid">
+	<p class="title">中奖提示！<span class="tipcls"></span></p>
+	<p class="itptext" id="gift_contentid"></p>
+	<a href="javascript:void(0);" class="yesbtn">确定</a>
+</div>
+<!--  -->
+<div class="gif_layer" style="display:none;" id="gift_layerid02">
+	<p class="title">温馨提示！<span class="tipcls"></span></p>
+	<p class="itptext" id="gift_contentid02">对不起，您积分不足。</p>
+	<a href="javascript:void(0);" class="yesbtn">确定</a>
+</div>
+<!-- 登录弹窗 -->
+<div class="login_lay" style="display:none;">
+	<p class="laytopbar"><a href="javascript:void(0)" class="reglaylogo"><img src="public/images/score/logo.png"></a>登录<span class="laycls"></span></p>
+	<div class="regbox">
+		<p class="error"></p>
+		<p class="boxbg box01"><input type="text" name="username" id="reg_box" placeholder="请输入用户名" minlength="4" maxlength="16" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,'')" onpaste="value=value.replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,'')" oncontextmenu = "value=value.replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,'')"></p>
+		<p class="boxbg box02"><input type="password" name="password" id="passw" minlength="6" maxlength="16" placeholder="请输入密码"></p>
+		<p class="box03"><input type="text" name="verify" placeholder="请输入验证码" maxlength="4"><img src="public/images/score/code.png" id="verifyImg" ></p>
+		<p class="box04" id="submit_pop"><a href="javascript:void(0);" class="loginbtn">登录</a></p>
+		<p class="box05"><a href="/reg.html">立即开户</a></p>
+	</div>
+</div>
+<!-- 消耗积分确认提示  -->
+<div class="confirm">
+<p class="title">温馨提示<span class="tipcls"></span></p>
+<input type="hidden" id="eggid">
+<p class="itptext">确定消耗<i id="scoreid"></i>吗？</p>
+<a href="javascript:void(0);" class="yeson">确定</a>
+<a href="javascript:void(0);" class="noon">取消</a>
+</div>
+<script data-cfasync="false" src="#{mb.static '/public/js/score.js' /}" type="text/javascript"></script>
+<script data-cfasync="false" src="public/js/lower.js" type="text/javascript"></script>
+<script>
+//登录弹窗
+$('.login_btn,#login_btn').click(function(){
+	$('.graycover,.login_lay').show();
+});
+
+// 关闭登录弹窗
+$('.laycls').click(function(){
+	$('.graycover,.login_lay').hide();
+});
+//砸蛋中奖榜单滚动
+$('.barmain').kxbdMarquee({
+          direction:'right'
+        });
+</script>

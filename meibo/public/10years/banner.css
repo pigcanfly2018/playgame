@@ -1,0 +1,11 @@
+.years-content {
+    width: 1002px;
+    margin: 0 auto;
+    height:555px;
+    margin-bottom:5px;
+    background:url(images/content.jpg) no-repeat center top;
+    display:none;
+}
+.years-content .btn-close{background:url(images/close.jpg) no-repeat 0 0;width:54px;height:54px;display:block;float:right}
+.years-content ul{padding-top:260px; margin-top:0px;}
+.years-content ul li a{ display:block; height:55px; margin-bottom:20px; padding-top:0px;}

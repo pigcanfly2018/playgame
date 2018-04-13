@@ -1,0 +1,66 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'注册MG别名 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'注册MG别名，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_8'/}
+<div id="wrapper" class="MainWrap"> 
+
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight">            	
+               <fieldset>
+	                <legend>注册MG别名</legend>
+	                
+	                
+	                #{if ok}
+	                
+	                <div class="SYCentBlockWrap">
+	                <div><span style="color:white">${errorMsg}</span></div> 
+					<div class="SYCentTitle">温馨提示：你当前的MG别名是：${customer.mg_alias}</div>
+					
+				</div>
+				
+	                	
+	                #{/if}
+	                #{else}
+	                	
+	                
+	                <div class="SYCentBlockWrap">
+	                <div><span style="color:white">${errorMsg}</span></div> 
+					<div class="SYCentTitle">注册MG别名</div>
+					<div class="SYCentBlock">
+						<form action="/mgalias.php" method="post" autocomplete="off">
+			               <div>
+			                    <label>MG别名：</label>
+			                    <input type="text" name="alias" value="" class="input"/>
+			                    <input name="Submit" type="submit" class="buttom02" value="更改" />
+			               </div>
+			               <div>
+			                    <label>温馨提示：</label> 由4-19位字符组合，可使用中文。一经注册，不能修改
+			               </div>
+			               
+			               <div>
+			                    <label>温馨提示：</label>如注册不成功,有可能有其他玩家已注册,请使用其他别名
+			               </div>
+			               
+	                </form>
+					</div>
+				</div>
+				
+	                #{/else}
+	                
+	                
+	                 
+	                
+	                
+	                
+	                
+	                
+	               
+	                
+	                
+	                
+               </fieldset>
+            </div>
+                #{include '/templates/user_info.html' /}   
+                           
+</div>

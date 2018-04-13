@@ -1,0 +1,83 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'在线支付确认-八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'在线支付确认，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_2'/}
+<script>
+function aa(){
+	$("#submit_btn").attr("disabled","disabled");
+}
+function copyData(id){
+	window.clipboardData.setData("Text", $('#'+id).innerHtml);  
+	alert('复制成功！');  
+}
+
+</script>
+<style>
+           #deposit_bank_table .first_td{
+              width:160px;
+              text-align:right;
+              color:#ffff00;
+            }
+            
+            #deposit_bank_table .sencond_td{
+              width:200px;
+              text-align:left;
+              color:#ffff00;
+            }
+            
+            #deposit_bank_table .three_td{
+              width:200px;
+              text-align:left;
+            }
+
+</style>
+<div id="wrapper"> 
+<div class="UserCenter">
+           #{include '/templates/user_left.html'/}  		
+		    <div class="UserRight">      
+		     <fieldset>
+	                <legend>在线支付确认信息</legend>
+	            <form id="payBillForm" action="${result.get('submit_value')}" method="post" onsubmit="return sa('b_submit')">      	
+		    <table id="deposit_bank_table">  
+
+               <tr style="border-top:3px solid #f00">
+               	<td class="first_td">订单号</td>
+               	<td class="sencond_td">${result.get('order_id')}</td>
+               	<td class="three_td"></td>
+               </tr>
+      		   <tr style="border-bottom:3px solid #f00">
+               	<td class="first_td">金额</td>
+               	<td class="sencond_td">${result.get('show_amount')}</td>
+               	<td class="three_td">
+               		<input type="hidden" name="version" value="1.0"/>
+    				<input type="hidden" name="sign_type" value="MD5"/>
+    				<input type="hidden" name="mid" value="${result.get('mid')}"/>
+    				<input type="hidden" name="return_url" value="${result.get('return_url')}"/>
+    				<input type="hidden" name="notify_url" value="${result.get('notify_url')}"/>
+    				<input type="hidden" name="order_id" value="${result.get('order_id')}"/>
+    				<input type="hidden" name="order_amount" value="${result.get('order_amount')}"/>
+    				<input type="hidden" name="order_time" value="${result.get('order_time')}"/>
+    				<input type="hidden" name="bank_id" value="${result.get('bank_id')}"/>
+    				<input type="hidden" name="signature" value="${result.get('signature')}"/>
+	                <input id="submit_btn" name="submit_btn" type="submit"  class="buttom02" value="前往支付">
+               	</td>
+               </tr>
+           
+                <tr>
+               	<td colspan="3" style="text-align:left;">
+               	    <p> 请再30分钟内完成充值，系统将30分钟后关闭该订单。</p>
+               	</td>
+                </tr> 
+                                                                                                                                                                                 
+                    </table>
+                     </form>
+              </fieldset>   
+               
+                    
+            </div>
+            
+             #{include '/templates/user_info.html' /}
+</div>                           
+</div>
+

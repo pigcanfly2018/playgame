@@ -1,0 +1,90 @@
+#{extends '/templates/8da.html' /} 
+#{set title:'站内信息 -八达国际官网（8dabet.com）- 八达博天下' /}
+#{set keywords:'站内信息，八达国际'/} 
+#{set description:''/} 
+#{set cust_nav_li:'cust_1_4'/}
+<style>
+  .letter_tr td p{text-indent:2em};
+  .letter_tr td p a{color:#ff0}
+</style>
+<script data-cfasync="false">
+function resetMyform(){
+	$('#start_date').val('');
+	$('#end_date').val('');
+}
+function readMsg(td,id){
+	if ($("#tr_"+id).length > 0){
+		return;
+	}
+	 $.ajax({
+			type:'post',
+			url:'/ajax/getLetter',
+			data:{
+				"id":id,
+			},
+			dataType:'json',
+			success:function(msg){
+				if(msg){
+					if ($("#tr_"+id).length == 0){
+						if(!msg.read_flag){
+							$("#td_"+id).html("已读");
+						}
+						$(".letter_tr").remove();
+					   $(td).parent().parent().after("<tr id='tr_"+id+"' class='letter_tr'><td colspan=3 style=\"text-align:left;border-bottom:solid 2px red;border-top:solid 2px red;background:#300000;\"><span>消息内容</span>："+msg.content+"</td></tr>");
+					}
+				}
+			},
+			error:function(){
+
+			}
+		});
+
+}
+</script>
+<script data-cfasync="false" type="text/javascript" src="#{mb.static '/public/My97DatePicker/WdatePicker.js'/}" charset="utf-8"></script>
+<div id="wrapper" class="MainWrap"> 
+           #{include '/templates/user_left.html'/}  
+<div class="UserRight">            	
+<form id="myform" method="get" action="/letter_list.php">
+
+                <fieldset>
+               <legend>站内信</legend>                      
+                       <table><tbody><tr><td> <label style="text-align:left; width:60px;margin-right:0;">开始时间：</label>
+                <input type="text" class="Wdate" maxlength="10" style="width: 130px;height:25px" 
+                                    onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd HH:mm',alwaysUseStartDate:true})"  
+                                    name="start_date" id="start_date" value="${start_date}">
+
+               </td>
+               <td><label style="text-align:left; width:65px;margin-right:0;">结束时间：</label>
+                <input type="text" class="Wdate" maxlength="10" style="width: 130px;height:25px" 
+                                    onclick="WdatePicker({startDate:'%y-%M-01',dateFmt:'yyyy-MM-dd HH:mm',alwaysUseStartDate:true})"  
+                                    name="end_date" id="end_date" value="${end_date}">
+                </td>
+               <td><input type="submit" class="buttom02" style="width:60px;height" value="查询" ></td>
+               <td><input type="button" class="buttom02" style="width:60px;"  value="重设" onclick="resetMyform()"></td>
+               </tr></tbody></table>
+           		<table>
+                    	<tbody><tr>
+                        	<th style="width:150px">创建时间</th>
+                        	<th style="width:280px">消息标题</th>
+                        	<th style="width:60px">已读 / 未读</th>
+                        </tr>
+                    	#{mb.queryList queryList:letterList}
+                    	<tr>
+                        	<td>${_obj.create_date.getTime().asdate('yyyy-MM-dd HH:mm:ss')}</td>
+                        	<td><a href="javascript:void(0)" onclick="readMsg(this,'${_obj.letter_id}')"><span>${_obj.title}</span></a></td>
+                        	<td id="td_${_obj.letter_id}">#{if _obj.read_flag}已读 #{/if}#{else}<span>未读</span>#{/else}</td>
+                        </tr>  
+                         #{/mb.queryList}                                                                                                                                        
+                                                                                                                                                             
+                    </tbody></table>
+                     	<div class="mypage">
+                     	 #{mb.page count:count,page:page,start_date:start_date,end_date:end_date}#{/mb.page} 
+                        </div>			
+               </fieldset>
+             </form>
+            </div>
+             #{include '/templates/user_info.html' /}  
+
+</div>
+ 
