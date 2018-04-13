@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	<interface>
+		<id><![CDATA[notice_list_bojin]]></id>
+		<name><![CDATA[查询网站的通知]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		select notice_id,title,content,start_date 
+		from  mb_notice 
+        where now()>=start_date and now()<=end_date and available =1 
+        order by priority desc]]></statement>
+		<reqen><![CDATA[]]></reqen>
+		<reqcn><![CDATA[]]></reqcn>
+		<replyen><![CDATA[notice_id|title|content|start_date]]></replyen>
+		<replycn><![CDATA[通知ID|标题|内容|发布时间]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[查询网站的通知]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[ad_big_bojin]]></id>
+		<name><![CDATA[查询网站的首页大广告图]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		select ad_id,ad_title,ad_describe,pic_url,target_url,start_date,end_date
+		from  mb_ad 
+        where now()>=start_date and now()<=end_date and available =1  and ad_type='大广告'
+        order by priority desc]]></statement>
+		<reqen><![CDATA[]]></reqen>
+		<reqcn><![CDATA[]]></reqcn>
+		<replyen><![CDATA[ad_id|ad_title|ad_describe|pic_url|target_url|start_date|end_date]]></replyen>
+		<replycn><![CDATA[广告ID|标题|描述|图片URL|跳转URL|开始时间|结束时间]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[查询首页大广告]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[ad_small_bojin]]></id>
+		<name><![CDATA[查询网站的首页小广告图]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		select ad_id,ad_title,ad_describe,pic_url,target_url,start_date,end_date
+		from  mb_ad 
+        where now()>=start_date and now()<=end_date and available =1  and ad_type='小广告'
+        order by priority desc]]></statement>
+		<reqen><![CDATA[]]></reqen>
+		<reqcn><![CDATA[]]></reqcn>
+		<replyen><![CDATA[ad_id|ad_title|ad_describe|pic_url|target_url|start_date|end_date]]></replyen>
+		<replycn><![CDATA[广告ID|标题|描述|图片URL|跳转URL|开始时间|结束时间]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[查询首页小广告]]></explain>
+	</interface>
+	
+	
+    <interface>
+		<id><![CDATA[discount_list_bojin]]></id>
+		<name><![CDATA[查询网站的优惠列表]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		select discount_id,b_url,s_url,title,summary,content  
+		from  mb_discount 
+        where  available =1
+        order by is_hot desc,priority desc]]></statement>
+		<reqen><![CDATA[]]></reqen>
+		<reqcn><![CDATA[]]></reqcn>
+		<replyen><![CDATA[discount_id|b_url|s_url|title|summary|content]]></replyen>
+		<replycn><![CDATA[优惠ID|大图网址|小图网址|标题|摘要|内容]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[查询网站的优惠列表]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[discount_bojin]]></id>
+		<name><![CDATA[查询网站的优惠(单个)]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		select discount_id,b_url,s_url,title,summary,content
+		from  mb_discount 
+        where  discount_id = #discount_id#]]></statement>
+		<reqen><![CDATA[discount_id]]></reqen>
+		<reqcn><![CDATA[优惠ID]]></reqcn>
+		<replyen><![CDATA[discount_id|b_url|s_url|title|summary|content]]></replyen>
+		<replycn><![CDATA[优惠ID|大图网址|小图网址|标题|摘要|内容]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[查询网站的优惠(单个)]]></explain>
+	</interface>
+	
+	
+	
+
+</config>

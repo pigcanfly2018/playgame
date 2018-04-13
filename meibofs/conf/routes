@@ -1,0 +1,8 @@
+GET     /                                       Application.index
+GET     /index                                  Application.index
+GET     /login                                  AjaxSecure.login
+GET     /{method}.htm                           ModulesApp.{method}App
+GET     /dict.js                                ModulesApp.dict
+GET     /public/                                staticDir:public
+GET     /logout                                 AjaxSecure.logout
+*       /{controller}/{action}                  {controller}.{action}

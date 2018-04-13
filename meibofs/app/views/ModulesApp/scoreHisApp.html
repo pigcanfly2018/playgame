@@ -1,0 +1,145 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'ScoreRec',
+        proxy: {
+            type: 'ajax',
+            url: '/ScoreRecApp/getAllList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('score_rec.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true,
+	        loadingText:'正在加载数据...'
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE' 
+	    },
+	    autoHeight:true,
+	    dockedItems: [{
+	        xtype: 'toolbar',
+	        dock: 'top',
+	        items: ['->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '礼金类型:',
+	              {xtype:'textfield',itemId:'gift_type'},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : function(){
+		            	var queryData = this.up('grid').down('#queryKey').getValue();
+		        		var ssdate = this.up('grid').down('#sdate').getValue();
+		        		var eedate = this.up('grid').down('#edate').getValue();
+		        		var gift_type = this.up('grid').down('#gift_type').getValue();
+		        		var sdate, edate;
+		        		if (ssdate) {
+		        			sdate = Ext.Date.format(new Date(ssdate), 'Y-m-d');
+		        		}
+		        		if (eedate) {
+		        			edate = Ext.Date.format(new Date(eedate), 'Y-m-d');
+		        		}
+		        		if (ssdate && eedate) {
+		        			if (sdate > edate) {
+		        				Ext.MessageBox.alert('提示信息', '开始日期不能大于结束日期!');
+		        				return;
+		        			}
+		        		}
+		        		var store = this.up('grid').getStore();
+		        		store.on('beforeload', function(store, options) {
+		        			var new_params = {
+		        				queryKey : queryData,
+		        				gift_type:gift_type,
+		        				sdate : sdate,
+		        				edate : edate
+		        			};
+		        			Ext.apply(store.proxy.extraParams, new_params);
+		        		});
+		        		store.load({
+		        			start : 0,
+		        			limit : 30,
+		        			page : 1
+		        		});
+
+		            }
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :function(){
+		            		this.up('grid').down('#queryKey').setValue("");
+		            		this.up('grid').down('#gift_type').setValue("");
+		            		this.up('grid').down('#sdate').setValue("");
+		            		this.up('grid').down('#edate').setValue("");
+		            }
+				   }]
+	    }],
+	    bbar: {
+               xtype: 'pagingtoolbar',
+               pageSize: 10,
+               store:store,
+               displayInfo: true
+         },
+	    initComponent: function () {
+	        this.columns = [{
+	    	    text     : '积分代码',
+	    	    width    : 190,
+	    	    sortable : false,
+	    	    dataIndex: 'rec_code'
+	    	},{
+	    	    text     : '用户名',
+	    	    width    : 90,
+	    	    sortable : false,
+	    	    dataIndex: 'login_name'
+	    	},{
+	    	    text     : '积分类型',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'rec_type'
+	    	},{
+	    	    text     : '变化积分',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'score'
+	    	},{
+	    	    text     : '创建时间',
+	    	    width    : 150,
+	    	    sortable : false,
+	    	    dataIndex: 'create_date'
+	    	},{
+	    	    text     : '累计后积分',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    dataIndex: 'cur_score'
+	    	}];
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('score_rec.grid'));
+});
+</script>

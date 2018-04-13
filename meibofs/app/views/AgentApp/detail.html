@@ -1,0 +1,258 @@
+<style>
+.infotable {
+ padding: 0;
+ margin: 0;
+}
+.infotable caption {
+ padding: 0 0 5px 0;
+ font: italic 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+ text-align: right;
+}
+.infotable th {
+
+ color: #4f6b72;
+ font-size:12px;
+ border-right: 1px solid #C1DAD7;
+ border-bottom: 1px solid #C1DAD7;
+ border-top: 1px solid #C1DAD7;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ text-align: left;
+ padding: 6px 6px 6px 12px;
+ background: #CAE8EA ;
+  height:28px;
+}
+.infotable th.nobg {
+ border-top: 0;
+ border-left: 0;
+ border-right: 1px solid #C1DAD7;
+ background: none;
+
+}
+
+.infotable tr {
+ height:28px;
+}
+.infotable td {
+ border-right: 1px solid #C1DAD7;
+ border-bottom: 1px solid #C1DAD7;
+ background: #fff;
+ font-size:10px;
+ padding: 6px 6px 6px 12px;
+ color: #4f6b72;
+}
+
+.infotable td.alt {
+ background: #F5FAFA;
+ color: #797268;
+}
+.infotable th.spec {
+ border-left: 1px solid #C1DAD7;
+ border-top: 0;
+ background: #fff url(images/bullet1.gif) no-repeat;
+ font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+}
+.infotable th.specalt {
+ border-left: 1px solid #C1DAD7;
+ border-top: 0;
+ background: #f5fafa url(images/bullet2.gif) no-repeat;
+ font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+ color: #797268;
+}
+.sl009{
+ font-size:12px;
+ border-collapse:collapse;
+}
+.sl009 td{
+ font-size:12px;
+  border:solid black 1px;
+ border-spacing:100px;
+ padding-left:2px;
+ color:black;
+font-weight:bolder;
+}
+.title_info{
+font-size:16px;
+font-weight:bolder;
+margin-top:10px;
+}
+
+.tr1009{
+background-color:#e8f3fd;
+}
+.tr1009 td{
+font-weight:bolder;
+color:#FF5151;
+}
+</style>
+<div>
+    <div>
+          <div class="title_info">基本信息</div>
+          <div>
+             <table class="sl009" cellpadding="0" cellspacing="0">
+                <tr class="tr1009">
+                   <td style="width:137px">注册时间</td>
+                   <td style="width:137px">用户名</td>
+                   <td style="width:137px">真实姓名</td>
+                   <td style="width:137px">电话号码</td>
+                   <td></td>
+                   
+                </tr>
+                <tr>
+                   <td>${agent.create_date}</td>
+                   <td>${agent.login_name}</td>
+                   <td>${agent.real_name}</td>
+                   <td>${agent.phone}</td>
+                    <td></td>
+                   
+                </tr>
+                <tr class="tr1009">
+                   <td>电子邮件</td>
+                   <td>QQ</td>
+                   <td>注册IP</td>
+                   <td>创建人</td>
+                   <td>账户状态</td>
+                </tr>
+                <tr>
+                   <td>${agent.email}</td>
+                   <td>${agent.qq}</td>
+                   <td>${agent.reg_ip}</td>
+                   <td>${agent.create_user}</td>
+                   <td>#{if agent.flag==1} 
+                        待审核 
+                   	#{/if}#{if agent.flag==2} 
+                        审核不通过 
+                   	#{/if}#{if agent.flag==3} 
+                        正常
+                   	#{/if}#{if agent.flag==4} 
+                        已冻结
+                   	#{/if}</td>
+                </tr>
+                <tr>
+                   <td>备注</td>
+                   <td colspan="4">${agent.remarks}</td>
+                </tr>
+             </table>
+          </div>
+    </div>
+    <div>
+          <div class="title_info">代理信息</div>
+          <div>
+              <table class="sl009">
+                
+                <tr class="tr1009">
+                   
+                   <td style="width:340px" colspan="2">推广链接</td>
+                </tr>
+                <tr>
+                   
+                   <td colspan="2"> http://www.448da.com/?s8=${agent.reg_code}</td>
+                </tr>
+             </table>
+          </div>
+    </div>
+     <div>
+          <div class="title_info">银行信息</div>
+          <div>
+              <table class="sl009">
+                <tr class="tr1009">
+                   <td style="width:120px">银行名称</td>
+                   <td style="width:160px">账户号码</td>
+                   <td style="width:120px">账户类别</td>
+                   <td style="width:280px">开户网点</td>
+                </tr>
+                <tr>
+                   <td>${agent.bank_name?agent.bank_name:'无'}</td>
+                   <td>${agent.account}</td>
+                   <td>${agent.account_type}</td>
+                   <td>${agent.bank_dot}</td>
+                </tr>
+             </table>
+          </div>
+    </div>
+    
+    #{if agent.flag==3} 
+    
+    <div>
+          <div class="title_info">审核信息</div>
+          <div>
+              <table class="sl009">
+                <tr class="tr1009">
+                   <td style="width:120px">审核人</td>
+                  
+                   <td style="width:120px">审核日志</td>
+                   <td style="width:120px">审核时间</td>
+                </tr>
+                <tr>
+                   <td>${agent.audit_user?agent.audit_user:'无'}</td>
+                   
+                   <td>${agent.audit_msg?agent.audit_msg:'无'}</td>
+                   <td>${agent.audit_date?agent.audit_date:'无'}</td>
+                </tr>
+
+                
+                
+                
+                
+             </table>
+          </div>
+    </div>
+    
+    	#{/if}
+    #{if agent.flag==4} 
+                        <div>
+          <div class="title_info">冻结信息</div>
+          <div>
+              <table class="sl009">
+                <tr class="tr1009">
+                   <td style="width:120px">冻结人</td>
+                  
+                   <td style="width:120px">冻结日志</td>
+                   <td style="width:120px">冻结时间</td>
+                </tr>
+                <tr>
+                   <td>${agent.lock_user?agent.lock_user:'无'}</td>
+                   
+                   <td>${agent.lock_msg?agent.lock_msg:'无'}</td>
+                   <td>${agent.lock_date?agent.lock_date:'无'}</td>
+                </tr>
+
+                
+                
+                
+                
+             </table>
+          </div>
+    </div>
+                   	#{/if}
+    
+    
+    <div>
+          <div class="title_info">登录信息</div>
+          <div>
+              <table class="sl009">
+                <tr class="tr1009">
+                   <td style="width:120px">登录时间</td>
+                  
+                   <td style="width:120px">登录IP</td>
+                   
+                </tr>
+                <tr>
+                   <td>${agent.last_login_date?agent.last_login_date:'无'}</td>
+                   
+                   <td>${agent.last_login_ip?agent.last_login_ip:'无'}</td>
+                   
+                </tr>
+
+                
+                
+                
+                
+             </table>
+          </div>
+    </div>
+    
+    
+
+</div>
+

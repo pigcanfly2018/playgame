@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+
+	<interface>
+		<id><![CDATA[cust_login_bojin]]></id>
+		<name><![CDATA[客户登录]]></name>
+		<type>bojin_CUST</type>
+		<service>login</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|login_pwd|login_ip|user_agent]]></reqen>
+		<reqcn><![CDATA[用户名|密码|IP|浏览器]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(Boolean)]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[客户登录]]></explain>
+	</interface>
+
+	<interface>
+		<id><![CDATA[cust_withdraw_bojin]]></id>
+		<name><![CDATA[客户提款]]></name>
+		<type>CUST</type>
+		<service>withdraw</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|login_ip|amount|bank_name|account|account_type|bank_dot|remarks|create_user]]></reqen>
+		<reqcn><![CDATA[login_name|login_ip|amount|bank_name|account|account_type|bank_dot|remarks|create_user]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(Long)]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[客户提款]]></explain>
+	</interface>
+	
+	
+	
+	
+	
+
+
+</config>

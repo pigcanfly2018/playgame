@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	<interface>
+		<id><![CDATA[pay_deposit_8d]]></id>
+		<name><![CDATA[获取存款订单]]></name>
+		<type>PAY</type>
+		<service>deposit</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[product|login_name|amount|from_bank|deposit_type]]></reqen>
+		<reqcn><![CDATA[平台|用户名|金额|存款银行|存款方式]]></reqcn>
+		<replyen><![CDATA[order_no|bank_id|account|account_name|bank_dot|email|mode|break_url|note]]></replyen>
+		<replycn><![CDATA[order_no|bank_id|account|account_name|bank_dot|email|mode|break_url|note]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[获取存款订单]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[pay_cancle_deposit_8d]]></id>
+		<name><![CDATA[取消存款订单]]></name>
+		<type>PAY</type>
+		<service>cancle_deposit</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[product|order_no]]></reqen>
+		<reqcn><![CDATA[平台|订单号]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[取消存款订单]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[pay_withdraw_8d]]></id>
+		<name><![CDATA[提款]]></name>
+		<type>PAY</type>
+		<service>withdraw</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|product|order_no]]></reqen>
+		<reqcn><![CDATA[用户名|产品|提款订单号]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[取消存款订单]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[pay_query_withdraw_8d]]></id>
+		<name><![CDATA[查询提款信息]]></name>
+		<type>PAY</type>
+		<service>queryWithdraw</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[product|order_no]]></reqen>
+		<reqcn><![CDATA[产品|提款订单号]]></reqcn>
+		<replyen><![CDATA[提款订单号|平台单号|状态|金额|明细|交易费用错误信息]]></replyen>
+		<replycn><![CDATA[order_no|plat_no|status|amount|detail|transaction_charge|error_msg]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[查询提款信息]]></explain>
+	</interface>
+	
+</config>

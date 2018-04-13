@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+
+	<interface>
+		<id><![CDATA[token_validate_8d]]></id>
+		<name><![CDATA[token验证]]></name>
+		<type>TOKEN</type>
+		<service>validate</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[token|login_name]]></reqen>
+		<reqcn><![CDATA[token|登录名]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[Integer]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[验证TOKEN 1为成功]]></explain>
+	</interface>
+	
+	
+	<interface>
+		<id><![CDATA[token_get_8d]]></id>
+		<name><![CDATA[获取TOKEN]]></name>
+		<type>TOKEN</type>
+		<service>get</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[token]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[获取一个TOKEN]]></explain>
+	</interface>
+	
+
+</config>

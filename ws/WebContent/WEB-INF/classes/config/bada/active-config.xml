@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	<interface>
+		<id><![CDATA[checkMoleMitByLogin_name]]></id>
+		<name><![CDATA[判断是否已经砸地鼠]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		select id,hitcount
+			from mb_molehit_active WHERE login_name=#login_name# AND (TO_DAYS(create_date) = TO_DAYS(NOW())) AND create_date BETWEEN "2017-08-08 00:00:00" AND "2017-10-31 23:59:59"
+		]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[id|hitcount]]></replyen>
+		<replycn><![CDATA[id|数量]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[砸地鼠信息]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[dohit]]></id>
+		<name><![CDATA[开始领取奖励]]></name>
+		<type>molehitactive</type>
+		<service>dohit</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|hittime]]></reqen>
+		<reqcn><![CDATA[用户名|砸中次数]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[礼品信息]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[返回礼品信息用于前台展示给用户看]]></explain>
+	</interface>
+</config>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	
+	<interface>
+		<id><![CDATA[huitong_pay_8d]]></id>
+		<name><![CDATA[汇通支付]]></name>
+		<type>HuiTongPay</type>
+		<service>pay</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|amount|return_url|bank|ip|product]]></reqen>
+		<reqcn><![CDATA[用户名|金额|返回的URL|支付方式|ip|产品]]></reqcn>
+		<replyen><![CDATA[ok|order_no|message|order_amount|submit_url|bank_name]]></replyen>
+		<replycn><![CDATA[成功标识|订单号|信息|金额|提交地址|银行名称]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[汇通支付]]></explain>
+	</interface>
+	
+	
+	<interface>
+		<id><![CDATA[huitong_notify_8d]]></id>
+		<name><![CDATA[汇通web提醒]]></name>
+		<type>HuiTongPay</type>
+		<service>notify</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[sign|merchant_code|order_no|order_amount|order_time|trade_no|trade_time|trade_status]]></reqen>
+		<reqcn><![CDATA[签名信息|商户号别|订单号码|订单金额|订单时间|交易单号|交易时间|结果]]></reqcn>
+		<replyen><![CDATA[ok|message]]></replyen>
+		<replycn><![CDATA[ok|信息]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[汇通web提醒]]></explain>
+	</interface>
+	
+</config>

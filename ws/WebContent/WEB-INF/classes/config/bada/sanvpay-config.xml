@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	
+	<interface>
+		<id><![CDATA[sanv_pay_8d]]></id>
+		<name><![CDATA[3v支付]]></name>
+		<type>SanVPay</type>
+		<service>pay</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|amount|return_url|bank|ip]]></reqen>
+		<reqcn><![CDATA[用户名|金额|返回的URL|支付方式|ip]]></reqcn>
+		<replyen><![CDATA[ok|order_id|message|order_amount|barCode]]></replyen>
+		<replycn><![CDATA[成功标识|订单号|信息|金额|二维码]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[3v支付]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[sanv_notify_8d]]></id>
+		<name><![CDATA[3V通知支付接口]]></name>
+		<type>SanVPay</type>
+		<service>notify</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[return_code|totalFee|channelOrderId|orderId|timeStamp|sign|attach|transactionId|product]]></reqen>
+		<reqcn><![CDATA[支付结果|金额|我方订单号|3V订单号|时间戳|签名串|参数|运营商订单号|产品]]></reqcn>
+		<replyen><![CDATA[ok]]></replyen>
+		<replycn><![CDATA[成功标识]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[3v支付]]></explain>
+	</interface>
+	
+</config>

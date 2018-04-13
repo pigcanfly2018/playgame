@@ -1,0 +1,362 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Item',
+        proxy: {
+            type: 'ajax',
+            url: '/ItemApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	
+	var platformStore = Ext.create("Ext.data.Store", {
+	    fields: ["Name", "Value"],
+	    data: [
+			{ Name: "全部", Value: "all"},
+	        { Name: "PT平台", Value: "pt"},
+	        { Name: "MG平台", Value: "mg"},
+	        { Name: "AG平台", Value: "ag"},
+	        { Name: "BBin平台", Value: "bbin"},
+	        { Name: "Keno平台", Value: "keno"}
+	    ]
+	});
+	
+	var flagStore = Ext.create("Ext.data.Store", {
+	    fields: ["Name", "Value"],
+	    data: [
+			{ Name: "否", Value: "false"},
+	        { Name: "是", Value: "true"}
+	    ]
+	});
+	 var ckDate=function(){
+		
+		var v1 =  Ext.getCmp("begindate").getValue();    
+	    var v2 =  Ext.getCmp("enddate").getValue();    
+	    if(v1=="" || v2=="") return true;   
+	    if(v2<v1) {  
+	        return false;
+	    }  
+	    return v2 >= v1;    
+	};
+	Ext.define('item.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        		  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(false);
+	        		  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(false);
+	        		}else{
+        			  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(true);
+        			  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(true);
+	        		}
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    delconfig:{
+	    	url:'/ItemApp/deleteItem',
+	    	tip:'你确定要删除你选择的典数据么?',
+	    	idcode:'itemcode'
+	    },
+	    addconfig:{
+	       title:'新增字典数据',
+	       proFn:function(win,form){
+	   		   win.down('#idfield').setReadOnly(false);
+	       }
+	    },
+	    updateconfig:{
+	       proFn:function(select,win,form){
+	    	   var data={
+	    			   kact:'2',  
+	    	 			"item.itemcode":select.get('itemcode'),
+	    	 			"item.itemname":select.get('itemname'),
+	    	 			"item.itemvalue":select.get('itemvalue'),
+	    	 			"item.groupcode":select.get('groupcode'),
+	    	 			"item.platform":select.get('platform'),
+	    	 			"item.frozenflag":select.get('frozenflag'),
+	    	 			"item.startdate":select.get('startdate'),
+	    	 			"item.enddate":select.get('enddate'),
+	    	 			"item.pcflag":select.get('pcflag'),
+	    	 			"item.mobileflag":select.get('mobileflag'),
+	    	 			"item.actbill":select.get('actbill'),
+	    	 			"item.moneyflag":select.get('moneyflag')
+	    	 		  };
+   	 		  form.getForm().setValues(data);
+   	 		  win.down('#idfield').setReadOnly(true);
+   	 		  win.setTitle("修改字典数据:"+select.get('itemname'));
+	       }
+	    },
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '添加',
+		    	handler:JBApp.addFn
+		    	},
+		    	{
+		    	  xtype: 'button', 
+		    	  iconCls:'icon-update',
+		    	  text: '修改',
+		    	  disabled:true,
+		    	  itemId:'updatebtn',
+		    	  handler:JBApp.updateFn
+	    	   },
+	    	   {
+	        	 xtype: 'button', 
+	        	 iconCls:'icon-delete',
+	        	 text:'删除',
+	        	 disabled:true,
+	        	 itemId:'deletebtn',
+	        	 handler:JBApp.deleteFn
+		        },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	        	    text: '条目',
+	        	    width    : 50,
+	                xtype: 'rownumberer'
+	            }, {
+	        	    text     : '字典名',
+	        	    locked   : true,
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'itemname'
+	        	},{
+	        	    text     : '字典编码',
+	        	    locked   : true,
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'itemcode'
+	        	},{
+	        	    text     : '字典值',
+	        	    locked   : true,
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'itemvalue'
+	        	},{
+	        	    text     : '组编号',
+	        	    locked   : true,
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'groupcode'
+	        	},{
+	        	    text     : '针对平台',
+	        	    locked   : true,
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'platform'
+	        	},{
+	        	    text     : '是否限制转账',
+	        	    locked   : true,
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'frozenflag',
+	        	    renderer:function(v){
+	        	    	if('false'==v){
+	        	    		return '<span style="color:green">否</span>';
+	        	    	}else{
+	        	    		return '<span style="color:red">是</span>';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : '开始时间',
+	        	    locked   : true,
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex:'startdate',
+	        	    renderer:Ext.util.Format.dateRenderer('Y-m-d H:i:s')
+	        	    
+	        	    	
+	        	},{
+	        	    text     : '结束时间',
+	        	    locked   : true,
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex:'enddate', 
+	        	    renderer:Ext.util.Format.dateRenderer('Y-m-d H:i:s')
+	        	    
+	        	},{
+	        	    text     : '活动流水',
+	        	    locked   : true,
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex:'actbill'
+	        	    
+	        	},{
+	        	    text     : '前台显示输入金额',
+	        	    locked   : true,
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'moneyflag',
+	        	    renderer:function(v){
+	        	    	if('true'==v){
+	        	    		return '<span style="color:red">是</span>';
+	        	    	}else{
+	        	    		return '<span style="color:green">否</span>';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : 'PC前台显示',
+	        	    locked   : true,
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'pcflag',
+	        	    renderer:function(v){
+	        	    	if('true'==v){
+	        	    		return '<span style="color:red">是</span>';
+	        	    	}else{
+	        	    		return '<span style="color:green">否</span>';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : 'Mobile前台显示',
+	        	    locked   : true,
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'mobileflag',
+	        	    renderer:function(v){
+	        	    	if('true'==v){
+	        	    		return '<span style="color:red">是</span>';
+	        	    	}else{
+	        	    		return '<span style="color:green">否</span>';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : '创建时间',
+	        	    locked   : true,
+	        	    width    : 140,
+	        	    sortable : false,
+	        	    dataIndex: 'createdate'
+	        	},{
+	        	    text     : '创建用户',
+	        	    locked   : true,
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'createuser'
+	        	}];
+	        
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 105
+		        },
+		        items: [{
+		            xtype: 'container',
+		            anchor: '100%',
+		            layout:'column',
+		            bodyStyle:'margin:5px 5px 5px 5px',
+		            items:[{
+		                xtype: 'container',
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                columnWidth:.48,
+		                layout: 'anchor',
+		                items: [{itemId:'idfield',fieldLabel: '字典编码',xtype:'textfield',name: 'item.itemcode',anchor: '95%'},
+		                        {fieldLabel: '字典值',xtype:'textfield',name: 'item.itemvalue',anchor: '95%'},
+		                        {fieldLabel: '针对平台',xtype:'combobox',name: 'item.platform',anchor: '95%',store: platformStore,editable: false,displayField: "Name",valueField: "Value",multiSelect:true,emptyText: "--请选择(不能为空)--",queryMode: "local",allowBlank: false},
+		                        {id:'begindate',fieldLabel: '开始时间',xtype:'datefield',allowBlank: true,name:'item.startdate',anchor: '100%',
+		                        	format:'Y-m-d H:i:s'
+		                        },
+		                        {fieldLabel: '活动流水',xtype:'textfield',allowBlank: true,name: 'item.actbill',anchor: '95%'},
+		                        {fieldLabel: 'PC前台显示',xtype:'checkbox',allowBlank: true,name: 'item.pcflag',anchor: '95%'}
+
+		                        ]
+		            },{
+		                xtype: 'container',
+		                columnWidth:.48,
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                layout: 'anchor',
+		                items: [{fieldLabel: '字典名',xtype:'textfield',name:'item.itemname',anchor: '95%'},
+		                        {fieldLabel: '组编码',xtype:'textfield',name:'item.groupcode',anchor: '95%'},
+		                        {fieldLabel: '限定转账',xtype:'combobox',name: 'item.frozenflag',anchor: '95%',store: flagStore,editable: false,displayField: "Name",valueField: "Value",emptyText: "--请选择(不能为空)--",queryMode: "local",allowBlank: false},
+		                        {id:'enddate',fieldLabel: '结束时间', xtype:'datefield',allowBlank: true,name:'item.enddate', anchor: '100%',
+		                        	format:'Y-m-d H:i:s',validator:ckDate
+		                        },	
+		                        {fieldLabel: '前台显示输入额',xtype:'checkbox',allowBlank: true,name: 'item.moneyflag',anchor: '95%'},
+		                        {fieldLabel: '移动前台显示',xtype:'checkbox',allowBlank: true,name: 'item.mobileflag',anchor: '95%'}
+		                        ]
+		            },{xtype:'hidden',name:'kact'}]
+		        }],
+		       saveConfig:{
+		    	 url:'/ItemApp/saveItem',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 270,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		
+		 this.win=win;
+	     this.callParent();
+	    }
+		
+		        
+	});
+	Ext.getCmp(tabId).add(Ext.create('item.grid'));
+	
+	
+});
+
+
+</script>

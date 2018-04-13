@@ -1,0 +1,127 @@
+<style>
+.infotable {
+ padding: 0;
+ margin: 0;
+}
+.infotable caption {
+ padding: 0 0 5px 0;
+ font: italic 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+ text-align: right;
+}
+.infotable th {
+
+ color: #4f6b72;
+ font-size:12px;
+ border-right: 1px solid #C1DAD7;
+ border-bottom: 1px solid #C1DAD7;
+ border-top: 1px solid #C1DAD7;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ text-align: left;
+ padding: 6px 6px 6px 12px;
+ background: #CAE8EA ;
+  height:28px;
+}
+.infotable th.nobg {
+ border-top: 0;
+ border-left: 0;
+ border-right: 1px solid #C1DAD7;
+ background: none;
+
+}
+
+.infotable tr {
+ height:28px;
+}
+.infotable td {
+ border-right: 1px solid #C1DAD7;
+ border-bottom: 1px solid #C1DAD7;
+ background: #fff;
+ font-size:10px;
+ padding: 6px 6px 6px 12px;
+ color: #4f6b72;
+}
+
+.infotable td.alt {
+ background: #F5FAFA;
+ color: #797268;
+}
+.infotable th.spec {
+ border-left: 1px solid #C1DAD7;
+ border-top: 0;
+ background: #fff url(images/bullet1.gif) no-repeat;
+ font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+}
+.infotable th.specalt {
+ border-left: 1px solid #C1DAD7;
+ border-top: 0;
+ background: #f5fafa url(images/bullet2.gif) no-repeat;
+ font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+ color: #797268;
+}
+.sl009{
+ font-size:12px;
+ border-collapse:collapse;
+}
+.sl009 td{
+ font-size:12px;
+  border:solid black 1px;
+ border-spacing:100px;
+ padding-left:2px;
+}
+.title_info{
+font-size:16px;
+font-weight:bolder;
+margin-top:10px;
+}
+
+.tr1009{
+background-color:#e8f3fd;
+}
+.tr1009 td{
+font-weight:bolder;
+color:#FF5151;
+}
+</style>
+<div>
+    <div>
+          <div class="title_info">基本信息</div>
+          <div>
+             <table class="sl009" cellpadding="0" cellspacing="0">
+                <tr class="tr1009">
+                   <td style="width:137px">修正单号</td>
+                   <td style="width:137px">用户名</td>
+                   <td style="width:137px">修正额度</td>
+                   <td style="width:137px">状态</td>
+                </tr>
+                <tr>
+                   <td>${fix.fix_no}</td>
+                   <td>${fix.login_name}</td>
+                   <td>${fix.credit}</td>
+                   <td>${fix.status}</td>
+                </tr>
+                <tr class="tr1009">
+                   <td>创建人</td>
+                   <td>创建日期</td>
+                   <td colspan="2">备注</td>
+                </tr>
+                <tr>
+                   <td>${fix.create_user}</td>
+                   <td>${fix.create_date}</td>
+                   <td colspan="2">${fix.remarks}</td>
+                </tr>
+                  <tr class="tr1009">
+                   <td>审核人</td>
+                   <td>审核日期</td>
+                   <td colspan="2">审核信息</td>
+                </tr>
+                <tr>
+                   <td>${fix.audit_user}</td>
+                   <td>${fix.audit_date}</td>
+                   <td colspan="2">${fix.audit_msg}</td>
+                </tr>
+             </table>
+          </div>  
+    </div>
+</div>
+

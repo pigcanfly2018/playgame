@@ -1,0 +1,748 @@
+<script>
+var customerRole={};
+#{sb.role user:userName,fcode:'F020101'}
+customerRole['F020101']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F020102'}
+customerRole['F020102']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F020103'}
+customerRole['F020103']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F020104'}
+customerRole['F020104']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F020106'}
+customerRole['F020106']=${_flag};
+#{/sb.role}
+
+var phonecodeflag;
+var phonecode='${phonecode}';
+if(phonecode == null){
+	phonecodeflag = true;
+}else{
+	phonecodeflag = false;
+}
+	
+function queryCredit(a){
+	
+	
+}
+function skt(f){
+	if(f=='true'){
+		return '1';
+	}else{
+		return '0';
+	}
+}
+Ext.onReady(function() {
+	var required='<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
+	var isBlank=function(field){
+		field.setDisabled(true);
+		var v=field.getValue();
+		if(v==null||v==''){
+			field.setDisabled(false);
+			return true;
+		}
+		return false;
+	}
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Customer',
+        proxy: {
+            type: 'ajax',
+            url: '/AgentApp/getSubcustomerList',
+            extraParams:{},
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('customer.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        			
+	        			
+	        		}else{
+        			
+	        		}
+	        		
+	        		
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    delconfig:{
+	    	url:'/UserApp/deleteUser',
+	    	tip:'你确定要删除你选择的用户么?',
+	    	idcode:'loginname'
+	    },
+	    pwdconfig:{
+	    	url:'/UserApp/resetPwd',
+	    	tip:'你确定要修改你选择的用户的密码么?如果是系统将自动随机生成一个密码。',
+	    	idcode:'loginname'
+	    },
+	    addconfig:{
+	       title:'新增客户资料',
+	       proFn:function(win,form){
+	   		   win.down('#idfield').setReadOnly(false);
+	   		  // win.down('#password').show();
+	       }
+	    },
+	    tryconfig:{
+		      url:'/CustomerApp/actived',
+		   	  idcode:'cust_id',
+			  tipFn:function(record){
+				 return '你确定要激活你选择的客户'+record[0].get("login_name")+'吗?如果激活，激活成功后系统将尝试发送邮件到该客户的邮箱里。';
+		     }
+		 },
+		 rdisabledconfig:{
+			 url:'/CustomerApp/rdisabled',
+			 idcode:'customer_id',
+			 tipFn:function(record){
+				 var flag=record[0].get("flag");
+				 if("true"==flag){
+					 return "你确定要禁用 "+record[0].get("login_name")+" 该用户吗?";
+				 }else{
+					 return "你确定要启用 "+record[0].get("login_name")+" 该用户吗?";
+				 }
+		     }
+		 },
+		 modPwdconfig:{
+			 url:'/CustomerApp/modPwd',
+			 idcode:'customer_id',
+			 tipFn:function(record){
+				 return "你确定要修改  "+record[0].get("login_name")+" 该用户的登录密码吗?请牢记系统返回的密码信息。";
+		     }
+		 },
+		 modLockedconfig:{
+			 url:'/CustomerApp/modLocked',
+			 idcode:'customer_id',
+			 tipFn:function(record){
+				 return "你确定要修改  "+record[0].get("login_name")+" 的被锁信息吗";
+		     }
+		 },
+	    updateconfig:{
+	       proFn:function(select,win,form){
+	    	   var data={
+	    	 			kact:'2',  
+	    	 			"user.loginname":select.get('loginname'),
+	    	 			"user.flag":select.get('flag'),
+	    	 			"user.issuper":select.get('issuper'),
+	    	 			"user.rolecode":select.get('rolecode'),
+	    	 			"user.realname":select.get('realname')
+	    	 		  };
+   	 		  form.getForm().setValues(data);
+   	 		  win.down('#idfield').setReadOnly(true);
+   	 		  win.down('#password').hide();
+   	 		  win.setTitle("修改系统用户:"+select.get('loginname'));
+	       }
+	    },
+	    recconfig:{
+		      url:'/CustomerApp/recovery',
+		   	  idcode:'cust_id',
+			  tipFn:function(record){
+				 return '您确定需要回收该帐号('+record[0].get("login_name")+')吗?如果确定，那么该帐号将重新回收到预先开户里。';
+		     }
+		 },
+	    dockedItems: [{
+	        xtype: 'toolbar',
+	        dock: 'top',
+	        items: [
+						        '->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '代理帐号:',
+	              {xtype:'textfield',itemId:'queryKey',value:''},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+				   }]
+	    }],
+	    bbar: {
+               xtype: 'pagingtoolbar',
+               pageSize: 10,
+               store:store,
+               displayInfo: true
+         },
+	    initComponent: function () {
+	        this.columns = [{
+	        	    text     : '注册时间',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'create_date',
+	        	    renderer:Ext.util.Format.dateRenderer('m-d H:i')
+	        	},{
+	        	    text     : '用户ID',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    hidden   : true,
+	        	    dataIndex: 'cust_id'
+	        	},{
+	        	    text     : '用户名',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'login_name'
+	        	},{
+	        	    text     : '真实名字',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'real_name'
+	        	},{
+	        	    text     : '客户等级',
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'cust_level',
+	        	    renderer : JBApp.renderer.custlevel
+	        	},{
+	        	    text     : '客户状态',
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'flag',
+	        	    renderer : JBApp.renderer.bool
+	        	},{
+	        	    text     : '本地额度',
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'credit'
+	        	},{
+	        	    text     : '积分',
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'score'
+	        	},{
+	        	    text     : '登录时间',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'login_date',
+	        	    renderer:Ext.util.Format.dateRenderer('Y-m-d')
+	        	},{
+	        	    text     : '注册Ip地址',
+	        	    width    : 110,
+	        	    sortable : false,
+	        	    dataIndex: 'reg_ip'
+	        	},{
+	        	    text     : '登录Ip地址',
+	        	    width    : 110,
+	        	    sortable : false,
+	        	    dataIndex: 'login_ip'
+	        	},{
+	        	    text     : '详细IP地址',
+	        	    width    : 170,
+	        	    sortable : false,
+	        	    dataIndex: 'ip_addr'
+	        	}];
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype:'fieldset',
+		            title: '基本资料',
+		            collapsible: true,
+		            defaultType: 'textfield',
+		            layout: 'anchor',
+		            defaults: {
+		                anchor: '100%'
+		            },
+		            items :[{
+			            xtype: 'container',
+			            anchor: '100%',
+			            layout:'column',
+			            bodyStyle:'margin:5px 5px 5px 5px',
+			            items:[{
+			                xtype: 'container',
+			                bodyStyle:'margin:5px 5px 5px 5px',
+			                columnWidth:.48,
+			                layout: 'anchor',
+			                defaults: {
+				                anchor: '98%'
+				            },
+			                items: [{itemId:'idfield',fieldLabel: '用户名',xtype:'textfield',
+			                	name: 'customer.login_name',allowBlank: false,beforeLabelTextTpl:required,
+			                	tooltip: '数字与字母组合',
+			                	minLength:4,maxLength:9,vtype:'alphanum',
+			                    listeners:{
+			    		            blur:function(w){
+			    		            	var value=w.getValue();
+			    		                Ext.Ajax.request({ 
+				                            url: '/CustomerApp/validatorUser',	   
+				                            params: {"login_name" :value}, 
+				                            method: 'POST', 
+				                            success: function (response, options) { 
+				                            	var result = Ext.JSON.decode(response.responseText);
+												if (result.success) {
+													return true;
+												} else {
+													Ext.Msg.alert('警告提示', result.message);
+												}
+				                            } 
+				                        }); 
+			    		            }
+			    	            }
+			                },
+			                        {fieldLabel: '真实姓名',xtype:'textfield',
+			                	     name: 'customer.real_name',allowBlank: false,
+			                	     beforeLabelTextTpl:required,
+			                	     listeners:{
+					    		            blur:function(w){
+					    		            	var value=w.getValue();
+					    		                Ext.Ajax.request({ 
+						                            url: '/CustomerApp/validatorRealName',	   
+						                            params: {"real_name" :value}, 
+						                            method: 'POST', 
+						                            success: function (response, options) { 
+						                            	var result = Ext.JSON.decode(response.responseText);
+														if (result.success) {
+															return true;
+														} else {
+															Ext.Msg.alert('警告提示', result.message);
+														}
+						                            } 
+						                        }); 
+					    		            }
+					    	            }},
+			                        {fieldLabel: 'QQ',xtype:'textfield',name: 'customer.qq',vtype:'alphanum',
+					    	            	allowBlank: false,beforeLabelTextTpl:required,value:'000000',
+			                        	listeners:{
+					    		            blur:function(w){
+					    		            	var value=w.getValue();
+					    		                Ext.Ajax.request({ 
+						                            url: '/CustomerApp/validatorQQ',	   
+						                            params: {"qq" :value}, 
+						                            method: 'POST', 
+						                            success: function (response, options) { 
+						                            	var result = Ext.JSON.decode(response.responseText);
+														if (result.success) {
+															return true;
+														} else {
+															Ext.Msg.alert('警告提示', result.message);
+														}
+						                            } 
+						                        }); 
+					    		            }
+					    	            }},
+					    	            {fieldLabel: '登录密码',xtype:'textfield',name: 'customer.pwd',value:'a123b789',anchor: '95%'}]
+			            },{
+			                xtype: 'container',
+			                columnWidth:.48,
+			                bodyStyle:'margin:5px 5px 5px 5px',
+			                layout: 'anchor',
+			                defaults: {
+				                anchor: '98%'
+				            },
+			                items: [{fieldLabel: '电话号码',xtype:'textfield',name: 'customer.phone',beforeLabelTextTpl:required,allowBlank: false,minLength:11,maxLength:11,
+			                        	listeners:{
+					    		            blur:function(w){
+					    		            	var value=w.getValue();
+					    		                Ext.Ajax.request({ 
+						                            url: '/CustomerApp/validatorPhone',	   
+						                            params: {"phone" :value}, 
+						                            method: 'POST', 
+						                            success: function (response, options) { 
+						                            	var result = Ext.JSON.decode(response.responseText);
+														if (result.success) {
+															return true;
+														} else {
+															Ext.Msg.alert('警告提示', result.message);
+														}
+						                            } 
+						                        }); 
+					    		            }
+					    	            }},
+			                        {itemId:'pwd',fieldLabel: '邮箱',xtype:'textfield',name: 'customer.email',vtype:'email',maxLength:50},
+			                        {fieldLabel: '所属代理',xtype:'agentcom',valueField:'cust_id',name: 'customer.parent_id',value:'',anchor: '95%'}]
+			            },
+			            {xtype:'hidden',name:'kact'}]
+			        }]
+		        },{
+		            xtype:'fieldset',
+		            title: '银行资料',
+		            collapsible: true,
+		            defaultType: 'textfield',
+		            layout: 'anchor',
+		            iconCls:'icon-set',
+		            defaults: {
+		                anchor: '100%'
+		            },
+		            items :[{
+			            xtype: 'container',
+			            anchor: '100%',
+			            layout:'column',
+			            bodyStyle:'margin:5px 5px 5px 5px',
+			            items:[{
+			                xtype: 'container',
+			                columnWidth:.48,
+			                defaults: {
+				                anchor: '98%'
+				            },
+			                layout: 'anchor',
+			                items: [{fieldLabel: '银行名字',xtype:'itemcom',name: 'customer.bank_name',valueField:'itemvalue',groupcode:'bankcode'},
+			                        {fieldLabel: '帐号类型',xtype:'itemcom',name: 'customer.account_type',valueField:'itemvalue',groupcode:'banktype'}]
+			            },{
+			                xtype: 'container',
+			                columnWidth:.48,
+			                layout: 'anchor',
+			                defaults: {
+				                anchor: '98%'
+				            },
+			                items: [{fieldLabel: '银行帐号',xtype:'textfield',name: 'customer.account'},
+			                        {fieldLabel: '开户行网点',xtype:'textfield',name: 'customer.bank_dot'}]
+			            }]
+			        }]
+		        },
+		        {fieldLabel: '备注',xtype:'textfield',name: 'customer.remarks',anchor: '98%'}],
+		       saveConfig:{
+		    	 url:'/CustomerApp/saveCustomer',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 700,
+	            height: 480,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		 /*修改等级*/
+		 var levelform=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype: 'container',
+		            anchor: '100%',
+		            layout:'column',
+		            bodyStyle:'margin:5px 5px 5px 5px',
+		            items:[{
+		                xtype: 'container',
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                columnWidth:.48,
+		                layout: 'anchor',
+		                items: [{fieldLabel: '客户等级',xtype:'itemcom',groupcode:'cust_level',valueField:'itemvalue',name: 'cust_level',anchor: '95%'},
+		                        {fieldLabel: 'PT状态',xtype:'itemcom',groupcode:'cust_status',valueField:'itemvalue',name: 'pt_actived',anchor: '95%'},
+		                        {fieldLabel: '波音状态',xtype:'itemcom',groupcode:'cust_status',valueField:'itemvalue',name: 'bbin_actived',anchor: '95%'},
+		                        {fieldLabel: 'AG状态',xtype:'itemcom',groupcode:'cust_status',valueField:'itemvalue',name: 'ag_actived',anchor: '95%'},
+		                        {fieldLabel: 'KG状态',xtype:'itemcom',groupcode:'cust_status',valueField:'itemvalue',name: 'kg_actived',anchor: '95%'},
+		                        {fieldLabel: 'MG状态',xtype:'itemcom',groupcode:'cust_status',valueField:'itemvalue',name: 'mg_actived',anchor: '95%'},
+		                        {fieldLabel: '在线支付',xtype:'itemcom',groupcode:'cust_status',valueField:'itemvalue',name: 'online_pay',anchor: '95%'},
+		                        {fieldLabel: '重设密码',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name: 'mod_pwd',anchor: '95%'}]
+		            },{
+		                xtype: 'container',
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                columnWidth:.48,
+		                layout: 'anchor',
+		                items: [{fieldLabel: '客户状态',xtype:'itemcom',groupcode:'cust_status',valueField:'itemvalue',name: 'flag',anchor: '95%'},
+		                        {fieldLabel: 'PT开立',xtype:'itemcom',groupcode:'cust_status',valueField:'itemvalue',name: 'pt_flag',anchor: '95%'},
+		                        {fieldLabel: '波音开立',xtype:'itemcom',groupcode:'cust_status',valueField:'itemvalue',name: 'bbin_flag',anchor: '95%'},
+		                        {fieldLabel: 'AG开立',xtype:'itemcom',groupcode:'cust_status',valueField:'itemvalue',name: 'ag_flag',anchor: '95%'},
+		                        {fieldLabel: 'KG开立',xtype:'itemcom',groupcode:'cust_status',valueField:'itemvalue',name: 'kg_flag',anchor: '95%'},
+		                        {fieldLabel: 'MG开立',xtype:'itemcom',groupcode:'cust_status',valueField:'itemvalue',name: 'mg_flag',anchor: '95%'},
+		                        {fieldLabel: '黑名单',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name: 'is_block',anchor: '95%'},
+		                        {fieldLabel: '支付宝可用',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name: 'alipay_flag',anchor: '95%'}]
+		            },
+		            {xtype:'hidden',name:'kact'},{xtype:'hidden',name:'cust_id'}]
+		        },{fieldLabel: '备注',xtype:'textfield',name: 'remarks',anchor: '95%'}],
+		       saveConfig:{
+		    	 url:'/CustomerApp/modLevel',
+		    	 store:store
+		       },
+            buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	     {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+         });
+		 var levelwin=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 380,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [levelform],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		 //修改用户名
+		 var loginform=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype: 'container',
+		            anchor: '100%',
+		            layout:'column',
+		            bodyStyle:'margin:5px 5px 5px 5px',
+		            items:[{
+		                xtype: 'container',
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                columnWidth:.98,
+		                layout: 'anchor',
+		                items: [{itemId:'login_name',fieldLabel: '用户名',xtype:'textfield',
+		                	name: 'login_name',allowBlank: false,beforeLabelTextTpl:required,
+		                	tooltip: '数字与字母组合',
+		                	minLength:4,maxLength:12,vtype:'alphanum',
+		                    listeners:{
+		    		            blur:function(w){
+		    		            	var value=w.getValue();
+		    		                Ext.Ajax.request({ 
+			                            url: '/CustomerApp/validatorUser',	   
+			                            params: {"login_name" :value}, 
+			                            method: 'POST', 
+			                            success: function (response, options) { 
+			                            	var result = Ext.JSON.decode(response.responseText);
+											if (result.success) {
+												return true;
+											} else {
+												Ext.Msg.alert('警告提示', result.message);
+											}
+			                            } 
+			                        }); 
+		    		            }
+		    	            }
+		                }]
+		            },{xtype:'hidden',name:'kact'},{xtype:'hidden',name:'cust_id'}]
+		        }],
+		       saveConfig:{
+		    	 url:'/CustomerApp/modLoginName',
+		    	 store:store
+		       },
+         buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	     {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+      });
+		 var loginwin=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 400,
+	            height: 120,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [loginform],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		 var phonerecordform=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{fieldLabel: '备注',xtype:'textfield',name: 'content',anchor: '98%'},{xtype:'hidden',name:'cust_id'}],
+		       saveConfig:{
+		    	 url:'/CustomerPhoneRecordApp/saveRecord',
+		    	 store:store
+		       },
+         buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	     {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+      });
+		 
+		 var phonecodeform=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{itemId:'phonecode',fieldLabel: '电话代码',xtype:'textfield',name: 'phonecode',anchor: '98%'}],
+		       saveConfig:{
+		    	 url:'/UserApp/updatePhoneCode',
+		    	 store:store
+		       },
+      buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	     {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+   });
+		 
+		 var phonerecordwin=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 700,
+	            height: 150,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [phonerecordform],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		 
+		 var phonecodewin=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 400,
+	            height: 150,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [phonecodeform],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		 
+		 var updateform=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype:'fieldset',
+		            title: '基本资料',
+		            collapsible: true,
+		            defaultType: 'textfield',
+		            layout: 'anchor',
+		            iconCls:'icon-set',
+		            defaults: {
+		                anchor: '100%'
+		            },
+		            items :[{
+			            xtype: 'container',
+			            anchor: '100%',
+			            layout:'column',
+			            bodyStyle:'margin:5px 5px 5px 5px',
+			            items:[{
+			                xtype: 'container',
+			                columnWidth:.48,
+			                defaults: {
+				                anchor: '98%'
+				            },
+			                layout: 'anchor',
+			                items: [{itemId:'email',fieldLabel: '邮箱',xtype:'textfield',name: 'customer.email',vtype:'email',maxLength:50},
+			                        {itemId:'bank_name',fieldLabel: '银行名字',xtype:'itemcom',name: 'customer.bank_name',valueField:'itemvalue',groupcode:'bankcode'},
+			                        {itemId:'account_type',fieldLabel: '帐号类型',xtype:'itemcom',name: 'customer.account_type',valueField:'itemvalue',groupcode:'banktype'}]
+			            },{
+			                xtype: 'container',
+			                columnWidth:.48,
+			                layout: 'anchor',
+			                defaults: {
+				                anchor: '98%'
+				            },
+			                items: [{itemId:'qq',fieldLabel: 'QQ',xtype:'textfield',name: 'customer.qq',vtype:'alphanum',
+	                        	listeners:{
+			    		            blur:function(w){
+			    		            	var value=w.getValue();
+			    		                Ext.Ajax.request({ 
+				                            url: '/CustomerApp/validatorQQ',	   
+				                            params: {"qq" :value}, 
+				                            method: 'POST', 
+				                            success: function (response, options) { 
+				                            	var result = Ext.JSON.decode(response.responseText);
+												if (result.success) {
+													return true;
+												} else {
+													Ext.Msg.alert('警告提示', result.message);
+												}
+				                            } 
+				                        }); 
+			    		            }
+			    	            }},
+			                        {itemId:'account',fieldLabel: '银行帐号',xtype:'textfield',name: 'customer.account'},
+			                        {itemId:'bank_dot',fieldLabel: '开户行网点',xtype:'textfield',name: 'customer.bank_dot'},
+			                        {xtype:'hidden',name:'kact'},{xtype:'hidden',name:'customer.cust_id'}
+			                        ]
+			            }]
+			        }]
+		        },{itemId:'remarks',fieldLabel: '备注',xtype:'textfield',name: 'customer.remarks',anchor: '98%'}],
+		       saveConfig:{
+		    	 url:'/CustomerApp/saveCustomer2',
+		    	 store:store
+		       },
+            buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	     {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+         });
+		 var updatewin=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 700,
+	            height: 350,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [updateform],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		 this.win=win;
+		 this.levelwin=levelwin;
+		 this.loginwin=loginwin;
+		 this.updatewin=updatewin;
+		 this.phonerecordwin = phonerecordwin;
+		 this.phonecodewin = phonecodewin ;
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('customer.grid'));
+});
+</script>

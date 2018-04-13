@@ -1,0 +1,85 @@
+<style>
+  .desposit_table{
+    font-size:12px;
+    font-weight:bolder;
+    color:black;
+  }
+  .desposit_table_title{
+   font-weight:bolder;
+   text-align:right;
+   color:#666666;
+   width:150px
+  }
+  .desposit_table_value{
+    
+  }
+</style>
+<div>
+<table class="desposit_table">
+   <tr>
+      <td class="desposit_table_title">创建时间 / Time :</td>
+      <td style="width:140px">${rd.date(withdraw.create_date,'MM/dd HH:mm:ss')}</td>
+      <td class="desposit_table_title">用户名 / User :</td>
+      <td style="width:140px">${withdraw.login_name}</td>
+
+   </tr>
+    <tr>
+      <td class="desposit_table_title">真实姓名 / Name :</td>
+      <td style="width:200px">${withdraw.real_name}</td>
+      <td class="desposit_table_title">提款金额  / Amount :</td>
+      <td style="color:red">${withdraw.amount}</td>
+
+   </tr>
+   <tr>
+      <td class="desposit_table_title">银行户名 / Name :</td>
+      <td style="color:red">${withdraw.account_name}</td>
+      <td class="desposit_table_title">银行 / Bank :</td>
+      <td style="color:red">${rd.dictName('bankcode',withdraw.bank_name)}</td>
+    
+   </tr>
+   <tr>
+      <td class="desposit_table_title">账户类型 / Type :</td>
+      <td>${withdraw.account_type}</td>
+      <td class="desposit_table_title">银行帐号 / Account No :</td>
+      <td style="color:red">${withdraw.account}</td>
+ 
+   </tr>
+   
+    <tr>
+       <td class="desposit_table_title">提交人 / Operator :</td>
+      <td>${withdraw.create_user}</td>
+
+      <td class="desposit_table_title">当前状态 / Status ：</td>
+      <td>${rd.dictName('withdraw_flag',withdraw.status)}</td>
+   </tr>
+ 
+   <tr>  
+      <td class="desposit_table_title">开户网点 / Address :</td>
+      <td colspan="3">${withdraw.location}</td>
+   </tr>
+   <tr>
+      <td class="desposit_table_title">提款备注 / Remarks :</td>
+      <td colspan="3">${withdraw.remarks}</td>
+   </tr>
+</table>
+</div>
+<div>
+<p>操作历史 / Operator History</p>
+<table class="desposit_table" style="margin-top:10px;margin-left:10px;">
+   <tr style="backgroud-color:#FFCCFF">
+      <td class="desposit_table_title" style="width:120px;text-align:left">操作时间  / Time</td>
+      <td class="desposit_table_title" style="width:120px;text-align:left">操作后状态 / Status</td>
+      <td class="desposit_table_title" style="width:120px;text-align:left">操作人 / Operator </td>
+      <td class="desposit_table_title" style="width:220px;text-align:left">操作备注 / Remarks</td>
+   </tr>
+   #{list logList, as:'log' }
+    <tr>
+      <td>${rd.date(log.create_date,'MM/dd HH:mm:ss')}</td>
+      <td>${rd.dictName('withdraw_flag',log.after_status)}</td>
+      <td>${log.create_user}</td>
+      <td>${log.remarks}</td>
+    </tr>
+    #{/list}
+
+</table>
+</div>

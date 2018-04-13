@@ -1,0 +1,142 @@
+<html>
+<head>
+<title>八达资金平台</title>
+<link rel="shortcut icon" href="/public/favicon.ico" /> 
+<link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/icons.css'}" />
+<script type="text/javascript" src="/dict.js"></script>
+<script type="text/javascript" src="@{'/public/ext/examples/shared/include-ext.js'}"></script>
+<script type="text/javascript" src="@{'/public/ext/locale/ext-lang-zh_CN.js'}"></script>
+<script type="text/javascript" src="@{'/public/myext/NavTree.js'}"></script>
+<script type="text/javascript" src="@{'/public/myext/Models.js'}"></script>
+<script type="text/javascript" src="@{'/public/myext/FuncsTreeCom.js'}"></script>
+<script type="text/javascript" src="@{'/public/myext/MyCombobox.js'}"></script>
+<script type="text/javascript" src="@{'/public/myext/JBApp.js'}"></script>
+<script type="text/javascript" src="@{'/public/myext/DepositAuditWin.js'}"></script>
+<script type="text/javascript" src="@{'/public/myext/CustformAuditWin.js'}"></script>
+<script type="text/javascript" src="@{'/public/myext/BillActionWin.js'}"></script>
+<script type="text/javascript" src="@{'/public/myext/BillInfoWin.js'}"></script>
+<script type="text/javascript" src="@{'/public/myext/BillAuditWin.js'}"></script>
+<script type="text/javascript" src="@{'/public/myext/MsgAlert.js'}"></script>
+<style>
+
+.redfieldlabel{
+	color:red;
+	font-weight:bolder;
+	width:80px;
+}
+.x-grid-row-alt .x-grid-td{
+  background-color:rgb(237, 239, 241);
+ }
+</style>
+<script type="text/javascript">
+    Ext.require(['*']);
+    var msgwin;
+    Ext.onReady(function() {
+        Ext.QuickTips.init();
+        Ext.state.Manager.setProvider(Ext.create('Ext.state.CookieProvider'));
+        var viewport = Ext.create('Ext.Viewport', {
+            id: 'border-example',
+            layout: 'border',
+            items: [{
+                region: 'west',
+                stateId: 'navigation-panel',
+                id: 'app-options',
+                title: '八达国际资金平台',
+                split: true,
+                width: 200,
+                iconCls:'icon-nav-home',
+                minWidth: 175,
+                maxWidth: 400,
+                collapsible: true,
+                animCollapse: true,
+                margins: '0 0 0 5',
+                layout: 'accordion',
+                items: [],
+                bbar: ['<span style="color:blue;font-weight:bolder;">当前用户: '+'<span style="color:red;">${username}</span></span>','->',{ xtype: 'button',iconCls:'icon-exit',text: '注销',handler:function(){
+                	window.location.href="/logout";
+                }}]
+            },
+            Ext.create('Ext.tab.Panel', {
+                region: 'center', 
+                id:"tab",
+                deferredRender: false,
+                items: []
+            })]
+        });
+        Ext.Ajax.request({
+    	    url: '/FuncApp/getChilds',
+    	    params: {
+    	        
+    	    },
+    	    success: function(response){
+    	        var array = Ext.JSON.decode(response.responseText);
+    	        var nav=Ext.getCmp('app-options');
+    	        for(var i=0;i<array.length;i++){
+	        	   nav.add({
+	                    title:array[i].funcname,
+	                    id:'nav_'+array[i].funccode,
+	                    iconCls:'icon-nav',
+	                    border: false,
+	                    items: [Ext.create('Ext.app.NavTree',{url:'/FuncApp/getChilds',params:{pcode:array[i].funccode}})]
+	                });
+    	        }
+    	        
+    	    }
+    	});
+        Ext.override(Ext.form.action.Action, {
+        	  submitEmptyText:false
+       });
+        
+        MsgAlert.init();
+        msgwin = new Ext.Window({
+            layout:"fit",
+            draggable:true,
+            animCollapse :true,
+            plain : true,
+            width : 320,
+            height : 150,
+            closeAction:'hide',
+            modal : false,
+            x:Ext.getBody().getWidth()-330,
+            y:Ext.getBody().getHeight()-160,
+            resizable:false,
+            title:'<div align="center">消息提示</div>',
+            buttons :[{text:"确定",handler:function(){msgwin.hide();}}],
+            listeners:{
+           	 show:function(win){
+           	    setTimeout("msgwin.hide()",15000);
+           	 }
+             }
+            });
+           msgwin.setHtml=function(html){
+           	 msgwin.removeAll();
+           	 msgwin.add({
+                   xtype:'panel',
+                   html:"<span style='color:red'>"+html+"<span>"
+                });
+            };
+          
+        	var task = {
+        		    run: function(){
+        		    	Ext.Ajax.request({
+        				    url: "/MsgApp/getMyMsg",
+        				    params:{},
+        				    success: function(response){
+        			    	  var result = Ext.JSON.decode(response.responseText);
+        			    	  if(result.success){
+        			    		  MsgAlert.play();
+        			    		  msgwin.setHtml(result.message);
+        			    		  msgwin.show();
+        				       }
+        				    }});
+        		    },
+        		    interval: 10000 
+              };
+        	Ext.TaskManager.start(task);
+    });
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+
+	<interface>
+		<id><![CDATA[cust_login2_8d]]></id>
+		<name><![CDATA[客户登录]]></name>
+		<type>CUST2</type>
+		<service>login</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[phone|login_pwd|login_ip|user_agent]]></reqen>
+		<reqcn><![CDATA[手机号码|密码|IP|浏览器]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(int)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[客户登录: 1-登陆成功 2-失败|用户不存在 3-失败|用户被禁用 4-失败|密码错误  / 仅仅支持手机号码登陆]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[cust_reg2_8d]]></id>
+		<name><![CDATA[客户注册]]></name>
+		<type>CUST2</type>
+		<service>reg</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[phone|real_name|reg_ip|qq|reg_code|reg_domain|referdomain|keyword]]></reqen>
+		<reqcn><![CDATA[电话|真实姓名|注册IP|QQ|注册码|注册域名|refer|关键字]]></reqcn>
+		<replyen><![CDATA[ok|login_name|login_pwd|token|message]]></replyen>
+		<replycn><![CDATA[注册结果|用户名|密码|token|反馈信息]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[手机注册 - 前端校验 电话号码，真是姓名长度]]></explain>
+	</interface>
+	
+	
+	<interface>
+		<id><![CDATA[cust_login3_8d]]></id>
+		<name><![CDATA[客户登录]]></name>
+		<type>CUST2</type>
+		<service>token</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|token|login_ip|user_agent]]></reqen>
+		<reqcn><![CDATA[用户名|token|IP|浏览器]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(int)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[客户登录: 1-登陆成功 2-失败|用户不存在 3-失败|用户被禁用 4-失败|token失效  / 仅仅支持token登陆]]></explain>
+	</interface>
+	
+
+</config>

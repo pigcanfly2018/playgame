@@ -1,0 +1,121 @@
+<script>
+
+Ext.onReady(function() {
+	var required='<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
+	var store = Ext.create('Ext.data.Store', {
+        model: 'UserLog',
+        proxy: {
+            type: 'ajax',
+            url: '/UserLogApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('depositHist.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE' 
+	    },
+	    autoHeight:true,
+	    addconfig:{
+	       title:'新增存款提案',
+	       proFn:function(win,form){
+	    	   form.getForm().setValues({
+	    		   'deposit.deposit_date':new Date()
+	    	   });
+	       }
+	    },
+	    tbar:[{
+	        	    xtype: 'button', 
+	        	    iconCls:'icon-log',
+	        	    hidden:true,
+	        	    text:'提案详细',
+	        	    handler:function(){
+	        			var select = this.up('grid').getSelectionModel().getSelection();
+	        			if (select.length != 1) {
+	        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+	        				return;
+	        			}
+	        		   var w=Ext.create('Ext.app.Billinfowin', {
+	        			    renderTo:'${tabId}',
+	        			    htmlHeight:260,
+	        			    height:400,
+	        			    title:'查看存款提案',
+	        			    fstitle:'存款提案信息',
+	        			    url:'/DepositApp/detail?request_id='+select[0].get('deposit_id')
+	        			   }).show();
+	        	   }
+			     },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey',value:''},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       },{
+				    	 text:'导出',
+				    	 iconCls:'icon-export',
+				    	 hidden:true,
+				    	 actionUrl:'/DepositApp/exportExcel',
+				    	 handler:JBApp.exportFn
+				       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	        	    text     : '操作员工',
+	        	    width    : 180,
+	        	    sortable : false,
+	        	    dataIndex: 'op_user'
+        	    },{
+	        	    text     : '创建时间',
+	        	    width    : 90,
+	        	    sortable : false,
+	        	    dataIndex: 'create_date',
+	        	    renderer:Ext.util.Format.dateRenderer('m-d H:i')
+	        	},{
+	        	    text     : '内容',
+	        	    width    : 480,
+	        	    sortable : false,
+	        	    dataIndex: 'log_msg'
+	        	}];
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('depositHist.grid'));
+});
+</script>

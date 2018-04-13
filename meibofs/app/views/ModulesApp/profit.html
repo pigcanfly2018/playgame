@@ -1,0 +1,112 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Profit',
+        proxy: {
+            type: 'ajax',
+            url: '/ProfitApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('profit.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true,
+	        loadingText:'正在加载数据...'
+	    },
+	    store:store,
+	    autoHeight:true,
+	    dockedItems: [{
+	        xtype: 'toolbar',
+	        dock: 'top',
+	        items: ['->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey',value:''},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+				   },{
+		            text:'导出',
+		            iconCls: 'icon-export',
+		            actionUrl:'/ProfitApp/exportExcel',
+		            handler :JBApp.exportFn
+				   }]
+	    }],
+	    bbar: {
+               xtype: 'pagingtoolbar',
+               pageSize: 10,
+               store:store,
+               displayInfo: true
+         },
+	    initComponent: function () {
+	        this.columns = [{
+	    	    text     : '月份',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'mon'
+	    	},{
+	    	    text     : '用户名',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'login_name'
+	    	},{
+	    	    text     : '存款额度',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'deposit'
+	    	},{
+	    	    text     : '优惠额度',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'gift'
+	    	},{
+	    	    text     : '投注额度',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'bet'
+	    	},{
+	    	    text     : '提款额度',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'withdraw'
+	    	},{
+	    	    text     : '上级代理',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'agent_name'
+	    	}];
+	        
+	        
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('profit.grid'));
+});
+</script>

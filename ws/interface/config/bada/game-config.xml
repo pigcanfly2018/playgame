@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+
+	<interface>
+		<id><![CDATA[game_mg_list_8d]]></id>
+		<name><![CDATA[获取MG游戏信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		 select gamecode,category,is_hot,is_new,game_caegory,sub_category,gamename,chinese_simp_game_name,is_html5,html5gameCode,
+		 image_file_name from mb_mg_flash_game where is_html5 =1 AND ENABLE =1 order by isnull(sortpriority), sortpriority asc 
+		]]></statement>
+		<reqen><![CDATA[]]></reqen>
+		<reqcn><![CDATA[]]></reqcn>
+		<replyen><![CDATA[gamecode|category|game_caegory|is_hot|is_new|sub_category|gamename|chinese_simp_game_name|image_file_name|is_html5|html5gameCode]]></replyen>
+		<replycn><![CDATA[游戏ID|类别|游戏类别|是否最热|是否最新|子类别|游戏名字|中文名字|图片名字|是否支持html5|HTML5游戏code]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[获取MG的游戏信息，前台需要设置数量]]></explain>
+	</interface>
+<interface>
+		<id><![CDATA[game_ag_list_8d]]></id>
+		<name><![CDATA[获取AG游戏信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		 SELECT ag_id,game_name,game_code,hot,enable,Image_File_Name,game_type,is_new,sortpriority FROM mb_ag_game WHERE  ENABLE =1 and is_html5=1 order by isnull(sortpriority), sortpriority asc 
+		]]></statement>
+		<reqen><![CDATA[]]></reqen>
+		<reqcn><![CDATA[]]></reqcn>
+		<replyen><![CDATA[ag_id|game_name|game_code|hot|enable|Image_File_Name|game_type|is_new]]></replyen>
+		<replycn><![CDATA[游戏ID|游戏名字|游戏code|是否热门|是否推荐|是否可用|游戏名字|游戏类型|是否最新]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[获取AG的游戏信息，前台需要设置数量，1为最新 ，1为最热 ，1为推荐]]></explain>
+	</interface>
+	<interface>
+		<id><![CDATA[game_pt_list_8d]]></id>
+		<name><![CDATA[获取PT游戏信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		 SELECT game_code,game_name,game_type,progressive,cn_name,pool_name,hot FROM pt_game WHERE mobile='√' AND ENABLE =1 order by game_type
+		]]></statement>
+		<reqen><![CDATA[]]></reqen>
+		<reqcn><![CDATA[]]></reqcn>
+		<replyen><![CDATA[game_code|game_name|game_type|progressive|cn_name|pool_name|hot]]></replyen>
+		<replycn><![CDATA[游戏ID|游戏名字|游戏类别|老虎机|中文名字|奖池|是否热门]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[获取PT的游戏信息，前台需要设置数量]]></explain>
+	</interface>
+
+	<interface>
+		<id><![CDATA[game_bbin_list_8d]]></id>
+		<name><![CDATA[获取BBIN游戏信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		 SELECT game_id,game_name,is_hot,is_new,
+		 Image_File_Name,game_type,sortpriority FROM mb_bbin_game WHERE  ENABLE =1  order by isnull(sortpriority), sortpriority asc 
+		]]></statement>
+		<reqen><![CDATA[]]></reqen>
+		<reqcn><![CDATA[]]></reqcn>
+		<replyen><![CDATA[game_id|game_name|game_code|is_hot|is_new|Image_File_Name|game_type|sortpriority]]></replyen>
+		<replycn><![CDATA[游戏ID|游戏名字|游戏code|是否人|是否最新|游戏图片名字|游戏类型|排序]]></replycn>
+		
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[获取PT的游戏信息，前台需要设置数量]]></explain>
+	</interface>
+	
+	<interface>		
+		<id><![CDATA[game_sb_list_8d]]></id>
+		<name><![CDATA[获取SB游戏信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		 SELECT sb_id,game_name,game_code,ENABLE,image_game_name,image_preview_name,providercode,
+		 game_type,sortpriority FROM mb_sb_game WHERE  ENABLE =1 AND providercode='TGP' ORDER BY ISNULL(sortpriority), sortpriority ASC 
+		]]></statement>
+		<reqen><![CDATA[]]></reqen>
+		<reqcn><![CDATA[]]></reqcn>
+		<replyen><![CDATA[sb_id|game_name|game_code|enable|image_game_name|image_preview_name|game_type|sortpriority]]></replyen>
+		<replycn><![CDATA[游戏ID|游戏名字|游戏code|是否可用|游戏图片名字|游戏图片名字2|游戏类型|排序]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[获取SB的游戏信息]]></explain>
+	</interface>
+</config>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+
+
+	<interface>
+		<id><![CDATA[plat_balance_bojin]]></id>
+		<name><![CDATA[查询游戏厅余额]]></name>
+		<type>PLAT</type>
+		<service>balance</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|login_name|login_ip|product]]></reqen>
+		<reqcn><![CDATA[平台|用户名|登录IP|产品名]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[游戏厅余额]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[查询游戏厅余额，如果开户没成功，则会自动开户]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[plat_in_bojin]]></id>
+		<name><![CDATA[把额度转入游戏厅]]></name>
+		<type>PLAT</type>
+		<service>IN</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|login_name|login_ip|product|log_type|remarks|create_user|order_no|amount]]></reqen>
+		<reqcn><![CDATA[平台|用户名|登录IP|产品名|日志类型|备注|创建人|订单号|转账金额]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(int)]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[把额度转入游戏厅.如果不传amount,则默认转入全部]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[plat_out_bojin]]></id>
+		<name><![CDATA[从游戏厅转出额度]]></name>
+		<type>PLAT</type>
+		<service>OUT</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|login_name|login_ip|product|log_type|remarks|create_user|order_no|amount]]></reqen>
+		<reqcn><![CDATA[平台|用户名|登录IP|产品名|日志类型|备注|创建人|订单号|转账金额]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(int)]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[从游戏厅转出额度.如果不传amount,则默认转出厅的全部额度]]></explain>
+	</interface>
+	
+
+	
+	
+	
+	<interface>
+		<id><![CDATA[plat_create_bojin]]></id>
+		<name><![CDATA[创建游戏厅账号]]></name>
+		<type>PLAT</type>
+		<service>create</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|login_name|login_ip|product]]></reqen>
+		<reqcn><![CDATA[平台|用户名|登录IP|产品名]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[创建游戏厅账号]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[创建游戏厅账号]]></explain>
+	</interface>
+	
+	
+	
+	<interface>
+		<id><![CDATA[plat_forward_8d]]></id>
+		<name><![CDATA[获取跳转地址]]></name>
+		<type>PLAT</type>
+		<service>forward</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|login_name|login_ip|product]]></reqen>
+	    <reqcn><![CDATA[平台|用户名|登录IP|产品名]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[跳转URL(String)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[获取跳转地址,支持AG|BBIN|KG]]></explain>
+	</interface>
+	
+	
+	
+	
+	
+
+
+</config>

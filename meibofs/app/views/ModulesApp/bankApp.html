@@ -1,0 +1,225 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Bank',
+        proxy: {
+            type: 'ajax',
+            url: '/BankApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('bank.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        		  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(false);
+	        		  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(false);
+	        		}else{
+        			  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(true);
+        			  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(true);
+	        		}
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    delconfig:{
+	    	url:'/BankApp/deleteBank',
+	    	tip:'你确定要删除你选择的银行么?',
+	    	idcode:'bank_id'
+	    },
+	    addconfig:{
+	       title:'新增银行',
+	       proFn:function(win,form){
+	   		   
+	       }
+	    },
+	    updateconfig:{
+	       proFn:function(select,win,form){
+	    	   var data={
+	    	 			kact:'2',  
+	    	 			"bank.bank_name":select.get('bank_name'),
+	    	 			"bank.account":select.get('account'),
+	    	 			"bank.account_name":select.get('account_name'),
+	    	 			"bank.bank_dot":select.get('bank_dot'),
+	    	 			"bank.cust_level":select.get('cust_level'),
+	    	 			"bank.specifiedname":select.get('specifiedname'),
+	    	 			"bank.bank_id":select.get('bank_id')
+	    	 		  };
+   	 		  form.getForm().setValues(data);
+   	 		  win.setTitle("修改银行:"+select.get('bank_name'));
+	       }
+	    },
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '添加',
+		    	handler:JBApp.addFn
+		    	},
+		    	{
+		    	  xtype: 'button', 
+		    	  iconCls:'icon-update',
+		    	  text: '修改',
+		    	  disabled:true,
+		    	  itemId:'updatebtn',
+		    	  handler:JBApp.updateFn
+	    	   },
+	    	   {
+	        	 xtype: 'button', 
+	        	 iconCls:'icon-delete',
+	        	 text:'删除',
+	        	 disabled:true,
+	        	 itemId:'deletebtn',
+	        	 handler:JBApp.deleteFn
+		        },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	        	    text     : '银行名字',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'bank_name'
+	        	},{
+	        	    text     : '账号',
+	        	    width    : 180,
+	        	    sortable : false,
+	        	    dataIndex: 'account',
+	        	},{
+	        	    text     : '账户名',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'account_name'
+	        	},{
+	        	    text     : '开户网点',
+	        	    width    : 200,
+	        	    sortable : false,
+	        	    dataIndex: 'bank_dot'
+	        	},{
+	        	    text     : '最低可见等级',
+	        	    width    : 150,
+	        	    sortable : false,
+	        	    dataIndex: 'cust_level',
+		    	    renderer:JBApp.renderer.custlevel
+	        	},{
+	        	    text     : '可用',
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'available',
+	        	    renderer:function(v){
+	        	    	if('true'==v){
+	        	    		return '<span style="color:green">可用</span>';
+	        	    	}else{
+	        	    		return '<span style="color:red">不可用</span>';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : '针对特定用户',
+	        	    width    : 300,
+	        	    sortable : false,
+	        	    dataIndex: 'specifiedname'
+	        	}];
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype: 'container',
+		            anchor: '100%',
+		            layout:'column',
+		            bodyStyle:'margin:5px 5px 5px 5px',
+		            items:[{
+		                xtype: 'container',
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                columnWidth:.48,
+		                layout: 'anchor',
+		                items: [{fieldLabel: '银行名字',allowBlank: false,xtype:'itemcom',groupcode:'bankcode',name: 'bank.bank_name',valueField:'itemvalue',anchor: '95%'},
+		                        {fieldLabel: '账号',allowBlank: false,xtype:'textfield',name:'bank.account',anchor: '95%'},
+		                        {fieldLabel: '最低可见级别',xtype:'itemcom',allowBlank: false,groupcode:'cust_level',name: 'bank.cust_level',valueField:'itemvalue',anchor: '95%'}]
+		            },{
+		                xtype: 'container',
+		                columnWidth:.48,
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                layout: 'anchor',
+		                items: [{fieldLabel: '账户名',allowBlank: false,xtype:'textfield',name: 'bank.account_name',anchor: '95%'},
+		                        {fieldLabel: '开户网点',allowBlank: false,xtype:'textfield',name: 'bank.bank_dot',anchor: '95%'},
+		                        {fieldLabel: '启用',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name: 'bank.available',anchor: '95%'}]
+		            },{xtype:'hidden',name:'kact'},{xtype:'hidden',name:'bank.bank_id'}]
+		        },{fieldLabel: '特定用户的用户名',xtype:'textfield',name: 'bank.specifiedname',anchor: '95%'}],
+		       saveConfig:{
+		    	 url:'/BankApp/saveBank',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 250,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		 this.win=win;
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('bank.grid'));
+});
+</script>

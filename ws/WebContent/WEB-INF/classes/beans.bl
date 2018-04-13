@@ -1,0 +1,14 @@
+package com.product.bojin.beans;
+<%
+for(c in classList){
+   println("import "+c+";");
+}
+%>
+
+public class ${className} {
+<%
+for(field in fieldList){
+   println("  public " + field.className +" "+field.fieldName+";");
+}
+%>
+}

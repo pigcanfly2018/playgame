@@ -1,0 +1,83 @@
+<style>
+  .desposit_table{
+    font-size:12px;
+    font-weight:bolder;
+    color:black;
+  }
+  .desposit_table_title{
+   font-weight:bolder;
+   text-align:right;
+   color:#666666;
+   width:100px;
+  }
+  .desposit_table_value{
+    
+  }
+</style>
+<div>
+<table class="desposit_table">
+   <tr>
+      <td class="desposit_table_title">创建时间:</td>
+      <td style="width:130px">${rd.date(deposit.create_date,'MM/dd HH:mm:ss')}</td>
+      <td class="desposit_table_title">用户名:</td>
+      <td style="width:100px">${deposit.login_name}</td>
+      <td class="desposit_table_title">真实姓名:</td>
+      <td style="width:200px">${deposit.real_name}</td>
+   </tr>
+    <tr>
+      <td class="desposit_table_title">存款金额:</td>
+      <td style="color:red">${deposit.amount}</td>
+      <td class="desposit_table_title">存款红利:</td>
+      <td style="color:red">${deposit.poundage}</td>
+      <td class="desposit_table_title">提交人:</td>
+      <td>${deposit.create_user}</td>
+   </tr>
+    <tr>
+      <td class="desposit_table_title">存款银行:</td>
+      <td>${rd.dictName('bankcode',deposit.bank_name)}</td>
+      <td class="desposit_table_title">收款人:</td>
+      <td>${deposit.account_name}</td>
+      <td class="desposit_table_title">存款地点:</td>
+      <td>${deposit.location}</td>
+   </tr>
+   <tr>
+      <td class="desposit_table_title">存款时间:</td>
+      <td>${rd.date(deposit.deposit_date,'MM/dd HH:mm:ss')}</td>
+      <td class="desposit_table_title">存款方式:</td>
+      <td>${rd.dictName('deptype',deposit.deposit_type)}</td>
+      <td class="desposit_table_title"></td>
+      <td></td>
+   </tr>
+   <tr>
+      <td class="desposit_table_title">存款备注:</td>
+      <td colspan="5">${deposit.remarks}</td>
+   </tr>
+   #{if deposit.pic_id!=null}
+      #{if deposit.pic_id!=0}
+	   <tr>
+	      <td class="desposit_table_title">截图信息:</td>
+	      <td colspan="5"><a target="_blank" href="/DepositApp/showPic?id=${deposit.pic_id}">点击查看</a></td>
+	   </tr>
+     #{/if}
+   #{/if}
+</table>
+</div>
+<div>
+<table class="desposit_table" style="margin-top:10px;">
+   <tr style="backgroud-color:#FFCCFF">
+      <td class="desposit_table_title" style="width:120px;text-align:left">操作时间</td>
+      <td class="desposit_table_title" style="width:120px;text-align:left">操作后状态</td>
+      <td class="desposit_table_title" style="width:120px;text-align:left">操作人</td>
+      <td class="desposit_table_title" style="width:220px;text-align:left">操作备注</td>
+   </tr>
+   #{list logList, as:'log' }
+    <tr>
+      <td>${rd.date(log.create_date,'MM/dd HH:mm:ss')}</td>
+      <td>${rd.dictName('deposit_flag',log.after_status)}</td>
+      <td>${log.create_user}</td>
+      <td>${log.remarks}</td>
+    </tr>
+    #{/list}
+
+</table>
+</div>

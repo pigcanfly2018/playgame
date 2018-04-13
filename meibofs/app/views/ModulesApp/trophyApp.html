@@ -1,0 +1,238 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Trophy',
+        proxy: {
+            type: 'ajax',
+            url: '/EggTrophyApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 200,
+        autoLoad: {start: 0, limit: 200}
+        });
+	var tabId='${tabId}';
+	Ext.define('trophy.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        		  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(false);
+	        		  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(false);
+	        		}else{
+        			  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(true);
+        			  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(true);
+	        		}
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    delconfig:{
+	    	url:'/EggTrophyApp/deleteTrophy',
+	    	tip:'你确定要删除你选择的奖品么?',
+	    	idcode:'trophy_id'
+	    },
+	    addconfig:{
+	       title:'新增奖品',
+	       proFn:function(win,form){
+	   		   win.down('#idfield').setReadOnly(false);
+	       }
+	    },
+	    updateconfig:{
+	       proFn:function(select,win,form){
+	    	   var data={
+	    	 			kact:'2',  
+	    	 			"trophy.trophy_name":select.get('trophy_name'),
+	    	 			"trophy.trophy_code":select.get('trophy_code'),
+	    	 			"trophy.trophy_count":select.get('trophy_count'),
+	    	 			"trophy.egg":select.get('egg'),
+	    	 			"trophy.is_default":select.get('is_default'),
+	    	 			"trophy.enable":select.get('enable'),
+	    	 			"trophy.trophy_id":select.get('trophy_id'),
+	    	 			"trophy.cost":select.get('cost'),
+	    	 			"trophy.trophy_type":select.get('trophy_type')
+	    	 		  };
+   	 		  form.getForm().setValues(data);
+   	 		  win.down('#idfield').setReadOnly(true);
+   	 		  win.setTitle("修改奖品:"+select.get('trophy_name'));
+	       }
+	    },
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '添加',
+		    	handler:JBApp.addFn
+		    	},
+		    	{
+		    	  xtype: 'button', 
+		    	  iconCls:'icon-update',
+		    	  text: '修改',
+		    	  disabled:true,
+		    	  itemId:'updatebtn',
+		    	  handler:JBApp.updateFn
+	    	   },
+	    	   {
+	        	 xtype: 'button', 
+	        	 iconCls:'icon-delete',
+	        	 text:'删除',
+	        	 disabled:true,
+	        	 itemId:'deletebtn',
+	        	 handler:JBApp.deleteFn
+		        },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	    	    text     : '奖品名称',
+	    	    width    : 330,
+	    	    sortable : false,
+	    	    dataIndex: 'trophy_name'
+	    	},{
+	    	    text     : '奖品代码',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'trophy_code'
+	    	},{
+	    	    text     : '奖品数量',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'trophy_count'
+	    	},{
+	    	    text     : '所属彩蛋',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'egg'
+	    	},{
+	    	    text     : '默认奖项',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'is_default',
+	    	    renderer:function(v){
+        	    	if('true'==v){
+        	    		return '默认';
+        	    	}else{
+        	    		return '不是默认';
+        	    	}
+        	    }
+	    	},{
+	    	    text     : '是否启用',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'enable',
+	    	    renderer:function(v){
+        	    	if('true'==v){
+        	    		return '<span style="color:green">启用</span>';
+        	    	}else{
+        	    		return '<span style="color:red">未启用</span>';
+        	    	}
+        	    }
+	    	},{
+	    	    text     : '价值',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'cost'
+	    	},{
+	    	    text     : '奖品类型',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'trophy_type'
+	    	}];
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype: 'container',
+		            anchor: '100%',
+		            layout:'column',
+		            bodyStyle:'margin:5px 5px 5px 5px',
+		            items:[{
+		                xtype: 'container',
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                columnWidth:.98,
+		                layout: 'anchor',
+		                items: [{fieldLabel: '奖品名称',xtype:'textfield',name: 'trophy.trophy_name',anchor: '95%'},
+		                        {fieldLabel: '奖品代码',xtype:'textfield',name: 'trophy.trophy_code',anchor: '95%'},
+		                        {fieldLabel: '奖品数量',xtype:'textfield',name: 'trophy.trophy_count',anchor: '95%',value:'1'},
+		                        {fieldLabel: '所属彩蛋',xtype:'textfield',name: 'trophy.egg',anchor: '95%'},
+		                        {fieldLabel: '默认奖项',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name: 'trophy.is_default',anchor: '95%'},
+		                        {fieldLabel: '是否启用',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name: 'trophy.enable',anchor: '95%'},
+		                        {fieldLabel: '奖品价值',xtype:'textfield',name: 'trophy.cost',anchor: '95%'},
+		                        {fieldLabel: '奖品类型',xtype:'itemcom',groupcode:'trophy_type',valueField:'itemvalue',name: 'trophy.trophy_type',anchor: '95%'}]
+		            },{xtype:'hidden',name:'kact'},{itemId:'idfield',xtype:'hidden',name:'trophy.trophy_id'}]
+		        }],
+		       saveConfig:{
+		    	 url:'/EggTrophyApp/saveTrophy',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 400,
+	            height: 360,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		
+		 this.win=win;
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('trophy.grid'));
+});
+</script>

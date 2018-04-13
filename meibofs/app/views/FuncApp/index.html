@@ -1,0 +1,188 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Func',
+        proxy: {
+            type: 'ajax',
+            url: '/FuncApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 20,
+        autoLoad: {start: 0, limit: 20}
+        });
+	var tabId='${tabId}';
+	Ext.define('func.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    itemId:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel'
+	        , mode: 'MULTI'
+	    },
+	    autoHeight:true,
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '添加',
+		    	handler:function(){
+		    		this.up('grid').win.down('form').getForm().setValues({kact:'1'})
+		    		this.up('grid').win.show();	
+		       }},{
+		    	  xtype: 'button', 
+		    	  iconCls:'icon-update',
+		    	  text: '修改',
+		    	  handler:function(){
+		    		  
+		         }},{
+		        	 xtype: 'button', 
+		        	 iconCls:'icon-delete',
+		        	 text:'删除',
+		        	 handler:function(){
+		        		 
+				}},'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	                xtype: 'rownumberer'
+	            }, {
+	        	    text     : '功能编号',
+	        	    locked   : true,
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'funccode'
+	        	},{
+	        	    text     : '功能名称',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'funcname'
+	        	},{
+	        	    text     : '父功能编号',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'pfunccode'
+	        	},{
+	        	    text     : '是否功能组',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'isgroup'
+	        	},{
+	        	    text     : '是否按钮',
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'isbut'
+	        	},{
+	        	    text     : '创建人',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'createuser'
+	        	},{
+	        	    text     : '创建时间',
+	        	    width    : 140,
+	        	    sortable : false,
+	        	    dataIndex: 'createdate'
+	        	}];
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype: 'container',
+		            anchor: '100%',
+		            layout:'column',
+		            bodyStyle:'margin:5px 5px 5px 5px',
+		            items:[{
+		                xtype: 'container',
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                columnWidth:.48,
+		                layout: 'anchor',
+		                items: [{fieldLabel: '角色代码',xtype:'textfield',name: 'role.rolecode',anchor: '95%'}]
+		            },{
+		                xtype: 'container',
+		                columnWidth:.48,
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                layout: 'anchor',
+		                items: [{fieldLabel: '角色名字',xtype:'textfield',name:'role.rolename',anchor: '100%'}]
+		            },{xtype:'hidden',name:'kact'}]
+		        }],
+               buttons:[{xtype: 'button', text: '保存数据',handler:function(){this.up('window').saveAction()}},
+		    	        {xtype: 'button', text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+		 var win=Ext.create('widget.window', {
+	            title: '添加角色',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            width: 600,
+	            height: 150,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		 this.win=win;
+		 win.saveAction=function(){
+	     	if (form.isValid()) {
+	             form.submit({
+	            	   params: {
+	            	       
+		  			    },
+	            	   url:'/FuncApp/saveRole',
+	                   success: function(form, action) {
+	                      Ext.Msg.alert('保存成功', action.result.message);
+	                      store.reload();
+	                      win.hide();
+	                   },
+	                   failure: function(form, action) {
+	                       Ext.Msg.alert('保存失败', action.result.message);
+	                   }
+	               });
+	          }
+	    };
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('func.grid'));
+});
+</script>

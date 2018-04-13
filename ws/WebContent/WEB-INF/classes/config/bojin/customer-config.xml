@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+
+	<interface>
+		<id><![CDATA[query_cust_by_login_name_bojin]]></id>
+		<name><![CDATA[根据账号查询客户基本信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select cust_id,login_name,login_pwd,real_name,phone,email,qq,create_date,ag_game,ag_pwd,ag_flag,
+			ag_actived,bbin_game,bbin_pwd,bbin_flag,bbin_actived,
+			credit,flag,cust_level,parent_id,remarks,bank_name,account_type,bank_dot,account,
+			score,pt_game,pt_pwd,pt_flag,pt_actived,online_pay,is_block,alipay_flag,kg_game,kg_pwd,kg_flag,
+			kg_actived,mg_game,mg_pwd,mg_flag,mg_actived,login_date from mb_customer where login_name=#login_name#
+         ]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[cust_id|login_name|login_pwd|real_name|phone|email|qq|create_date|ag_game|ag_pwd|ag_flag|ag_actived|bbin_game|bbin_pwd|bbin_flag|bbin_actived|credit|flag|cust_level|parent_id|bank_name|account_type|bank_dot|account|score|pt_game|pt_pwd|pt_flag|pt_actived|online_pay|is_block|alipay_flag|kg_game|kg_pwd|kg_flag|kg_actived|mg_game|mg_pwd|mg_flag|mg_actived|login_date]]></replyen>
+		<replycn><![CDATA[cust_id|login_name|login_pwd|real_name|phone|email|qq|create_date|ag_game|ag_pwd|ag_flag|ag_actived|bbin_game|bbin_pwd|bbin_flag|bbin_actived|credit|flag|cust_level|parent_id|bank_name|account_type|bank_dot|account|score|pt_game|pt_pwd|pt_flag|pt_actived|online_pay|is_block|alipay_flag|kg_game|kg_pwd|kg_flag|kg_actived|mg_game|mg_pwd|mg_flag|mg_actived|login_date]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[查询客户基本信息]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_cust_by_phone_bojin]]></id>
+		<name><![CDATA[根据电话查询客户是否存在]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select login_name from mb_customer where phone=#phone#
+         ]]></statement>
+		<reqen><![CDATA[phone]]></reqen>
+		<reqcn><![CDATA[电话]]></reqcn>
+		<replyen><![CDATA[login_name]]></replyen>
+		<replycn><![CDATA[login_name]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[根据电话查询客户是否存在]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_regcount_by_today_bojin]]></id>
+		<name><![CDATA[根据IP查询今天注册的客户个数]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select login_name from mb_customer where reg_ip=#reg_ip# AND create_date >CURDATE()
+         ]]></statement>
+		<reqen><![CDATA[reg_ip]]></reqen>
+		<reqcn><![CDATA[reg_ip]]></reqcn>
+		<replyen><![CDATA[login_name]]></replyen>
+		<replycn><![CDATA[login_name]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[根据IP查询今天注册的客户个数]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[insert_customer_bojin]]></id>
+		<name><![CDATA[注册新帐号]]></name>
+		<type>SQL</type>
+		<service>update</service>
+		<statement><![CDATA[
+			INSERT INTO `mb_customer` (`login_name`,`login_pwd`,`real_name`,`phone`,`email`,`qq`,`reg_ip`,`create_date`,`create_user`,`login_ip`,`login_date`,`login_times`,`credit`,`flag`,`cust_level`,
+			`ag_game`,`ag_pwd`,`bbin_game`,`bbin_pwd`,`pt_game`,`pt_pwd`,`kg_game`,`kg_pwd`,`mg_game`,`mg_pwd`) 
+			VALUES(#login_name#,#login_pwd#,#real_name#,#phone#,#email#,#qq#,#reg_ip#,now(),#login_name#,#reg_ip#,now(),1,0,1,0,
+			#ag_game#,#ag_pwd#,#bbin_game#,#bbin_pwd#,#pt_game#,#pt_pwd#,#kg_game#,#kg_pwd#,#mg_game#,#mg_pwd#)
+         ]]></statement>
+		<reqen><![CDATA[login_name|login_pwd|real_name|phone|email|qq|reg_ip]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[cust_id|login_name|real_name|phone|email|qq|create_date|ag_game|ag_pwd|ag_flag|ag_actived|bbin_game|bbin_pwd|bbin_flag|bbin_actived|credit|flag|cust_level|parent_id|bank_name|account_type|bank_dot|account|score|pt_game|pt_pwd|pt_flag|pt_actived|online_pay|is_block|alipay_flag|kg_game|kg_pwd|kg_flag|kg_actived|mg_game|mg_pwd|mg_flag|mg_actived|login_date]]></replyen>
+		<replycn><![CDATA[cust_id|login_name|real_name|phone|email|qq|create_date|ag_game|ag_pwd|ag_flag|ag_actived|bbin_game|bbin_pwd|bbin_flag|bbin_actived|credit|flag|cust_level|parent_id|bank_name|account_type|bank_dot|account|score|pt_game|pt_pwd|pt_flag|pt_actived|online_pay|is_block|alipay_flag|kg_game|kg_pwd|kg_flag|kg_actived|mg_game|mg_pwd|mg_flag|mg_actived|login_date]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[注册新帐号]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_withdraw_count_by_login_name_bojin]]></id>
+		<name><![CDATA[获取玩家提款次数]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		    select count(1) cnt  
+		    from mb_withdraw
+		    where login_name=#login_name# and status=5
+         ]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[cnt]]></replyen>
+		<replycn><![CDATA[成功提款次数]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[获取玩家提款次数]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_undo_withdraw_count_by_login_name_bojin]]></id>
+		<name><![CDATA[获取玩家在处理的提款数量]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		    select count(1) cnt  
+		    from mb_withdraw
+		    where login_name=#login_name# and (status=1 or status=3)
+         ]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[cnt]]></replyen>
+		<replycn><![CDATA[在处理的提款数量]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[获取玩家在处理的提款数量]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_undo_deposit_count_by_login_name_bojin]]></id>
+		<name><![CDATA[获取玩家正在处理的存款数量]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		    select count(1) cnt  
+		    from mb_deposit
+		    where login_name=#login_name# and status=1 
+         ]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[cnt]]></replyen>
+		<replycn><![CDATA[在处理的存款数量]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[获取玩家在处理的存款数量]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_all_deposit_count_by_login_name_bojin]]></id>
+		<name><![CDATA[获取玩家一个月内所有的存款数量]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		    select count(1) cnt  
+		    from mb_deposit
+		    where login_name=#login_name# and
+		    create_date >= #startTime# and
+				  create_date < #endTime#
+				  and  date_sub(curdate(),interval 30 day) < create_date 
+				  
+         ]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[cnt]]></replyen>
+		<replycn><![CDATA[在处理的存款数量]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[获取玩家在处理的存款数量]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_depositlist_by_login_name_bojin]]></id>
+		<name><![CDATA[根据账号查询客户存款一个月内记录]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select deposit_id,dep_no,cust_id,login_name,real_name,
+				   amount,poundage,pdage_status,status,bank_name,account_name,
+				   deposit_type,location,deposit_date,remarks,pic_id,create_date,
+				   create_user,ip,audit_date,sb_game,is_sb,order_no,locked,locked_date 
+			from mb_deposit 
+			where login_name=#login_name# and 
+				  create_date >= #startTime# and
+				  create_date < #endTime# and
+				  date_sub(curdate(),interval 30 day) < create_date 
+			order by create_date desc
+         ]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[deposit_id|dep_no|cust_id|login_name|real_name|amount|poundage|pdage_status|status|bank_name|account_name|deposit_type|location|deposit_date|remarks|pic_id|create_date|create_user|ip|audit_date|sb_game|is_sb|order_no|locked|locked_date]]></replyen>
+		<replycn><![CDATA[deposit_id|dep_no|cust_id|login_name|real_name|amount|poundage|pdage_status|status|bank_name|account_name|deposit_type|location|deposit_date|remarks|pic_id|create_date|create_user|ip|audit_date|sb_game|is_sb|order_no|locked|locked_date]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[根据账号查询客户存款信息]]></explain>
+	</interface>
+	
+	
+	<interface>
+		<id><![CDATA[query_withdraw_by_login_name_bojin]]></id>
+		<name><![CDATA[根据账号查询客户提款信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select  withdraw_id,wit_no,login_name,real_name,amount,
+					bank_name,account_name,account,account_type,location,remarks,
+					create_date,create_user,status,cust_id,pay_date,locked,wit_cnt 
+			from mb_withdraw 
+			where login_name=#login_name# 
+			      and date_sub(curdate(),interval 3000 day) < create_date 
+			      and (status =1 or status =3 or status =5) 
+			order by create_date desc
+         ]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[withdraw_id|wit_no|login_name|real_name|amount|bank_name|account_name|account|account_type|location|remarks|create_date|create_user|status|cust_id|pay_date|locked|wit_cnt]]></replyen>
+		<replycn><![CDATA[withdraw_id|wit_no|login_name|real_name|amount|bank_name|account_name|account|account_type|location|remarks|create_date|create_user|status|cust_id|pay_date|locked|wit_cnt]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[根据账号查询客户提款信息]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_gift_by_login_name_bojin]]></id>
+		<name><![CDATA[根据账号查询客户礼金信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select gift_id,gift_no,kh_date,login_name,real_name,
+			       cust_level,gift_type,gift_code,deposit_credit,net_credit,
+			       valid_credit,rate,payout,cs_date,remarks,create_date,
+			       create_user,status,audit_date,audit_user,audit_msg,
+			       cust_id,transferflag 
+			from mb_cash_gift 
+		    where login_name=#login_name# 
+		          and date_sub(curdate(),interval 3000 day) < create_date 
+		          and (status =1 or status =3) 
+		    order by create_date desc
+         ]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[gift_id|gift_no|kh_date|login_name|real_name|cust_level|gift_type|gift_code|deposit_credit|net_credit|valid_credit|rate|payout|cs_date|remarks|create_date|create_user|status|audit_date|audit_user|audit_msg|cust_id|transferflag]]></replyen>
+		<replycn><![CDATA[gift_id|gift_no|kh_date|login_name|real_name|cust_level|gift_type|gift_code|deposit_credit|net_credit|valid_credit|rate|payout|cs_date|remarks|create_date|create_user|status|audit_date|audit_user|audit_msg|cust_id|transferflag]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[根据账号查询客户礼金信息]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_letter_by_login_name_bojin]]></id>
+		<name><![CDATA[获取玩家所有的站内信]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select  letter_id,title,content,
+					cust_id,read_flag,read_date,
+					create_date,create_user,
+					is_public,login_name,agent_id 
+		    from mb_letter
+		    where login_name=#login_name# 
+		    order by create_date desc
+         ]]></statement>
+		<reqen><![CDATA[login_name]]></reqen> 
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[letter_id|title|content|cust_id|read_flag|read_date|create_date|create_user|is_public|login_name|agent_id]]></replyen>
+		<replycn><![CDATA[letter_id|title|content|cust_id|read_flag|read_date|create_date|create_user|is_public|login_name|agent_id]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[获取玩家所有的站内信]]></explain>
+	</interface>
+	
+	
+	<interface>
+		<id><![CDATA[update_password_by_login_name_bojin]]></id>
+		<name><![CDATA[更新客户密码]]></name>
+		<type>SQL</type>
+		<service>update</service>
+		<statement><![CDATA[
+		    update mb_customer
+		    set login_pwd=#new_login_pwd# 
+		    where login_name=#login_name# and login_pwd=#org_login_pwd# 
+         ]]></statement>
+		<reqen><![CDATA[new_login_pwd|login_name|org_login_pwd]]></reqen>
+		<reqcn><![CDATA[新密码|用户名|老密码]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[更新成功条数(int)]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[更新客户密码]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[update_pt_password_by_login_name_bojin]]></id>
+		<name><![CDATA[更新PT游戏密码]]></name>
+		<type>SQL</type>
+		<service>update</service>
+		<statement><![CDATA[
+		    update mb_customer
+		    set pt_pwd=#pt_pwd# 
+		    where login_name=#login_name# 
+         ]]></statement>
+		<reqen><![CDATA[pt_pwd|login_name]]></reqen>
+		<reqcn><![CDATA[PT新密码|用户名]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[更新成功条数(int)]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[更新PT游戏密码]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[update_mg_password_by_login_name_bojin]]></id>
+		<name><![CDATA[更新MG游戏密码]]></name>
+		<type>SQL</type>
+		<service>update</service>
+		<statement><![CDATA[
+		    update mb_customer
+		    set mg_pwd=#mg_pwd# 
+		    where login_name=#login_name# 
+         ]]></statement>
+		<reqen><![CDATA[mg_pwd|login_name]]></reqen>
+		<reqcn><![CDATA[mg新密码|用户名]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[更新成功条数(int)]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[更新MG游戏密码]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[update_bank_info_by_login_name_bojin]]></id>
+		<name><![CDATA[更新客户银行卡信息]]></name>
+		<type>SQL</type>
+		<service>update</service>
+		<statement><![CDATA[
+		    update mb_customer
+		    set account=#account# ,account_type=#account_type#,
+		        bank_name=#bank_name#,bank_dot=#bank_dot#
+		    where login_name=#login_name# 
+         ]]></statement>
+		<reqen><![CDATA[account|account_type|bank_name|bank_dot|login_name]]></reqen>
+		<reqcn><![CDATA[银行卡号|账户类型|银行|银行卡网点|用户名]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否更新成功(int)]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[更新客户银行卡信息]]></explain>
+	</interface>
+	
+</config>

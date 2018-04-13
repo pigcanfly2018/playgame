@@ -1,0 +1,392 @@
+<script>
+
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Billboard',
+        proxy: {
+            type: 'ajax',
+            url: '/BillboardApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 50,
+        autoLoad: {start: 0, limit: 50}
+        });
+	 var task = Ext.TaskManager.start({
+	     run: function () {
+	        //store.reload();
+	     },
+	     interval: 20000
+	 });
+	var tabId='${tabId}';
+	Ext.define('gashgift.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true,
+	        loadingText:'正在加载数据...'
+	    },
+	    listeners: {
+	    	render:function() {
+	    		//Ext.TaskManager.start(task);
+	        },
+	        destroy:function() {
+	        	//if(task)	Ext.TaskManager.stop(task);
+	    		
+	        }
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+		        	selectionchange:function(sm, selected, eOpts){
+		        		if(selected.length==1){
+		        			if(selected[0].get("status")==1){
+			        		    //Ext.getCmp('grid_${tabId}').down("#deleteBtn").setDisabled(false);
+			        		   // Ext.getCmp('grid_${tabId}').down("#auditBtn").setDisabled(false);
+			        		    
+		        			}else{
+		        				//Ext.getCmp('grid_${tabId}').down("#deleteBtn").setDisabled(true);
+			        			//Ext.getCmp('grid_${tabId}').down("#auditBtn").setDisabled(true);	
+		        			}
+		        			if(selected[0].get("transferflag")==1){
+		        				//Ext.getCmp('grid_${tabId}').down("#completeBtn").setDisabled(false);
+		        			}else{
+		        				//Ext.getCmp('grid_${tabId}').down("#completeBtn").setDisabled(true);
+		        			}
+		        			
+		        			
+		        		}else{
+		        			//Ext.getCmp('grid_${tabId}').down("#deleteBtn").setDisabled(true);
+		        			//Ext.getCmp('grid_${tabId}').down("#auditBtn").setDisabled(true);
+		        		}
+		        	}
+	        } 
+	    },
+	    
+	    addconfig:{
+		       title:'新增礼金提案',
+		       proFn:function(win,form){
+		    	   form.getForm().setValues({
+		    		   "gift.valid_credit":0,
+		    		   "gift.gift_type":"首存",
+		    		   "gift.deposit_credit":0,
+		    		   "gift.net_credit":0
+		    	   });
+		       }
+		    },
+	    autoHeight:true,
+	    dockedItems: [{
+	        xtype: 'toolbar',
+	        dock: 'top',
+	        items: [{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '导入排行榜数据',
+		    	handler:function(){
+		    		this.up('grid').importWin.show();
+		    	}
+	    	},'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+				   }]
+	    }],
+	    bbar: {
+               xtype: 'pagingtoolbar',
+               pageSize: 10,
+               store:store,
+               displayInfo: true
+         },
+	    initComponent: function () {
+	        this.columns = [{
+	    	    text     : '用户名',
+	    	    width    : 200,
+	    	    sortable : false,
+	    	    dataIndex: 'login_name'
+	    	},{
+	    	    text     : '投注总额',
+	    	    width    : 200,
+	    	    sortable : false,
+	    	    dataIndex: 'bet_amount'
+	    	},{
+	    	    text     : '上传时间',
+	    	    width    : 200,
+	    	    sortable : false,
+	    	    dataIndex: 'create_date'
+	    	}];
+	        var importForm=Ext.create('Ext.form.Panel', {
+	            bodyPadding: 10,
+	            items: [{
+	                xtype: 'filefield',
+	                name: 'gift_file',
+	                fieldLabel: '上传',
+	                labelWidth: 50,
+	                msgTarget: 'side',
+	                allowBlank: false,
+	                anchor: '100%',
+	                buttonText: '选择排行榜Excel文件'
+	            }],
+	            buttons: [{
+	                text: '导入Excel文件',
+	                handler: function() {
+	                    var form = this.up('form').getForm();
+	                    if(form.isValid()){
+	                        form.submit({
+	                            url: '/BillboardApp/importExcel',
+	                            type:'ajax',
+	                            waitMsg: '正在保存文件...',
+	                            success: function(fp, action) {
+	                              Ext.Msg.alert('保存成功', action.result.message);
+	                              form.findField('gift_file').setRawValue('');
+	                              importForm.up('window').hide();
+	                              store.reload();
+	                            },
+	                            failure: function(form, action) {
+	                                Ext.Msg.alert('导入失败', action.result.message);
+	                            }
+	                        });
+	                    }
+	                }
+	            }]
+	        });
+	        
+	        var importWin=Ext.create('widget.window', {
+	            title: '导入排行榜数据',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 150,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [importForm],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+	        
+	        var deleteForm=Ext.create('Ext.form.Panel', {
+	            bodyPadding: 10,
+	            items: [{
+	                xtype: 'textfield',
+	                name: 'gift_code',
+	                fieldLabel: '上传编号',
+	                labelWidth: 80,
+	                msgTarget: 'side',
+	                allowBlank: false,
+	                anchor: '100%'
+	            }],
+	            buttons: [{
+	                text: '批量删除',
+	                handler: function() {
+	                    var form = this.up('form').getForm();
+	                    if(form.isValid()){
+	                        form.submit({
+	                            url: '/CashGiftApp/batchDelete',
+	                            type:'ajax',
+	                            waitMsg: '正在保存文件...',
+	                            success: function(fp, action) {
+	                              Ext.Msg.alert('保存成功', action.result.message);
+	                              form.findField('gift_code').setRawValue('');
+	                              deleteForm.up('window').hide();
+	                              store.reload();
+	                            },
+	                            failure: function(form, action) {
+	                                Ext.Msg.alert('导入失败', action.result.message);
+	                            }
+	                        });
+	                    }
+	                }
+	            }]
+	        });
+	        
+	        var deleteWin=Ext.create('widget.window', {
+	            title: '批量删除礼金提案',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 150,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [deleteForm],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+	        
+	        var auditForm=Ext.create('Ext.form.Panel', {
+	            bodyPadding: 10,
+	            items: [{
+	                xtype: 'textfield',
+	                name: 'gift_code',
+	                fieldLabel: '上传编号',
+	                labelWidth: 80,
+	                msgTarget: 'side',
+	                allowBlank: false,
+	                anchor: '100%'
+	            },{
+	                xtype: 'textfield',
+	                name: 'gift_rms',
+	                fieldLabel: '注意事项',
+	                labelWidth: 80,
+	                msgTarget: 'side',
+	                value:'当批量审核记录大于2000，请分批上传审核！',
+	                disabled:true,
+	                anchor: '100%'
+	            },{
+		            xtype: 'fieldset',
+		            title: '审核意见',
+		            items:[{
+		                       xtype: 'radiogroup',
+		                       fieldLabel: '审核',
+		                       labelStyle:'color:red;font-weight:bolder',
+		                       vertical: true,
+		                       items: [
+		                           {boxLabel: '通过', name: 'flag', inputValue: 3},
+		                           {boxLabel: '不通过', name: 'flag', inputValue: 2}
+		                       ]
+		                   },
+		                   {fieldLabel: '意见',xtype:'textfield',name: 'remarks',anchor: '95%',labelStyle:'color:red;font-weight:bolder'}]
+		        }],
+	            buttons: [{
+	                text: '批量审核',
+	                handler: function() {
+	                    var form = this.up('form').getForm();
+	                    if(form.isValid()){
+	                        form.submit({
+	                            url: '/CashGiftApp/batchAudit',
+	                            type:'ajax',
+	                            waitMsg: '正在保存文件...',
+	                            success: function(fp, action) {
+	                              Ext.Msg.alert('保存成功', action.result.message);
+	                              form.findField('gift_code').setRawValue('');
+	                              auditForm.up('window').hide();
+	                              store.reload();
+	                            },
+	                            failure: function(form, action) {
+	                                Ext.Msg.alert('导入失败', action.result.message);
+	                            }
+	                        });
+	                    }
+	                }
+	            }]
+	        });
+	        
+	        var auditWin=Ext.create('widget.window', {
+	            title: '批量审核礼金提案',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 250,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [auditForm],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+	        
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype: 'container',
+		            anchor: '100%',
+		            layout:'column',
+		            bodyStyle:'margin:5px 5px 5px 5px',
+		            items:[{
+		                xtype: 'container',
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                columnWidth:.48,
+		                layout: 'anchor',
+		                //allowDecimals:true,
+		                items: [{fieldLabel: '游戏账号',xtype:'custcom',name: 'gift.login_name',anchor: '95%',allowBlank: false,valueField:'login_name'},
+		                        {fieldLabel: '有效投注额',xtype:'numberfield',name:'gift.valid_credit',anchor: '95%',allowBlank: false},
+		                        {fieldLabel: '礼金比例%',xtype:'numberfield',allowDecimals:true,decimalPrecision:4,name: 'gift.rate',anchor: '95%',allowBlank: false},
+		                        {fieldLabel: '礼金类型',xtype:'itemcom',groupcode:'gift_type',valueField:'itemvalue',name: 'gift.gift_type',anchor: '95%',allowBlank: false}]
+		            },{
+		                xtype: 'container',
+		                columnWidth:.48,
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                layout: 'anchor',
+		                items: [{fieldLabel: '存款金额',xtype:'numberfield',name:'gift.deposit_credit',anchor: '95%',allowBlank: false},
+		                        {fieldLabel: '输赢金额',xtype:'numberfield',name:'gift.net_credit',anchor: '95%',allowBlank: false},
+		                        {fieldLabel: '实际派彩',xtype:'numberfield',name:'gift.payout',anchor: '95%',allowBlank: false}]
+		            },{xtype:'hidden',name:'kact'}]
+		        },{fieldLabel: '申请备注',xtype:'textfield',name:'gift.remarks',anchor: '95%'}],
+		       saveConfig:{
+		    	 url:'/CashGiftApp/saveGift',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+	        
+	        var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 250,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+	        this.importWin=importWin;
+	        this.deleteWin=deleteWin;
+	        this.auditWin=auditWin;
+	        this.win=win;
+	        
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('gashgift.grid'));
+});
+</script>

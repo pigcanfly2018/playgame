@@ -1,0 +1,194 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Config',
+        proxy: {
+            type: 'ajax',
+            url: '/ConfigApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('config.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        		  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(false);
+	        		}else{
+        			  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(true);
+	        		}
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    addconfig:{
+	       title:'新增系统参数',
+	       proFn:function(win,form){
+	   		   win.down('#config_id').show();
+	       }
+	    },
+	    updateconfig:{
+	       proFn:function(select,win,form){
+	    	   var data={
+	    	 			kact:'2',  
+	    	 			"config.config_name":select.get('config_name'),
+	    	 			"config.config_value":select.get('config_value'),
+	    	 			"config.config_id":select.get('config_id'),
+	    	 			"config.config_level":select.get('config_level'),
+	    	 			"config.maxlimit":select.get('maxlimit'),
+	    	 			"config.sortpriority":select.get('sortpriority'),
+	    	 			"config.config_describe":select.get('config_describe')
+	    	 		  };
+   	 		  form.getForm().setValues(data);
+   	 		  win.down('#config_id').hide();
+   	 		  win.setTitle("修改系统参数:"+select.get('config_name'));
+	       }
+	    },
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '添加',
+		    	handler:JBApp.addFn
+		    	},
+		    	{
+		    	  xtype: 'button', 
+		    	  iconCls:'icon-update',
+		    	  text: '修改',
+		    	  disabled:true,
+		    	  itemId:'updatebtn',
+		    	  handler:JBApp.updateFn
+	    	   },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	        	    text: '条目',
+	        	    width    : 50,
+	                xtype: 'rownumberer'
+	            },{
+	        	    text     : '名称',
+	        	    locked   : true,
+	        	    width    : 250,
+	        	    sortable : false,
+	        	    dataIndex: 'config_name'
+	        	},{
+	        	    text     : '数值',
+	        	    locked   : true,
+	        	    width    : 150,
+	        	    sortable : false,
+	        	    dataIndex: 'config_value'
+	        	},{
+	        	    text     : '通道排序',
+	        	    locked   : true,
+	        	    width    : 150,
+	        	    sortable : false,
+	        	    dataIndex: 'sortpriority'
+	        	},{
+	        	    text     : '描述',
+	        	    locked   : true,
+	        	    width    : 350,
+	        	    sortable : false,
+	        	    dataIndex: 'config_describe'
+	        	},{
+	        	    text     : '对应的等级',
+	        	    locked   : true,
+	        	    width    : 150,
+	        	    sortable : false,
+	        	    dataIndex: 'config_level'
+	        	},{
+	        	    text     : '支付上限',
+	        	    locked   : true,
+	        	    width    : 150,
+	        	    sortable : false,
+	        	    dataIndex: 'maxlimit'
+	        	}];
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{itemId:'config_id',fieldLabel: '配置项',xtype:'textfield',name: 'config.config_name',anchor: '95%'},
+		                {fieldLabel: '配置值',xtype:'textfield',name: 'config.config_value',anchor: '95%'},
+		                {fieldLabel: '描述',xtype:'textfield',name: 'config.config_describe',anchor: '95%'},
+		                {fieldLabel: '支付上限',xtype:'textfield',name: 'config.maxlimit',anchor: '95%'},
+		                {fieldLabel: '对应等级',xtype:'textfield',name: 'config.config_level',anchor: '95%'},
+		                {fieldLabel: '通道排序',xtype:'textfield',name: 'config.sortpriority',anchor: '95%'},
+		                {xtype:'hidden',name:'kact'},{itemId:'idfield',xtype:'hidden',name:'config.config_id'}],
+		       saveConfig:{
+		    	 url:'/ConfigApp/saveConfig',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 270,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		
+		 this.win=win;
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('config.grid'));
+});
+</script>

@@ -1,0 +1,256 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'PtGame',
+        proxy: {
+            type: 'ajax',
+            url: '/PtGameApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 300,
+        autoLoad: {start: 0, limit:300}
+        });
+	var tabId='${tabId}';
+	Ext.define('ptGame.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        		  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(false);
+	        		  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(false);
+	        		}else{
+        			  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(true);
+        			  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(true);
+	        		}
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    delconfig:{
+	    	url:'/PtGameApp/deletePtGame',
+	    	tip:'你确定要删除你选择的PT游戏么?',
+	    	idcode:'pt_id'
+	    },
+	    addconfig:{
+	       title:'新增PT游戏',
+	       proFn:function(win,form){
+	   		   
+	       }
+	    },
+	    updateconfig:{
+	       proFn:function(select,win,form){
+	    	   var data={
+	    	 			kact:'2',  
+	    	 			"pt.game_name":select.get('game_name'),
+	    	 			"pt.game_code":select.get('game_code'),
+	    	 			"pt.game_type":select.get('game_type'),
+	    	 			"pt.cn_name":select.get('cn_name'),
+	    	 			"pt.progressive":select.get('progressive'),
+	    	 			"pt.pool_name":select.get('pool_name'),
+	    	 			"pt.hot":select.get('hot'),
+	    	 			"pt.enable":select.get('enable'),
+	    	 			"pt.recommend":select.get('recommend'),
+	    	 			"pt.pt_id":select.get('pt_id')
+	    	 		  };
+   	 		  form.getForm().setValues(data);
+   	 		  win.setTitle("修改PT游戏:"+select.get('game_name'));
+	       }
+	    },
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '添加',
+		    	handler:JBApp.addFn
+		    	},
+		    	{
+		    	  xtype: 'button', 
+		    	  iconCls:'icon-update',
+		    	  text: '修改',
+		    	  disabled:true,
+		    	  itemId:'updatebtn',
+		    	  handler:JBApp.updateFn
+	    	   },
+	    	   {
+	        	 xtype: 'button', 
+	        	 iconCls:'icon-delete',
+	        	 text:'删除',
+	        	 disabled:true,
+	        	 itemId:'deletebtn',
+	        	 handler:JBApp.deleteFn
+		        },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	        	    text     : '游戏名字',
+	        	    width    : 150,
+	        	    sortable : false,
+	        	    dataIndex: 'game_name'
+	        	},{
+	        	    text     : '中文名',
+	        	    width    : 150,
+	        	    sortable : false,
+	        	    dataIndex: 'cn_name'
+	        	},{
+	        	    text     : '游戏类别',
+	        	    sortable: true,
+	        	    width    : 150,
+	        	    dataIndex: 'game_type'
+	        	},{
+	        	    text     : '游戏代码',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'game_code'
+	        	},{
+	        	    text     : '是否可用',
+	        	    sortable: true,
+	        	    width    : 80,
+	        	    dataIndex: 'enable',
+	        	    renderer:function(v){
+	        	    	if('true'==v){
+	        	    		return '<span style="color:green">有效</span>';
+	        	    	}else{
+	        	    		return '<span style="color:red">未有效</span>';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : '奖池',
+	        	    width    : 120,
+	        	    sortable : true,
+	        	    dataIndex: 'progressive'
+	        	},{
+	        	    text     : '是否热门',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    sortable: true,
+	        	    dataIndex: 'hot',
+	        	    renderer:function(v){
+	        	    	if('true'==v){
+	        	    		return '<span style="color:green">热门</span>';
+	        	    	}else{
+	        	    		return '未有效';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : '是否推荐',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    sortable: true,
+	        	    dataIndex: 'recommend',
+	        	    renderer:function(v){
+	        	    	if('true'==v){
+	        	    		return '<span style="color:green">推荐</span>';
+	        	    	}else{
+	        	    		return '未有效';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : '奖池代码',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'pool_name'
+	        	}];
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype: 'container',
+		            anchor: '100%',
+		            layout:'column',
+		            bodyStyle:'margin:5px 5px 5px 5px',
+		            items:[{
+		                xtype: 'container',
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                columnWidth:.48,
+		                layout: 'anchor',
+		                items: [{itemId:'idfield',fieldLabel: '游戏名称',xtype:'textfield',name: 'pt.game_name',anchor: '95%'},
+		                        {fieldLabel: '游戏类别',xtype:'textfield',name:'pt.game_type',anchor: '95%'},
+		                        {fieldLabel: '奖池类别',xtype:'textfield',name:'pt.progressive',anchor: '95%'},
+		                        {fieldLabel: '是否热点',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name:'pt.hot',anchor: '95%'},
+		                        {fieldLabel: '是否可用',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name:'pt.enable',anchor: '95%'}]
+		            },{
+		                xtype: 'container',
+		                columnWidth:.48,
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                layout: 'anchor',
+		                items: [{fieldLabel: '中文名称',xtype:'textfield',name: 'pt.cn_name',anchor: '95%'},
+		                        {fieldLabel: '游戏代码',xtype:'textfield',name: 'pt.game_code',anchor: '95%'},
+		                        {fieldLabel: '奖池代码',xtype:'textfield',name: 'pt.pool_name',anchor: '95%'},
+		                        {fieldLabel: '是否推荐',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name:'pt.recommend',anchor: '95%'}]
+		            },{xtype:'hidden',name:'kact'},{xtype:'hidden',name:'pt.pt_id'}]
+		        }],
+		       saveConfig:{
+		    	 url:'/PtGameApp/savePtGame',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 350,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		 this.win=win;
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('ptGame.grid'));
+});
+</script>

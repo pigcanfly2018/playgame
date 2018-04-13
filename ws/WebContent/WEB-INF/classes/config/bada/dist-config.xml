@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	<interface>
+		<id><![CDATA[query_dist_8d]]></id>
+		<name><![CDATA[查询字典信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select itemname,itemcode,itemvalue,groupcode,platform,frozenflag from mb_item ORDER BY groupcode
+         ]]></statement>
+		<reqen><![CDATA[]]></reqen>
+		<reqcn><![CDATA[]]></reqcn>
+		<replyen><![CDATA[itemname|itemcode|itemvalue|groupcode|platform|frozenflag]]></replyen>
+		<replycn><![CDATA[itemname|itemcode|itemvalue|groupcode|platform|frozenflag]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[查询字典信息]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_dist_bygroupcode_8d]]></id>
+		<name><![CDATA[根据字典值查询字典信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select itemname,itemcode,itemvalue,groupcode,platform,frozenflag,startdate,
+			enddate,pcflag,mobileflag,actbill,moneyflag from mb_item where NOW() BETWEEN startdate  AND enddate and 
+			 groupcode=#groupcode# and
+			mobileflag=1 ORDER BY groupcode
+         ]]></statement>
+		<reqen><![CDATA[groupcode]]></reqen>
+		<reqcn><![CDATA[groupcode]]></reqcn>
+		<replyen><![CDATA[itemname|itemcode|itemvalue|groupcode|platform|frozenflag|startdate|enddate|pcflag|mobileflag|actbill|moneyflag]]></replyen>
+		<replycn><![CDATA[itemname|itemcode|itemvalue|groupcode|platform|frozenflag|startdate|enddate|pcflag|mobileflag|actbill|moneyflag]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[根据字典值查询字典信息]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_dist_check_bygroupcode_8d]]></id>
+		<name><![CDATA[根据字典值验证是否在活动时间]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select count(1) as res from mb_item where  NOW() BETWEEN startdate  AND enddate and 
+			 groupcode=gift_type and itemname=#app_name# and
+			pcflag=1 ORDER BY groupcode
+         ]]></statement>
+		<reqen><![CDATA[app_name]]></reqen>
+		<reqcn><![CDATA[app_name]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[res]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[根据字典值验证是否在活动时间]]></explain>
+	</interface>
+	<interface>
+		<id><![CDATA[querySelfAppBylogin_name]]></id>
+		<name><![CDATA[获取自助优惠申请信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		SELECT gift_type,create_date,status,gift_no FROM mb_cash_gift WHERE login_name=#login_name# ORDER BY create_date desc 
+		]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[gift_type|create_date|status|gift_no]]></replyen>
+		<replycn><![CDATA[gift_type|create_date|status|gift_no]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[获取自助优惠申请信息]]></explain>
+	</interface>		
+	
+</config>

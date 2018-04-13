@@ -1,0 +1,158 @@
+<script>
+
+Ext.onReady(function() {
+	var required='<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
+	var store = Ext.create('Ext.data.Store', {
+        model: 'SaoMaFu',
+        proxy: {
+            type: 'ajax',
+            url: '/SaoMaFuApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('depositHist.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE' 
+	    },
+	    autoHeight:true,
+	    addconfig:{
+	       title:'新增存款提案',
+	       proFn:function(win,form){
+	    	   form.getForm().setValues({
+	    		   'deposit.deposit_date':new Date()
+	    	   });
+	       }
+	    },pwdconfig:{
+	    	url:'/SaoMaFuApp/success',
+	    	tip:'你确定该记录已经补单过么?',
+	    	idcode:'pay_id'
+	    },
+	    tbar:[{
+     	   xtype: 'button', 
+    	   iconCls:'icon-set',
+    	   text:'已处理',
+    	   itemId:'passwdbtn',
+    	   configId:'pwdconfig',
+    	   handler:JBApp.commonFn
+        },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey',value:''},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+        	    text     : '支付单号',
+        	    width    : 180,
+        	    sortable : false,
+        	    dataIndex: 'pay_id'
+    	    },{
+        	    text     : '创建时间',
+        	    width    : 90,
+        	    sortable : false,
+        	    dataIndex: 'create_date',
+        	    renderer:Ext.util.Format.dateRenderer('m-d H:i')
+        	},{
+        	    text     : '用户名',
+        	    width    : 100,
+        	    sortable : false,
+        	    dataIndex: 'login_name'
+        	},{
+        	    text     : '金额',
+        	    width    : 80,
+        	    sortable : false,
+        	    dataIndex: 'amount'
+        	},{
+        	    text     : '实际到账金额',
+        	    width    : 110,
+        	    sortable : false,
+        	    dataIndex: 'real_amount'
+        	    
+        	},{
+        	    text     : '支付成功时间',
+        	    width    : 110,
+        	    sortable : false,
+        	    dataIndex: 'finished_date',
+        	    renderer:Ext.util.Format.dateRenderer('m-d H:i')
+        	},{
+        	    text     : '状态',
+        	    width    : 120,
+        	    sortable : false,
+        	    dataIndex: 'state',
+        	    renderer:function(v){
+        	    	if(0==v){
+        	    		return '<span style="color:red">未处理</span>';
+        	    	}else if(2==v){
+        	    		return '<span style="color:green">已处理</span>';
+        	    	}else{
+        	    		return '<span>异常</span>';
+        	    	}
+        	    }
+        	},{
+        	    text     : '支付时间',
+        	    width    : 110,
+        	    sortable : false,
+        	    dataIndex: 'modify_time',
+        	    renderer:Ext.util.Format.dateRenderer('m-d H:i')
+        	},{
+        	    text     : '备注',
+        	    width    : 180,
+        	    sortable : false,
+        	    dataIndex: 'remark'
+        	},{
+        	    text     : '实际支付类型',
+        	    width    : 120,
+        	    sortable : false,
+        	    dataIndex: 'real_pay_method'
+        	},{
+        	    text     : '订单号',
+        	    width    : 240,
+        	    sortable : false,
+        	    dataIndex: 'order_no'
+        	}];
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('depositHist.grid'));
+});
+</script>

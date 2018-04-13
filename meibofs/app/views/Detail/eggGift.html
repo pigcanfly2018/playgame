@@ -1,0 +1,48 @@
+<style>
+  .desposit_table{
+    font-size:12px;
+    font-weight:bolder;
+    color:black;
+  }
+  .desposit_table_title{
+   font-weight:bolder;
+   text-align:right;
+   color:#666666;
+   width:120px
+  }
+  .desposit_table_value{
+    
+  }
+</style>
+<div>
+<table class="desposit_table">
+   <tr>
+      <td class="desposit_table_title">中奖时间:</td>
+      <td style="width:130px">${rd.date(gift.create_date,'MM/dd HH:mm')}</td>
+      <td class="desposit_table_title" >用户名:</td>
+      <td style="width:140px;font-size:18px;font-weight:bolder;color:red">${gift.login_name}</td>
+      <td class="desposit_table_title">客户姓名:</td>
+      <td >${gift.real_name}</td>
+   </tr>
+    <tr>
+      <td class="desposit_table_title">中奖编号:</td>
+      <td>${gift.gift_code}</td>
+      <td class="desposit_table_title">奖品:</td>
+      <td>${gift.trophy_name}</td>
+      <td class="desposit_table_title">奖品数量:</td>
+      <td>${gift.trophy_count}</td>
+   </tr>
+    <tr>
+      <td class="desposit_table_title">消耗积分:</td>
+      <td style="font-size:18px;font-weight:bolder;color:red">${gift.score}</td>
+      <td class="desposit_table_title">当前状态:</td>
+      <td>${rd.dictName('egg_gift_status',gift.status)}</td>
+      <td class="desposit_table_title">奖品价值</td>
+      <td style="font-size:18px;font-weight:bolder;color:red">${gift.cost}</td>
+   </tr>
+   <tr>
+      <td class="desposit_table_title">审核备注:</td>
+      <td colspan=5>${gift.remark}</td>
+   </tr>
+</table>
+</div>

@@ -1,0 +1,129 @@
+<script>
+Ext.onReady(function() {
+	var required='<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
+	var store = Ext.create('Ext.data.Store', {
+        model: 'AgentWithdraw',
+        proxy: {
+            type: 'ajax',
+            url: '/AgentWithdrawApp/getAllList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('withdrawHis.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE' 
+	    },
+	    autoHeight:true,
+	    tbar:[{
+	        	    xtype: 'button', 
+	        	    iconCls:'icon-log',
+	        	    text:'提案详细',
+	        	    handler:function(){
+	        			var select = this.up('grid').getSelectionModel().getSelection();
+	        			if (select.length != 1) {
+	        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+	        				return;
+	        			}
+	        		   var w=Ext.create('Ext.app.Billinfowin', {
+	        			    renderTo:'${tabId}',
+	        			    title:'查看提款提案',
+	        			    fstitle:'提款提案',
+	        			    htmlHeight:380,
+	        			    height:440,
+	        			    width:800,
+	        			    url:'/AgentWithdrawApp/detail?request_id='+select[0].get('awithdraw_id')
+	        			   }).show();
+	        	   }
+			     },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey',value:''},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+        	    text     : '提款单号 [No. of order]',
+        	    width    : 170,
+        	    sortable : false,
+        	    dataIndex: 'awit_no'
+        	},{
+        	    text     : '创建时间 [Time]',
+        	    width    : 120,
+        	    sortable : false,
+        	    dataIndex: 'create_date',
+        	    renderer:Ext.util.Format.dateRenderer('m-d H:i')
+        	},{
+        	    text     : '用户名 [User]',
+        	    width    : 120,
+        	    sortable : false,
+        	    dataIndex: 'login_name'
+        	},{
+        	    text     : '真实姓名 [Name]',
+        	    width    : 140,
+        	    sortable : false,
+        	    dataIndex: 'real_name'
+        	},{
+        	    text     : '提款金额 [Amount]',
+        	    width    : 140,
+        	    sortable : false,
+        	    dataIndex: 'amount',
+        	    renderer : JBApp.renderer.amount
+        	},{
+        	    text     : '状态 [Status]',
+        	    width    : 180,
+        	    sortable : false,
+        	    dataIndex: 'status',
+        	    renderer : JBApp.renderer.withdraw_flag
+        	},{
+        	    text     : '银行名字 [Bank]',
+        	    width    : 180,
+        	    sortable : false,
+        	    dataIndex: 'bank_name',
+        	    renderer : JBApp.renderer.bank_flag
+        	}];
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('withdrawHis.grid'));
+});
+</script>

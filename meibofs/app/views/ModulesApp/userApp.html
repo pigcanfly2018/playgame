@@ -1,0 +1,260 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'User',
+        proxy: {
+            type: 'ajax',
+            url: '/UserApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('user.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        		  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(false);
+	        		  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(false);
+	        		  Ext.getCmp('grid_${tabId}').down("#passwdbtn").setDisabled(false);
+	        		}else{
+        			  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(true);
+        			  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(true);
+        			  Ext.getCmp('grid_${tabId}').down("#passwdbtn").setDisabled(true);
+	        		}
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    delconfig:{
+	    	url:'/UserApp/deleteUser',
+	    	tip:'你确定要删除你选择的用户么?',
+	    	idcode:'loginname'
+	    },
+	    pwdconfig:{
+	    	url:'/UserApp/resetPwd',
+	    	tip:'你确定要修改你选择的用户的密码么?如果是系统将自动随机生成一个密码。',
+	    	idcode:'loginname'
+	    },
+	    addconfig:{
+	       title:'新增系统用户',
+	       proFn:function(win,form){
+	   		   win.down('#idfield').setReadOnly(false);
+	   		   win.down('#password').show();
+	       }
+	    },
+	    updateconfig:{
+	       proFn:function(select,win,form){
+	    	   var data={
+	    	 			kact:'2',  
+	    	 			"user.loginname":select.get('loginname'),
+	    	 			"user.flag":select.get('flag'),
+	    	 			"user.issuper":select.get('issuper'),
+	    	 			"user.rolecode":select.get('rolecode'),
+	    	 			"user.realname":select.get('realname')
+	    	 		  };
+   	 		  form.getForm().setValues(data);
+   	 		  win.down('#idfield').setReadOnly(true);
+   	 		  win.down('#password').hide();
+   	 		  win.setTitle("修改系统用户:"+select.get('loginname'));
+	       }
+	    },
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '添加',
+		    	handler:JBApp.addFn
+		    	},
+		    	{
+		    	  xtype: 'button', 
+		    	  iconCls:'icon-update',
+		    	  text: '修改',
+		    	  disabled:true,
+		    	  itemId:'updatebtn',
+		    	  handler:JBApp.updateFn
+	    	   },
+	    	   {
+	        	 xtype: 'button', 
+	        	 iconCls:'icon-delete',
+	        	 text:'删除',
+	        	 disabled:true,
+	        	 itemId:'deletebtn',
+	        	 handler:JBApp.deleteFn
+		        },{
+	        	   xtype: 'button', 
+	        	   iconCls:'icon-set',
+	        	   text:'设置密码',
+	        	   disabled:true,
+	        	   itemId:'passwdbtn',
+	        	   configId:'pwdconfig',
+	        	   handler:JBApp.commonFn
+		        },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	        	    text: '条目',
+	        	    width    : 50,
+	                xtype: 'rownumberer'
+	            },{
+	        	    text     : '用户名',
+	        	    locked   : true,
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'loginname'
+	        	},{
+	        	    text     : '真实名字',
+	        	    locked   : true,
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'realname'
+	        	},{
+	        	    text     : '是否启用',
+	        	    locked   : true,
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'flag',
+	        	    renderer : JBApp.renderer.bool
+	        	},{
+	        	    text     : '超级管理员',
+	        	    locked   : true,
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'issuper',
+	        	    renderer : JBApp.renderer.bool
+	        	},{
+	        	    text     : '角色',
+	        	    locked   : true,
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'rolecode'
+	        	},{
+	        	    text     : '最后登录IP',
+	        	    locked   : true,
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'lastloginip'
+	        	},{
+	        	    text     : '最后登录时间',
+	        	    locked   : true,
+	        	    width    : 140,
+	        	    sortable : false,
+	        	    dataIndex: 'lastlogindate'
+	        	},{
+	        	    text     : '创建人',
+	        	    locked   : true,
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'createuser'
+	        	},{
+	        	    text     : '创建时间',
+	        	    locked   : true,
+	        	    width    : 140,
+	        	    sortable : false,
+	        	    dataIndex: 'createdate'
+	        	}];
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype: 'container',
+		            anchor: '100%',
+		            layout:'column',
+		            bodyStyle:'margin:5px 5px 5px 5px',
+		            items:[{
+		                xtype: 'container',
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                columnWidth:.48,
+		                layout: 'anchor',
+		                items: [{itemId:'idfield',fieldLabel: '用户名',xtype:'textfield',name: 'user.loginname',anchor: '95%'},
+		                        {fieldLabel: '启用',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name: 'user.flag',anchor: '95%'},
+		                        {fieldLabel: '角色',xtype:'rolecom',name: 'user.rolecode',anchor: '95%'}]
+		            },{
+		                xtype: 'container',
+		                columnWidth:.48,
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                layout: 'anchor',
+		                items: [{fieldLabel: '真实姓名',xtype:'textfield',name:'user.realname',anchor: '95%'},
+		                        {fieldLabel: '超级管理员',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name: 'user.issuper',anchor: '95%'},
+		                        {itemId:'password',fieldLabel: '密码',xtype:'textfield',name: 'user.password',anchor: '95%'}]
+		            },{xtype:'hidden',name:'kact'}]
+		        }],
+		       saveConfig:{
+		    	 url:'/UserApp/saveUser',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 220,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		
+		 this.win=win;
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('user.grid'));
+});
+</script>

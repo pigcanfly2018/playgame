@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	<interface>
+		<id><![CDATA[smp_pay_8d]]></id>
+		<name><![CDATA[生成扫码付二维码订单]]></name>
+		<type>SMP</type>
+		<service>pay</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|amount|payType|customer_ip|product|return_url]]></reqen>
+		<reqcn><![CDATA[用户名|存款金额|银行代码|IP|产品|访问地址]]></reqcn>
+		<replyen><![CDATA[ok|pay_id|message|amount|barCode]]></replyen>
+		<replycn><![CDATA[ok|订单号|信息|订单金额|barCode]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[生成扫码付二维码订单,ok是否生成成功]]></explain>
+	</interface>
+	
+	
+	<interface>
+		<id><![CDATA[smp_notify_8d]]></id>
+		<name><![CDATA[扫码付提醒]]></name>
+		<type>SMP</type>
+		<service>notify</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[merNo|transAmt|orderNo|orderDate|respCode|respDesc|payId|payTime|signature|product]]></reqen>
+		<reqcn><![CDATA[商户号|交易金额|订单号|订单时间|应答码|应答码描述|平台订单号|支付时间|签名|产品]]></reqcn>
+		<replyen><![CDATA[ok|message]]></replyen>
+		<replycn><![CDATA[ok|信息]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[扫码付提醒]]></explain>
+	</interface>
+	
+	
+</config>

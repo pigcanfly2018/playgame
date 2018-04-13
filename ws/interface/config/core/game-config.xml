@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	<interface>
+		<id><![CDATA[game_balance]]></id>
+		<name><![CDATA[查询游戏厅余额]]></name>
+		<type>GAME</type>
+		<service>balance</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|loginname|password|product]]></reqen>
+		<reqcn><![CDATA[平台|账号|密码|产品]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[游戏厅余额]]></replycn>
+		<datasource><![CDATA[wsdata]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[查询游戏厅余额]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[game_transfer]]></id>
+		<name><![CDATA[游戏厅转账]]></name>
+		<type>GAME</type>
+		<service>transfer</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|loginname|password|billno|type|credit|ip|product]]></reqen>
+		<reqcn><![CDATA[平台|账号|密码|转账单号|转账方向|转账额度|请求IP|产品]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[转账是否成功(Boolean)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[转账接口，billno:长度要求，type:IN或者OUT]]></explain>
+	</interface>
+
+	<interface>
+		<id><![CDATA[game_create]]></id>
+		<name><![CDATA[游戏厅开户]]></name>
+		<type>GAME</type>
+		<service>create</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|loginname|password|ip|product]]></reqen>
+		<reqcn><![CDATA[平台|账号|密码|请求IP|产品]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[开户是否成功(Boolean)]]></replycn>
+		<datasource><![CDATA[wsdata]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[开户是否成功]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[game_forward]]></id>
+		<name><![CDATA[获取跳转地址]]></name>
+		<type>GAME</type>
+		<service>forward</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|loginname|password|ip|product]]></reqen>
+	    <reqcn><![CDATA[平台|账号|密码|请求IP|产品]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[跳转URL(String)]]></replycn>
+		<datasource><![CDATA[wsdata]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[获取跳转地址,支持AG|BBIN|KG]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[game_update_pwd]]></id>
+		<name><![CDATA[更新游戏密码]]></name>
+		<type>GAME</type>
+		<service>update_pwd</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|loginname|password|ip|product]]></reqen>
+	    <reqcn><![CDATA[平台|账号|密码|请求IP|产品]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(Boolean)]]></replycn>
+		<datasource><![CDATA[wsdata]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[更新游戏密码,支持PT|MG]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[game_update_cust]]></id>
+		<name><![CDATA[更新客户资料]]></name>
+		<type>GAME</type>
+		<service>update_cust</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|loginname|ip|product]]></reqen>
+	    <reqcn><![CDATA[平台|账号|请求IP|产品]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(Boolean)]]></replycn>
+		<datasource><![CDATA[wsdata]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[更新客户资料,支持PT]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[game_check_online]]></id>
+		<name><![CDATA[检查玩家是否在线]]></name>
+		<type>GAME</type>
+		<service>check_online</service>
+		<statement><![CDATA[wsdata]]></statement>
+		<reqen><![CDATA[plat|loginname|ip|product]]></reqen>
+	    <reqcn><![CDATA[平台|账号|请求IP|产品]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否在线(Boolean)]]></replycn>
+		<datasource><![CDATA[]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[检查玩家是否在线,支持PT]]></explain>
+	</interface>
+	
+	
+	<interface>
+		<id><![CDATA[game_logout]]></id>
+		<name><![CDATA[踢出玩家游戏]]></name>
+		<type>GAME</type>
+		<service>logout</service>
+		<statement><![CDATA[wsdata]]></statement>
+		<reqen><![CDATA[plat|loginname|ip|product]]></reqen>
+	    <reqcn><![CDATA[平台|账号|请求IP|产品]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(Boolean)]]></replycn>
+		<datasource><![CDATA[]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[踢出玩家游戏,支持PT]]></explain>
+	</interface>
+
+</config>

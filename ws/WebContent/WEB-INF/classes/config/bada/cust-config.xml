@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+
+	<interface>
+		<id><![CDATA[cust_login_8d]]></id>
+		<name><![CDATA[客户登录]]></name>
+		<type>CUST</type>
+		<service>login</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|login_pwd|login_ip|user_agent]]></reqen>
+		<reqcn><![CDATA[用户名|密码|IP|浏览器]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(Boolean)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[客户登录]]></explain>
+	</interface>
+
+	<interface>
+		<id><![CDATA[cust_withdraw_8d]]></id>
+		<name><![CDATA[客户提款]]></name>
+		<type>CUST</type>
+		<service>withdraw</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|login_ip|amount|bank_name|account|account_type|bank_dot|remarks|create_user]]></reqen>
+		<reqcn><![CDATA[login_name|login_ip|amount|bank_name|account|account_type|bank_dot|remarks|create_user]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(Long)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[客户提款]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[create_customer_8d]]></id>
+		<name><![CDATA[注册客户]]></name>
+		<type>CUST</type>
+		<service>reg</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|login_pwd|real_name|phone|email|qq|reg_ip|create_user|game_pre|reg_source|reg_code|user_agent|notify_msg|notify_title|reg_domain|refer_url|search_key]]></reqen> 
+		<reqcn><![CDATA[login_name|login_pwd|real_name|phone|email|qq|reg_ip|create_user|game_pre|reg_source|reg_code|user_agent|notify_msg|notify_title|reg_domain|refer_url|search_key]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[客户ID]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[create_customer_8d]]></explain>
+	</interface>
+		
+	<interface>
+		<id><![CDATA[cust_deposit_8d]]></id>
+		<name><![CDATA[客户存款]]></name>
+		<type>CUST</type>
+		<service>deposit</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|login_ip|amount|bank_name|account_name|deposit_type|deposit_date|location|remarks]]></reqen>
+		<reqcn><![CDATA[login_name|login_ip|amount|bank_name|account_name|deposit_type|deposit_date|location|remarks]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(Long)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[客户存款]]></explain>
+	</interface>
+
+
+</config>

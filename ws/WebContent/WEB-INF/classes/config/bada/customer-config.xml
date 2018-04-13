@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+
+	<interface>
+		<id><![CDATA[query_cust_by_login_name_8d]]></id>
+		<name><![CDATA[根据账号查询客户基本信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select cust_id,login_name,login_pwd,real_name,phone,email,qq,
+			       create_date,ag_game,ag_pwd,ag_flag,
+			       ag_actived,bbin_game,bbin_pwd,bbin_flag,bbin_actived,
+			       credit,flag,cust_level,parent_id,remarks,bank_name,account_type,
+			       bank_dot,account,score,pt_game,pt_pwd,pt_flag,pt_actived,
+			       online_pay,is_block,alipay_flag,kg_game,kg_pwd,kg_flag,kg_actived,mg_game,
+			       mg_pwd,mg_flag,mg_actived,sb_game,sb_pwd,sb_flag,sb_actived,login_date,alipay_account,
+			       alipay_name,auto_transfer_flag,need_gift_flag,bbinmobile_game,bbinmobile_pwd,bbinmobile_flag,bank_pay 
+			from mb_customer 
+			where login_name=#login_name#
+         ]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[cust_id|login_name|login_pwd|real_name|phone|email|qq|create_date|ag_game|ag_pwd|ag_flag|ag_actived|bbin_game|bbin_pwd|bbin_flag|bbin_actived|credit|flag|cust_level|parent_id|bank_name|account_type|bank_dot|account|score|pt_game|pt_pwd|pt_flag|pt_actived|online_pay|is_block|alipay_flag|kg_game|kg_pwd|kg_flag|kg_actived|mg_game|mg_pwd|mg_flag|mg_actived|sb_game|sb_pwd|sb_flag|sb_actived|login_date|alipay_account|alipay_name|auto_transfer_flag|need_gift_flag|bbinmobile_game|bbinmobile_pwd|bbinmobile_flag|bank_pay]]></replyen>
+		<replycn><![CDATA[cust_id|login_name|login_pwd|real_name|phone|email|qq|create_date|ag_game|ag_pwd|ag_flag|ag_actived|bbin_game|bbin_pwd|bbin_flag|bbin_actived|credit|flag|cust_level|parent_id|bank_name|account_type|bank_dot|account|score|pt_game|pt_pwd|pt_flag|pt_actived|online_pay|is_block|alipay_flag|kg_game|kg_pwd|kg_flag|kg_actived|mg_game|mg_pwd|mg_flag|mg_actived|sb_game|sb_pwd|sb_flag|sb_actived|login_date|alipay_account|alipay_name|auto_transfer_flag|need_gift_flag|bbinmobile_game|bbinmobile_pwd|bbinmobile_flag|bank_pay]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[查询客户基本信息]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_deposit_by_login_name_8d]]></id>
+		<name><![CDATA[根据账号查询客户存款信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select deposit_id,dep_no,cust_id,login_name,real_name,
+				   amount,poundage,pdage_status,status,bank_name,account_name,
+				   deposit_type,location,deposit_date,remarks,pic_id,create_date,
+				   create_user,ip,audit_date,sb_game,is_sb,order_no,locked,locked_date 
+			from mb_deposit 
+			where login_name=#login_name# and 
+				  date_sub(curdate(),interval 3000 day) < create_date 
+				  and (status =1 or status =3) 
+			order by create_date desc
+         ]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[deposit_id|dep_no|cust_id|login_name|real_name|amount|poundage|pdage_status|status|bank_name|account_name|deposit_type|location|deposit_date|remarks|pic_id|create_date|create_user|ip|audit_date|sb_game|is_sb|order_no|locked|locked_date]]></replyen>
+		<replycn><![CDATA[deposit_id|dep_no|cust_id|login_name|real_name|amount|poundage|pdage_status|status|bank_name|account_name|deposit_type|location|deposit_date|remarks|pic_id|create_date|create_user|ip|audit_date|sb_game|is_sb|order_no|locked|locked_date]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[根据账号查询客户存款信息]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_withdraw_by_login_name_8d]]></id>
+		<name><![CDATA[根据账号查询客户提款信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select  withdraw_id,wit_no,login_name,real_name,amount,
+					bank_name,account_name,account,account_type,location,remarks,
+					create_date,create_user,status,cust_id,pay_date,locked,wit_cnt 
+			from mb_withdraw 
+			where login_name=#login_name# 
+			      and date_sub(curdate(),interval 3000 day) < create_date 
+			      and (status =1 or status =3 or status =5) 
+			order by create_date desc
+         ]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[withdraw_id|wit_no|login_name|real_name|amount|bank_name|account_name|account|account_type|location|remarks|create_date|create_user|status|cust_id|pay_date|locked|wit_cnt]]></replyen>
+		<replycn><![CDATA[withdraw_id|wit_no|login_name|real_name|amount|bank_name|account_name|account|account_type|location|remarks|create_date|create_user|status|cust_id|pay_date|locked|wit_cnt]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[根据账号查询客户提款信息]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_gift_by_login_name_8d]]></id>
+		<name><![CDATA[根据账号查询客户礼金信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select gift_id,gift_no,kh_date,login_name,real_name,
+			       cust_level,gift_type,gift_code,deposit_credit,net_credit,
+			       valid_credit,rate,payout,cs_date,remarks,create_date,
+			       create_user,status,audit_date,audit_user,audit_msg,
+			       cust_id,transferflag 
+			from mb_cash_gift 
+		    where login_name=#login_name# 
+		          and date_sub(curdate(),interval 3000 day) < create_date 
+		          and (status =1 or status =3) 
+		    order by create_date desc
+         ]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[gift_id|gift_no|kh_date|login_name|real_name|cust_level|gift_type|gift_code|deposit_credit|net_credit|valid_credit|rate|payout|cs_date|remarks|create_date|create_user|status|audit_date|audit_user|audit_msg|cust_id|transferflag]]></replyen>
+		<replycn><![CDATA[gift_id|gift_no|kh_date|login_name|real_name|cust_level|gift_type|gift_code|deposit_credit|net_credit|valid_credit|rate|payout|cs_date|remarks|create_date|create_user|status|audit_date|audit_user|audit_msg|cust_id|transferflag]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[根据账号查询客户礼金信息]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_score_by_login_name_8d]]></id>
+		<name><![CDATA[根据账号查询客户积分信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select rec_id,rec_code,cust_id,login_name,rec_type,score,
+			       create_date,create_user,cur_score  
+			from mb_score_rec 
+			where login_name=#login_name# 
+			      and date_sub(curdate(),interval 3000 day) < create_date
+			order by create_date desc
+         ]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[rec_id|rec_code|cust_id|login_name|rec_type|score|create_date|create_user|cur_score]]></replyen>
+		<replycn><![CDATA[rec_id|rec_code|cust_id|login_name|rec_type|score|create_date|create_user|cur_score]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[根据账号查询客户积分信息]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_lottery_by_login_name_8d]]></id>
+		<name><![CDATA[根据账号查询客户抽奖信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select  gift_code,trophy_name,create_date,status,trophy_type
+			from mb_egg_gift 
+			where login_name=#login_name# 
+			      and date_sub(curdate(),interval 3000 day) < create_date 
+			      and (status =1 or status =3 or status =5) 
+			order by create_date desc
+         ]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[gift_code|trophy_name|create_date|status|trophy_type]]></replyen>
+		<replycn><![CDATA[gift_code|trophy_name|create_date|status|trophy_type]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[根据账号查询客户抽奖信息]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[update_bank_info_by_login_name_8d]]></id>
+		<name><![CDATA[更新客户银行卡信息]]></name>
+		<type>SQL</type>
+		<service>update</service>
+		<statement><![CDATA[
+		    update mb_customer
+		    set account=#account# ,account_type=#account_type#,
+		        bank_name=#bank_name#,bank_dot=#bank_dot#
+		    where login_name=#login_name# 
+         ]]></statement>
+		<reqen><![CDATA[account|account_type|bank_name|bank_dot|login_name]]></reqen>
+		<reqcn><![CDATA[银行卡号|账户类型|银行|银行卡网点|用户名]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否更新成功(int)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[更新客户银行卡信息]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[update_password_by_login_name_8d]]></id>
+		<name><![CDATA[更新客户密码]]></name>
+		<type>SQL</type>
+		<service>update</service>
+		<statement><![CDATA[
+		    update mb_customer
+		    set login_pwd=#new_login_pwd# 
+		    where login_name=#login_name# and login_pwd=#org_login_pwd# 
+         ]]></statement>
+		<reqen><![CDATA[new_login_pwd|login_name|org_login_pwd]]></reqen>
+		<reqcn><![CDATA[新密码|用户名|老密码]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[更新成功条数(int)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[更新客户密码]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[update_qq_by_login_name_8d]]></id>
+		<name><![CDATA[更新客户密码]]></name>
+		<type>SQL</type>
+		<service>update</service>
+		<statement><![CDATA[
+		    update mb_customer
+		    set qq=#qq# 
+		    where login_name=#login_name#
+         ]]></statement>
+		<reqen><![CDATA[qq|login_name]]></reqen>
+		<reqcn><![CDATA[QQ|用户名]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[更新成功条数(int)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[更新客户密码]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[update_pt_password_by_login_name_8d]]></id>
+		<name><![CDATA[更新PT游戏密码]]></name>
+		<type>SQL</type>
+		<service>update</service>
+		<statement><![CDATA[
+		    update mb_customer
+		    set pt_pwd=#pt_pwd# 
+		    where login_name=#login_name# 
+         ]]></statement>
+		<reqen><![CDATA[pt_pwd|login_name]]></reqen>
+		<reqcn><![CDATA[PT新密码|用户名]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[更新成功条数(int)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[更新PT游戏密码]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[update_mg_password_by_login_name_8d]]></id>
+		<name><![CDATA[更新MG游戏密码]]></name>
+		<type>SQL</type>
+		<service>update</service>
+		<statement><![CDATA[
+		    update mb_customer
+		    set mg_pwd=#mg_pwd# 
+		    where login_name=#login_name# 
+         ]]></statement>
+		<reqen><![CDATA[mg_pwd|login_name]]></reqen>
+		<reqcn><![CDATA[mg新密码|用户名]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[更新成功条数(int)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[更新MG游戏密码]]></explain>
+	</interface>
+	
+	
+	<interface>
+		<id><![CDATA[check_login_pwd_by_login_name_8d]]></id>
+		<name><![CDATA[检查玩家密码是否正确]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		    select count(1) cnt  
+		    from mb_customer
+		    where login_pwd=#login_pwd# and login_name=#login_name#
+         ]]></statement>
+		<reqen><![CDATA[login_pwd|login_name]]></reqen>
+		<reqcn><![CDATA[玩家密码|用户名]]></reqcn>
+		<replyen><![CDATA[cnt]]></replyen>
+		<replycn><![CDATA[玩家数量]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[检查玩家密码是否正确]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_withdraw_count_by_login_name_8d]]></id>
+		<name><![CDATA[获取玩家提款次数]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		    select count(1) cnt  
+		    from mb_withdraw
+		    where login_name=#login_name# and status=5
+         ]]></statement>
+		<reqen><![CDATA[login_name]]></reqen>
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[cnt]]></replyen>
+		<replycn><![CDATA[成功提款次数]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[获取玩家提款次数]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_letter_by_login_name_8d]]></id>
+		<name><![CDATA[获取玩家所有的站内信]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select  letter_id,title,content,
+					cust_id,read_flag,read_date,
+					create_date,create_user,
+					is_public,login_name 
+		    from mb_letter
+		    where login_name=#login_name# 
+		    order by create_date desc
+         ]]></statement>
+		<reqen><![CDATA[login_name]]></reqen> 
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[letter_id|title|content|cust_id|read_flag|read_date|create_date|create_user|is_public|login_name]]></replyen>
+		<replycn><![CDATA[letter_id|title|content|cust_id|read_flag|read_date|create_date|create_user|is_public|login_name]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[获取玩家所有的站内信]]></explain>
+	</interface>
+	
+	
+	<interface>
+		<id><![CDATA[query_letter_by_letter_id_8d]]></id>
+		<name><![CDATA[根据站内信ID获取完整内容]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select  letter_id,title,content,
+					cust_id,read_flag,read_date,
+					create_date,create_user,
+					is_public,login_name,agent_id 
+		    from mb_letter
+		    where letter_id=#letter_id# 
+		    order by create_date desc
+         ]]></statement>
+		<reqen><![CDATA[letter_id]]></reqen> 
+		<reqcn><![CDATA[站内信ID]]></reqcn>
+		<replyen><![CDATA[letter_id|title|content|cust_id|read_flag|read_date|create_date|create_user|is_public|login_name|agent_id]]></replyen>
+		<replycn><![CDATA[letter_id|title|content|cust_id|read_flag|read_date|create_date|create_user|is_public|login_name|agent_id]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[根据站内信ID获取完整内容]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[update_letter_flag_by_letter_id_8d]]></id>
+		<name><![CDATA[更新站内信状态]]></name>
+		<type>SQL</type>
+		<service>update</service>
+		<statement><![CDATA[
+		    update mb_letter 
+		    set read_flag=#read_flag#,read_date=now()
+		    where letter_id=#letter_id# 
+		]]></statement>
+		<reqen><![CDATA[read_flag|letter_id]]></reqen> 
+		<reqcn><![CDATA[标志状态|站内信ID]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[影响条数(int)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[更新站内信状态]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[query_unread_letter_count_by_login_name_8d]]></id>
+		<name><![CDATA[查询站内信未读条数]]></name>
+		<type>SQL</type>
+		<service>update</service>
+		<statement><![CDATA[
+		    select  count(1) cnt
+		    from mb_letter
+		    where  login_name=#login_name# and read_flag=0
+		]]></statement>
+		<reqen><![CDATA[login_name]]></reqen> 
+		<reqcn><![CDATA[用户名]]></reqcn>
+		<replyen><![CDATA[cnt]]></replyen>
+		<replycn><![CDATA[记录总数]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[查询站内信未读条数]]></explain>
+	</interface>
+	
+	
+	<interface>
+		<id><![CDATA[query_customer_count_by_reg_ip_8d]]></id>
+		<name><![CDATA[根据注册IP查询客户量]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		    select  count(1) cnt
+		    from mb_customer
+		    where  reg_ip=#reg_ip# and date_format(create_date,'%y-%m-%d')=date_format(now(),'%y-%m-%d')
+		]]></statement>
+		<reqen><![CDATA[reg_ip]]></reqen> 
+		<reqcn><![CDATA[注册IP]]></reqcn>
+		<replyen><![CDATA[cnt]]></replyen>
+		<replycn><![CDATA[记录总数]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[根据注册IP查询客户量]]></explain>
+	</interface>
+	
+	
+	<interface>
+		<id><![CDATA[query_customer_count_by_phone_8d]]></id>
+		<name><![CDATA[根据手机号码查询客户量]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		    select  count(1) cnt
+		    from mb_customer
+		    where  phone=#phone#
+		]]></statement>
+		<reqen><![CDATA[tel]]></reqen> 
+		<reqcn><![CDATA[电话号码]]></reqcn>
+		<replyen><![CDATA[cnt]]></replyen>
+		<replycn><![CDATA[记录总数]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[根据手机号码查询客户量]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[cust_deposit_bank_8d]]></id>
+		<name><![CDATA[玩家获取存款银行信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		     select 
+		     bank_name,account as cardnum,account_name,bank_dot as bankaddress  
+		     from mb_bank
+		     where cust_level <=#cust_level# and bank_name=#bank_name# and available=1 
+		     order by cust_level desc]]></statement>
+		<reqen><![CDATA[cust_level|bank_name]]></reqen>
+		<reqcn><![CDATA[客户级别|银行]]></reqcn>
+		<replyen><![CDATA[bank_name|cardnum|account_name|bankaddress]]></replyen>
+		<replycn><![CDATA[银行|账户|账户名|网点]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[请求要求限制一行]]></explain>
+	</interface>
+	
+	
+	
+	
+		
+	
+</config>

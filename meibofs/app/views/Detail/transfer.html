@@ -1,0 +1,67 @@
+<style>
+.sl009{
+ font-size:12px;
+ border-collapse:collapse;
+}
+.sl009 td{
+ font-size:12px;
+  border:solid black 1px;
+ border-spacing:100px;
+ padding-left:2px;
+}
+.title_info{
+font-size:16px;
+font-weight:bolder;
+margin-top:10px;
+}
+
+.tr1009{
+background-color:#e8f3fd;
+}
+.tr1009 td{
+font-weight:bolder;
+color:#FF5151;
+}
+</style>
+<div>
+    <div>
+          <div class="title_info">基本信息</div>
+          <div>
+             <table class="sl009" cellpadding="0" cellspacing="0">
+                <tr class="tr1009">
+                   <td style="width:137px">修正单号</td>
+                   <td style="width:137px">用户名</td>
+                   <td style="width:137px">修正额度</td>
+                   <td style="width:137px">状态</td>
+                </tr>
+                <tr>
+                   <td>${transfer.transfer_no}</td>
+                   <td>${transfer.login_name}</td>
+                   <td>${transfer.credit}</td>
+                   <td>${transfer.status}</td>
+                </tr>
+                <tr class="tr1009">
+                   <td>创建人</td>
+                   <td>创建日期</td>
+                   <td colspan="2">备注</td>
+                </tr>
+                <tr>
+                   <td>${transfer.create_user}</td>
+                   <td>${transfer.create_date}</td>
+                   <td colspan="2">${transfer.remarks}</td>
+                </tr>
+                  <tr class="tr1009">
+                   <td>审核人</td>
+                   <td>审核日期</td>
+                   <td colspan="2">审核信息</td>
+                </tr>
+                <tr>
+                   <td>${transfer.audit_user}</td>
+                   <td>${transfer.audit_date}</td>
+                   <td colspan="2">${transfer.audit_msg}</td>
+                </tr>
+             </table>
+          </div>  
+    </div>
+</div>
+

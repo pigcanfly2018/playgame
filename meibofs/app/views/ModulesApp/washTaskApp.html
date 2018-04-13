@@ -1,0 +1,250 @@
+<script>
+Ext.onReady(function() {
+	var required='<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
+	var store = Ext.create('Ext.data.Store', {
+        model: 'WashTask',
+        proxy: {
+            type: 'ajax',
+            url: '/WashTaskApp/getList',
+            extraParams:{},
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 20,
+        autoLoad: {start: 0, limit: 20}
+        });
+	var tabId='${tabId}';
+	Ext.define('WashTask.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        			var s=selected[0];
+	        		    Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(false);
+	        		    Ext.getCmp('grid_${tabId}').down("#exportbtn").setDisabled(false);
+	        		}else{
+	        			Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(true);
+	        			Ext.getCmp('grid_${tabId}').down("#exportbtn").setDisabled(true);
+
+	        		}
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    addconfig:{
+	       title:'新增洗码任务',
+	       proFn:function(win,form){
+
+	   		  // win.down('#password').show();
+	       }
+	    },
+	    delconfig:{
+	    	url:'/WashTaskApp/deleteTask',
+	    	tip:'你确定要删除你选择的任务么?',
+	    	idcode:'task_id'
+	    },
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '新增洗码任务',
+		    	handler:JBApp.addFn
+		    	},{
+	        	 xtype: 'button', 
+	        	 iconCls:'icon-delete',
+	        	 text:'删除任务',
+	        	 disabled:true,
+	        	 itemId:'deletebtn',
+	        	 handler:JBApp.deleteFn
+		        },{
+	        	 xtype: 'button', 
+	        	 iconCls:'icon-export',
+	        	 text:'导出洗码单',
+	        	 disabled:true,
+	        	 itemId:'exportbtn',
+	        	 handler:function(){
+	        		    var select = this.up('grid').getSelectionModel().getSelection();
+	        			if (select.length != 1) {
+	        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+	        				return;
+	        			}
+	        			var grid = this.up('grid');
+	        			Ext.MessageBox.confirm({
+	        				title : '提示信息',
+	        				msg : '你确认要导出该任务的洗码单吗?',
+	        				buttons : Ext.MessageBox.OKCANCEL,
+	        				fn : function(btn, text) {
+	        					if ("ok" == btn) {
+	        						window.open('/WashTaskApp/exportExcel?task_id='+select[0].get('task_id'));
+	        					}
+	        				}
+	        			});
+	        	 }
+		      },'->',
+	          '起始:',
+	          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+	          '结束:',
+	          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+	          '关键字:',
+              {xtype:'textfield',itemId:'queryKey',value:'sj'},
+              {
+	            text:'查询',
+	            iconCls: 'icon-search',
+	            handler : JBApp.queryFn
+	           },{
+	            text:'重设',
+	            iconCls: 'icon-reset',
+	            handler :JBApp.queryResetFn
+		       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+        	    text     : '创建时间',
+        	    width    : 100,
+        	    sortable : false,
+        	    dataIndex: 'create_date',
+        	    renderer:Ext.util.Format.dateRenderer('m/d H:i')
+        	},{
+	        	    text     : '任务名',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'task_name'
+	        	},{
+	        	    text     : '是否全部',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'isall'
+	        	},{
+	        	    text     : '用户名',
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'login_name'
+	        	    
+	        	},{
+	        	    text     : '开始时间',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'start_time',
+	        	    renderer:Ext.util.Format.dateRenderer('m/d H:i')
+	        	},{
+	        	    text     : '结束时间',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'end_time',
+	        	    renderer:Ext.util.Format.dateRenderer('m/d H:i')
+	        	},{
+	        	    text     : '操作人',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'create_user'
+	        	},{
+	        	    text     : '备注',
+	        	    width    : 250,
+	        	    sortable : false,
+	        	    dataIndex: 'remark'
+	        	}];
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype:'fieldset',
+		            title: '任务资料',
+		            collapsible: true,
+		            defaultType: 'textfield',
+		            layout: 'anchor',
+		            defaults: {
+		                anchor: '100%'
+		            },
+		            items :[{
+			            xtype: 'container',
+			            anchor: '100%',
+			            layout:'column',
+			            bodyStyle:'margin:5px 5px 5px 5px',
+			            items:[{
+			                xtype: 'container',
+			                bodyStyle:'margin:5px 5px 5px 5px',
+			                columnWidth:.48,
+			                layout: 'anchor',
+			                defaults: {
+				                anchor: '98%'
+				            },
+			                items: [
+			                   {fieldLabel: '任务名字',xtype:'textfield',name: 'task.task_name',allowBlank: false},
+			                   {fieldLabel: '是否全部',xtype:'itemcom',groupcode:'bool',name: 'task.isall',valueField:'itemvalue',allowBlank: false,beforeLabelTextTpl:required},
+			                   {fieldLabel: '结束时间',xtype:'datefield',name: 'task.end_time',format:'Y-m-d H:i:s',allowBlank: false}]
+			            },{
+			                xtype: 'container',
+			                columnWidth:.48,
+			                bodyStyle:'margin:5px 5px 5px 5px',
+			                layout: 'anchor',
+			                defaults: {
+				                anchor: '98%'
+				            },
+			                items: [{fieldLabel: '用户名',xtype:'custcom',name: 'task.login_name',beforeLabelTextTpl:required},
+			                        {fieldLabel: '开始时间',xtype:'datefield',name: 'task.start_time',format:'Y-m-d H:i:s',allowBlank: false}
+			                        ]
+			            },
+			            {xtype:'hidden',name:'kact'},{xtype:'hidden',name:'task.task_id'}]
+			        }]
+		        },{fieldLabel: '备注',xtype:'textfield',name: 'task.remark',anchor: '98%'}],
+		       saveConfig:{
+		    	 url:'/WashTaskApp/saveTask',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '提交数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 700,
+	            height: 260,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		
+		 this.win=win;
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('WashTask.grid'));
+});
+</script>

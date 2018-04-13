@@ -1,0 +1,132 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'YeeOrder',
+        proxy: {
+            type: 'ajax',
+            url: '/YeeOrderApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('YeeOrder.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    tbar:['->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	    	 this.columns = [{
+		    	    text     : '创建时间',
+		    	    width    : 90,
+		    	    sortable : false,
+		    	    dataIndex: 'create_date',
+		    	    renderer:Ext.util.Format.dateRenderer('m/d H:i')
+		    	},{
+		    	    text     : '用户名',
+		    	    width    : 100,
+		    	    sortable : false,
+		    	    dataIndex: 'login_name'
+		    	},{
+		    	    text     : '订单号',
+		    	    width    : 180,
+		    	    sortable : false,
+		    	    dataIndex: 'order_no'
+		    	},{
+		    	    text     : '存款额度',
+		    	    width    : 100,
+		    	    sortable : false,
+		    	    dataIndex: 'credit'
+		    	},{
+		    	    text     : '银行编号',
+		    	    width    : 120,
+		    	    sortable : false,
+		    	    dataIndex: 'frpid'
+		    	},{
+		    	    text     : '支付额度',
+		    	    width    : 100,
+		    	    sortable : false,
+		    	    dataIndex: 'pay_credit'
+		    	},{
+		    	    text     : '手续费',
+		    	    width    : 100,
+		    	    sortable : false,
+		    	    dataIndex: 'target_fee'
+		    	},{
+		    	    text     : '支付状态',
+		    	    width    : 100,
+		    	    sortable : false,
+		    	    dataIndex: 'done_bs',
+		    	    renderer:function(v){
+		    	    	if(v){
+		    	    		return "<span style='color:green'>完成</span>";
+		    	    	}else{
+		    	    		return "<span style='color:red'>未完成</span>";
+		    	    	}
+		    	    }
+		    	},{
+		    	    text     : '支付时间',
+		    	    width    : 100,
+		    	    sortable : false,
+		    	    dataIndex: 'pay_date',
+		    	    renderer:function(v){
+		    	    	if(v&&v.length>13){
+		    	    		return v.substring(4,6)+"-"+v.substring(6,8)+" "+v.substring(8,10)+":"+v.substring(10,12);
+		    	    	}
+		    	    	return v;
+		    	    }
+		    	}];
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('YeeOrder.grid'));
+});
+</script>

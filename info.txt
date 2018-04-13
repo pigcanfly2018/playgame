@@ -1,0 +1,89 @@
+--------------------------------原始项目信息------------------------------------
+Dragon, [19.03.18 17:21]
+整个系统由四个项目组成 1前台 2webservice 3 资金后台 4 代理前台
+前台主要提供mg pt bbin ag 太阳城 pp 电子游戏和ag 申博真人等
+彩票是外接的bbin和keno 体育接的是bbin
+前台提供银行卡网银直接转账  第三方网银  银联扫码 QQ扫码等支付方式
+
+webservice主要用来和第三方支付以及游戏平台api接口交互,包括游戏额度互转等等
+(因为前台有攻击,导致前台服务器经常变换,而与游戏平台交互需要白名单)
+
+资金后台主要负责客户管理 资金账变管理 网站管理以及代理管理等,权限是以角色来划分,具体可以精确到页面上的按钮
+
+代理前台主要提供代理的注册 以及下线报表查询等
+
+网站前台 代理前台 资金后台 都是以java8开发，用的play1.2.7框架，其中资金后台页面用的是extjs做显示，webservice单独运行在tomcat下
+
+网站没有多级代理这个概念  客人分直客和通过代理链接注册的客户
+
+资金后台：http://103.232.87.161:7060/	woody admin123
+前台：https://588da.com/
+https://www.playframework.com/documentation/1.2.7/guide1
+
+
+前台和资金后台 需要 play和java
+有个中间件需要 tomcat8和java
+mysql 5.x 
+export PATH=/opt/java/play-1.2.7.2:$PATH
+
+ws用tomcat8部署的server.xml修改
+<Host name="localhost"  appBase="webapps" unpackWARs="true"  autoDeploy="true">
+    <Context docBase="D:\work\ws\WebContent" path="/ws"  reloadable="true">  </Context> 
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+               prefix="localhost_access_log" suffix=".txt"
+               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+
+      </Host>
+
+      222.127.131.34 Woody这边的ip
+
+meibo主要就是给用户玩家展示的 
+客人注册 冲钱 然后和游戏平台互相转账 盈利了就可以提款
+因为游戏api的不同    前台上的游戏跳转链接 有些是需要调用ws生成的 有的不需要
+ws主要处理和第三方游戏平台的交互  比如和平台直接互相转账  同步游戏帐号  生成跳转链接等    以及第三方支付过程中 处理支付参数
+meibofs资金后台  客户的所有报表 公司的每日冲提报表 以及其他功能都在里面 
+
+---------
+cd /home/8da/meibofs && play precompile
+cd /home/8da/meibofs && play stop
+nohup play start /home/8da/meibofs -Dprecompiled=true -Xms1g -Xmx2g -Xss1024k -XX:MaxPermSize=512m -XX:-UseSplitVerifier -Dfile.encoding=GBK &
+
+cd /home/8da/meibo && play precompile
+cd /home/8da/meibo && play stop
+nohup play start /home/8da/meibo -Dprecompiled=true -Xms1g -Xmx2g -Xss1024k -XX:MaxPermSize=512m -XX:-UseSplitVerifier -Dfile.encoding=GBK &
+
+
+------------------------------测试环境信息----------------------------------------------
+服务器：113.196.228.34
+端口：2222
+账号:root
+密码：iycFS0\koU84E>#61P"Bf*3w7zTR(&
+
+
+svn://113.196.228.34/repos/cme  账号：henry/henry woody/woody gary/gary
+
+
+
+db:cme和ws  账号：（管理员）root/root admin/admin  （项目账号）cme/123qwe
+
+
+应用服务：
+ws：tomcat8 9005 9805 9105
+mbfs：play 9806
+mb：play 9807
+
+域名：bohu58.com（已解析到测试环境）	bohu98.com（未解析）
+
+
+----------------项目源码说明-------------------
+1.meibo：前台
+	app/init.prop:DB配置
+	conf/application.prop :应用配置：端口、JVM等  其中allow_ip  notallow_ip就是IP黑白名单
+	conf/client.prop:调用webservice配置
+2.meibofs：资金后台
+	app/init.prop:DB配置
+	conf/application.prop :应用配置：端口、JVM等 其中allow_ip  notallow_ip就是IP黑白名单
+	conf/client:调用webservice配置
+3.ws:webservice对接第三方
+	src/server.prop:DB配置
+	interface：webservice请求接口定义

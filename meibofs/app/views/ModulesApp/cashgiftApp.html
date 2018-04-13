@@ -1,0 +1,698 @@
+<script>
+var giftRole={};
+#{sb.role user:userName,fcode:'F020401'}
+    giftRole['F020401']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F020402'}
+    giftRole['F020402']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F020403'}
+    giftRole['F020403']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F020404'}
+    giftRole['F020404']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F020405'}
+    giftRole['F020405']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F020406'}
+    giftRole['F020406']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F020407'}
+    giftRole['F020407']=${_flag};
+#{/sb.role}
+	#{sb.role user:userName,fcode:'F020408'}
+    giftRole['F020408']=${_flag};
+#{/sb.role}
+
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'CashGift',
+        proxy: {
+            type: 'ajax',
+            url: '/CashGiftApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	
+	var ckNull=function(){
+		
+		var v1 =  Ext.getCmp("rateid").getValue();    
+		
+	    if(v1=="") return false;   
+	   
+	    if(v1==0 || v1=='0') {  
+	    	alert(v1);
+	        return false;
+	    }  
+	    return false;    
+	};
+	
+	 var task = Ext.TaskManager.start({
+	     run: function () {
+	        store.reload();
+	     },
+	     interval: 20000
+	 });
+	var tabId='${tabId}';
+	Ext.define('gashgift.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true,
+	        loadingText:'正在加载数据...'
+	    },
+	    listeners: {
+	    	render:function() {
+	    		Ext.TaskManager.start(task);
+	        },
+	        destroy:function() {
+	        	if(task)	Ext.TaskManager.stop(task);
+	    		
+	        }
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SIMPLE',
+	        listeners: {
+		        	selectionchange:function(sm, selected, eOpts){
+		        		if(selected.length==1){
+		        			if(selected[0].get("status")==1){
+			        		    Ext.getCmp('grid_${tabId}').down("#deleteBtn").setDisabled(false);
+			        		    Ext.getCmp('grid_${tabId}').down("#auditBtn").setDisabled(false);
+			        		    
+		        			}else{
+		        				Ext.getCmp('grid_${tabId}').down("#deleteBtn").setDisabled(true);
+			        			Ext.getCmp('grid_${tabId}').down("#auditBtn").setDisabled(true);	
+		        			}
+		        			if(selected[0].get("transferflag")==1){
+		        				Ext.getCmp('grid_${tabId}').down("#completeBtn").setDisabled(false);
+		        			}else{
+		        				Ext.getCmp('grid_${tabId}').down("#completeBtn").setDisabled(true);
+		        			}
+		        			
+		        			
+		        		}else{
+		        			//Ext.getCmp('grid_${tabId}').down("#deleteBtn").setDisabled(true);
+		        			Ext.getCmp('grid_${tabId}').down("#auditBtn").setDisabled(true);
+		        		}
+		        	}
+	        } 
+	    },
+	    
+	    addconfig:{
+		       title:'新增礼金提案',
+		       proFn:function(win,form){
+		    	   form.getForm().setValues({
+		    		   "gift.valid_credit":0,
+		    		   "gift.gift_type":"首存",
+		    		   "gift.deposit_credit":0,
+		    		   "gift.net_credit":0
+		    	   });
+		    	   win.down('#idfield').setReadOnly(false);
+		   	 		win.down('#idfield2').setReadOnly(false);
+		       }
+		    },
+		    updateconfig:{
+			       proFn:function(select,win,form){
+			    	   var data={
+			    	 			kact:'2',  
+			    	 			"gift.gift_no":select.get('gift_no'),
+			    	 			"gift.login_name":select.get('login_name'),
+			    	 			"gift.gift_type":select.get('gift_type'),
+			    	 			"gift.valid_credit":select.get('valid_credit'),
+			    	 			"gift.rate":(select.get('rate')==0?"":select.get('rate')),
+			    	 			"gift.deposit_credit":select.get('deposit_credit'),
+			    	 			"gift.net_credit":select.get('net_credit'),
+			    	 			"gift.payout":select.get('payout'),
+			    	 			"gift.remarks":select.get('remarks')
+			    	 			
+			    	 		  };
+		   	 		  form.getForm().setValues(data);
+		   	 		  win.setTitle("修改优惠:"+select.get('gift_type'));
+		   	 		win.down('#idfield').setReadOnly(true);
+		   	 		win.down('#idfield2').setReadOnly(true);
+		   	 	
+			       }
+			    },   
+		    
+	    autoHeight:true,
+	    dockedItems: [{
+	        xtype: 'toolbar',
+	        dock: 'top',
+	        items: [{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '新增',
+		    	hidden:!giftRole['F020401'],
+		    	handler:JBApp.addFn
+	    	},{
+		    	xtype: 'button', 
+		    	iconCls:'icon-update',
+		    	text: '修改',
+		    	hidden:!giftRole['F020401'],
+		    	handler:JBApp.updateFn
+	    	},{
+		    	xtype: 'button', 
+		    	iconCls:'icon-delete',
+		    	text: '删除',
+		    	itemId:'deleteBtn',
+		    	hidden:!giftRole['F020402'],
+		    	handler:function(){
+		    		 var select = this.up('grid').getSelectionModel().getSelection();
+		    		 
+	        			if (select.length < 1) {
+	        				Ext.MessageBox.alert('提示信息', '至少选择一条记录操作');
+	        				return;
+	        			}
+	        			 var selects="";
+		        		  for(var i=0;i<select.length;i++){
+		        			  selects+=select[i].get('gift_id')+",";
+		        			  
+		        		  }
+		        		 selects=selects.substr(0,selects.length-1);
+		        		 Ext.Msg.confirm('系统提示','亲，确定要删除选中项吗？',
+		        			      function(btn){
+		        			        if(btn=='yes'){
+		        			        	Ext.Ajax.request( {
+		  			        			  url : '/CashGiftApp/deleteGifts?giftId='+selects,
+		  			        			  method : 'post',
+		  			        			  success : function(response, options) {
+		  			        				  Ext.MessageBox.alert('提示信息', '删除成功。');
+		  			        				  store.reload();
+		  			        			  },
+		  			        			  failure : function() {
+		  			        				  Ext.MessageBox.alert('提示信息', '删除失败。');
+		  			        				  store.reload();
+		  			        			  }
+		  			        			 });					
+		        			        }else{
+		        			          
+		        			        }
+		        			        
+		        			      },this);	
+		        		 
+	        		   /* var w=Ext.create('Ext.app.Billactionwin', {
+	        			    renderTo:'${tabId}',
+	        			    fstitle:'提款提单信息',
+	        			    msg:'你确定删除该礼单提案吗?',
+	        			    title:'删除礼单提案',
+	        			    
+	        			    act:'/CashGiftApp/deleteGift?giftId='+selects,
+	        			    cb:function(){
+	        				   store.reload();
+	        			    }
+	        			   }).show(); */
+		    	}
+	    	},{
+		    	xtype: 'button', 
+		    	iconCls:'icon-auditing',
+		    	text: '审核',
+		    	itemId:'auditBtn',
+		     	hidden:!giftRole['F020404'],
+		    	handler:function(){
+		    		  var select = this.up('grid').getSelectionModel().getSelection();
+	        		  if (select.length != 1) {
+	        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+	        				return;
+	        		   }
+	        		  
+	        		  var w=Ext.create('Ext.app.Billauditwin', {
+	        			    renderTo:'${tabId}',
+	        			    fstitle:'礼金提案信息',
+	        			    title:'礼金提案审核',
+	        			    url:'/CashGiftApp/detail?giftId='+select[0].get('gift_id'),
+	        			    act:'/CashGiftApp/audit?giftId='+select[0].get('gift_id'),
+	        			    cb:function(){
+	        				   store.reload();
+	        			    },
+	        			    htmlHeight:220,
+	        			    width:700,
+	        			    height:430
+	        			   }).show();
+	        	
+		    	}
+	    	},{
+		    	xtype: 'button', 
+		    	iconCls:'icon-true',
+		    	text: '完成',
+		    	itemId:'completeBtn',
+		    	hidden:!giftRole['F020408'],
+		    	handler:function(){
+		    		 var select = this.up('grid').getSelectionModel().getSelection();
+	        			if (select.length != 1) {
+	        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+	        				return;
+	        			}
+	        		   var w=Ext.create('Ext.app.Billauditwin', {
+	        			    renderTo:'${tabId}',
+	        			    fstitle:'提款提单信息',
+	        			    msg:'你确定该礼金活动已经完成吗?',
+	        			    title:'礼单提案活动完成申请',
+	        			    url:'/CashGiftApp/detail?giftId='+select[0].get('gift_id'),
+	        			    act:'/CashGiftApp/completeGift?giftId='+select[0].get('gift_id'),
+	        			    cb:function(){
+	        				   store.reload();
+	        			    }
+	        			   }).show();
+		    	}
+	    	},{
+		    	xtype: 'button', 
+		    	iconCls:'icon-log',
+		    	text: '详单',
+		    	handler:function(){
+		    		var select = this.up('grid').getSelectionModel().getSelection();
+        			if (select.length != 1) {
+        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+        				return;
+        			}
+        		   var w=Ext.create('Ext.app.Billinfowin', {
+        			    renderTo:'${tabId}',
+        			    fstitle:'礼金提案信息',
+        			    title:'礼金提案审核',
+        			    htmlHeight:540,
+        			    height:600,
+        			    width:800,
+        			    url:'/CashGiftApp/detail?giftId='+select[0].get('gift_id'),
+        			   }).show();
+		    	}
+	    	},{
+		           xtype:'splitbutton',
+	        	   iconCls:'icon-download',
+	        	   text:'更多',
+	        	   menu: [{
+				    	iconCls:'icon-add',
+				    	text: '导入礼金',
+				    	hidden:!giftRole['F020405'],
+				    	handler:function(){
+				    		this.up('grid').importWin.show();
+				    	}
+			    	},{
+				    	iconCls:'icon-delete',
+				    	text: '批量删除',
+				    	hidden:!giftRole['F020403'],
+				    	handler:function(){
+				    		this.up('grid').deleteWin.show();
+				    	}
+			    	},{
+				    	iconCls:'icon-download',
+				    	text: '下载模版',
+				     	hidden:!giftRole['F020407'],
+				    	handler:function(){
+				    		window.open("/public/xls/cashgift_2013.xls","下载模版"); 
+				    	}
+			    	},{
+			    		iconCls:'icon-auditing',
+				    	text: '批量审核',
+				    	hidden:!giftRole['F020408'],
+				    	handler:function(){
+				    		this.up('grid').auditWin.show();
+				    	}
+					   }]
+			      },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+				   },{
+		            text:'导出',
+		            iconCls: 'icon-export',
+		            hidden:!giftRole['F020406'],
+		            actionUrl:'/CashGiftApp/exportExcel',
+		            handler :JBApp.exportFn
+				   }]
+	    }],
+	    bbar: {
+               xtype: 'pagingtoolbar',
+               pageSize: 10,
+               store:store,
+               displayInfo: true
+         },
+	    initComponent: function () {
+	        this.columns = [{
+	    	    text     : '礼金单号',
+	    	    width    : 170,
+	    	    sortable : false,
+	    	    dataIndex: 'gift_no'
+	    	},{
+	    	    text     : '礼金日期',
+	    	    width    : 90,
+	    	    sortable : false,
+	    	    dataIndex: 'cs_date',
+	    	    renderer:Ext.util.Format.dateRenderer('m-d H:i')
+	    	},{
+	    	    text     : '上传编号',
+	    	    width    : 90,
+	    	    sortable : false,
+	    	    dataIndex: 'gift_code'
+	    	},{
+	    	    text     : '类别',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'gift_type'
+	    	},{
+	    	    text     : '用户名',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'login_name'
+	    	},{
+	    	    text     : '客户姓名',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'real_name'
+	    	},{
+	    	    text     : '客户等级',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'cust_level',
+	    	    renderer:JBApp.renderer.custlevel
+	    	},{
+	    	    text     : '存款金额',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'deposit_credit'
+	    	},{
+	    	    text     : '投注额',
+	    	    width    : 90,
+	    	    sortable : false,
+	    	    dataIndex: 'valid_credit'
+	    	},{
+	    	    text     : '输赢额',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'net_credit'
+	    	},{
+	    	    text     : '比例%',
+	    	    width    : 60,
+	    	    sortable : false,
+	    	    dataIndex: 'rate'
+	    	},{
+	    	    text     : '派彩额',
+	    	    width    : 70,
+	    	    sortable : false,
+	    	    dataIndex: 'payout'
+	    	},{
+	    	    text     : '状态',
+	    	    width    : 60,
+	    	    sortable : false,
+	    	    dataIndex: 'status',
+	    	    renderer:JBApp.renderer.gift_flag
+	    	},{
+	    	    text     : '活动是否完成',
+	    	    width    : 160,
+	    	    sortable : false,
+	    	    dataIndex: 'transferflag',
+	    	    renderer:function(v){
+        	    	if(0==v){
+        	    		return '<span style="color:green">未参与活动</span>';
+        	    	}else{
+        	    		return '<span style="color:red">未完成</span>';
+        	    	}
+        	    }
+	    	},{
+	    	    text     : '备注',
+	    	    width    : 400,
+	    	    sortable : false,
+	    	    dataIndex: 'remarks'
+	    	}];
+	        var importForm=Ext.create('Ext.form.Panel', {
+	            bodyPadding: 10,
+	            items: [{
+	                xtype: 'filefield',
+	                name: 'gift_file',
+	                fieldLabel: '上传',
+	                labelWidth: 50,
+	                msgTarget: 'side',
+	                allowBlank: false,
+	                anchor: '100%',
+	                buttonText: '选择礼金Excel文件'
+	            }],
+	            buttons: [{
+	                text: '导入Excel文件',
+	                handler: function() {
+	                    var form = this.up('form').getForm();
+	                    if(form.isValid()){
+	                        form.submit({
+	                            url: '/CashGiftApp/importExcel',
+	                            type:'ajax',
+	                            waitMsg: '正在保存文件...',
+	                            success: function(fp, action) {
+	                              Ext.Msg.alert('保存成功', action.result.message);
+	                              form.findField('gift_file').setRawValue('');
+	                              importForm.up('window').hide();
+	                              store.reload();
+	                            },
+	                            failure: function(form, action) {
+	                                Ext.Msg.alert('导入失败', action.result.message);
+	                            }
+	                        });
+	                    }
+	                }
+	            }]
+	        });
+	        
+	        var importWin=Ext.create('widget.window', {
+	            title: '导入礼金数据',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 150,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [importForm],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+	        
+	        var deleteForm=Ext.create('Ext.form.Panel', {
+	            bodyPadding: 10,
+	            items: [{
+	                xtype: 'textfield',
+	                name: 'gift_code',
+	                fieldLabel: '上传编号',
+	                labelWidth: 80,
+	                msgTarget: 'side',
+	                allowBlank: false,
+	                anchor: '100%'
+	            }],
+	            buttons: [{
+	                text: '批量删除',
+	                handler: function() {
+	                    var form = this.up('form').getForm();
+	                    if(form.isValid()){
+	                        form.submit({
+	                            url: '/CashGiftApp/batchDelete',
+	                            type:'ajax',
+	                            waitMsg: '正在保存文件...',
+	                            success: function(fp, action) {
+	                              Ext.Msg.alert('保存成功', action.result.message);
+	                              form.findField('gift_code').setRawValue('');
+	                              deleteForm.up('window').hide();
+	                              store.reload();
+	                            },
+	                            failure: function(form, action) {
+	                                Ext.Msg.alert('导入失败', action.result.message);
+	                            }
+	                        });
+	                    }
+	                }
+	            }]
+	        });
+	        
+	        var deleteWin=Ext.create('widget.window', {
+	            title: '批量删除礼金提案',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 150,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [deleteForm],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+	        
+	        var auditForm=Ext.create('Ext.form.Panel', {
+	            bodyPadding: 10,
+	            items: [{
+	                xtype: 'textfield',
+	                name: 'gift_code',
+	                fieldLabel: '上传编号',
+	                labelWidth: 80,
+	                msgTarget: 'side',
+	                allowBlank: false,
+	                anchor: '100%'
+	            },{
+	                xtype: 'textfield',
+	                name: 'gift_rms',
+	                fieldLabel: '注意事项',
+	                labelWidth: 80,
+	                msgTarget: 'side',
+	                value:'当批量审核记录大于2000，请分批上传审核！',
+	                disabled:true,
+	                anchor: '100%'
+	            },{
+		            xtype: 'fieldset',
+		            title: '审核意见',
+		            items:[{
+		                       xtype: 'radiogroup',
+		                       fieldLabel: '审核',
+		                       labelStyle:'color:red;font-weight:bolder',
+		                       vertical: true,
+		                       items: [
+		                           {boxLabel: '通过', name: 'flag', inputValue: 3},
+		                           {boxLabel: '不通过', name: 'flag', inputValue: 2}
+		                       ]
+		                   },
+		                   {fieldLabel: '意见',xtype:'textfield',name: 'remarks',anchor: '95%',labelStyle:'color:red;font-weight:bolder'}]
+		        }],
+	            buttons: [{
+	                text: '批量审核',
+	                handler: function() {
+	                    var form = this.up('form').getForm();
+	                    if(form.isValid()){
+	                        form.submit({
+	                            url: '/CashGiftApp/batchAudit',
+	                            type:'ajax',
+	                            waitMsg: '正在保存文件...',
+	                            success: function(fp, action) {
+	                              Ext.Msg.alert('保存成功', action.result.message);
+	                              form.findField('gift_code').setRawValue('');
+	                              auditForm.up('window').hide();
+	                              store.reload();
+	                            },
+	                            failure: function(form, action) {
+	                                Ext.Msg.alert('导入失败', action.result.message);
+	                            }
+	                        });
+	                    }
+	                }
+	            }]
+	        });
+	        
+	        var auditWin=Ext.create('widget.window', {
+	            title: '批量审核礼金提案',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 250,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [auditForm],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+	        
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype: 'container',
+		            anchor: '100%',
+		            layout:'column',
+		            bodyStyle:'margin:5px 5px 5px 5px',
+		            items:[{
+		                xtype: 'container',
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                columnWidth:.48,
+		                layout: 'anchor',
+		                //allowDecimals:true,
+		                items: [{id:'idfield',fieldLabel: '游戏账号',xtype:'custcom',name: 'gift.login_name',anchor: '95%',allowBlank: false,valueField:'login_name'},
+		                        {fieldLabel: '有效投注额',xtype:'numberfield',name:'gift.valid_credit',anchor: '95%',minValue: 0,allowBlank: false},
+		                        {fieldLabel: '礼金比例%',xtype:'numberfield',allowDecimals:true,decimalPrecision:4,minValue: 0.0001,name: 'gift.rate',anchor: '95%',
+		                        	allowBlank: false,id:"rateid"},
+		                        {id:'idfield2',fieldLabel: '礼金类型',xtype:'itemcom',groupcode:'gift_type',valueField:'itemvalue',
+		                        	name: 'gift.gift_type',anchor: '95%',allowBlank: false}]
+		            },{
+		                xtype: 'container',
+		                columnWidth:.48,
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                layout: 'anchor',
+		                items: [{fieldLabel: '存款金额',xtype:'numberfield',name:'gift.deposit_credit',anchor: '95%',minValue: 0,allowBlank: false},
+		                        {fieldLabel: '输赢金额',xtype:'numberfield',name:'gift.net_credit',anchor: '95%',minValue: 0,allowBlank: false},
+		                        {fieldLabel: '实际派彩',xtype:'numberfield',name:'gift.payout',anchor: '95%',minValue: 0.0001,allowBlank: false}]
+		            },{xtype:'hidden',name:'kact'},{xtype:'hidden',name:'gift.gift_no'}
+		            ]
+		        },{fieldLabel: '申请备注',xtype:'textfield',name:'gift.remarks',anchor: '95%'}],
+		       
+		       saveConfig:{
+		    	 url:'/CashGiftApp/saveGift',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+	        
+	        var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 250,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+	        this.importWin=importWin;
+	        this.deleteWin=deleteWin;
+	        this.auditWin=auditWin;
+	        this.win=win;
+	        
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('gashgift.grid'));
+});
+</script>

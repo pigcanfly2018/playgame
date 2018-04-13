@@ -1,0 +1,236 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Func',
+        proxy: {
+            type: 'ajax',
+            url: '/FuncApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('func.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        		  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(false);
+	        		  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(false);
+	        		}else{
+        			  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(true);
+        			  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(true);
+	        		}
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    delconfig:{
+	    	url:'/FuncApp/deleteFunc',
+	    	tip:'你确定要删除你选择的功能么?',
+	    	idcode:'funccode'
+	    },
+	    addconfig:{
+	       title:'新增功能',
+	       proFn:function(win,form){
+	   		   win.down('#idfield').setReadOnly(false);
+	       }
+	    },
+	    updateconfig:{
+	       proFn:function(select,win,form){
+	    	   var data={
+	    	 			kact:'2',  
+	    	 			"func.funccode":select.get('funccode'),
+	    	 			"func.funcname":select.get('funcname'),
+	    	 			"func.pfunccode":select.get('pfunccode'),
+	    	 			"func.isgroup":select.get('isgroup'),
+	    	 			"func.isbut":select.get('isbut'),
+	    	 			"func.icon":select.get('icon'),
+	    	 			"func.url":select.get('url')
+	    	 		  };
+   	 		  form.getForm().setValues(data);
+   	 		  win.down('#idfield').setReadOnly(true);
+   	 		  win.setTitle("修改功能:"+select.get('funcname'));
+	       }
+	    },
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '添加',
+		    	handler:JBApp.addFn
+		    	},
+		    	{
+		    	  xtype: 'button', 
+		    	  iconCls:'icon-update',
+		    	  text: '修改',
+		    	  disabled:true,
+		    	  itemId:'updatebtn',
+		    	  handler:JBApp.updateFn
+	    	   },
+	    	   {
+	        	 xtype: 'button', 
+	        	 iconCls:'icon-delete',
+	        	 text:'删除',
+	        	 disabled:true,
+	        	 itemId:'deletebtn',
+	        	 handler:JBApp.deleteFn
+		        },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	        	    text: '条目',
+	        	    width    : 50,
+	                xtype: 'rownumberer'
+	            }, {
+	        	    text     : '功能编号',
+	        	    locked   : true,
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'funccode'
+	        	},{
+	        	    text     : '功能名称',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'funcname'
+	        	},{
+	        	    text     : '父功能编号',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'pfunccode'
+	        	},{
+	        	    text     : '是否功能组',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'isgroup'
+	        	},{
+	        	    text     : '是否按钮',
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'isbut'
+	        	},{
+	        	    text     : 'URL',
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'url'
+	        	},{
+	        	    text     : '创建人',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'createuser'
+	        	},{
+	        	    text     : '创建时间',
+	        	    width    : 140,
+	        	    sortable : false,
+	        	    dataIndex: 'createdate'
+	        	},{
+	        	    text     : 'Icon',
+	        	    width    : 140,
+	        	    sortable : false,
+	        	    dataIndex: 'icon'
+	        	}];
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype: 'container',
+		            anchor: '100%',
+		            layout:'column',
+		            bodyStyle:'margin:5px 5px 5px 5px',
+		            items:[{
+		                xtype: 'container',
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                columnWidth:.48,
+		                layout: 'anchor',
+		                items: [{itemId:'idfield',fieldLabel: '功能编码',xtype:'textfield',name: 'func.funccode',anchor: '95%'},
+		                        {fieldLabel: '父功能编码',xtype:'treecom',name: 'func.pfunccode',anchor: '95%'},
+		                        {fieldLabel: '是否按钮',xtype:'textfield',name: 'func.isbut',anchor: '95%'},
+		                        {fieldLabel: 'URL',xtype:'textfield',name: 'func.url',anchor: '95%'}]
+		            },{
+		                xtype: 'container',
+		                columnWidth:.48,
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                layout: 'anchor',
+		                items: [{fieldLabel: '功能名字',xtype:'textfield',name:'func.funcname',anchor: '95%'},
+		                        {fieldLabel: '是否功能组',xtype:'textfield',name: 'func.isgroup',anchor: '95%'},
+		                        {fieldLabel: '图标',xtype:'textfield',name: 'func.icon',anchor: '95%'}]
+		            },{xtype:'hidden',name:'kact'}]
+		        }],
+		       saveConfig:{
+		    	 url:'/FuncApp/saveFunc',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 220,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		
+		 this.win=win;
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('func.grid'));
+});
+</script>

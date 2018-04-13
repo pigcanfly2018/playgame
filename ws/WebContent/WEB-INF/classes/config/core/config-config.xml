@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+   <interface>
+		<id><![CDATA[query_config_status]]></id>
+		<name><![CDATA[查询系统状态信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select count(1) from ws_config where config_name = ? and config_value= ? and product = ?
+         ]]></statement>
+		<reqen><![CDATA[config_name|config_value|product]]></reqen>
+		<reqcn><![CDATA[配置项|配置值|产品]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否存在(boolean)]]></replycn>
+		<datasource><![CDATA[wsdata]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[查询系统状态信息]]></explain>
+	</interface>
+
+</config>

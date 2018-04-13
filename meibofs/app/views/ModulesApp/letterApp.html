@@ -1,0 +1,300 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Letter',
+        proxy: {
+            type: 'ajax',
+            url: '/LetterApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('letter.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        		  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(false);
+	        		  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(false);
+	        		}else{
+        			  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(true);
+        			  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(true);
+	        		}
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    delconfig:{
+	    	url:'/LetterApp/deleteLetter',
+	    	tip:'你确定要删除你选择的站内信么?',
+	    	idcode:'letter_id'
+	    },
+	    addconfig:{
+	       title:'新增站内信',
+	       proFn:function(win,form){
+	    	   var data={
+	    			    kact:'1',  
+	    	 			"letter.is_public":'true',
+	    	 			"letter.read_flag":'false',
+	    	 		  };
+  	 		  form.getForm().setValues(data);
+	       }
+	    },
+	    updateconfig:{
+	       proFn:function(select,win,form){
+	    	   var data={
+	    	 			kact:'2',  
+	    	 			"letter.title":select.get('title'),
+	    	 			"letter.content":select.get('content'),
+	    	 			"letter.is_public":select.get('is_public'),
+	    	 			"letter.read_flag":select.get('read_flag'),
+	    	 			"letter.user":select.get('login_name'),
+	    	 			"letter.letter_id":select.get('letter_id')
+	    	 		  };
+   	 		  form.getForm().setValues(data);
+   	 		  win.setTitle("修改公告:"+select.get('title'));
+	       }
+	    },
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '添加',
+		    	handler:JBApp.addFn
+		    	},
+		    	{
+		    	  xtype: 'button', 
+		    	  iconCls:'icon-update',
+		    	  text: '修改',
+		    	  disabled:true,
+		    	  itemId:'updatebtn',
+		    	  handler:JBApp.updateFn
+	    	   },
+	    	   {
+	        	 xtype: 'button', 
+	        	 iconCls:'icon-delete',
+	        	 text:'删除',
+	        	 disabled:true,
+	        	 itemId:'deletebtn',
+	        	 handler:JBApp.deleteFn
+		        },{
+			    	iconCls:'icon-delete',
+			    	text: '批量删除',
+			    	
+			    	handler:function(){
+			    		this.up('grid').deleteWin.show();
+			    	}
+		    	},'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	        	    text     : '标题',
+	        	    width    : 380,
+	        	    sortable : false,
+	        	    dataIndex: 'title'
+	        	},{
+	        	    text     : '收信人',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'login_name'
+	        	},{
+	        	    text     : '是否发布',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'is_public',
+	        	    renderer:function(v){
+	        	    	if('true'==v){
+	        	    		return '<span style="color:green">已发布</span>';
+	        	    	}else{
+	        	    		return '<span style="color:red">未发布</span>';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : '是否已读',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'read_flag',
+	        	    renderer:function(v){
+	        	    	if('true'==v){
+	        	    		return '<span style="color:green">已读</span>';
+	        	    	}else{
+	        	    		return '<span style="color:red">未读</span>';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : '阅读时间',
+	        	    width    : 140,
+	        	    sortable : false,
+	        	    dataIndex: 'read_date'
+	        	},{
+	        	    text     : '创建时间',
+	        	    width    : 140,
+	        	    sortable : false,
+	        	    dataIndex: 'create_date'
+	        	},{
+	        	    text     : '批次号',
+	        	    width    : 140,
+	        	    sortable : false,
+	        	    dataIndex: 'letter_code'
+	        	}];
+	        
+	   var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype: 'container',
+		            anchor: '100%',
+		            layout:'column',
+		            bodyStyle:'margin:5px 5px 5px 5px',
+		            items:[{
+		                xtype: 'container',
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                columnWidth:.64,
+		                layout: 'anchor',
+		                items: [{itemId:'idfield',fieldLabel: '标题',xtype:'textfield',name: 'letter.title',anchor: '95%'},
+		                        {fieldLabel: '接收人',xtype:'textfield',name: 'letter.user',anchor: '95%'},
+		                        {fieldLabel: '客户等级',xtype:'itemcom',groupcode:'cust_level',valueField:'itemvalue',name: 'letter.letter_code',anchor: '95%'}
+		                       ]
+		            },{
+		                xtype: 'container',
+		                columnWidth:.36,
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                layout: 'anchor',
+		                items: [{fieldLabel: '是否已读',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name: 'letter.read_flag',anchor: '95%'},
+		                        {fieldLabel: '是否发布',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name: 'letter.is_public',anchor: '95%'}]
+		            },{xtype:'hidden',name:'kact'},{xtype:'hidden',name:'letter.letter_id'}]
+		        },
+		        {fieldLabel: '内容',xtype:'textareafield',height:150,allowBlank: false,anchor: '97%',name:'letter.content'}],
+		       saveConfig:{
+		    	 url:'/LetterApp/saveLetter',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 800,
+	            height: 320,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		 
+		 var deleteForm=Ext.create('Ext.form.Panel', {
+	            bodyPadding: 10,
+	            items: [{
+	                xtype: 'textfield',
+	                name: 'letter_code',
+	                fieldLabel: '批次号',
+	                labelWidth: 80,
+	                msgTarget: 'side',
+	                allowBlank: false,
+	                anchor: '100%'
+	            }],
+	            buttons: [{
+	                text: '批量删除',
+	                handler: function() {
+	                    var form = this.up('form').getForm();
+	                    if(form.isValid()){
+	                        form.submit({
+	                            url: '/LetterApp/batchDelete',
+	                            type:'ajax',
+	                            waitMsg: '正在保存文件...',
+	                            success: function(fp, action) {
+	                              Ext.Msg.alert('保存成功', action.result.message);
+	                              form.findField('letter_code').setRawValue('');
+	                              deleteForm.up('window').hide();
+	                              store.reload();
+	                            },
+	                            failure: function(form, action) {
+	                                Ext.Msg.alert('删除失败', action.result.message);
+	                            }
+	                        });
+	                    }
+	                }
+	            }]
+	        });
+		 
+		 var deleteWin=Ext.create('widget.window', {
+	            title: '批量删除站内信',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 150,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [deleteForm],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		 
+		 this.win=win;
+		 this.deleteWin=deleteWin;
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('letter.grid'));
+});
+</script>

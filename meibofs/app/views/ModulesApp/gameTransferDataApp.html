@@ -1,0 +1,150 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'GameTransferData',
+        proxy: {
+            type: 'ajax',
+            url: '/GameTransferDataApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	
+	
+	var statusStore = Ext.create("Ext.data.Store", {
+	    fields: ["Name", "Value"],
+	    data: [
+			{ Name: "全部", Value: ""},
+	        { Name: "成功", Value: "1"},
+	        { Name: "失败", Value: "2"},
+	        { Name: "异常", Value: "3"}
+	    ]
+	});
+	
+	var tabId='${tabId}';
+	Ext.define('TransferLog.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    tbar:['->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '状态:',{
+		              xtype: "combobox",
+		              name: "status",
+		              id:"status",
+		              store: statusStore,
+		              editable: false,
+		              displayField: "Name",
+		              valueField: "Value",
+		              emptyText: "--请选择--",
+		              queryMode: "local"
+		          },
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryWithstatusFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryWithstatusResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	    	 this.columns = [{
+		    	    text     : '单号',
+		    	    width    : 180,
+		    	    sortable : false,
+		    	    dataIndex: 'bill_no'
+		    	},{
+		    	    text     : '创建时间',
+		    	    width    : 90,
+		    	    sortable : false,
+		    	    dataIndex: 'create_date',
+		    	    renderer:Ext.util.Format.dateRenderer('m/d H:i')
+		    	},{
+		    	    text     : '用户名',
+		    	    width    : 100,
+		    	    sortable : false,
+		    	    dataIndex: 'game_name'
+		    	},{
+		    	    text     : '转入/转出',
+		    	    width    : 150,
+		    	    sortable : false,
+		    	    dataIndex: 'direct'
+		    	},{
+		    	    text     : '平台',
+		    	    width    : 100,
+		    	    sortable : false,
+		    	    dataIndex: 'plat'
+		    	},{
+		    	    text     : '转账金额',
+		    	    width    : 80,
+		    	    sortable : false,
+		    	    dataIndex: 'credit',
+		    	    renderer:function(val){
+		    	    	if(val>0){
+		    	    		return '<span style="color:green">'+val+'</span>';
+		    	    	}
+		    	    	return '<span style="color:red">'+val+'</span>';
+		    	    }
+		    	},{
+		    	    text     : '状态',
+		    	    width    : 100,
+		    	    sortable : false,
+		    	    dataIndex: 'flag',
+		    	    renderer : JBApp.renderer.transferLogflag
+		    	},{
+		    	    text     : '完成时间',
+		    	    width    : 120,
+		    	    sortable : false,
+		    	    dataIndex: 'finish_date',
+		    	    renderer:Ext.util.Format.dateRenderer('m/d H:i')
+		    	},{
+		    	    text     : '账变记录单号',
+		    	    width    : 240,
+		    	    sortable : false,
+		    	    dataIndex: 'ref_order_no'
+		    	}];
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('TransferLog.grid'));
+});
+</script>

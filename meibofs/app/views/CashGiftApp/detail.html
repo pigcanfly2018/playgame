@@ -1,0 +1,77 @@
+<style>
+  .desposit_table{
+    font-size:12px;
+    font-weight:bolder;
+    color:black;
+  }
+  .desposit_table_title{
+   font-weight:bolder;
+   text-align:right;
+   color:#666666;
+   width:120px
+  }
+  .desposit_table_value{
+    
+  }
+  .desposit_table td{
+   text-align:left;
+  }
+</style>
+<div>
+<table class="desposit_table">
+   <tr>
+      <td class="desposit_table_title">礼金日期:</td>
+      <td style="width:130px;border-bottom:solid #000 1px;">${rd.date(gift.cs_date,'MM/dd HH:mm')}</td>
+      <td class="desposit_table_title">上传编号:</td>
+      <td style="width:140px;border-bottom:solid #000 1px;">${gift.gift_code}</td>
+      <td class="desposit_table_title">礼单类型:</td>
+      <td style="width:200px;font-size:18px;font-weight:bolder;color:red;">${gift.gift_type}</td>
+   </tr>
+    <tr>
+      <td class="desposit_table_title">用户名:</td>
+      <td style="border-bottom:solid #000 1px;">${gift.login_name}</td>
+      <td class="desposit_table_title">客户姓名:</td>
+      <td style="border-bottom:solid #000 1px;">${gift.real_name}</td>
+      <td class="desposit_table_title">客户等级:</td>
+      <td style="border-bottom:solid #000 1px;">${gift.cust_level}</td>
+   </tr>
+    <tr>
+      <td class="desposit_table_title">开户时间:</td>
+      <td style="border-bottom:solid #000 1px;">${rd.date(gift.kh_date,'yyyy/MM/dd')}</td>
+      <td class="desposit_table_title">派彩额度:</td>
+      <td style="font-size:18px;font-weight:bolder;color:red">${gift.payout}</td>
+      <td class="desposit_table_title">当前状态:</td>
+      <td style="border-bottom:solid #000 1px;">${rd.dictName('gift_flag',gift.status)}</td>
+   </tr>
+   <tr>
+      <td class="desposit_table_title">有效投注额:</td>
+      <td style="border-bottom:solid #000 1px;">${gift.valid_credit}</td>
+      <td class="desposit_table_title">输赢额度:</td>
+      <td style="border-bottom:solid #000 1px;">${gift.net_credit}</td>
+      <td class="desposit_table_title">礼金比例%:</td>
+      <td style="border-bottom:solid #000 1px;">${gift.rate}</td>
+   </tr>
+     <tr>
+      <td class="desposit_table_title">申请备注:</td>
+      <td colspan="5" style="border-bottom:solid #000 1px;">${gift.remarks}</td>
+   </tr>
+   <tr>
+      <td class="desposit_table_title">提交人员:</td>
+      <td style="border-bottom:solid #000 1px;">${gift.create_user}</td>
+      <td class="desposit_table_title">审核时间:</td>
+      <td style="border-bottom:solid #000 1px;">${rd.date(gift.audit_date,'MM/dd HH:mm:ss')}</td>
+      <td class="desposit_table_title">审核人员:</td>
+      <td style="border-bottom:solid #000 1px;">${gift.audit_user}</td>
+   </tr>
+   <tr>
+      <td class="desposit_table_title">存款金额:</td>
+      <td style="border-bottom:solid #000 1px;">${gift.deposit_credit}</td>
+      <td class="desposit_table_title"></td>
+      <td colspan=3></td>
+   </tr>
+    <tr>
+      <td class="desposit_table_title">审核备注:</td>
+      <td colspan="5" style="border-bottom:solid #000 1px;">${gift.audit_msg}</td>
+   </tr>
+</table>
+</div>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	<interface>
+		<id><![CDATA[cfp_pay_8d]]></id>
+		<name><![CDATA[生成畅付订单]]></name>
+		<type>ChangFuPay</type>
+		<service>pay</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|amount|payType|customer_ip|product|return_url]]></reqen>
+		<reqcn><![CDATA[用户名|存款金额|银行代码|IP|产品|访问地址]]></reqcn>
+		<replyen><![CDATA[ok|orderid|message|money|sign|ext|userid|submit_value|url|bankid|sign2]]></replyen>
+		<replycn><![CDATA[成功标识|商户订单号|信息|金额|签名|备注用户名|商户ID|提交地址|异步通知地址|bankid|签名数据2]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[畅付支付]]></explain>
+	</interface>
+	
+	
+	<interface>
+		<id><![CDATA[cfp_notify_8d]]></id>
+		<name><![CDATA[畅付提醒]]></name>
+		<type>ChangFuPay</type>
+		<service>notify</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[userid|money|orderid|returncode|sign2|sign|ext|product]]></reqen>
+		<reqcn><![CDATA[商户号|交易金额|订单号|应答码|签名2|签名|参数|产品]]></reqcn>
+		<replyen><![CDATA[ok|message]]></replyen>
+		<replycn><![CDATA[ok|信息]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[畅付提醒]]></explain>
+	</interface>
+	
+	
+</config>

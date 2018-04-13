@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	
+	<interface>
+		<id><![CDATA[notices_8d]]></id>
+		<name><![CDATA[公告 - 列表]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select notice_id,title,content,create_date from mb_notice  where available is  true AND DATE(NOW()) BETWEEN DATE(start_date) AND DATE(end_date) order by priority desc
+         ]]></statement>
+		<reqen><![CDATA[]]></reqen>
+		<reqcn><![CDATA[]]></reqcn>
+		<replyen><![CDATA[notice_id|title|content|create_date]]></replyen>
+		<replycn><![CDATA[ID|标题|内容|发布时间]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[查询公告列表(2016.07.25)]]></explain>
+	</interface>
+	
+	<interface> <!-- discount_id,title,s_url,summary,releaser,releaser_date,category,is_new,start_date,end_date -->
+		<id><![CDATA[discounts_all_8d]]></id>
+		<name><![CDATA[优惠列表-全部]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select 
+			    discount_id,title,s_url,summary,start_date,end_date
+			from  mb_discount 
+			where 
+			    available is true AND DATE(NOW()) BETWEEN DATE(start_date) AND DATE(end_date)
+			order by priority desc
+         ]]></statement>
+		<reqen><![CDATA[category]]></reqen>
+		<reqcn><![CDATA[类别]]></reqcn>
+	    <replyen><![CDATA[discount_id|title|s_url|summary|start_date|end_date]]></replyen>
+		<replycn><![CDATA[ID|标题|小图地址|摘要|类别|是否最新|开始日期|结束时间]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[查询优惠列表-全部(2016.07.27)]]></explain>
+	</interface>
+	
+	<!-- select 
+			    discount_id,title,s_url,b_url,summary,releaser,releaser_date,category,start_date,end_date,is_new,is_hot,content
+			from  mb_discount 
+			where 
+			    discount_id =#discount_id#  and available is true 
+			order by priority desc -->
+	<interface>
+		<id><![CDATA[discount_one_8d]]></id>
+		<name><![CDATA[优惠-详细]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select 
+			    discount_id,title,s_url,summary,content
+			from  mb_discount 
+			where 
+			    discount_id =#discount_id#  and available is true 
+			order by priority desc
+         ]]></statement>
+		<reqen><![CDATA[discount_id]]></reqen>
+		<reqcn><![CDATA[ID]]></reqcn>
+	    <replyen><![CDATA[discount_id|title|s_url|summary|content]]></replyen>
+		<replycn><![CDATA[ID|标题|小图地址|总结|内容]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[查询优惠详细内容(2016.07.25)]]></explain>
+	</interface>
+	<interface>
+		<id><![CDATA[ad_list_8d]]></id>
+		<name><![CDATA[首页推广图片]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			SELECT pic_url,target_url FROM mb_ad WHERE available=1 AND start_date<=NOW() 
+			AND NOW()<=end_date AND mobile_flag =1 ORDER BY priority
+         ]]></statement>
+		<reqen><![CDATA[]]></reqen>
+		<reqcn><![CDATA[pic_url|target_url]]></reqcn>
+	    <replyen><![CDATA[pic_url|target_url]]></replyen>
+		<replycn><![CDATA[图片路径|跳转地址]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[查询首页推广图片(2017.05.28)]]></explain>
+	</interface>
+</config>

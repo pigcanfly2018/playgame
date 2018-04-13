@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	<interface>
+		<id><![CDATA[notice_list_8d]]></id>
+		<name><![CDATA[查询网站的通知]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		select notice_id,title,content,start_date
+		from  mb_notice 
+        where now()>=start_date and now()<=end_date and available =1 
+        order by priority desc]]></statement>
+		<reqen><![CDATA[]]></reqen>
+		<reqcn><![CDATA[]]></reqcn>
+		<replyen><![CDATA[notice_id|title|content|start_date]]></replyen>
+		<replycn><![CDATA[通知ID|标题|内容|发布时间]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[查询网站的通知]]></explain>
+	</interface>
+</config>

@@ -1,0 +1,289 @@
+<script>
+var customerRole={};
+#{sb.role user:userName,fcode:'F050601'}
+customerRole['F050601']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F050602'}
+customerRole['F050602']=${_flag};
+#{/sb.role}
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Sharemodify',
+        proxy: {
+            type: 'ajax',
+            url: '/SharemodifyApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('creditfix.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        			var s=selected[0];
+	        			if(s.get("status")=="1"){
+		        		    Ext.getCmp('grid_${tabId}').down("#detailbtn").setDisabled(false);
+		        		    Ext.getCmp('grid_${tabId}').down("#giveupbtn").setDisabled(false);
+		        		    Ext.getCmp('grid_${tabId}').down("#auditbtn").setDisabled(false);
+	        			}
+	        		    Ext.getCmp('grid_${tabId}').down("#detailbtn").setDisabled(false);
+
+	        		}else{
+	        			Ext.getCmp('grid_${tabId}').down("#detailbtn").setDisabled(true);
+	        			Ext.getCmp('grid_${tabId}').down("#giveupbtn").setDisabled(true);
+	        			Ext.getCmp('grid_${tabId}').down("#auditbtn").setDisabled(true);
+	        			Ext.getCmp('grid_${tabId}').down("#detailbtn").setDisabled(true);
+	        		}
+	        	}
+	        }
+	    },
+	    autoHeight:true,
+	    addconfig:{
+		       title:'代理分成修改',
+		       proFn:function(win,form){
+		   		  // win.down('#idfield').setReadOnly(false);
+		       }
+		    },
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '添加',
+		    	hidden:!customerRole['F050601'],
+		    	handler:JBApp.addFn
+	    	},{
+	        	   xtype: 'button', 
+	        	   iconCls:'icon-giveup',
+	        	   text:'废除',
+	        	   disabled:true,
+	        	   itemId:'giveupbtn',
+	        	   handler:function(){
+	        			var select = this.up('grid').getSelectionModel().getSelection();
+	        			if (select.length != 1) {
+	        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+	        				return;
+	        			}
+	        		   var w=Ext.create('Ext.app.Billactionwin', {
+	        			    renderTo:'${tabId}',
+	        			    fstitle:'分成修改信息',
+	        			    msg:'你确定废除该分成修改提案吗?',
+	        			    title:'废除分成修改提案',
+	        			    htmlHeight:140,
+	        			    width:600,
+	        			    height:380,
+	        			    url:'/SharemodifyApp/detail?id='+select[0].get('modify_id'),
+	        			    act:'/SharemodifyApp/cancle?id='+select[0].get('modify_id'),
+	        			    cb:function(){
+	        				   store.reload();
+	        			    }
+	        			   }).show();
+	        	          }
+				        },{
+		        	    xtype: 'button', 
+			        	iconCls:'icon-auditing',
+			        	text:'审核',
+			        	disabled:true,
+			        	hidden:!customerRole['F050602'],
+			        	itemId:'auditbtn',
+			        	handler:function(){
+			        		   var select = this.up('grid').getSelectionModel().getSelection();
+			        			if (select.length != 1) {
+			        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+			        				return;
+			        			}
+			        			 var w=Ext.create('Ext.app.Billauditwin', {
+				        			    renderTo:'${tabId}',
+				        			    fstitle:'提款提案信息',
+				        			    title:'审核提款提案',
+				        			    url:'/SharemodifyApp/detail?id='+select[0].get('modify_id'),
+				        			    act:'/SharemodifyApp/audit?id='+select[0].get('modify_id'),
+				        			    cb:function(){
+				        				   store.reload();
+				        			    },
+				        			    htmlHeight:140,
+				        			    width:600,
+				        			    height:380,
+				        			   }).show();
+			        	   }
+				     },{
+			        	    xtype: 'button', 
+				        	iconCls:'icon-log',
+				        	text:'提案明细',
+				        	disabled:true,
+				        	itemId:'detailbtn',
+				        	handler:function(){
+				        		   var select = this.up('grid').getSelectionModel().getSelection();
+				        			if (select.length != 1) {
+				        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+				        				return;
+				        			}
+				        		   var w=Ext.create('Ext.app.Billinfowin', {
+				        			    renderTo:'${tabId}',
+				        			    htmlHeight:180,
+				        			    width:600,
+				        			    height:320,
+				        			    title:'额度修正信息',
+				        			    url:'/SharemodifyApp/detail?id='+select[0].get('modify_id'),
+				        			    act:'/SharemodifyApp/audit?id='+select[0].get('modify_id'),
+				        			    cb:function(){
+				        				   store.reload();
+				        			    }
+				        			   }).show();
+				        	   }
+					     },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	    	    text     : '创建时间',
+	    	    width    : 90,
+	    	    sortable : false,
+	    	    dataIndex: 'create_date',
+	    	    renderer:Ext.util.Format.dateRenderer('m/d H:i')
+	    	},{
+	    	    text     : '修改单号',
+	    	    width    : 170,
+	    	    sortable : false,
+	    	    dataIndex: 'modify_no'
+	    	},{
+	    	    text     : '用户名',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'login_name'
+	    	},{
+	    	    text     : '修改前分成',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'share_before'
+	    	},{
+	    	    text     : '修改后分成',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'share_after'
+	    	},{
+	    	    text     : '状态',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'status',
+	    	    renderer : JBApp.renderer.fix_status 
+	    	},{
+	    	    text     : '备注',
+	    	    width    : 200,
+	    	    sortable : false,
+	    	    dataIndex: 'remarks'
+	    	},{
+	    	    text     : '操作人',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'create_user'
+	    	},{
+	    	    text     : '审核人',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    dataIndex: 'audit_user'
+	    	},{
+	    	    text     : '审核日期',
+	    	    width    : 130,
+	    	    sortable : false,
+	    	    dataIndex: 'audit_date',
+	    	    renderer:Ext.util.Format.dateRenderer('m/d H:i')
+	    	}];
+	     this.callParent();
+	     var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [
+		            {fieldLabel: '用户名',xtype:'newagentcom',name: 'mod.login_name',valueField:'login_name',allowBlank: false,anchor: '95%',
+		            	listeners:{
+					    	 select:function(field,records,index){
+					    	    if(records){
+					    	      	var r=records[0];
+					    	      	//alert(r.get('share'));
+					    	    	 var cust={
+					    	    			"mod.login_name":r.get('login_name'),
+						        			"mod.share_before":r.get('share')
+							    	 };
+					    	    	form.getForm().setValues(cust);
+							    }
+					    	  }
+					        }},
+                	{fieldLabel: '修改前分成',xtype:'numberfield',name: 'mod.share_before',allowBlank: false,anchor: '95%'},
+                	{fieldLabel: '修正后分成',xtype:'numberfield',name:'mod.share_after',allowBlank: false,anchor: '95%'},
+                	{xtype:'hidden',name:'kact'},
+                	{fieldLabel: '备注',xtype:'textfield',name:'mod.remarks',anchor: '96%',allowBlank: false}],
+		       saveConfig:{
+		    	 url:'/SharemodifyApp/saveSharemodify',
+		    	 store:store
+		       },
+            buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	     {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+         });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 400,
+	            height: 250,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		 this.win=win;
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('creditfix.grid'));
+});
+</script>

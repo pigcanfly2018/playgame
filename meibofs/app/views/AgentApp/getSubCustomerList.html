@@ -1,0 +1,42 @@
+<style>
+  .desposit_table{
+    font-size:12px;
+    font-weight:bolder;
+    color:black;
+  }
+  .desposit_table_title{
+   font-weight:bolder;
+   text-align:right;
+   color:#666666;
+   width:150px
+  }
+  .desposit_table_value{
+    
+  }
+</style>
+<div>
+<p>下线基本信息</p>
+<table class="desposit_table" style="margin-top:10px;margin-left:10px;">
+   <tr style="backgroud-color:#FFCCFF">
+      <td class="desposit_table_title" style="width:120px;text-align:left">用户名</td>
+      <td class="desposit_table_title" style="width:120px;text-align:left">用户额度</td>
+      <td class="desposit_table_title" style="width:120px;text-align:left">注册时间</td>
+      <td class="desposit_table_title" style="width:220px;text-align:left">上次登录时间</td>
+      <td class="desposit_table_title" style="width:120px;text-align:left">用户状态</td>
+   </tr>
+   #{list customerList, as:'customer' }
+    <tr>
+      <td>${customer.login_name}</td>
+      <td>${customer.credit}</td>
+      <td>${rd.date(customer.create_date,'MM/dd HH:mm:ss')}</td>
+      <td>${rd.date(customer.login_date,'MM/dd HH:mm:ss')}</td>
+      <td>#{if customer.flag==false} 
+                        冻结
+                   	#{/if}#{if customer.flag==true} 
+                        正常
+                   	#{/if}</td>
+    </tr>
+    #{/list}
+
+</table>
+</div>

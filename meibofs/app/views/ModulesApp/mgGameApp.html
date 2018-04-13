@@ -1,0 +1,331 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'MgGame',
+        proxy: {
+            type: 'ajax',
+            url: '/MGGameApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 300,
+        autoLoad: {start: 0, limit:300}
+        });
+	var tabId='${tabId}';
+	Ext.define('ptGame.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        		  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(false);
+	        		  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(false);
+	        		}else{
+        			  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(true);
+        			  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(true);
+	        		}
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    delconfig:{
+	    	url:'/MGGameApp/deleteMgGame',
+	    	tip:'你确定要删除你选择的MG游戏么?',
+	    	idcode:'mg_id'
+	    },
+	    addconfig:{
+	       title:'新增MG游戏',
+	       proFn:function(win,form){
+	   		   
+	       }
+	    },
+	    updateconfig:{
+	       proFn:function(select,win,form){
+	    	   var data={
+	    	 			kact:'2',  
+	    	 			"mg.GameName":select.get('GameName'),
+	    	 			"mg.GameCode":select.get('GameCode'),
+	    	 			"mg.Category":select.get('Category'),
+	    	 			"mg.CHINESE_SIMP_Game_Name":select.get('CHINESE_SIMP_Game_Name'),
+	    	 			"mg.Image_File_Name":select.get('Image_File_Name'),
+	    	 			"mg.enable":select.get('enable'),
+	    	 			"mg.is_hot":select.get('is_hot'),
+	    	 			"mg.is_new":select.get('is_new'),
+	    	 			"mg.is_html5":select.get('is_html5'),
+	    	 			"mg.sortpriority":select.get('sortpriority'),
+	    	 			"mg.is_pchtml5":select.get('is_pchtml5'),
+	    	 			"mg.pchtml5code":select.get('pchtml5code'),
+	    	 			"mg.mobilehtml5code":select.get('mobilehtml5code'),
+	    	 			"mg.mg_id":select.get('mg_id')
+	    	 		  };
+   	 		  form.getForm().setValues(data);
+   	 		if('true'==select.get('is_html5')){
+    			Ext.getCmp('mobilehtml5code').show();
+    		}else{
+    			Ext.getCmp('mobilehtml5code').hide();
+    		}
+   	 		
+   	 	if('true'==select.get('is_pchtml5')){
+			Ext.getCmp('pchtml5code').show();
+		}else{
+			Ext.getCmp('pchtml5code').hide();
+		}
+   	 		  win.setTitle("修改MG游戏:"+select.get('CHINESE_SIMP_Game_Name'));
+	       }
+	    },
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '添加',
+		    	handler:JBApp.addFn
+		    	},
+		    	{
+		    	  xtype: 'button', 
+		    	  iconCls:'icon-update',
+		    	  text: '修改',
+		    	  disabled:true,
+		    	  itemId:'updatebtn',
+		    	  handler:JBApp.updateFn
+	    	   },
+	    	   {
+	        	 xtype: 'button', 
+	        	 iconCls:'icon-delete',
+	        	 text:'删除',
+	        	 disabled:true,
+	        	 itemId:'deletebtn',
+	        	 handler:JBApp.deleteFn
+		        },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	        	    text     : '游戏名字',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'GameName'
+	        	},{
+	        	    text     : '中文名',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'CHINESE_SIMP_Game_Name'
+	        	},{
+	        	    text     : '游戏类别',
+	        	    sortable: true,
+	        	    width    : 100,
+	        	    dataIndex: 'Category'
+	        	},{
+	        	    text     : '游戏代码',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'GameCode'
+	        	},{
+	        	    text     : '图片文件',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'Image_File_Name'
+	        	},{
+	        	    text     : '是否可用',
+	        	    sortable: true,
+	        	    width    : 80,
+	        	    dataIndex: 'enable',
+	        	    renderer:function(v){
+	        	    	if('true'==v){
+	        	    		return '<span style="color:green">有效</span>';
+	        	    	}else{
+	        	    		return '<span style="color:red">未有效</span>';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : '是否热门',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    sortable: true,
+	        	    dataIndex: 'is_hot',
+	        	    renderer:function(v){
+	        	    	if('true'==v){
+	        	    		return '<span style="color:green">热门</span>';
+	        	    	}else{
+	        	    		return '';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : '是否最新',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    sortable: true,
+	        	    dataIndex: 'is_new',
+	        	    renderer:function(v){
+	        	    	if('true'==v){
+	        	    		return '<span style="color:green">新游戏</span>';
+	        	    	}else{
+	        	    		return '';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : '是否支持html5',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    sortable: true,
+	        	    dataIndex: 'is_html5',
+	        	    renderer:function(v){
+	        	    	if('true'==v){
+	        	    		return '<span style="color:green">支持</span>';
+	        	    	}else{
+	        	    		return '';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : '排序顺序',
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'sortpriority'
+	        	},{
+	        	    text     : '支持PChtml5',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'is_pchtml5'
+	        	},{
+	        	    text     : 'pchtml5code',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'pchtml5code'
+	        	},{
+	        	    text     : 'mobilehtml5code',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'mobilehtml5code'
+	        	}];
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype: 'container',
+		            anchor: '100%',
+		            layout:'column',
+		            bodyStyle:'margin:5px 5px 5px 5px',
+		            items:[{
+		                xtype: 'container',
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                columnWidth:.48,
+		                layout: 'anchor',
+		                items: [{itemId:'idfield',fieldLabel: '游戏名称',xtype:'textfield',name: 'mg.GameName',anchor: '95%'},
+		                        {fieldLabel: '游戏类别',xtype:'textfield',name:'mg.Category',anchor: '95%'},
+		                        {fieldLabel: '图片文件',xtype:'textfield',name:'mg.Image_File_Name',anchor: '95%'},
+		                        {fieldLabel: '是否热门',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name:'mg.is_hot',anchor: '95%'},
+		                        {fieldLabel: '是否html5',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name:'mg.is_html5',
+		                        	listeners:{
+		                        	    select:function(w){
+		                        	    	
+		                        	    	var value=w.getValue();
+		                        	    	
+		                        	    	if('true'==value){
+		                        	    		Ext.getCmp('mobilehtml5code').show();
+		                        	    	}else{
+		                        	    		
+		                        	    		Ext.getCmp('mobilehtml5code').hide();
+		                        	    	}
+		                        	    }
+		                        	},
+		                        	anchor: '95%'},
+		                        	{fieldLabel: '手机HTML5游戏代码',xtype:'textfield',name: 'mg.mobilehtml5code',id:'mobilehtml5code',anchor: '95%',hidden:'true'}]
+		            },{
+		                xtype: 'container',
+		                columnWidth:.48,
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                layout: 'anchor',
+		                items: [{fieldLabel: '中文名称',xtype:'textfield',name: 'mg.CHINESE_SIMP_Game_Name',anchor: '95%'},
+		                        {fieldLabel: '游戏代码',xtype:'textfield',name: 'mg.GameCode',anchor: '95%'},
+		                        {fieldLabel: '是否可用',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name:'mg.enable',anchor: '95%'},
+		                        {fieldLabel: '是否最新',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name:'mg.is_new',anchor: '95%'},
+		                        {fieldLabel: '排序顺序',xtype:'textfield',name: 'mg.sortpriority',anchor: '95%'},
+		                        {fieldLabel: '是否PChtml5',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name:'mg.is_pchtml5',
+		                        	listeners:{
+		                        	    select:function(w){
+		                        	    	
+		                        	    	var value=w.getValue();
+		                        	    	
+		                        	    	if('true'==value){
+		                        	    		Ext.getCmp('pchtml5code').show();
+		                        	    	}else{
+		                        	    		
+		                        	    		Ext.getCmp('pchtml5code').hide();
+		                        	    	}
+		                        	    }
+		                        	},
+		                        	anchor: '95%'},
+		                        	{fieldLabel: 'PCHTML5游戏代码',xtype:'textfield',name: 'mg.pchtml5code',id:'pchtml5code',anchor: '95%',hidden:'true'}]
+		            },{xtype:'hidden',name:'kact'},{xtype:'hidden',name:'mg.mg_id'}]
+		        }],
+		       saveConfig:{
+		    	 url:'/MGGameApp/saveMgGame',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 350,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		 this.win=win;
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('ptGame.grid'));
+});
+</script>

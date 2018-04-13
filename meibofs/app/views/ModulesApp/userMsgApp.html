@@ -1,0 +1,79 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'UserMsg',
+        proxy: {
+            type: 'ajax',
+            url: '/MsgApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('UserMsg.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    autoHeight:true,
+	    bbar: {
+               xtype: 'pagingtoolbar',
+               pageSize: 10,
+               store:store,
+               displayInfo: true
+         },
+	    initComponent: function () {
+	        this.columns = [{
+	                    	    text     : '消息 类型',
+	                    	    width    : 100,
+	                    	    sortable : false,
+	                    	    dataIndex: 'msg_type',
+	                    	    renderer:function(v){
+	                    	    	if(v=="1"){
+	                    	    		return "客户存款";
+	                    	    	}
+	                    	    	if(v=="2"){
+	                    	    		return "客户提款";
+	                    	    	}
+	                    	    	if(v=="3"){
+	                    	    		return "客服存款";
+	                    	    	}
+	                    	    	if(v=="4"){
+	                    	    		return "客服提款";
+	                    	    	}
+	                    	    	return v;
+	                    	    }
+	                    	},{
+	                    	    text     : '创建时间',
+	                    	    width    : 150,
+	                    	    sortable : false,
+	                    	    dataIndex: 'create_date'
+	                    	},{
+	                    	    text     : '内容',
+	                    	    width    : 530,
+	                    	    sortable : false,
+	                    	    dataIndex: 'content'
+	                    	}];
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('UserMsg.grid'));
+});
+</script>

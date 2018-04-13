@@ -1,0 +1,119 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Dinpay',
+        proxy: {
+            type: 'ajax',
+            url: '/DinpayViewApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('Dinpay.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    tbar:['->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	    	 this.columns = [{
+		    	    text     : '创建时间',
+		    	    width    : 90,
+		    	    sortable : false,
+		    	    dataIndex: 'create_date',
+		    	    renderer:Ext.util.Format.dateRenderer('m/d H:i')
+		    	},{
+		    	    text     : '用户名',
+		    	    width    : 100,
+		    	    sortable : false,
+		    	    dataIndex: 'login_name'
+		    	},{
+		    	    text     : '订单号',
+		    	    width    : 180,
+		    	    sortable : false,
+		    	    dataIndex: 'order_no'
+		    	},{
+		    	    text     : '支付金额',
+		    	    width    : 100,
+		    	    sortable : false,
+		    	    dataIndex: 'order_amount'
+		    	},{
+		    	    text     : '订单状态',
+		    	    width    : 80,
+		    	    sortable : false,
+		    	    dataIndex: 'trade_status'
+		    	},{
+		    	    text     : '银行编号',
+		    	    width    : 120,
+		    	    sortable : false,
+		    	    dataIndex: 'bank_code'
+		    	},{
+		    	    text     : '银行流水',
+		    	    width    : 150,
+		    	    sortable : false,
+		    	    dataIndex: 'bank_seq_no'
+		    	},{
+		    	    text     : '存款单号',
+		    	    width    : 150,
+		    	    sortable : false,
+		    	    dataIndex: 'dep_no'
+		    	},{
+		    	    text     : '智付单号',
+		    	    width    : 150,
+		    	    sortable : false,
+		    	    dataIndex: 'trade_no'
+		    	}];
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('Dinpay.grid'));
+});
+</script>

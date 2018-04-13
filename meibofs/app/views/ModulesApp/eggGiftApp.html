@@ -1,0 +1,221 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'EggGift',
+        proxy: {
+            type: 'ajax',
+            url: '/EggGiftApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	 var task = Ext.TaskManager.start({
+	     run: function () {
+	        store.reload();
+	     },
+	     interval: 20000
+	 });
+	var tabId='${tabId}';
+	Ext.define('egggashgift.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true,
+	        loadingText:'正在加载数据...'
+	    },
+	    listeners: {
+	    	render:function() {
+	    		Ext.TaskManager.start(task);
+	        },
+	        destroy:function() {
+	        	if(task)	Ext.TaskManager.stop(task);
+	    		
+	        }
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+		        	selectionchange:function(sm, selected, eOpts){
+		        		if(selected.length==1){
+		        			if(selected[0].get("status")==1){
+			        		    Ext.getCmp('grid_${tabId}').down("#auditBtn").setDisabled(false);
+		        			}else{
+			        			Ext.getCmp('grid_${tabId}').down("#auditBtn").setDisabled(true);
+		        			}
+		        		}else{
+		        			Ext.getCmp('grid_${tabId}').down("#auditBtn").setDisabled(true);
+		        		}
+		        	}
+	        } 
+	    },
+	    addconfig:{
+		       title:'新增礼金提案',
+		       proFn:function(win,form){
+		    	   form.getForm().setValues({
+		    		   "gift.valid_credit":0,
+		    		   "gift.gift_type":"首存",
+		    		   "gift.deposit_credit":0,
+		    		   "gift.net_credit":0
+		    	   });
+		       }
+		    },
+	    autoHeight:true,
+	    dockedItems: [{
+	        xtype: 'toolbar',
+	        dock: 'top',
+	        items: [{
+		    	xtype: 'button', 
+		    	iconCls:'icon-auditing',
+		    	text: '处理',
+		    	itemId:'auditBtn',
+		    	handler:function(){
+		    		  var select = this.up('grid').getSelectionModel().getSelection();
+	        		  if (select.length != 1) {
+	        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+	        				return;
+	        		   }
+	        		  var w=Ext.create('Ext.app.Billauditwin', {
+	        			    renderTo:'${tabId}',
+	        			    fstitle:'中奖信息',
+	        			    title:'中奖信息审核',
+	        			    url:'/EggGiftApp/detail?giftId='+select[0].get('gift_id'),
+	        			    act:'/EggGiftApp/audit?giftId='+select[0].get('gift_id'),
+	        			    cb:function(){
+	        				   store.reload();
+	        			    },
+	        			    htmlHeight:220,
+	        			    width:700,
+	        			    height:430
+	        			   }).show();
+	        	
+		    	}
+	    	},'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '处理类型:',
+	              {xtype:'textfield',itemId:'status_type'},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : function(){
+		            	var queryData = this.up('grid').down('#queryKey').getValue();
+		        		var ssdate = this.up('grid').down('#sdate').getValue();
+		        		var eedate = this.up('grid').down('#edate').getValue();
+		        		var status_type = this.up('grid').down('#status_type').getValue();
+		        		var sdate, edate;
+		        		if (ssdate) {
+		        			sdate = Ext.Date.format(new Date(ssdate), 'Y-m-d');
+		        		}
+		        		if (eedate) {
+		        			edate = Ext.Date.format(new Date(eedate), 'Y-m-d');
+		        		}
+		        		if (ssdate && eedate) {
+		        			if (sdate > edate) {
+		        				Ext.MessageBox.alert('提示信息', '开始日期不能大于结束日期!');
+		        				return;
+		        			}
+		        		}
+		        		var store = this.up('grid').getStore();
+		        		store.on('beforeload', function(store, options) {
+		        			var new_params = {
+		        				queryKey : queryData,
+		        				status_type:status_type,
+		        				sdate : sdate,
+		        				edate : edate
+		        			};
+		        			Ext.apply(store.proxy.extraParams, new_params);
+		        		});
+		        		store.load({
+		        			start : 0,
+		        			limit : 20,
+		        			page : 1
+		        		});
+		            }
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :function(){
+	            		this.up('grid').down('#queryKey').setValue("");
+	            		this.up('grid').down('#status_type').setValue("");
+	            		this.up('grid').down('#sdate').setValue("");
+	            		this.up('grid').down('#edate').setValue("");
+	                  }
+				   }]
+	    }],
+	    bbar: {
+               xtype: 'pagingtoolbar',
+               pageSize: 10,
+               store:store,
+               displayInfo: true
+         },
+	    initComponent: function () {
+	        this.columns = [{
+	    	    text     : '中奖时间',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    dataIndex: 'create_date',
+	    	    renderer:Ext.util.Format.dateRenderer('Y-m-d H:i')
+	    	},{
+	    	    text     : '中奖号码',
+	    	    width    : 170,
+	    	    sortable : false,
+	    	    dataIndex: 'gift_code'
+	    	},{
+	    	    text     : '用户名',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'login_name'
+	    	},{
+	    	    text     : '奖品名称',
+	    	    width    : 170,
+	    	    sortable : false,
+	    	    dataIndex: 'trophy_name'
+	    	},{
+	    	    text     : '消耗积分',
+	    	    width    : 90,
+	    	    sortable : false,
+	    	    dataIndex: 'score'
+	    	},{
+	    	    text     : '状态',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'status',
+	    	    renderer:JBApp.renderer.egg_gift_status
+	    	},{
+	    	    text     : '价值',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'cost'
+	    	},{
+	    	    text     : '备注',
+	    	    width    : 270,
+	    	    sortable : false,
+	    	    dataIndex: 'remark'
+	    	}];
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('egggashgift.grid'));
+});
+</script>

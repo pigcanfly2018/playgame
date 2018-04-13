@@ -1,0 +1,279 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Discount',
+        proxy: {
+            type: 'ajax',
+            url: '/DiscountApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('discount.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        		  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(false);
+	        		  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(false);
+	        		}else{
+        			  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(true);
+        			  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(true);
+	        		}
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    delconfig:{
+	    	url:'/DiscountApp/deleteDiscount',
+	    	tip:'你确定要删除你选择的优惠吗?',
+	    	idcode:'discount_id'
+	    },
+	    addconfig:{
+	       title:'新增优惠',
+	       proFn:function(win,form){
+	   		   
+	       }
+	    },
+	    updateconfig:{
+	       proFn:function(select,win,form){
+	    	   var data={
+	    	 			kact:'2',  
+	    	 			"discount.title":select.get('title'),
+	    	 			"discount.content":select.get('content'),
+	    	 			"discount.discount_id":select.get('discount_id'),
+	    	 			"discount.available":select.get('available'),
+	    	 			"discount.s_url":select.get('s_url'),
+	    	 			"discount.b_url":select.get('b_url'),
+	    	 			"discount.summary":select.get('summary'),
+	    	 			"discount.priority":select.get('priority'),
+	    	 			"discount.start_date":select.get('start_date'),
+	    	 			"discount.end_date":select.get('end_date'),
+	    	 			"discount.is_hot":select.get('is_hot'),
+	    	 			"discount.mobile_flag":select.get('mobile_flag')
+	    	 		  };
+   	 		  form.getForm().setValues(data);
+   	 		  win.setTitle("修改优惠:"+select.get('title'));
+	       }
+	    },
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '添加',
+		    	handler:JBApp.addFn
+		    	},
+		    	{
+		    	  xtype: 'button', 
+		    	  iconCls:'icon-update',
+		    	  text: '修改',
+		    	  disabled:true,
+		    	  itemId:'updatebtn',
+		    	  handler:JBApp.updateFn
+	    	   },
+	    	   {
+	        	 xtype: 'button', 
+	        	 iconCls:'icon-delete',
+	        	 text:'删除',
+	        	 disabled:true,
+	        	 itemId:'deletebtn',
+	        	 handler:JBApp.deleteFn
+		        },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	        	    text     : '创建时间',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'create_date',
+	        	    renderer:Ext.util.Format.dateRenderer('y/m/d')
+	        	},{
+	        	    text     : '标题',
+	        	    width    : 140,
+	        	    sortable : false,
+	        	    dataIndex: 'title'
+	        	},{
+	        	    text     : '优先级别',
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'priority'
+	        	},{
+	        	    text     : '是否主推',
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'is_hot',
+	        	    renderer:function(v){
+	        	    	if('true'==v){
+	        	    		return '<span style="color:green">是</span>';
+	        	    	}else{
+	        	    		return '<span style="color:red">不是</span>';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : '是否手机端',
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'mobile_flag',
+	        	    renderer:function(v){
+	        	    	if('true'==v){
+	        	    		return '<span style="color:green">是</span>';
+	        	    	}else{
+	        	    		return '<span style="color:red">不是</span>';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : '是否可用',
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'available',
+	        	    renderer:function(v){
+	        	    	if('true'==v){
+	        	    		return '<span style="color:green">可用</span>';
+	        	    	}else{
+	        	    		return '<span style="color:red">不可用</span>';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : '小图片',
+	        	    width    : 200,
+	        	    sortable : false,
+	        	    dataIndex: 's_url',
+	        	    renderer:function(val){
+	        	    	if(val!=''){
+	        	    	    return "<img src='"+val+"' style='width:200px;height:100px'>";
+	        	    	}else{
+	        	    		return '';
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : '摘要',
+	        	    width    : 250,
+	        	    sortable : false,
+	        	    dataIndex: 'summary',
+	        	    renderer:function(val){
+	        	    	if(val!=''){
+	        	    	    return "<span>"+val+"</span>";
+	        	    	}
+	        	    }
+	        	},{
+	        	    text     : '开始时间',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'start_date',
+	        	    renderer:Ext.util.Format.dateRenderer('y/m/d H:i:s')
+	        	},{
+	        	    text     : '结束时间',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'end_date',
+	        	    renderer:Ext.util.Format.dateRenderer('y/m/d H:i:s')
+	        	}];
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype: 'container',
+		            anchor: '100%',
+		            layout:'column',
+		            bodyStyle:'margin:5px 5px 5px 5px',
+		            items:[{
+		                xtype: 'container',
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                columnWidth:.48,
+		                layout: 'anchor',
+		                items: [{itemId:'idfield',fieldLabel: '标题',xtype:'textfield',name: 'discount.title',anchor: '95%'},
+		                        {fieldLabel: '优先级别',xtype:'textfield',name: 'discount.priority',anchor: '95%'},
+		                        {fieldLabel: '开始时间',xtype:'datefield',allowBlank: true,name:'discount.start_date',anchor: '100%',format:'Y-m-d H:i:s'},
+		                        {fieldLabel: '手机端',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name: 'discount.mobile_flag',anchor: '95%'}]
+		            },{
+		                xtype: 'container',
+		                columnWidth:.48,
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                layout: 'anchor',
+		                items: [{fieldLabel: '启用',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name: 'discount.available',anchor: '95%'},
+		                        {fieldLabel: '主推',xtype:'itemcom',groupcode:'bool',valueField:'itemvalue',name: 'discount.is_hot',anchor: '95%'},
+		                        {fieldLabel: '结束时间',xtype:'datefield',allowBlank: true,name:'discount.end_date',anchor: '100%',format:'Y-m-d H:i:s'}
+		                        ]
+		            },{xtype:'hidden',name:'kact'},{xtype:'hidden',name:'discount.discount_id'}]
+		        },
+		        {fieldLabel: '小图地址',xtype:'textfield',allowBlank: false,anchor: '97%',name:'discount.s_url'},
+		        {fieldLabel: '大图地址',xtype:'textfield',anchor: '97%',name:'discount.b_url'},
+		        {fieldLabel: '摘要',xtype:'textareafield',allowBlank: false,anchor: '97%',name:'discount.summary',height: 60},
+		        {fieldLabel: '内容',xtype:'textareafield',allowBlank: false,anchor: '97%',name:'discount.content',height: 350}],
+		       saveConfig:{
+		    	 url:'/DiscountApp/saveDiscount',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 900,
+	            height: 630,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		 this.win=win;
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('discount.grid'));
+});
+</script>

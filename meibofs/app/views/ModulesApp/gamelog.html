@@ -1,0 +1,161 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'GameLog',
+        proxy: {
+            type: 'ajax',
+            url: '/GameLogApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('gameLog.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true,
+	        loadingText:'正在加载数据...'
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    tbar:['->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	    	    text     : '游戏登入时间',
+	    	    width    : 140,
+	    	    sortable : false,
+	    	    dataIndex: 'create_date'
+	    	},{
+	    	    text     : '游戏厅',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'cagent',
+	    	    renderer:function(v){
+	    	    	if("B47_AG"==v){
+	    	    		return "旗舰厅";
+	    	    	}
+	    	    	if("B47_BBIN"==v){
+	    	    		return "波音厅";
+	    	    	}
+	    	    	if("B47_AGIN"==v){
+	    	    		return "国际厅";
+	    	    	}
+	    	    	if("B47_DSP"==v){
+	    	    		return "实地厅";
+	    	    	}
+	    	    	return v;
+	    	    }
+	    	},{
+	    	    text     : '用户名',
+	    	    width    : 140,
+	    	    sortable : false,
+	    	    dataIndex: 'login_name'
+	    	},{
+	    	    text     : '游戏转出',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'out_credit'
+	    	},{
+	    	    text     : '本地转出',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'local_credit'
+	    	},{
+	    	    text     : '游戏转进',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'in_credit'
+	    	},{
+	    	    text     : '游戏转出状态',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    dataIndex: 'out_flag',
+	    	    renderer:function(v){
+	    	    	if("true"==v){
+	    	    		return "<span style='color:green'>成功</span>";
+	    	    	}
+	    	    	if("false"==v){
+	    	    		return "<span style='color:red'>失败</span>";
+	    	    	}
+	    	    	return v;
+	    	    }
+	    	},{
+	    	    text     : '本地转出状态',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    dataIndex: 'local_flag',
+	    	    renderer:function(v){
+	    	    	if("true"==v){
+	    	    		return "<span style='color:green'>成功</span>";
+	    	    	}
+	    	    	if("false"==v){
+	    	    		return "<span style='color:red'>失败</span>";
+	    	    	}
+	    	    	return v;
+	    	    }
+	    	},{
+	    	    text     : '游戏转入状态',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    dataIndex: 'in_flag',
+	    	    renderer:function(v){
+	    	    	if("true"==v){
+	    	    		return "<span style='color:green'>成功</span>";
+	    	    	}
+	    	    	if("false"==v){
+	    	    		return "<span style='color:red'>失败</span>";
+	    	    	}
+	    	    	return v;
+	    	    }
+	    	}];
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('gameLog.grid'));
+});
+</script>

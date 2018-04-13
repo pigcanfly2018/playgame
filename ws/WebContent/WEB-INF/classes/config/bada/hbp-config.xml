@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	<interface>
+		<id><![CDATA[hbp_pay_8d]]></id>
+		<name><![CDATA[汇博支付]]></name>
+		<type>HBP</type>
+		<service>pay</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|amount|bank|customer_ip|return_url|remark|return_params]]></reqen>
+		<reqcn><![CDATA[用户名|金额|银行|用户IP|返回的URL|标识|回传参数]]></reqcn>
+		<replyen><![CDATA[ok|order_no|message|amount|signature|bank|data]]></replyen>
+		<replycn><![CDATA[成功标识|订单号|信息|金额|签名|银行|数据]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[汇博支付]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[hbqrcode_pay_8d]]></id>
+		<name><![CDATA[生成汇博二维码订单]]></name>
+		<type>HBP</type>
+		<service>qrcodepay</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|amount|bank|customer_ip|product|return_url|remark]]></reqen>
+		<reqcn><![CDATA[用户名|存款金额|银行代码|IP|产品|访问地址|备注]]></reqcn>
+		<replyen><![CDATA[ok|pay_id|message|amount|barCode]]></replyen>
+		<replycn><![CDATA[ok|订单号|信息|订单金额|barCode]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[生成汇博二维码订单,ok是否生成成功]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[hbp_notify_8d]]></id>
+		<name><![CDATA[汇博通知支付接口]]></name>
+		<type>HBP</type>
+		<service>notify</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[respCode|orderId|amount|respInfo|signature]]></reqen>
+		<reqcn><![CDATA[响应码|订单ID|金额|rpnId|响应信息|签名]]></reqcn>
+		<replyen><![CDATA[ok]]></replyen>
+		<replycn><![CDATA[成功标识]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[汇博支付]]></explain>
+	</interface>
+	
+</config>

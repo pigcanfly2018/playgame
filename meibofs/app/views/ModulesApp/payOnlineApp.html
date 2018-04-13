@@ -1,0 +1,202 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Payonline',
+        proxy: {
+            type: 'ajax',
+            url: '/PayOnlineApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('config.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        		  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(false);
+	        		}else{
+        			  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(true);
+	        		}
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    addconfig:{
+	       title:'新增在线支付配置',
+	       proFn:function(win,form){
+	   		   win.down('#payonline_id').show();
+	       }
+	    },
+	    updateconfig:{
+	       proFn:function(select,win,form){
+	    	   var data={
+	    	 			kact:'2',  
+	    	 			"payOnline.name":select.get('name'),
+	    	 			"payOnline.value":select.get('value'),
+	    	 			"payOnline.submit_value":select.get('submit_value'),
+	    	 			"payOnline.return_value":select.get('return_value'),
+	    	 			"payOnline.notify_value":select.get('notify_value'),
+	    	 			"payOnline.req_referer":select.get('req_referer'),
+	    	 			"payOnline.valuedescribe":select.get('valuedescribe'),
+	    	 			"payOnline.payonline_id":select.get('payonline_id')
+	    	 		  };
+   	 		  form.getForm().setValues(data);
+   	 		  win.down('#payonline_id').hide();
+   	 		  win.setTitle("修改在线支付配置参数:"+select.get('name'));
+	       }
+	    },
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '添加',
+		    	handler:JBApp.addFn
+		    	},
+		    	{
+		    	  xtype: 'button', 
+		    	  iconCls:'icon-update',
+		    	  text: '修改',
+		    	  disabled:true,
+		    	  itemId:'updatebtn',
+		    	  handler:JBApp.updateFn
+	    	   },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	        	    text: '条目',
+	        	    width    : 50,
+	                xtype: 'rownumberer'
+	            },{
+	        	    text     : '名称',
+	        	    locked   : true,
+	        	    width    : 90,
+	        	    sortable : false,
+	        	    dataIndex: 'name'
+	        	},{
+	        	    text     : '数值',
+	        	    locked   : true,
+	        	    width    : 90,
+	        	    sortable : false,
+	        	    dataIndex: 'value'
+	        	},{
+	        	    text     : '提交地址',
+	        	    locked   : true,
+	        	    width    : 250,
+	        	    sortable : false,
+	        	    dataIndex: 'submit_value'
+	        	},{
+	        	    text     : '同步通知地址',
+	        	    locked   : true,
+	        	    width    : 300,
+	        	    sortable : false,
+	        	    dataIndex: 'return_value'
+	        	},{
+	        	    text     : '异步通知地址',
+	        	    locked   : true,
+	        	    width    : 300,
+	        	    sortable : false,
+	        	    dataIndex: 'notify_value'
+	        	},{
+	        	    text     : '来源网址',
+	        	    locked   : true,
+	        	    width    : 180,
+	        	    sortable : false,
+	        	    dataIndex: 'req_referer'
+	        	},{
+	        	    text     : '描述说明',
+	        	    locked   : true,
+	        	    width    : 150,
+	        	    sortable : false,
+	        	    dataIndex: 'valuedescribe'
+	        	}];
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 100
+		        },
+		        items: [{itemId:'payonline_id',fieldLabel: '配置项',xtype:'textfield',name: 'payOnline.name',anchor: '95%'},
+		                {fieldLabel: '配置值',xtype:'textfield',name: 'payOnline.value',anchor: '95%'},
+		                {fieldLabel: '提交地址',xtype:'textfield',name: 'payOnline.submit_value',anchor: '95%'},
+		                {fieldLabel: '同步通知地址',xtype:'textfield',name: 'payOnline.return_value',anchor: '95%'},
+		                {fieldLabel: '异步通知地址',xtype:'textfield',name: 'payOnline.notify_value',anchor: '95%'},
+		                {fieldLabel: '来源网址',xtype:'textfield',name: 'payOnline.req_referer',anchor: '95%'},
+		                {fieldLabel: '描述',xtype:'textfield',name: 'payOnline.valuedescribe',anchor: '95%'},
+		                {xtype:'hidden',name:'kact'},{itemId:'idfield',xtype:'hidden',name:'payOnline.payonline_id'}],
+		       saveConfig:{
+		    	 url:'/PayOnlineApp/saveConfig',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 280,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		
+		 this.win=win;
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('config.grid'));
+});
+</script>

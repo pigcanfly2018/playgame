@@ -1,0 +1,205 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'BankAccount',
+        proxy: {
+            type: 'ajax',
+            url: '/BanksApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('bankAccount.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        		  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(false);
+	        		}else{
+        			  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(true);
+	        		}
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    delconfig:{
+	    	url:'/BanksApp/deleteBank',
+	    	tip:'你确定要删除你选择的银行卡吗?',
+	    	idcode:'id'
+	    },
+	    addconfig:{
+	       title:'新增银行账户',
+	       proFn:function(win,form){
+	       }
+	    },
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '添加',
+		    	handler:JBApp.addFn
+		    	},{
+	        	 xtype: 'button', 
+	        	 iconCls:'icon-delete',
+	        	 text:'删除',
+	        	 disabled:true,
+	        	 itemId:'deletebtn',
+	        	 handler:JBApp.deleteFn
+		        },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	        	    text     : '银行',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'bankcode',
+	        	    renderer : JBApp.renderer.bankcode
+	        	},{
+	        	    text     : '账户名',
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'accountname'
+	        	},{
+	        	    text     : '帐号',
+	        	    width    : 160,
+	        	    sortable : false,
+	        	    dataIndex: 'accountno'
+	        	},{
+	        	    text     : '最低可见等级',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'customer_level',
+	        	    renderer : JBApp.renderer.custlevel
+	        	},{
+	        	    text     : '开户地点',
+	        	    width    : 200,
+	        	    sortable : false,
+	        	    dataIndex: 'branch'
+	        	},{
+	        	    text     : '省份',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'province'
+	        	},{
+	        	    text     : '城市',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'city'
+	        	},{
+	        	    text     : '创建人',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'createby'
+	        	},{
+	        	    text     : '创建时间',
+	        	    width    : 140,
+	        	    sortable : false,
+	        	    dataIndex: 'createdate'
+	        	}];
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype: 'container',
+		            anchor: '100%',
+		            layout:'column',
+		            bodyStyle:'margin:5px 5px 5px 5px',
+		            items:[{
+		                xtype: 'container',
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                columnWidth:.48,
+		                layout: 'anchor',
+		                items: [{fieldLabel: '银行',xtype:'itemcom',groupcode:'bankcode',name: 'bank.bankcode',valueField:'itemvalue',allowBlank: false,anchor: '95%'},
+		                        {fieldLabel: '帐号',xtype:'textfield',name: 'bank.accountno',anchor: '95%',allowBlank: false},
+		                        {fieldLabel: '城市',xtype:'textfield',name: 'bank.city',allowBlank: false,anchor: '95%'},
+		                        {fieldLabel: '最低等级',name: 'bank.customer_level',xtype:'itemcom',groupcode:'cust_level',valueField:'itemvalue',allowBlank: false,anchor: '95%'}
+		                        ]
+		            },{
+		                xtype: 'container',
+		                columnWidth:.48,
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                layout: 'anchor',
+		                items: [{fieldLabel: '账户名',xtype:'textfield',name:'bank.accountname',allowBlank: false,anchor: '95%'},
+		                        {fieldLabel: '省份',xtype:'textfield',name: 'bank.province',allowBlank: false,anchor: '95%'},
+		                        {fieldLabel: '开户点',xtype:'textfield',name: 'bank.branch',allowBlank: false,anchor: '95%'}]
+		            },{xtype:'hidden',name:'kact'}]
+		        }],
+		       saveConfig:{
+		    	 url:'/BanksApp/saveBank',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 220,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		
+		 this.win=win;
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('bankAccount.grid'));
+});
+</script>

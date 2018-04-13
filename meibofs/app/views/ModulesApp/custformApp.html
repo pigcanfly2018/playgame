@@ -1,0 +1,393 @@
+<script>
+var custformRole={};
+#{sb.role user:userName,fcode:'F020501'}
+custformRole['F020501']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F020502'}
+custformRole['F020502']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F020503'}
+custformRole['F020503']=${_flag};
+#{/sb.role}
+
+Ext.onReady(function() {
+	var required='<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Custform',
+        proxy: {
+            type: 'ajax',
+            url: '/CustformApp/getList',
+            extraParams:{queryKey:""},
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('custform.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        			var s=selected[0];
+	        			if(s.get("status")=="1"){
+		        		    Ext.getCmp('grid_${tabId}').down("#detailbtn").setDisabled(false);
+		        		    Ext.getCmp('grid_${tabId}').down("#giveupbtn").setDisabled(false);
+		        		    Ext.getCmp('grid_${tabId}').down("#auditbtn").setDisabled(false);
+	        			}else if(s.get("status")=="3"){
+	        				Ext.getCmp('grid_${tabId}').down("#giveupbtn").setDisabled(true);
+		        		    Ext.getCmp('grid_${tabId}').down("#auditbtn").setDisabled(true);
+	        			}
+	        		    Ext.getCmp('grid_${tabId}').down("#detailbtn").setDisabled(false);
+
+	        		}else{
+	        			Ext.getCmp('grid_${tabId}').down("#detailbtn").setDisabled(true);
+	        			Ext.getCmp('grid_${tabId}').down("#giveupbtn").setDisabled(true);
+	        			Ext.getCmp('grid_${tabId}').down("#auditbtn").setDisabled(true);
+	        			Ext.getCmp('grid_${tabId}').down("#detailbtn").setDisabled(true);
+	        		}
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    addconfig:{
+	       title:'新增银改提案',
+	       proFn:function(win,form){
+	   		   win.down('#idfield').setReadOnly(false);
+	   		  // win.down('#password').show();
+	       }
+	    },
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '新建',
+		    	hidden:!custformRole['F020501'],
+		    	handler:JBApp.addFn
+		    	},{
+        	   xtype: 'button', 
+        	   iconCls:'icon-giveup',
+        	   text:'废除',
+        	   disabled:true,
+        	   hidden:!custformRole['F020502'],
+        	   itemId:'giveupbtn',
+        	   handler:function(){
+        			var select = this.up('grid').getSelectionModel().getSelection();
+        			if (select.length != 1) {
+        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+        				return;
+        			}
+        		   var w=Ext.create('Ext.app.Billactionwin', {
+        			    renderTo:'${tabId}',
+        			    fstitle:'银改提单信息',
+        			    msg:'你确定废除该银改提案吗?',
+        			    title:'废除银改提案',
+        			    htmlHeight:220,
+        			    width:900,
+        			    height:480,
+        			    url:'/CustformApp/detail?id='+select[0].get('form_id'),
+        			    act:'/CustformApp/cancle?id='+select[0].get('form_id'),
+        			    cb:function(){
+        				   store.reload();
+        			    }
+        			   }).show();
+        	          }
+			        },{
+	        	    xtype: 'button', 
+		        	iconCls:'icon-auditing',
+		        	text:'审核',
+		        	disabled:true,
+		        	hidden:!custformRole['F020503'],
+		        	itemId:'auditbtn',
+		        	handler:function(){
+		        		   var select = this.up('grid').getSelectionModel().getSelection();
+		        			if (select.length != 1) {
+		        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+		        				return;
+		        			}
+		        		   var w=Ext.create('Ext.app.Custformauditwin', {
+		        			    renderTo:'${tabId}',
+		        			    width:900,
+		        			    title:'银改提案审核',
+		        			    url:'/CustformApp/detail?id='+select[0].get('form_id'),
+		        			    act:'/CustformApp/audit?id='+select[0].get('form_id'),
+		        			    cb:function(){
+		        				   store.reload();
+		        			    }
+		        			   }).show();
+		        	   }
+			     },{
+		        	    xtype: 'button', 
+			        	iconCls:'icon-log',
+			        	text:'提案明细',
+			        	disabled:true,
+			        	itemId:'detailbtn',
+			        	handler:function(){
+			        		   var select = this.up('grid').getSelectionModel().getSelection();
+			        			if (select.length != 1) {
+			        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+			        				return;
+			        			}
+			        		   var w=Ext.create('Ext.app.Billinfowin', {
+			        			    renderTo:'${tabId}',
+			        			    htmlHeight:420,
+			        			    width:700,
+			        			    height:550,
+			        			    title:'银改提案信息',
+			        			    url:'/CustformApp/detail?id='+select[0].get('form_id'),
+			        			    act:'/CustformApp/audit?id='+select[0].get('form_id'),
+			        			    cb:function(){
+			        				   store.reload();
+			        			    }
+			        			   }).show();
+			        	   }
+				     },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey',value:''},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	        	    text     : '创建时间',
+	        	    width    : 130,
+	        	    sortable : false,
+	        	    dataIndex: 'create_date',
+	        	    renderer:Ext.util.Format.dateRenderer('m/d/y H:i')
+	        	},{
+	        	    text     : '创建人',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'create_user'
+	        	},{
+	        	    text     : '状态',
+	        	    width    : 80,
+	        	    sortable : false,
+	        	    dataIndex: 'status',
+	        	    renderer:JBApp.renderer.form_flag
+	        	    
+	        	},{
+	        	    text     : '操作时间',
+	        	    width    : 130,
+	        	    sortable : false,
+	        	    dataIndex: 'audit_date',
+	        	    renderer:Ext.util.Format.dateRenderer('m/d/y H:i')
+	        	},{
+	        	    text     : '操作人',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'audit_user'
+	        	},{
+	        	    text     : '用户名',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'login_name'
+	        	},{
+	        	    text     : '真实名字',
+	        	    width    : 100,
+	        	    sortable : false,
+	        	    dataIndex: 'real_name'
+	        	},{
+	        	    text     : '备注',
+	        	    width    : 350,
+	        	    sortable : false,
+	        	    dataIndex: 'remarks'
+	        	}];
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype:'fieldset',
+		            title: '基本资料',
+		            collapsible: true,
+		            defaultType: 'textfield',
+		            layout: 'anchor',
+		            defaults: {
+		                anchor: '100%'
+		            },
+		            items :[{
+			            xtype: 'container',
+			            anchor: '100%',
+			            layout:'column',
+			            bodyStyle:'margin:5px 5px 5px 5px',
+			            items:[{
+			                xtype: 'container',
+			                bodyStyle:'margin:5px 5px 5px 5px',
+			                columnWidth:.48,
+			                layout: 'anchor',
+			                defaults: {
+				                anchor: '98%'
+				            },
+			                items: [{itemId:'idfield',fieldLabel: '用户名',xtype:'custcom',
+			                	name: 'customer.login_name',allowBlank: false,value:'',
+			                	listeners:{
+							    	 select:function(field,records,index){
+							    	    if(records){
+							    	    	 //var r=s.findRecord("login_name", new RegExp("^"+field.getValue()+"$"));
+							    	      	var r=records[0];
+							    	    	 var cust={
+							    	    			"customer.login_name":r.get('login_name')
+								        			//"customer.real_name":r.get('real_name'),
+								        			//"customer.qq":r.get("qq"),
+								        			//"customer.phone":r.get("phone"),
+								        			//"customer.email":r.get("email"),
+								        			//"customer.bank_name":r.get("bank_name"),
+								        			//"customer.account_type":r.get("account_type"),
+								        			//"customer.account":r.get("account"),
+								        			///"customer.bank_dot":r.get("bank_dot"),
+								        			//"customer.reason":r.get("reason")
+									    	 };
+							    	    	form.getForm().setValues(cust);
+									    }
+							    	  }
+							        },
+			                	   beforeLabelTextTpl:required,tooltip: '数字与字母组合',minLength:4,maxLength:12,vtype:'alphanum'},
+			                        {fieldLabel: '真实姓名',xtype:'textfield',name: 'customer.real_name',beforeLabelTextTpl:required},
+			                        {fieldLabel: 'QQ',xtype:'textfield',name: 'customer.qq',vtype:'alphanum'}]
+			            },{
+			                xtype: 'container',
+			                columnWidth:.48,
+			                bodyStyle:'margin:5px 5px 5px 5px',
+			                layout: 'anchor',
+			                defaults: {
+				                anchor: '98%'
+				            },
+			                items: [{fieldLabel: '电话号码',xtype:'textfield',name: 'customer.phone',beforeLabelTextTpl:required,minLength:8,maxLength:12},
+			                        {itemId:'pwd',fieldLabel: '邮箱',xtype:'textfield',name: 'customer.email',vtype:'email',maxLength:50}]
+			            },
+			            {xtype:'hidden',name:'kact'}]
+			        }]
+		        },{
+		            xtype:'fieldset',
+		            title: '银行资料',
+		            collapsible: true,
+		            defaultType: 'textfield',
+		            layout: 'anchor',
+		            iconCls:'icon-set',
+		            defaults: {
+		                anchor: '100%'
+		            },
+		            items :[{
+			            xtype: 'container',
+			            anchor: '100%',
+			            layout:'column',
+			            bodyStyle:'margin:5px 5px 5px 5px',
+			            items:[{
+			                xtype: 'container',
+			                columnWidth:.48,
+			                defaults: {
+				                anchor: '98%'
+				            },
+			                layout: 'anchor',
+			                items: [{fieldLabel: '银行名字',xtype:'itemcom',name: 'customer.bank_name',valueField:'itemvalue',groupcode:'bankcode'},
+			                        {fieldLabel: '帐号类型',xtype:'itemcom',name: 'customer.account_type',valueField:'itemvalue',groupcode:'banktype'}]
+			            },{
+			                xtype: 'container',
+			                columnWidth:.48,
+			                layout: 'anchor',
+			                defaults: {
+				                anchor: '98%'
+				            },
+			                items: [{fieldLabel: '银行帐号',xtype:'textfield',name: 'customer.account'},
+			                        {fieldLabel: '开户行网点',xtype:'textfield',name: 'customer.bank_dot'}]
+			            }]
+			        }]
+		        },{
+		            xtype:'fieldset',
+		            title: '其他信息',
+		            collapsible: true,
+		            defaultType: 'textfield',
+		            layout: 'anchor',
+		            iconCls:'icon-set',
+		            defaults: {
+		                anchor: '100%'
+		            },
+		            items :[{
+			            xtype: 'container',
+			            anchor: '100%',
+			            layout:'column',
+			            bodyStyle:'margin:5px 5px 5px 5px',
+			            items:[{
+			                xtype: 'container',
+			                columnWidth:.98,
+			                defaults: {
+				                anchor: '98%'
+				            },
+			                layout: 'anchor',
+			                items: [{fieldLabel: '修改理由',xtype:'textfield',name: 'customer.reason'}]
+			            }]
+			        }]
+		        }],
+		       saveConfig:{
+		    	 url:'/CustformApp/saveCustform',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '提交数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 900,
+	            height: 400,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		
+		 this.win=win;
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('custform.grid'));
+});
+</script>

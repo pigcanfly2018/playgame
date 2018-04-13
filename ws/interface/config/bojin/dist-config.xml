@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	<interface>
+		<id><![CDATA[query_dist_bojin]]></id>
+		<name><![CDATA[根据账号查询客户存款信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select itemname,itemcode,itemvalue,groupcode,platform,frozenflag from mb_item ORDER BY groupcode
+         ]]></statement>
+		<reqen><![CDATA[]]></reqen>
+		<reqcn><![CDATA[]]></reqcn>
+		<replyen><![CDATA[itemname|itemcode|itemvalue|groupcode|platform|frozenflag]]></replyen>
+		<replycn><![CDATA[itemname|itemcode|itemvalue|groupcode|platform|frozenflag]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[根据账号查询客户存款信息]]></explain>
+	</interface>
+</config>

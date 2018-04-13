@@ -1,0 +1,415 @@
+<script>
+var withdrawRole={};
+#{sb.role user:userName,fcode:'F020301'}
+withdrawRole['F020301']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F020302'}
+withdrawRole['F020302']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F020303'}
+withdrawRole['F020303']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F020304'}
+withdrawRole['F020304']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F020305'}
+withdrawRole['F020305']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F020306'}
+withdrawRole['F020306']=${_flag};
+#{/sb.role}
+
+Ext.onReady(function() {
+	
+	var required='<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
+	var store = Ext.create('Ext.data.Store', {
+        model: 'AgentWithdraw',
+        proxy: {
+            type: 'ajax',
+            url: '/AgentWithdrawApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	 var task = Ext.TaskManager.start({
+	     run: function () {
+	        store.reload();
+	     },
+	     interval: 20000
+	 });
+	var tabId='${tabId}';
+	Ext.define('withdraw.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    listeners: {
+	    	render:function() {
+	    		Ext.TaskManager.start(task);
+	        },
+	        destroy:function() {
+	        	if(task)Ext.TaskManager.stop(task);
+	    		
+	        }
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length!=1){
+	        			return ;
+	        		}
+	        		var s=selected[0];
+	        		 Ext.getCmp('grid_${tabId}').down("#giveupbtn").setDisabled(true);
+	        		 Ext.getCmp('grid_${tabId}').down("#auditbtn").setDisabled(true);
+	        		 Ext.getCmp('grid_${tabId}').down("#paybtn").setDisabled(true);
+	        		if(s.get("status")==1){
+	        			 Ext.getCmp('grid_${tabId}').down("#giveupbtn").setDisabled(false);
+		        		 Ext.getCmp('grid_${tabId}').down("#auditbtn").setDisabled(false);
+	        		}
+	        		if(s.get("status")==3){
+		        		 Ext.getCmp('grid_${tabId}').down("#paybtn").setDisabled(false);
+	        		}
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    addconfig:{
+	       title:'新增提款提案',
+	       proFn:function(win,form){
+	       }
+	    },
+	    tbar:[{
+			       xtype: 'button', 
+			       iconCls:'icon-add',
+			       text: '发起',
+			       hidden:!withdrawRole['F020301'],
+			       handler:function(){
+				    	   var form=Ext.create('Ext.form.Panel', {
+						        bodyStyle:'padding:5px 5px 0',
+						        width: '100%',
+						        fieldDefaults: {
+						            labelWidth: 75
+						        },
+						        items: [{
+						            xtype: 'container',
+						            anchor: '100%',
+						            layout:'column',
+						            bodyStyle:'margin:5px 5px 5px 5px',
+						            items:[{
+						                xtype: 'container',
+						                bodyStyle:'margin:5px 5px 5px 5px',
+						                columnWidth:.48,
+						                layout: 'anchor',
+						                defaults: {
+							                anchor: '98%'
+							            },
+						                items: [{fieldLabel: '代理名',xtype:'newagentcom',
+						                	name: 'withdraw.login_name',allowBlank: false,value:'',
+						                	listeners:{
+										    	 select:function(field,records,index){
+										    	    if(records){
+										    	    	 //var r=s.findRecord("login_name", new RegExp("^"+field.getValue()+"$"));
+										    	      	var r=records[0];
+										    	    	 var cust={
+										    	    			"withdraw.login_name":r.get('login_name'),
+											        			"withdraw.real_name":r.get('real_name'),
+											        			"withdraw.account_name":r.get("real_name"),
+											        			"withdraw.account_type":r.get("account_type"),
+											        			"withdraw.account":r.get("account"),
+											        			"withdraw.location":r.get("bank_dot"),
+											        			"withdraw.bank_name":r.get("bank_name")
+												    	 };
+										    	    	form.getForm().setValues(cust);
+												    }
+										    	  },
+										    	  blur:function(v){
+										    		  v.up('window').setTitle(v.getValue()+"的提款提案");
+										    	  }
+										        }},
+						                	    {fieldLabel: '提款金额',xtype:'numberfield',name: 'withdraw.amount',maxLength:10,allowBlank: false,beforeLabelTextTpl:required},   
+						                	    {fieldLabel: '银行户名',xtype:'textfield',name: 'withdraw.account_name',allowBlank: false,beforeLabelTextTpl:required},
+						                	    {fieldLabel: '账户类型',xtype:'itemcom',groupcode:'banktype',name: 'withdraw.account_type',valueField:'itemvalue',allowBlank: false,beforeLabelTextTpl:required}
+						                        ]
+						            },{
+						                xtype: 'container',
+						                columnWidth:.48,
+						                bodyStyle:'margin:5px 5px 5px 5px',
+						                layout: 'anchor',
+						                defaults: {
+							                anchor: '98%'
+							            },
+						                items: [{fieldLabel: '真实姓名',xtype:'textfield',name:'withdraw.real_name',beforeLabelTextTpl:required,allowBlank: false,minLength:2,maxLength:16,},
+						                        {fieldLabel: '银行',xtype:'itemcom',groupcode:'bankcode',name: 'withdraw.bank_name',valueField:'itemvalue',beforeLabelTextTpl:required,allowBlank: false},
+						                        {fieldLabel: '银行帐号',xtype:'textfield',name: 'withdraw.account',allowBlank: false,beforeLabelTextTpl:required},
+						                        {fieldLabel: '开户网点',xtype:'textfield',name: 'withdraw.location',allowBlank: false,beforeLabelTextTpl:required}]
+						            },
+						            {xtype:'hidden',name:'kact'}]
+						        },{fieldLabel: '备注',xtype:'textfield',name: 'withdraw.remarks',anchor: '95%'}],
+						       saveConfig:{
+						    	 url:'/AgentWithdrawApp/saveWithdraw',
+						    	 store:store
+						       },
+				               buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+						    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+				            });
+						 var win=Ext.create('widget.window', {
+					            title: '--',
+					            closable: true,
+					            closeAction: 'hide',
+					            renderTo:'${tabId}',
+					            iconCls:'icon-window',
+					            width: 700,
+					            height: 280,
+					            layout: 'fit',
+					            bodyStyle: 'padding: 5px;',
+					            items: [form],
+					            listeners:{
+						            hide:function(w){
+						            	this.down('form').getForm().reset();
+						            }
+					            }
+					        });
+						 win.setTitle("提款提案");
+						 win.show();
+			       }
+		    	},{
+	        	   xtype: 'button', 
+	        	   iconCls:'icon-giveup',
+	        	   text:'废除',
+	        	   disabled:true,
+	        	   hidden:!withdrawRole['F020302'],
+	        	   itemId:'giveupbtn',
+	        	   handler:function(){
+	        		   var select = this.up('grid').getSelectionModel().getSelection();
+	        			if (select.length != 1) {
+	        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+	        				return;
+	        			}
+	        		   var w=Ext.create('Ext.app.Billactionwin', {
+	        			    renderTo:'${tabId}',
+	        			    fstitle:'提款提单信息',
+	        			    msg:'你确定废除该提款提案吗?',
+	        			    title:'废除提款提案',
+	        			    htmlHeight:380,
+	        			    width:700,
+	        			    height:600,
+	        			    url:'/AgentWithdrawApp/detail?request_id='+select[0].get('awithdraw_id'),
+	        			    act:'/AgentWithdrawApp/cancle?request_id='+select[0].get('awithdraw_id'),
+	        			    cb:function(){
+	        				   store.reload();
+	        			    }
+	        			   }).show();
+	        	   }
+		        },{
+	        	   xtype: 'button', 
+	        	   iconCls:'icon-auditing',
+	        	   text:'审核',
+	        	   itemId:'auditbtn',
+	        	   hidden:!withdrawRole['F020303'],
+	        	   disabled:true,
+	        	   handler:function(){
+	        			var select = this.up('grid').getSelectionModel().getSelection();
+	        			if (select.length != 1) {
+	        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+	        				return;
+	        			}
+	        		   var w=Ext.create('Ext.app.Billauditwin', {
+	        			    renderTo:'${tabId}',
+	        			    fstitle:'提款提案信息',
+	        			    title:'审核提款提案',
+	        			    url:'/AgentWithdrawApp/detail?request_id='+select[0].get('awithdraw_id'),
+	        			    act:'/AgentWithdrawApp/audit?request_id='+select[0].get('awithdraw_id'),
+	        			    cb:function(){
+	        				   store.reload();
+	        			    },
+	        			    htmlHeight:380,
+	        			    width:700,
+	        			    height:600
+	        			   }).show();
+	        	   }
+		        },{
+		        	   xtype: 'button', 
+		        	   iconCls:'icon-auditing',
+		        	   text:'支付[Payment]',
+		        	   itemId:'paybtn',
+		        	   hidden:!withdrawRole['F020304'],
+		        	   disabled:true,
+		        	   handler:function(){
+		        		   var select = this.up('grid').getSelectionModel().getSelection();
+		        			if (select.length != 1) {
+		        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+		        				return;
+		        			}
+		        			
+		        			 var w=Ext.create('Ext.app.Billauditwin', {
+			        			    renderTo:'${tabId}',
+			        			    fstitle:'提款提案信息[Order Detail]',
+			        			    title:'支付提款提案[Payment Detail]',
+			        			    tipTitle:'支付意见[Reason]',
+			        			    url:'/AgentWithdrawApp/detail?request_id='+select[0].get('awithdraw_id'),
+			        			    act:'/AgentWithdrawApp/pay?request_id='+select[0].get('awithdraw_id'),
+			        			    cb:function(){
+			        				   store.reload();
+			        			    },
+			        			    htmlHeight:380,
+			        			    width:700,
+			        			    height:600
+			        			   }).show();
+		        	  }
+			        },{
+			        	   xtype: 'button', 
+			        	   iconCls:'icon-auditing',
+			        	   text:'加/解锁',
+			        	   itemId:'lockbtn',
+			        	   hidden:!withdrawRole['F020306'],
+			        	   handler:function(){
+			        		   var select = this.up('grid').getSelectionModel().getSelection();
+			        			if (select.length != 1) {
+			        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+			        				return;
+			        			}
+			        			
+			        			 var w=Ext.create('Ext.app.Billauditwin', {
+				        			    renderTo:'${tabId}',
+				        			    fstitle:'提款提案信息[Order Detail]',
+				        			    title:'锁 - 提款提案[Payment Detail]',
+				        			    tipTitle:'加/解锁意见[Reason]',
+				        			    radioTitle:'锁状态 [Locked Status]',
+				        			    radioYesTitle:'加锁 /Locked',
+				        			    radioNoTitle:'解锁 /Clear',
+				        			    url:'/WithdrawApp/detail?request_id='+select[0].get('withdraw_id'),
+				        			    act:'/WithdrawApp/locked?request_id='+select[0].get('withdraw_id'),
+				        			    cb:function(){
+				        				   store.reload();
+				        			    },
+				        			    htmlHeight:380,
+				        			    width:700,
+				        			    height:600
+				        			   }).show();
+			        	  }
+				        },{
+	        	    xtype: 'button', 
+	        	    iconCls:'icon-log',
+	        	    text:'提案详细',
+	        	    handler:function(){
+	        			var select = this.up('grid').getSelectionModel().getSelection();
+	        			if (select.length != 1) {
+	        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+	        				return;
+	        			}
+	        		   var w=Ext.create('Ext.app.Billinfowin', {
+	        			    renderTo:'${tabId}',
+	        			    title:'查看提款提案',
+	        			    fstitle:'提款提案',
+	        			    htmlHeight:380,
+	        			    height:600,
+	        			    width:800,
+	        			    url:'/AgentWithdrawApp/detail?request_id='+select[0].get('awithdraw_id')
+	        			   }).show();
+	        	   }
+			     },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey',value:''},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       },{
+				    	 text:'导出',
+				    	 iconCls:'icon-export',
+				    	 hidden:!withdrawRole['F020305'],
+				    	 actionUrl:'/WithdrawApp/exportExcel',
+				    	 handler:JBApp.exportFn
+				   }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+				        	    text     : '提款单号 [No. of order]',
+				        	    width    : 170,
+				        	    sortable : false,
+				        	    dataIndex: 'awit_no'
+				        	},{
+				        	    text     : '创建时间 [Time]',
+				        	    width    : 120,
+				        	    sortable : false,
+				        	    dataIndex: 'create_date',
+				        	    renderer:Ext.util.Format.dateRenderer('m-d H:i')
+				        	},{
+	                    	    text     : '用户名 [User]',
+	                    	    width    : 120,
+	                    	    sortable : false,
+	                    	    dataIndex: 'login_name'
+	                    	},{
+	                    	    text     : '真实姓名 [Name]',
+	                    	    width    : 140,
+	                    	    sortable : false,
+	                    	    dataIndex: 'real_name'
+	                    	},{
+	                    	    text     : '提款金额 [Amount]',
+	                    	    width    : 140,
+	                    	    sortable : false,
+	                    	    dataIndex: 'amount',
+	                    	    renderer : JBApp.renderer.amount
+	                    	},{
+	                    	    text     : '状态 [Status]',
+	                    	    width    : 140,
+	                    	    sortable : false,
+	                    	    dataIndex: 'status',
+	                    	    renderer : JBApp.renderer.withdraw_flag
+	                    	},{
+	                    	    text     : '银行名字 [Bank]',
+	                    	    width    : 180,
+	                    	    sortable : false,
+	                    	    dataIndex: 'bank_name',
+	                    	    renderer : JBApp.renderer.bank_flag
+	                    	},{
+	                    	    text     : '锁状态 [Locked]',
+	                    	    width    : 150,
+	                    	    sortable : false,
+	                    	    dataIndex: 'locked',
+	                    	    renderer : function(val){
+	                    	    	if(val=='true'){
+	                    	    		return "<span style='color:Red'>已锁/Locked</span>";
+	                    	    	}else{
+	                    	    		return "<span style='color:green'>正常/Normal</span>";
+	                    	    	}
+	                    	    }
+	                    	}];
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('withdraw.grid'));
+});
+</script>

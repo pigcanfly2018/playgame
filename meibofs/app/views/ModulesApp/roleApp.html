@@ -1,0 +1,327 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Role',
+        proxy: {
+            type: 'ajax',
+            url: '/RoleApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('role.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        		  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(false);
+	        		  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(false);
+	        		  Ext.getCmp('grid_${tabId}').down("#rolebtn").setDisabled(false);
+	        		}else{
+        			  Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(true);
+        			  Ext.getCmp('grid_${tabId}').down("#deletebtn").setDisabled(true);
+        			  Ext.getCmp('grid_${tabId}').down("#rolebtn").setDisabled(true);
+	        		}
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    delconfig:{
+	    	url:'/RoleApp/deleteRole',
+	    	tip:'你确定要删除你选择的角色么?',
+	    	idcode:'rolecode'
+	    },
+	    addconfig:{
+	       title:'新增角色',
+	       proFn:function(win,form){
+	   		   win.down('#idfield').setReadOnly(false);
+	       }
+	    },
+	    updateconfig:{
+	       proFn:function(select,win,form){
+	    	   var data={
+	    	 			kact:'2',  
+	    	 			"role.rolecode":select.get('rolecode'),
+	    	 			"role.rolename":select.get('rolename')
+	    	 		  };
+   	 		  form.getForm().setValues(data);
+   	 		  win.down('#idfield').setReadOnly(true);
+   	 		  win.setTitle("修改角色:"+select.get('rolename'));
+	       }
+	    },
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '添加',
+		    	handler:JBApp.addFn
+		    	},
+		    	{
+		    	  xtype: 'button', 
+		    	  iconCls:'icon-update',
+		    	  text: '修改',
+		    	  disabled:true,
+		    	  itemId:'updatebtn',
+		    	  handler:JBApp.updateFn
+	    	   },
+	    	   {
+	        	 xtype: 'button', 
+	        	 iconCls:'icon-delete',
+	        	 text:'删除',
+	        	 disabled:true,
+	        	 itemId:'deletebtn',
+	        	 handler:JBApp.deleteFn
+		        },{
+		        	 xtype: 'button', 
+		        	 iconCls:'icon-set',
+		        	 text:'分配功能',
+		        	 disabled:true,
+		        	 itemId:'rolebtn',
+		        	 handler:function(btn){
+		        		 var select = this.up('grid').getSelectionModel().getSelection();
+		        		 var record=select[0];
+		            	 if(record){
+		            		 var grid =this.up('grid');
+			        		 var win2=grid.win2;
+			        		 win2.setTitle("分配["+record.get("rolename")+"]功能");
+			        		 win2.down("#rftree").rolecode=record.get("rolecode");
+			        		 win2.down("#rftree").getStore().load({params:{rolecode:record.get("rolecode")}});
+			        		 win2.show();
+		            		
+		            	   }
+		        	 }
+			        },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	        	    text: '条目',
+	        	    width    : 50,
+	                xtype: 'rownumberer'
+	            }, {
+	        	    text     : '角色代码',
+	        	    locked   : true,
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'rolecode'
+	        	},{
+	        	    text     : '角色名字',
+	        	    width    : 150,
+	        	    sortable : false,
+	        	    dataIndex: 'rolename'
+	        	},{
+	        	    text     : '创建时间',
+	        	    width    : 140,
+	        	    sortable : false,
+	        	    dataIndex: 'createdate'
+	        	},{
+	        	    text     : '创建人',
+	        	    width    : 120,
+	        	    sortable : false,
+	        	    dataIndex: 'createuser'
+	        	}];
+	        var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [{
+		            xtype: 'container',
+		            anchor: '100%',
+		            layout:'column',
+		            bodyStyle:'margin:5px 5px 5px 5px',
+		            items:[{
+		                xtype: 'container',
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                columnWidth:.48,
+		                layout: 'anchor',
+		                items: [{itemId:'idfield',fieldLabel: '角色代码',xtype:'textfield',name: 'role.rolecode',anchor: '95%'}]
+		            },{
+		                xtype: 'container',
+		                columnWidth:.48,
+		                bodyStyle:'margin:5px 5px 5px 5px',
+		                layout: 'anchor',
+		                items: [{fieldLabel: '角色名字',xtype:'textfield',name:'role.rolename',anchor: '100%'}]
+		            },{xtype:'hidden',name:'kact'}]
+		        }],
+		       saveConfig:{
+		    	 url:'/RoleApp/saveRole',
+		    	 store:store
+		       },
+               buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	        {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+            });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 600,
+	            height: 150,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		 
+		var panel2= Ext.create('Ext.tree.Panel', {
+		        width: '100%',
+		        height: '100%',
+		        useArrows: true,
+		        rootVisible: false,
+		        autoScroll:true,
+		        itemId:'rftree',
+		        store: Ext.create('Ext.data.TreeStore', {
+			    	expanded: true,
+			        model:Ext.define('FuncsApp.Func', {
+				        extend: 'Ext.data.Model',
+				        fields: [
+				            {name: 'id',type: 'int'},
+				            {name: 'text',type: 'string'},
+				            {name: 'code',type: 'string'},
+				            {name: 'url', type: 'string'}
+				        ]
+				    }),
+			        proxy: {
+			            type: 'ajax',
+			            url: '/FuncApp/getFuncsByRole'
+			        },
+			        folderSort: true
+			    }),
+		        multiSelect: true,
+		        tbar:[{
+		              xtype: 'button', 
+		              iconCls:'icon-save',
+		              text: '保存配置',
+		        	   handler:function(){
+		        		   var models=panel2.getChecked();
+		        		   var ids=[];
+		        		   for(var i=0;i<models.length;i++){
+		        			   ids.push(models[i].get("code"));
+		        		   }
+		        			Ext.Ajax.request({
+								url :'/RoleApp/grant',
+								params :{rolecode:panel2.rolecode,funccodes:ids},
+								success : function(response) {
+									var result = Ext.JSON.decode(response.responseText);
+									if (result.success) {
+										Ext.Msg.alert('操作成功', result.message);
+										grid.getStore().reload();
+									} else {
+										Ext.Msg.alert('操作失败', result.message);
+									}
+								},
+								failure : function(response) {
+									Ext.Msg.alert('保存失败', '网络故障。');
+								}
+							});
+		        			
+			             
+		        	
+		             }}],
+		        singleExpand: false,
+		        columns: [{
+		            xtype: 'treecolumn', 
+		            text: '功能',
+		            flex: 1,
+		            sortable: true,
+		            dataIndex: 'text'
+		        },{
+		            text: 'code',
+		            flex: 1,
+		            sortable: true,
+		            dataIndex: 'code',
+		            align: 'center'
+		        }],
+		        viewConfig : {  
+		            onCheckboxChange : function(e, t) {  
+		                var item = e.getTarget(this.getItemSelector(),this.getTargetEl()), record;  
+		                if (item) {  
+		                    record = this.getRecord(item);  
+		                    var check = !record.get('checked');  
+		                    record.set('checked', check);  
+		                    if (check) {  
+		                        record.bubble(function(parentNode) {  
+		                                    parentNode.set('checked', true);  
+		                                });  
+		                        record.cascadeBy(function(node) {  
+		                                    node.set('checked', true);  
+		                                });  
+		                    } else {  
+		                        record.cascadeBy(function(node) {  
+		                                    node.set('checked', false);  
+		                         });  
+		                    }  
+		                }  
+		            }  
+		        } 
+		        
+		});
+		 
+		 var win2=Ext.create('widget.window', {
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            width: 600,
+	            height: 500,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [panel2]
+	        });
+		
+		 this.win=win;
+		 this.win2=win2;
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('role.grid'));
+});
+</script>

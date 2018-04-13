@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+
+
+	<interface>
+		<id><![CDATA[plat_balance_8d]]></id>
+		<name><![CDATA[查询游戏厅余额]]></name>
+		<type>PLAT</type>
+		<service>balance</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|login_name|login_ip|product]]></reqen>
+		<reqcn><![CDATA[平台|用户名|登录IP|产品名]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[游戏厅余额]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[查询游戏厅余额，如果开户没成功，则会自动开户]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[plat_ptlogin_8d]]></id>
+		<name><![CDATA[PT客户端登录]]></name>
+		<type>PLAT</type>
+		<service>PTLOGIN</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[username|code|product]]></reqen>
+		<reqcn><![CDATA[用户名|token|产品名]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(int)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[pt客户端点击cashier]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[plat_in_8d]]></id>
+		<name><![CDATA[把额度转入游戏厅]]></name>
+		<type>PLAT</type>
+		<service>IN</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|login_name|login_ip|product|log_type|remarks|create_user|order_no|amount]]></reqen>
+		<reqcn><![CDATA[平台|用户名|登录IP|产品名|日志类型|备注|创建人|订单号|转账金额]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(int)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[把额度转入游戏厅.如果不传amount,则默认转入全部]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[plat_callphone_8d]]></id>
+		<name><![CDATA[拨打用户电话]]></name>
+		<type>PLAT</type>
+		<service>CALL</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|number|product]]></reqen>
+		<reqcn><![CDATA[平台|电话号码|产品名]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(int)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[拨打用户提供的电话号码]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[plat_out_8d]]></id>
+		<name><![CDATA[从游戏厅转出额度]]></name>
+		<type>PLAT</type>
+		<service>OUT</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|login_name|login_ip|product|log_type|remarks|create_user|order_no|amount]]></reqen>
+		<reqcn><![CDATA[平台|用户名|登录IP|产品名|日志类型|备注|创建人|订单号|转账金额]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(int)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[从游戏厅转出额度.如果不传amount,则默认转出厅的全部额度]]></explain>
+	</interface>
+	
+
+	
+	
+	
+	<interface>
+		<id><![CDATA[plat_create_8d]]></id>
+		<name><![CDATA[创建游戏厅账号]]></name>
+		<type>PLAT</type>
+		<service>create</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|login_name|login_ip|product]]></reqen>
+		<reqcn><![CDATA[平台|用户名|登录IP|产品名]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[创建游戏厅账号]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[创建游戏厅账号]]></explain>
+	</interface>
+	
+	
+	
+	<interface>
+		<id><![CDATA[plat_forward_8d]]></id>
+		<name><![CDATA[获取跳转地址]]></name>
+		<type>PLAT</type>
+		<service>forward</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|login_name|login_ip|product|site|gamecode]]></reqen>
+	    <reqcn><![CDATA[平台|用户名|登录IP|产品名|site|游戏种类]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[跳转URL(String)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[获取跳转地址,支持AG|BBIN|KG]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[plat_logout_8d]]></id>
+		<name><![CDATA[玩家退出系统]]></name>
+		<type>PLAT</type>
+		<service>logout</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|login_name|login_ip|product|site]]></reqen>
+	    <reqcn><![CDATA[平台|用户名|登录IP|产品名|site]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(int)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[玩家退出系统,支持PT]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[plat_update_pwd]]></id>
+		<name><![CDATA[更新游戏密码]]></name>
+		<type>PLAT</type>
+		<service>pwd</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|login_name|password|login_ip|product]]></reqen>
+	    <reqcn><![CDATA[平台|账号|密码|请求IP|产品]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(int)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[更新游戏密码,支持PT|MG]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[plat_register_alias]]></id>
+		<name><![CDATA[更新游戏别名]]></name>
+		<type>PLAT</type>
+		<service>registerAlias</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[plat|login_name|alias|product]]></reqen>
+	    <reqcn><![CDATA[平台|账号|别名|产品]]></reqcn>
+		<replyen><![CDATA[res]]></replyen>
+		<replycn><![CDATA[是否成功(int)]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[更新游戏别名,支持MG]]></explain>
+	</interface>
+	
+</config>

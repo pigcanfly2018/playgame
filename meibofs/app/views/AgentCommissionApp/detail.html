@@ -1,0 +1,121 @@
+<style>
+.infotable {
+ padding: 0;
+ margin: 0;
+}
+.infotable caption {
+ padding: 0 0 5px 0;
+ font: italic 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+ text-align: right;
+}
+.infotable th {
+
+ color: #4f6b72;
+ font-size:12px;
+ border-right: 1px solid #C1DAD7;
+ border-bottom: 1px solid #C1DAD7;
+ border-top: 1px solid #C1DAD7;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ text-align: left;
+ padding: 6px 6px 6px 12px;
+ background: #CAE8EA ;
+  height:28px;
+}
+.infotable th.nobg {
+ border-top: 0;
+ border-left: 0;
+ border-right: 1px solid #C1DAD7;
+ background: none;
+
+}
+
+.infotable tr {
+ height:28px;
+}
+.infotable td {
+ border-right: 1px solid #C1DAD7;
+ border-bottom: 1px solid #C1DAD7;
+ background: #fff;
+ font-size:10px;
+ padding: 6px 6px 6px 12px;
+ color: #4f6b72;
+}
+
+.infotable td.alt {
+ background: #F5FAFA;
+ color: #797268;
+}
+.infotable th.spec {
+ border-left: 1px solid #C1DAD7;
+ border-top: 0;
+ background: #fff url(images/bullet1.gif) no-repeat;
+ font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+}
+.infotable th.specalt {
+ border-left: 1px solid #C1DAD7;
+ border-top: 0;
+ background: #f5fafa url(images/bullet2.gif) no-repeat;
+ font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+ color: #797268;
+}
+.sl009{
+ font-size:12px;
+ border-collapse:collapse;
+}
+.sl009 td{
+ font-size:12px;
+  border:solid black 1px;
+ border-spacing:100px;
+ padding-left:2px;
+}
+.title_info{
+font-size:16px;
+font-weight:bolder;
+margin-top:10px;
+}
+
+.tr1009{
+background-color:#e8f3fd;
+}
+.tr1009 td{
+font-weight:bolder;
+color:#FF5151;
+}
+</style>
+
+<div>
+    <div>
+          <div class="title_info">佣金记录信息</div>
+          <div>
+             <table class="sl009" cellpadding="0" cellspacing="0">
+                <tr class="tr1009">
+                   <td style="width:137px">代理用户名</td>
+                   <td style="width:137px">生成时间</td>
+                   <td style="width:157px">输赢统计佣金金额(不包含投入)</td>
+                   <td style="width:117px">分成比例</td>
+                </tr>
+                <tr>
+                   <td>${commission.login_name}</td>
+                   <td>${commission.create_date}</td>
+                   <td>${commission.credit}</td>
+                   <td>${commission.share}</td>
+                </tr>
+                <tr class="tr1009">
+                   <td style="width:137px">下线总存款</td>
+                   <td style="width:137px">下线总提款</td>
+                   <td style="width:157px">下线总礼金</td>
+                   <td style="width:117px">投入金额</td>
+                </tr>
+                <tr>
+                   <td>${commission.total_deposit}</td>
+                   <td>${commission.total_withdraw}</td>
+                   <td>${commission.total_gift}</td>
+                   <td>${commission.total_cost}</td>
+                </tr>
+               
+             </table>
+             <div>分红公式 = （（会员输赢金额）x 90% - 礼金x10%  - 本月项目投入金额 ） x 分红比例</div>
+          </div>  
+    </div>
+</div>

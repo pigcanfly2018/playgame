@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	<interface>
+		<id><![CDATA[rpn_pay_8d]]></id>
+		<name><![CDATA[rpn支付]]></name>
+		<type>RPN</type>
+		<service>pay</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|amount|return_url|remark|bank_id|ip]]></reqen>
+		<reqcn><![CDATA[用户名|金额|返回的URL|标识|支付银行|ip]]></reqcn>
+		<replyen><![CDATA[ok|order_id|message|order_amount|show_amount|signature|bank_id|remark|mid|return_url|notify_url|order_time|submit_value]]></replyen>
+		<replycn><![CDATA[成功标识|订单号|信息|金额|分模式金额|签名|银行ID|备注用户名|商户号|回传显示地址|通知地址|交易时间|提交地址]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[rpn支付]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[rpn_notify_8d]]></id>
+		<name><![CDATA[rpn通知支付接口]]></name>
+		<type>RPN</type>
+		<service>notify</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[order_id|order_time|order_amount|deal_id|deal_time|pay_amount|pay_result|signature]]></reqen>
+		<reqcn><![CDATA[平台ID|订单时间|订单金额|rpnId|支付时间|支付金额|支付状态|签名]]></reqcn>
+		<replyen><![CDATA[ok]]></replyen>
+		<replycn><![CDATA[成功标识]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[rpn支付]]></explain>
+	</interface>
+	
+	
+	<interface>
+		<id><![CDATA[rpn_query_order_by_order_id_8d]]></id>
+		<name><![CDATA[根据rpn订单信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select rpn_id,order_id,login_name,amount,bank_id,customer_ip,
+			       remark,create_date,rpn_order_no,state,modify_time,payer_name,
+			       real_pay_method,finished_date,return_url
+			from mb_rpn 
+			where order_id=#order_id#
+         ]]></statement>
+		<reqen><![CDATA[order_id]]></reqen>
+		<reqcn><![CDATA[订单ID]]></reqcn>
+		<replyen><![CDATA[rpn_id|order_id|login_name|amount|bank_id|customer_ip|remark|create_date|rpn_order_no|state|modify_time|payer_name|real_pay_method|finished_date|return_url]]></replyen>
+		<replycn><![CDATA[rpn_id|order_id|login_name|amount|bank_id|customer_ip|remark|create_date|rpn_order_no|state|modify_time|payer_name|real_pay_method|finished_date|return_url]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[查询]]></explain>
+	</interface>
+	
+	
+</config>

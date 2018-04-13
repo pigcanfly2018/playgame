@@ -1,0 +1,90 @@
+.icon-login {
+      background-image: url(/public/images/logo3.jpg) !important;
+}
+
+.icon-add{
+    background-image: url(images/add.png) !important;
+}
+.icon-update{
+    background-image: url(images/cut.png) !important;
+}
+.icon-delete{
+    background-image: url(images/delete.png) !important;
+}
+.icon-grid{
+    background-image: url(images/grid.png) !important;
+}
+.icon-reset {
+    background-image: url(images/reset.png) !important;
+}
+.icon-search {
+    background-image: url(images/search.png) !important;
+}
+.icon-tabs{
+	background-image: url(images/grid.png) !important;
+}
+.icon-save{
+    background-image: url(images/save.gif) !important;
+}
+.icon-nav-home{
+    background-image: url(images/nav_home.png) !important;
+}
+.icon-close{
+    background-image: url(images/cancle.png) !important;
+}
+.icon-window{
+    background-image: url(images/window.png) !important;
+}
+.icon-user{
+	background-image: url(images/user.png) !important;
+}
+.icon-nav{
+    background-image: url(images/nav.png) !important;
+}
+.icon-exit{
+    background-image: url(images/exit.png) !important;
+}
+
+.icon-true{
+    background-image: url(images/true.png) !important;
+}
+
+.icon-false{
+    background-image: url(images/false.png) !important;
+}
+
+.icon-set{
+    background-image: url(images/set.png) !important;
+}
+
+.icon-rdisabled{
+    background-image: url(images/rdisabled.png) !important;
+}
+
+.icon-try{
+    background-image: url(images/try.png) !important;
+}
+.icon-credit{
+    background-image: url(images/credit.png) !important;
+}
+.icon-giveup{
+    background-image: url(images/giveup.png) !important;
+}
+.icon-auditing{
+    background-image: url(images/auditing.png) !important;
+}
+.icon-log{
+    background-image: url(images/log.png) !important;
+}
+.icon-export{
+    background-image: url(images/export.png) !important;
+}
+.icon-download{
+    background-image: url(images/download.png) !important;
+}
+.icon-info-edit{
+    background-image: url(images/info_edit.png) !important;
+}
+.icon-level{
+    background-image: url(images/level.png) !important;
+}

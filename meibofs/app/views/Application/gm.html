@@ -1,0 +1,73 @@
+<div>java bean</div>
+<div>
+<textarea cols="100" rows="30">
+public class ${t} {
+	#{list items:metaList, as:'meta' }public ${meta.type} ${meta.name};
+    #{/list}
+     public  boolean NTcreat(){
+		  String sql="insert into  ${t} (#{list items:metaList, as:'meta' }${meta.name},#{/list}) values(#{list items:metaList, as:'meta' }?,#{/list})";
+		  int count=Sp.get().getDefaultJdbc().update(sql, new Object[]{#{list items:metaList, as:'meta' }${meta.name},#{/list}});
+		  return count>0;
+	 }
+	 public  boolean NTupdate(){
+		  String sql="update ${t} set #{list items:metaList, as:'meta' }${meta.name}=?,#{/list} where id=?";
+		  int count=Sp.get().getDefaultJdbc().update(sql, new Object[]{#{list items:metaList, as:'meta' }${meta.name},#{/list}}id);
+		  return count>0;
+	 }
+}
+</textarea>
+</div>
+<div>sql</div>
+<div>
+<textarea cols="100" rows="10">
+insert into ${t} (#{list items:metaList, as:'meta' }${meta.name},#{/list}) values(#{list items:metaList, as:'meta' }?,#{/list})
+update bean set #{list items:metaList, as:'meta' }${meta.name}=?,#{/list}
+</textarea>
+</div>
+
+<div>rowMap</div>
+<div>
+<textarea cols="100" rows="30">
+public class BeanRowMap implements RowMapper{
+	public Bean mapRow(ResultSet rs, int index) throws SQLException {
+		Func bean =new Func();
+		#{list items:metaList, as:'meta' }bean.${meta.name}=rs.getString("${meta.name}");
+		#{/list}return bean;
+	}
+}
+</textarea>
+</div>
+
+
+<div>javascript</div>
+<div>
+<textarea cols="100" rows="10">
+Ext.define('Role', {
+	    extend: 'Ext.data.Model',
+	    fields: [
+	    #{list items:metaList, as:'meta' }{
+		        name: '${meta.name}',
+		        type: 'string'
+	          },
+	    #{/list}
+	    ]
+	});
+</textarea>
+</div>
+
+<div>javascript</div>
+<div>
+<textarea cols="100" rows="10">
+ #{list items:metaList, as:'meta' }
+	{
+	    text     : '---',
+	    locked   : true,
+	    width    : 230,
+	    sortable : false,
+	    dataIndex: '${meta.name}'
+	}
+#{/list}
+</textarea>
+</div>
+
+

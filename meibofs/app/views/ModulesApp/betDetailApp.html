@@ -1,0 +1,325 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'BetDetail',
+        proxy: {
+            type: 'ajax',
+            url: '/BetDetailApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('betdetail.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    tbar:['->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	    	    text     : '注单号',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    dataIndex: 'billNo'
+	    	},{
+	    	    text     : '平台类型',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'platformType',
+	    	    renderer:function(v){
+	    	    	if('BBIN'==v){
+	    	    		return "波音厅";
+	    	    	}
+	    	    	if('AG'==v){
+	    	    		return "旗舰厅";
+	    	    	}
+	    	    	if('DSP'==v){
+	    	    		return "实地厅";
+	    	    	}
+	    	    	if('AGIN'==v){
+	    	    		return "国际厅";
+	    	    	}
+	    	    	return v;
+	    	    }
+	    	},{
+	    	    text     : '玩家',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    dataIndex: 'playerName'
+	    	},{
+	    	    text     : '代理商号',
+	    	    width    : 140,
+	    	    sortable : false,
+	    	    hidden   : true,
+	    	    dataIndex: 'agentCode'
+	    	},{
+	    	    text     : '游戏局号',
+	    	    width    : 130,
+	    	    hidden   : true,
+	    	    sortable : false,
+	    	    dataIndex: 'gameCode'
+	    	},{
+	    	    text     : '游戏类型',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'gameType',
+	    	    renderer:function(v){
+	    	    	if("BAC"==v){
+	    	    		return "百家乐";
+	    	    	}
+	    	    	if("LINK"==v){
+	    	    		return "连环百家乐";
+	    	    	}
+	    	    	if("DT"==v){
+	    	    		return "龙虎";
+	    	    	}
+	    	    	if("SHB"==v){
+	    	    		return "骰宝";
+	    	    	}
+	    	    	if("3001"==v){
+	    	    		return "百家乐A";
+	    	    	}
+	    	    	if("3005"==v){
+	    	    		return "三公A";
+	    	    	}
+	    	    	if("3012"==v){
+	    	    		return "牛牛A";
+	    	    	}
+	    	    	if("3011"==v){
+	    	    		return "色碟A";
+	    	    	}
+	    	    	if("3007"==v){
+	    	    		return "轮盘A";
+	    	    	}
+	    	    	if("3008"==v){
+	    	    		return "骰宝A";
+	    	    	}
+	    	    	if("3006"==v){
+	    	    		return "温州牌九A";
+	    	    	}
+	    	    	if("3003"==v){
+	    	    		return "龙虎斗A";
+	    	    	}
+	    	    	if("3002"==v){
+	    	    		return "二八杠A";
+	    	    	}
+	    	    	if("3010"==v){
+	    	    		return "德州扑克A";
+	    	    	}
+	    	    	return v;
+	    	    }
+	    	},{
+	    	    text     : '玩家输赢额度',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'netAmount'
+	    	},{
+	    	    text     : '投注时间',
+	    	    width    : 140,
+	    	    sortable : false,
+	    	    dataIndex: 'betTime'
+	    	},{
+	    	    text     : '投注金额',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'betAmount'
+	    	},{
+	    	    text     : '有效投注额',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'validBetAmount'
+	    	},{
+	    	    text     : '结算状态',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'flag',
+	    	    renderer:function(v){
+	    	    	if("1"==v){
+	    	    		return "已结算";
+	    	    	}
+	    	    	if("0"==v){
+	    	    		return "未结算";
+	    	    	}
+	    	    	if("-1"==v){
+	    	    		return "重置试玩额度";
+	    	    	}
+	    	    	if("-2"==v){
+	    	    		return "注单被篡改";
+	    	    	}
+	    	    	if("-8"==v){
+	    	    		return "取消指定局注单";
+	    	    	}
+	    	    	if("-9"==v){
+	    	    		return "取消注单";
+	    	    	}
+	    	    	return v;
+	    	    }
+	    	},{
+	    	    text     : '游戏玩法',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    dataIndex: 'playType',
+	    	    renderer:function(v){
+	    	    	if(v=="1") return "庄，0.95";
+	    	    	if(v=="2") return "闲，1.00";
+	    	    	if(v=="3") return "和，8.00";
+	    	    	if(v=="4") return "庄对，11.00";
+	    	    	if(v=="5") return "闲对，11.00";
+	    	    	if(v=="6") return "大，0.50";
+	    	    	if(v=="7") return "小，1.50";
+	    	    	if(v=="8") return "散客区庄，0.95";
+	    	    	if(v=="9") return "散客区闲，1.00";
+	    	    	if(v=="11") return "庄(免佣)，1.00";
+	    	    	if(v=="21") return "龙 ，1.00";
+	    	    	if(v=="22") return "虎 ，1.00";
+	    	    	if(v=="23") return "和（龙虎） ，8.00";
+	    	    	if(v=="41") return "大 ，1.00";
+	    	    	if(v=="42") return "小 ，1.00";
+	    	    	if(v=="43") return "单 ，1.00";
+	    	    	if(v=="44") return "双 ，1.00";
+	    	    	if(v=="45") return "全围 ，24.00";
+	    	    	if(v=="46") return "围1 ，150";
+	    	    	if(v=="47") return "围2 ，150";
+	    	    	if(v=="48") return "围3 ，150";
+	    	    	if(v=="49") return "围4 ，150";
+	    	    	if(v=="50") return "围5 ，150";
+	    	    	if(v=="51") return "围6 ，150";
+	    	    	if(v=="52") return "单点1";
+	    	    	if(v=="53") return "单点2";
+	    	    	if(v=="54") return "单点3";
+	    	    	if(v=="55") return "单点4";
+	    	    	if(v=="56") return "单点5";
+	    	    	if(v=="57") return "单点6";
+	    	    	if(v=="58") return "对子1，8";
+	    	    	if(v=="59") return "对子2，8";
+	    	    	if(v=="60") return "对子3，8";
+	    	    	if(v=="61") return "对子4，8";
+	    	    	if(v=="62") return "对子5，8";
+	    	    	if(v=="63") return "对子6，8";
+	    	    	if(v=="64") return "组合12，5";
+	    	    	if(v=="65") return "组合13，5";
+	    	    	if(v=="66") return "组合14，5";
+	    	    	if(v=="67") return "组合15，5";
+	    	    	if(v=="68") return "组合16，5";
+	    	    	if(v=="69") return "组合17，5";
+	    	    	if(v=="70") return "组合18，5";
+	    	    	if(v=="71") return "组合19，5";
+	    	    	if(v=="72") return "组合20，5";
+	    	    	if(v=="73") return "组合21，5";
+	    	    	if(v=="74") return "组合22，5";
+	    	    	if(v=="75") return "组合23，5";
+	    	    	if(v=="76") return "组合24，5";
+	    	    	if(v=="77") return "组合25，5";
+	    	    	if(v=="78") return "组合26，5";
+	    	    	if(v=="79") return "和值4，50";
+	    	    	if(v=="80") return "和值5，18";
+	    	    	if(v=="81") return "和值6，14";
+	    	    	if(v=="82") return "和值7，12";
+	    	    	if(v=="83") return "和值8，8";
+	    	    	if(v=="84") return "和值9，6";
+	    	    	if(v=="85") return "和值10，6";
+	    	    	if(v=="86") return "和值11，6";
+	    	    	if(v=="87") return "和值12，6";
+	    	    	if(v=="88") return "和值13，8";
+	    	    	if(v=="89") return "和值14，12";
+	    	    	if(v=="90") return "和值15，14";
+	    	    	if(v=="91") return "和值16，18";
+	    	    	if(v=="92") return "和值17，50";
+	    	    	return v;
+	    	    }
+	    	},{
+	    	    text     : '货币',
+	    	    width    : 120,
+	    	    hidden   : true,
+	    	    sortable : false,
+	    	    dataIndex: 'currency'
+	    	},{
+	    	    text     : '桌号',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'tableCode'
+	    	},{
+	    	    text     : '玩家IP',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    hidden   : true,
+	    	    dataIndex: 'loginIP'
+	    	},{
+	    	    text     : '重派时间',
+	    	    width    : 140,
+	    	    sortable : false,
+	    	    hidden   : true,
+	    	    dataIndex: 'recalcuTime'
+	    	},{
+	    	    text     : '平台编号',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    hidden   : true,
+	    	    dataIndex: 'platformId'
+	    	},{
+	    	    text     : '产品批注',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    hidden   : true,
+	    	    dataIndex: 'stringex'
+	    	},{
+	    	    text     : '文件名',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    hidden   : true,
+	    	    dataIndex: 'fileName'
+	    	}];
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('betdetail.grid'));
+});
+</script>

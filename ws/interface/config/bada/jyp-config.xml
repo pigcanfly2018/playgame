@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	
+	<interface>
+		<id><![CDATA[jyp_pay_8d]]></id>
+		<name><![CDATA[生成金阳二维码订单]]></name>
+		<type>JinYangPay</type>
+		<service>pay</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|amount|payType|customer_ip|product|return_url]]></reqen>
+		<reqcn><![CDATA[用户名|存款金额|银行代码|IP|产品|访问地址]]></reqcn>
+		<replyen><![CDATA[ok|pay_id|message|amount|barCode]]></replyen>
+		<replycn><![CDATA[ok|订单号|信息|订单金额|barCode]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[生成金阳二维码订单,ok是否生成成功]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[jyp_wap_pay_8d]]></id>
+		<name><![CDATA[生成金阳二维码订单]]></name>
+		<type>JinYangPay</type>
+		<service>payForWap</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|amount|payType|customer_ip|product|return_url]]></reqen>
+		<reqcn><![CDATA[用户名|存款金额|银行代码|IP|产品|访问地址]]></reqcn>
+		<replyen><![CDATA[ok|suburl|p1_mchtid|p2_paytype|p3_paymoney|p4_orderno|p5_callbackurl|p6_notifyurl|p7_version|p8_signtype|p9_attach|p10_appname|p11_isshow|p12_orderip|sign]]></replyen>
+		<replycn><![CDATA[ok|suburl|p1_mchtid|p2_paytype|p3_paymoney|p4_orderno|p5_callbackurl|p6_notifyurl|p7_version|p8_signtype|p9_attach|p10_appname|p11_isshow|p12_orderip|sign]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[生成金阳wap订单,ok是否生成成功]]></explain>
+	</interface>
+	
+	
+	<interface>
+		<id><![CDATA[jyp_notify_8d]]></id>
+		<name><![CDATA[金阳提醒]]></name>
+		<type>JinYangPay</type>
+		<service>notify</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[partner|ordernumber|orderstatus|paymoney|sysnumber|attach|sign|product]]></reqen>
+		<reqcn><![CDATA[商户号|商户订单号|订单结果|金额|金阳订单号|传参|签名|产品]]></reqcn>
+		<replyen><![CDATA[ok|message]]></replyen>
+		<replycn><![CDATA[ok|信息]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[赢通宝提醒]]></explain>
+	</interface>
+	
+</config>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+
+	<interface>
+		<id><![CDATA[jbp_pay_8d]]></id>
+		<name><![CDATA[聚富宝支付]]></name>
+		<type>JBP</type>
+		<service>pay</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|amount|return_url|remark]]></reqen>
+		<reqcn><![CDATA[用户名|金额|返回的URL|标识]]></reqcn>
+		<replyen><![CDATA[ok|pay_id|message|amount|signature]]></replyen>
+		<replycn><![CDATA[成功标识|订单号|信息|金额|签名]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[聚富宝支付]]></explain>
+	</interface>
+
+<interface>
+		<id><![CDATA[jbp_query_order_by_pay_id_8d]]></id>
+		<name><![CDATA[根据聚宝订单信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select jbp_id,pay_id,login_name,amount,goods_name,partner_id,pay_method,
+			       remark,create_date,order_no,real_amount,state,modify_time,payer_name,
+			       real_pay_method,finished_date,return_url
+			from mb_jbp 
+			where pay_id=#pay_id#
+         ]]></statement>
+		<reqen><![CDATA[pay_id]]></reqen>
+		<reqcn><![CDATA[订单ID]]></reqcn>
+		<replyen><![CDATA[jbp_id|pay_id|login_name|amount|goods_name|partner_id|pay_method|remark|create_date|order_no|real_amount|state|modify_time|payer_name|real_pay_method|finished_date|return_url]]></replyen>
+		<replycn><![CDATA[jbp_id|pay_id|login_name|amount|goods_name|partner_id|pay_method|remark|create_date|order_no|real_amount|state|modify_time|payer_name|real_pay_method|finished_date|return_url]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[查询客户基本信息]]></explain>
+	</interface>
+
+
+</config>

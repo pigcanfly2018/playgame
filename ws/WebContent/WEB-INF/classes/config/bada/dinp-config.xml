@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<interface>
+		<id><![CDATA[dinp_pay_8d]]></id>
+		<name><![CDATA[智付微信支付]]></name>
+		<type>DINP</type>
+		<service>pay</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[interface_version|merchant_code|notify_url|order_amount|order_time|order_no|product_name]]></reqen>
+		<reqcn><![CDATA[版本|商户号|通知URL|金额|时间|订单号|产品名称]]></reqcn>
+		<replyen><![CDATA[ok|order_no|message|order_amount|sQrcode]]></replyen>
+		<replycn><![CDATA[成功标识|订单号|信息|金额|qr码]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[智付微信支付]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[dinp_notice_8d]]></id>
+		<name><![CDATA[智付微信通知验证接口]]></name>
+		<type>DINP</type>
+		<service>notify</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[bank_seq_no|extra_return_param|merchant_code|notify_id|notify_type|order_amount|order_no|order_time|trade_no|trade_status|trade_time|sign]]></reqen>
+		<reqcn><![CDATA[银行流水|回传参数|商户号|通知ID|通知类型|金额|订单号|订单时间|交易流水|交易状态|交易时间|签名]]></reqcn>
+		<replyen><![CDATA[ok]]></replyen>
+		<replycn><![CDATA[成功标识]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[智付微信通知验证接口]]></explain>
+	</interface>
+	
+	
+</config>

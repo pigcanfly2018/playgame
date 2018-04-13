@@ -1,0 +1,117 @@
+<style>
+  .desposit_table{
+    font-size:12px;
+    font-weight:bolder;
+  }
+  .desposit_table_title{
+   font-weight:bolder;
+   text-align:right;
+   color:#666666;
+  }
+  .desposit_table td{
+    border-bottom:dotted 1px black
+  }
+  .desposit_table_value{
+    
+  }
+</style>
+<div>
+<table class="desposit_table">
+   <tr>
+       <td style="width:80px;font-size:14px;color:#FA58AC;">字段</td>
+       <td style="width:180px;font-size:14px;color:#FA58AC;">修改前</td>
+       <td style="width:180px;font-size:14px;color:#FA58AC;">修改后</td>
+       
+   </tr>
+   
+   #{if phone_flag}
+   <tr>
+   		<td >电话</td>
+   		#{sb.diff s1:form.org_phone,s2:form.phone,s1cols:1,s2cols:1 /}
+   	</tr>	
+   #{/if}
+   
+   #{if qq_flag}
+   <tr>
+   		<td >qq</td>
+   		#{sb.diff s1:form.org_qq,s2:form.qq,s1cols:1,s2cols:1 /}
+   	</tr>	
+   #{/if}
+   
+   
+   #{sb.bijiao s1:form.org_real_name,s2:form.real_name}
+   #{if _flag}
+   	<tr>
+   		<td >真实姓名</td>
+   		#{sb.diff s1:form.org_real_name,s2:form.real_name,s1cols:1,s2cols:1 /}
+   	</tr>
+   #{/if}
+   	
+   #{/sb.bijiao}
+   
+   #{sb.bijiao s1:form.org_email,s2:form.email}
+   #{if _flag}
+   	<tr>
+   		<td >邮箱</td>
+   		#{sb.diff s1:form.org_email,s2:form.email,s1cols:1,s2cols:1 /}
+   	</tr>
+   #{/if}
+   	
+   #{/sb.bijiao}
+   
+   #{sb.bijiao s1:form.org_bank_name,s2:form.bank_name}
+   #{if _flag}
+   	<tr>
+   		<td >银行</td>
+   		#{sb.diff s1:form.org_bank_name,s2:form.bank_name,s1cols:1,s2cols:1 /}
+   	</tr>
+   #{/if}
+   	
+   #{/sb.bijiao}
+   
+   #{sb.bijiao s1:form.org_account_type,s2:form.account_type}
+   #{if _flag}
+   	<tr>
+   		<td >账户类型</td>
+   		#{sb.diff s1:form.org_account_type,s2:form.account_type,s1cols:1,s2cols:1 /}
+   	</tr>
+   #{/if}
+   	
+   #{/sb.bijiao}
+   
+    #{if account_flag}
+   <tr>
+   		<td >银行帐号</td>
+   		#{sb.diff s1:form.org_account,s2:form.account,s1cols:1,s2cols:1 /}
+   	</tr>	
+   #{/if}
+   
+   
+    #{sb.bijiao s1:form.org_bank_dot,s2:form.bank_dot}
+   #{if _flag}
+   	<tr>
+   		<td >开户网点</td>
+   		#{sb.diff s1:form.org_bank_dot,s2:form.bank_dot,s1cols:1,s2cols:1 /}
+   	</tr>
+   #{/if}
+   	
+   #{/sb.bijiao}
+   
+   
+   
+     <tr>
+       <td >修改原因:</td>
+       <td colspan="3">${form.reason}</td>
+   </tr>
+</table>
+</div>
+<div style="margin-top:20px">
+  <table class="desposit_table">
+   <tr>
+       <td style="width:80px;font-size:14px;color:#FA58AC;">状态:</td>
+       <td style="width:180px;font-size:14px;">${rd.dictName('form_flag',form.status)}</td>
+       <td style="width:80px;font-size:14px;color:#FA58AC;">操作备注:</td>
+       <td style="width:180px;font-size:14px;" colspan="3">${form.remarks}</td>
+   </tr>
+</table>
+</div>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+
+	<interface>
+		<id><![CDATA[thp_pay_8d]]></id>
+		<name><![CDATA[通汇支付]]></name>
+		<type>THP</type>
+		<service>pay</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|amount|bank|customer_ip|return_url|remark|return_params]]></reqen>
+		<reqcn><![CDATA[用户名|金额|银行|用户IP|返回的URL|标识|回传参数]]></reqcn>
+		<replyen><![CDATA[ok|order_no|message|order_amount|sign_value|customer_ip|bank|order_time|return_params|submit_value|return_value|notify_value|req_referer]]></replyen>
+		<replycn><![CDATA[成功标识|订单号|信息|金额|签名|用户IP|银行|订单时间|参数|提交地址|同步通知地址|异步通知地址|来源网址]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[通汇支付]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[thweixinp_pay_8d]]></id>
+		<name><![CDATA[生成通汇二维码订单]]></name>
+		<type>THP</type>
+		<service>weixinpay</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|amount|payType|customer_ip|product|return_url]]></reqen>
+		<reqcn><![CDATA[用户名|存款金额|银行代码|IP|产品|访问地址]]></reqcn>
+		<replyen><![CDATA[ok|pay_id|message|amount|barCode]]></replyen>
+		<replycn><![CDATA[ok|订单号|信息|订单金额|barCode]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[生成通汇二维码订单,ok是否生成成功]]></explain>
+	</interface>
+	
+	
+	<interface>
+		<id><![CDATA[thp_notify_8d]]></id>
+		<name><![CDATA[通汇通知支付接口]]></name>
+		<type>THP</type>
+		<service>notify</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[trade_no|order_amount|order_no|return_params|notify_type|sign|order_time|trade_time|trade_status]]></reqen>
+		<reqcn><![CDATA[平台ID|金额|商户ID|回传参数|通知类型|签名|订单时间|交易时间|交易状态]]></reqcn>
+		<replyen><![CDATA[ok]]></replyen>
+		<replycn><![CDATA[成功标识]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[通汇支付]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[thweixinp_notify_8d]]></id>
+		<name><![CDATA[通汇微信通知支付接口]]></name>
+		<type>THP</type>
+		<service>weixinnotify</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[trade_no|order_amount|order_no|return_params|notify_type|sign|order_time|trade_time|trade_status]]></reqen>
+		<reqcn><![CDATA[平台ID|金额|商户ID|回传参数|通知类型|签名|订单时间|交易时间|交易状态]]></reqcn>
+		<replyen><![CDATA[ok]]></replyen>
+		<replycn><![CDATA[成功标识]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[通汇微信支付]]></explain>
+	</interface>
+	
+	
+	<interface>
+		<id><![CDATA[thp_query_order_by_order_id_8d]]></id>
+		<name><![CDATA[根据通汇订单信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+			select thp_id,pay_id,login_name,amount,product_name,bank_code,customer_ip,
+			       remark,create_date,order_no,state,modify_time,payer_name,
+			       real_pay_method,finished_date,return_url
+			from mb_thp 
+			where pay_id=#pay_id#
+         ]]></statement>
+		<reqen><![CDATA[pay_id]]></reqen>
+		<reqcn><![CDATA[订单ID]]></reqcn>
+		<replyen><![CDATA[thp_id|pay_id|login_name|amount|product_name|bank_code|customer_ip|remark|create_date|order_no|state|modify_time|payer_name|real_pay_method|finished_date|return_url]]></replyen>
+		<replycn><![CDATA[thp_id|pay_id|login_name|amount|product_name|bank_code|customer_ip|remark|create_date|order_no|state|modify_time|payer_name|real_pay_method|finished_date|return_url]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[查询客户基本信息]]></explain>
+	</interface>
+	
+	
+	
+
+</config>

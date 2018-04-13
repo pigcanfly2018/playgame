@@ -1,0 +1,289 @@
+<script>
+var customerRole={};
+#{sb.role user:userName,fcode:'F050701'}
+customerRole['F050701']=${_flag};
+#{/sb.role}
+#{sb.role user:userName,fcode:'F050702'}
+customerRole['F050702']=${_flag};
+#{/sb.role}
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'AgentCommission',
+        proxy: {
+            type: 'ajax',
+            url: '/AgentCommissionApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('creditfix.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        			var s=selected[0];
+	        			if(s.get("status") == 0){
+		        		    Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(false);
+		        		    Ext.getCmp('grid_${tabId}').down("#auditbtn").setDisabled(false);
+		        		   // Ext.getCmp('grid_${tabId}').down("#auditbtn").setDisabled(false);
+	        			}else{
+	        				Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(true);
+		        		    Ext.getCmp('grid_${tabId}').down("#auditbtn").setDisabled(true);
+	        			}
+	        		   // Ext.getCmp('grid_${tabId}').down("#detailbtn").setDisabled(false);
+
+	        		}else{
+	        			//Ext.getCmp('grid_${tabId}').down("#updatebtn").setDisabled(true);
+	        			//Ext.getCmp('grid_${tabId}').down("#giveupbtn").setDisabled(true);
+	        			//Ext.getCmp('grid_${tabId}').down("#auditbtn").setDisabled(true);
+	        			//Ext.getCmp('grid_${tabId}').down("#detailbtn").setDisabled(true);
+	        		}
+	        	}
+	        }
+	    },
+	    autoHeight:true,
+	    addconfig:{
+		       title:'代理分成修改',
+		       proFn:function(win,form){
+		   		  // win.down('#idfield').setReadOnly(false);
+		       }
+		    },
+		    updateconfig:{
+			       proFn:function(select,win,form){
+			    	   var data={
+			    	 			kact:'2',  
+			    	 			"agentCommission.com_id":select.get('com_id'),
+			    	 			"agentCommission.total_cost":select.get('total_cost')
+			    	 		  };
+		   	 		  form.getForm().setValues(data);
+		   	 		 
+		   	 		  win.setTitle("修改代理:"+select.get('login_name')+"项目投入");
+			       }
+			    },
+	    tbar:[{
+	    	  xtype: 'button', 
+	    	  iconCls:'icon-update',
+	    	  text: '更新项目投入',
+	    	  disabled:true,
+	    	  hidden:!customerRole['F050701'],
+	    	  itemId:'updatebtn',
+	    	  handler:JBApp.updateFn
+    	   },{
+		        	    xtype: 'button', 
+			        	iconCls:'icon-auditing',
+			        	text:'审核',
+			        	disabled:true,
+			        	hidden:!customerRole['F050702'],
+			        	itemId:'auditbtn',
+			        	handler:function(){
+			        		   var select = this.up('grid').getSelectionModel().getSelection();
+			        			if (select.length != 1) {
+			        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+			        				return;
+			        			}
+			        			 var w=Ext.create('Ext.app.Billauditwin', {
+				        			    renderTo:'${tabId}',
+				        			    fstitle:'佣金记录信息',
+				        			    title:'审核佣金记录',
+				        			    url:'/AgentCommissionApp/detail?id='+select[0].get('com_id'),
+				        			    act:'/AgentCommissionApp/audit?id='+select[0].get('com_id'),
+				        			    cb:function(){
+				        				   store.reload();
+				        			    },
+				        			    htmlHeight:140,
+				        			    width:600,
+				        			    height:380,
+				        			   }).show();
+			        	   }
+				     },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	    	    text     : '创建时间',
+	    	    width    : 90,
+	    	    sortable : false,
+	    	    dataIndex: 'create_date',
+	    	    renderer:Ext.util.Format.dateRenderer('m/d H:i')
+	    	},{
+	    	    text     : '代理帐号',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'login_name'
+	    	},{
+	    	    text     : '佣金分红粗算金额',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    dataIndex: 'credit'
+	    	},{
+	    	    text     : '实际佣金金额',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'finalcredit'
+	    	},{
+	    	    text     : '分成比例',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'share'
+	    	},{
+	    	    text     : '下线总存款',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'total_deposit'
+	    	},{
+	    	    text     : '下线总提款',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'total_withdraw'
+	    	},{
+	    	    text     : '下线总红利',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'total_gift'
+	    	},{
+	    	    text     : '本月总投入',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'total_cost'
+	    	},{
+	    	    text     : '活跃人数',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'active'
+	    	},{
+	    	    text     : '状态',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'status',
+	    	    renderer:function(val){
+	    	    	
+	    	    	if(val == 0){
+	    	    		return '<span style="color:green">待审核</span>';
+	    	    	}
+	    	    	if(val == -1){
+	    	    		return '<span style="color:green">已拒绝</span>';
+	    	    	}
+	    	    	return '<span style="color:red">已审核</span>';
+	    	    }
+	    	},{
+	    	    text     : '操作人',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'create_user'
+	    	},{
+	    	    text     : '审核人',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    dataIndex: 'audit_user'
+	    	},{
+	    	    text     : '审核日期',
+	    	    width    : 130,
+	    	    sortable : false,
+	    	    dataIndex: 'audit_date',
+	    	    renderer:Ext.util.Format.dateRenderer('m/d H:i')
+	    	},{
+	    	    text     : '统计开始时间',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    dataIndex: 'start_date'
+	    	},{
+	    	    text     : '统计结束时间',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    dataIndex: 'end_date'
+	    	},{
+	    	    text     : '审核意见',
+	    	    width    : 220,
+	    	    sortable : false,
+	    	    dataIndex: 'audit_msg'
+	    	},{
+	    	    text     : '备注',
+	    	    width    : 200,
+	    	    sortable : false,
+	    	    dataIndex: 'remarks'
+	    	}];
+	     this.callParent();
+	     var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 100
+		        },
+		        items: [
+		           
+                	{fieldLabel: '本月项目投入',xtype:'numberfield',name: 'agentCommission.total_cost',allowBlank: false,anchor: '95%'},
+                	{xtype:'hidden',name:'kact'},{xtype:'hidden',name:'agentCommission.com_id'},
+                	{fieldLabel: '备注',xtype:'textfield',name:'agentCommission.remarks',anchor: '96%'}],
+		       saveConfig:{
+		    	 url:'/AgentCommissionApp/saveTotalcost',
+		    	 store:store
+		       },
+            buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	     {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+         });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 400,
+	            height: 250,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		 this.win=win;
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('creditfix.grid'));
+});
+</script>

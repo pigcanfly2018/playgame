@@ -1,0 +1,137 @@
+<script>
+         Ext.onReady(function(){
+        	 var tabId='${tabId}';
+             Ext.tip.QuickTipManager.init();
+             
+             var store = Ext.create('Ext.data.Store', {
+                 model: 'Stat',
+                 proxy: {
+                     type: 'ajax',
+                     url: '/StatApp/getList',
+                     reader: {
+                         type: 'json',
+                         root: 'data',
+                         idProperty: 'index_date',
+                         totalProperty:'total'
+                     }
+                 },
+                 autoLoad: {start: 0, limit: 100},
+                 groupField: 'stat_mon',
+                 groupDir:'DESC',
+                 sorters: {property: 'stat_mon', direction: 'ASC'},
+                 });
+             Ext.define('stat.grid', {
+         	    extend: 'Ext.grid.Panel',
+         	    requires: [
+         	        'Ext.grid.RowNumberer',
+         	        'Ext.data.*',
+         	        'Ext.grid.*',
+         	        'Ext.util.*',
+         	        'Ext.toolbar.Paging'
+         	    ],
+         	    xtype: 'locking-grid',
+         	    id:'grid_${tabId}',
+         	    features: [{
+                    id: 'group',
+                    ftype: 'groupingsummary',
+                    groupHeaderTpl: '月份:{name}',
+                    hideGroupedHeader: true,
+                    enableGroupingMenu: false
+                }],
+         	    viewConfig: {
+         	        stripeRows: true,
+         	        enableTextSelection: true,
+         	        loadingText:'正在加载数据...'
+         	    },
+         	    store:store,
+         	    autoHeight:true,
+         	    initComponent: function () {
+         	        this.columns =[{
+                        text: '日期',
+                        width: 110,
+                        dataIndex: 'index_date',
+                        hideable: false,
+                        renderer:Ext.util.Format.dateRenderer('Y/m/d')
+                    }, {
+                        header: '新开户数',
+                        width: 100,
+                        sortable: true,
+                        dataIndex: 'account_cnt',
+                        summaryType: 'sum', 
+                        summaryRenderer: function(value){ 
+                        return '月开户：'+value 
+                        } 
+                    }, {
+                        header: '新存款客户',
+                        width: 120,
+                        sortable: true,
+                        dataIndex: 'account_deposit_cnt',
+                        summaryType: 'sum', 
+                        summaryRenderer: function(value){ 
+                        return '月新存：'+value 
+                        } 
+                    },{
+                        header: '存款额',
+                        width: 140,
+                        sortable: true,
+                        dataIndex: 'deposit_sum',
+                        summaryType: 'sum', 
+                        summaryRenderer: function(value){ 
+                        return '月存款：'+value 
+                        } 
+                    }, {
+                        header: '存款笔数',
+                        width: 120,
+                        sortable: true,
+                        dataIndex: 'deposit_cnt',
+                        summaryType: 'sum', 
+                        summaryRenderer: function(value){ 
+                        return '月存笔：'+value 
+                        } 
+                    }, {
+                        header: '提款额',
+                        width: 140,
+                        sortable: true,
+                        dataIndex: 'withdraw_sum',
+                        summaryType: 'sum', 
+                        summaryRenderer: function(value){ 
+                        return '月提款：'+value 
+                        } 
+                    },{
+                        header: '提款笔数',
+                        width: 120,
+                        sortable: true,
+                        dataIndex: 'withdraw_cnt',
+                        summaryType: 'sum', 
+                        summaryRenderer: function(value){ 
+                        return '月提笔：'+value 
+                        } 
+                    }, {
+                        header: '礼金额',
+                        width: 140,
+                        sortable: false,
+                        dataIndex: 'payout',
+                        summaryType: 'sum', 
+                        summaryRenderer: function(value){ 
+                        return '月礼金：'+value 
+                        } 
+                    },{
+                        header: '毛利',
+                        width: 150,
+                        sortable: false,
+                        dataIndex: 'profit',
+                        summaryType: 'sum', 
+                        summaryRenderer: function(value){ 
+                        return '月毛利：'+value 
+                        } 
+                    },{
+                        header: '月份',
+                        hidden: true,
+                        dataIndex: 'stat_mon'
+                    }];
+         	       this.callParent();
+        	    }
+        	});
+             Ext.getCmp(tabId).add(Ext.create('stat.grid'));
+         });
+</script>

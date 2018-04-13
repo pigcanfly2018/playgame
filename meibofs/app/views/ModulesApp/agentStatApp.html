@@ -1,0 +1,124 @@
+<script>
+
+Ext.onReady(function() {
+	var required='<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
+	var store = Ext.create('Ext.data.Store', {
+        model: 'AgentStat',
+        proxy: {
+            type: 'ajax',
+            url: '/AgentStatApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('depositHist.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE' 
+	    },
+	    autoHeight:true,
+	    addconfig:{
+	       title:'新增存款提案',
+	       proFn:function(win,form){
+	    	   form.getForm().setValues({
+	    		   'deposit.deposit_date':new Date()
+	    	   });
+	       }
+	    },pwdconfig:{
+	    	url:'/HuiBoAPP/success',
+	    	tip:'你确定该记录已经补单过么?',
+	    	idcode:'pay_id'
+	    },
+	    tbar:['->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey',value:''},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+        	    text     : '代理帐号',
+        	    width    : 180,
+        	    sortable : false,
+        	    dataIndex: 'agent_name'
+    	    },{
+        	    text     : '统计日期',
+        	    width    : 90,
+        	    sortable : false,
+        	    dataIndex: 'stat_date'
+        	},{
+        	    text     : '存款量',
+        	    width    : 100,
+        	    sortable : false,
+        	    dataIndex: 'deposit_collect'
+        	},{
+        	    text     : '提款量',
+        	    width    : 80,
+        	    sortable : false,
+        	    dataIndex: 'withdraw_collect'
+        	},{
+        	    text     : '礼金量',
+        	    width    : 110,
+        	    sortable : false,
+        	    dataIndex: 'gift_collect'
+        	    
+        	},{
+        	    text     : '存款笔数',
+        	    width    : 110,
+        	    sortable : false,
+        	    dataIndex: 'deposit_count'
+        	},{
+        	    text     : '提款笔数',
+        	    width    : 120,
+        	    sortable : false,
+        	    dataIndex: 'withdraw_count'
+        	},{
+        	    text     : '礼金笔数',
+        	    width    : 180,
+        	    sortable : false,
+        	    dataIndex: 'gift_count'
+        	}];
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('depositHist.grid'));
+});
+</script>

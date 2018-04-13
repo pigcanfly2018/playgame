@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+
+	<interface>
+		<id><![CDATA[huit_pay_8d]]></id>
+		<name><![CDATA[新汇通支付]]></name>
+		<type>HuiTPay</type>
+		<service>pay</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|amount|return_url|paytype|ip]]></reqen>
+		<reqcn><![CDATA[用户名|金额|返回的URL|支付方式|ip]]></reqcn>
+		<replyen><![CDATA[ok|pay_id|message|amount|directurl]]></replyen>
+		<replycn><![CDATA[ok|订单号|信息|订单金额|支付url]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[新汇通支付]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[huit_notify_8d]]></id>
+		<name><![CDATA[新汇通支付通知]]></name>
+		<type>HuiTPay</type>
+		<service>notify</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[orderid|opstate|ovalue|sysorderid|systime|attach|sign|msg]]></reqen>
+		<reqcn><![CDATA[商户订单号|订单结果|订单金额|汇通订单号|汇通订单时间|备注信息|MD5 签名|订单说明|]]></reqcn>
+		<replyen><![CDATA[ok]]></replyen>
+		<replycn><![CDATA[成功标识]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[新汇通支付通知]]></explain>
+	</interface>
+
+</config>

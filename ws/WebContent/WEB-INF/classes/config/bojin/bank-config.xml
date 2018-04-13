@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	
+	<interface>
+		<id><![CDATA[bank_list_bojin]]></id>
+		<name><![CDATA[查询网站提供的存款银行列表]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		select bank_id,bank_name,account,account_name,bank_dot from mb_bank where cust_level <=#cust_level# and available=1 order by cust_level desc]]></statement>
+		<reqen><![CDATA[cust_level]]></reqen>
+		<reqcn><![CDATA[客户等级]]></reqcn>
+		<replyen><![CDATA[bank_id|bank_name|account|account_name|bank_dot]]></replyen>
+		<replycn><![CDATA[银行ID|银行名称|账户|账户名|开户地点]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[查询网站提供的存款银行列表]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[getbank_byId_bojin]]></id>
+		<name><![CDATA[根据银行ID查询网站提供的银行信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		select bank_id,bank_name,account,account_name,bank_dot from mb_bank where bank_id =#bank_id# and available=1 order by cust_level desc]]></statement>
+		<reqen><![CDATA[bank_id]]></reqen>
+		<reqcn><![CDATA[银行ID]]></reqcn>
+		<replyen><![CDATA[bank_id|bank_name|account|account_name|bank_dot]]></replyen>
+		<replycn><![CDATA[银行ID|银行名称|账户|账户名|开户地点]]></replycn>
+		<datasource><![CDATA[bojin]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[bojin_web]]></roles>
+		<explain><![CDATA[查询网站提供的存款银行列表]]></explain>
+	</interface>
+	
+</config>

@@ -1,0 +1,165 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Hongbao',
+        proxy: {
+            type: 'ajax',
+            url: '/HongbaoApp/getAllList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('yeargiftgrid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true,
+	        loadingText:'正在加载数据...'
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE' 
+	    },
+	    autoHeight:true,
+	    pwdconfig:{
+	    	url:'/HongbaoApp/success',
+	    	tip:'你确定该记录已经处理过么?',
+	    	idcode:'mb_hongbao_id'
+	    },
+	    dockedItems: [{
+	        xtype: 'toolbar',
+	        dock: 'top',
+	        items: [{
+		     	   xtype: 'button', 
+		    	   iconCls:'icon-set',
+		    	   text:'已处理',
+		    	   itemId:'passwdbtn',
+		    	   configId:'pwdconfig',
+		    	   handler:JBApp.commonFn
+		        },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : function(){
+		            	
+		            	var queryData = this.up('grid').down('#queryKey').getValue();
+		        		var ssdate = this.up('grid').down('#sdate').getValue();
+		        		var eedate = this.up('grid').down('#edate').getValue();
+		        		
+		        		var sdate, edate;
+		        		if (ssdate) {
+		        			sdate = Ext.Date.format(new Date(ssdate), 'Y-m-d');
+		        		}
+		        		if (eedate) {
+		        			edate = Ext.Date.format(new Date(eedate), 'Y-m-d');
+		        		}
+		        		if (ssdate && eedate) {
+		        			if (sdate > edate) {
+		        				Ext.MessageBox.alert('提示信息', '开始日期不能大于结束日期!');
+		        				return;
+		        			}
+		        		}
+		        		var store = this.up('grid').getStore();
+		        		store.on('beforeload', function(store, options) {
+		        			var new_params = {
+		        				queryKey : queryData,
+		        				sdate : sdate,
+		        				edate : edate
+		        			};
+		        			Ext.apply(store.proxy.extraParams, new_params);
+		        		});
+		        		store.load({
+		        			params: {start:0,limit:30,page:1},
+		        			 callback: function(records, options, success){
+		        				 	if(success){
+		        				 		var sum = 0;
+		        				 		var n = store.getCount();// 获得总行数
+		        				 		store.each(function(record){
+		        				 			sum = sum + record.data.credit;
+		        				 		})
+		        				 		
+		        				 		
+		        				 	}
+		        			    }
+		        		});
+
+		            }
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :function(){
+		            		this.up('grid').down('#queryKey').setValue("");
+		            		this.up('grid').down('#sdate').setValue("");
+		            		this.up('grid').down('#edate').setValue("");
+		            }
+				   }]
+	    }],
+	    bbar: {
+               xtype: 'pagingtoolbar',
+               pageSize: 10,
+               store:store,
+               displayInfo: true
+         },
+	    initComponent: function () {
+	        this.columns = [{
+	    	    text     : 'ID',
+	    	    width    : 60,
+	    	    sortable : false,
+	    	    dataIndex: 'mb_hongbao_id'
+	    	},{
+	    	    text     : '用户名',
+	    	    width    : 150,
+	    	    sortable : false,
+	    	    dataIndex: 'login_name'
+	    	},{
+	    	    text     : '中奖内容',
+	    	    width    : 220,
+	    	    sortable : false,
+	    	    dataIndex: 'content'
+	    	},{
+	    	    text     : '礼金单号',
+	    	    width    : 220,
+	    	    sortable : false,
+	    	    dataIndex: 'gift_id'
+	    	},{
+	    	    text     : '创建日期',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    dataIndex: 'create_date',
+	    	    renderer:Ext.util.Format.dateRenderer('m-d H:i')
+	    	},{
+	    	    text     : '状态',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    dataIndex: 'status',
+	    	    renderer:JBApp.renderer.year_gift_flag
+	    	}];
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('yeargiftgrid'));
+});
+</script>

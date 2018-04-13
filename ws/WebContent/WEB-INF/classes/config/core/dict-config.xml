@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	<interface>
+		<id><![CDATA[bank_dict]]></id>
+		<name><![CDATA[银行字典]]></name>
+		<type>DICT</type>
+		<service></service>
+		<statement><![CDATA[ICBC|中国工商银行|工行,ABC|中国农业银行|农行]]></statement>
+		<reqen><![CDATA[]]></reqen>
+		<reqcn><![CDATA[]]></reqcn>
+		<replyen><![CDATA[code|bankName|shortName]]></replyen>
+		<replycn><![CDATA[银行代号|银行全称|银行简称]]></replycn>
+		<datasource><![CDATA[]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<explain><![CDATA[获取银行的代码以及银行全称]]></explain>
+	</interface>
+	
+</config>

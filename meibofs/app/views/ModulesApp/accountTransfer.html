@@ -1,0 +1,168 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'AccountTransfer',
+        proxy: {
+            type: 'ajax',
+            url: '/AccountTransferApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 20,
+        autoLoad: {start: 0, limit: 20}
+        });
+	var tabId='${tabId}';
+	Ext.define('AccountTransfer.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        	}
+	        } 
+	    },
+	    autoHeight:true,
+	    tbar:['->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+	    bbar: {
+               xtype: 'pagingtoolbar',
+               pageSize: 10,
+               store:store,
+               displayInfo: true
+         },
+         initComponent: function () {
+ 		        this.columns = [{
+ 		    	    text     : '代理商编号',
+ 		    	    width    : 120,
+ 		    	    sortable : false,
+ 		    	    hidden   : true,
+ 		    	    dataIndex: 'agentCode'
+ 		    	},{
+ 		    	    text     : '转账编号',
+ 		    	    width    : 140,
+ 		    	    sortable : false,
+ 		    	    hidden   : true,
+ 		    	    dataIndex: 'transferId'
+ 		    	},{
+ 		    	    text     : '交易编号',
+ 		    	    width    : 130,
+ 		    	    sortable : false,
+ 		    	    dataIndex: 'tradeNo'
+ 		    	},{
+ 		    	    text     : '平台類型',
+ 		    	    width    : 100,
+ 		    	    sortable : false,
+ 		    	    dataIndex: 'platformType'
+ 		    	},{
+ 		    	    text     : '玩家账户',
+ 		    	    width    : 140,
+ 		    	    sortable : false,
+ 		    	    dataIndex: 'playerName'
+ 		    	},{
+ 		    	    text     : '转账类别',
+ 		    	    width    : 100,
+ 		    	    sortable : false,
+ 		    	    dataIndex: 'transferType',
+ 		    	    renderer:function(v){
+ 		    	    	if("OUT"==v)return "转出额度";
+ 		    	    	if("IN"==v)return "转入额度";
+ 		    	    	if("RECALC"==v)return "重新派彩";
+ 		    	    	if("GBED"==v)return "代理修改額度";
+ 		    	    	if("RECKON"==v)return "派彩";
+ 		    	    	if("BET"==v)return "下注";
+ 		    	    	if("RECALC_ERR"==v)return "重新派彩时扣款失败";
+ 		    	    	if("CHANGE_CUS_BALANCE"==v)return "修改玩家账户额度";
+ 		    	    	if("CHANGE_CUS_CREDIT"==v)return "修改玩家信用额度";
+ 		    	    	if("RESET_CUS_CREDIT"==v)return "重置玩家信用额度";
+ 		    	    	if("DONATEFEE"==v)return "玩家小费";
+ 		    	    	if("CANCEL_BET"==v)return "系统取消下注";
+ 		    	    	return v;
+ 		    	    }
+ 		    	},{
+ 		    	    text     : '转账额度',
+ 		    	    width    : 100,
+ 		    	    sortable : false,
+ 		    	    dataIndex: 'transferAmount'
+ 		    	},{
+ 		    	    text     : '转账前额度',
+ 		    	    width    : 120,
+ 		    	    sortable : false,
+ 		    	    dataIndex: 'previousAmount'
+ 		    	},{
+ 		    	    text     : '当前额度',
+ 		    	    width    : 120,
+ 		    	    sortable : false,
+ 		    	    dataIndex: 'currentAmount'
+ 		    	},{
+ 		    	    text     : '货币',
+ 		    	    width    : 120,
+ 		    	    sortable : false,
+ 		    	    hidden   : true,
+ 		    	    dataIndex: 'currency'
+ 		    	},{
+ 		    	    text     : '汇率',
+ 		    	    width    : 120,
+ 		    	    sortable : false,
+ 		    	    hidden   : true,
+ 		    	    dataIndex: 'exchangeRate'
+ 		    	},{
+ 		    	    text     : '玩家IP',
+ 		    	    width    : 120,
+ 		    	    sortable : false,
+ 		    	    hidden   : true, 
+ 		    	    dataIndex: 'IP'
+ 		    	},{
+ 		    	    text     : '转账状态',
+ 		    	    width    : 80,
+ 		    	    sortable : false,
+ 		    	    dataIndex: 'flag'
+ 		    	},{
+ 		    	    text     : '纪录时间',
+ 		    	    width    : 140,
+ 		    	    sortable : false,
+ 		    	    dataIndex: 'creationTime'
+ 		    	},{
+ 		    	    text     : '文件名',
+ 		    	    width    : 120,
+ 		    	    sortable : false,
+ 		    	    dataIndex: 'fileName'
+ 		    	}];
+	     this.callParent();
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('AccountTransfer.grid'));
+});
+</script>

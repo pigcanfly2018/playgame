@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="gbk"?>
+<config>
+	
+	<interface>
+		<id><![CDATA[dyp_pay_8d]]></id>
+		<name><![CDATA[生成鼎易二维码订单]]></name>
+		<type>DYP</type>
+		<service>pay</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[login_name|amount|payType|customer_ip|product|return_url]]></reqen>
+		<reqcn><![CDATA[用户名|存款金额|银行代码|IP|产品|访问地址]]></reqcn>
+		<replyen><![CDATA[ok|pay_id|message|amount|directurl]]></replyen>
+		<replycn><![CDATA[ok|订单号|信息|订单金额|支付url]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[生成鼎易二维码订单,ok是否生成成功]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[dyp_notify_8d]]></id>
+		<name><![CDATA[鼎易提醒]]></name>
+		<type>DYP</type>
+		<service>notify</service>
+		<statement><![CDATA[]]></statement>
+		<reqen><![CDATA[orderid|opstate|ovalue|sysorderid|systime|attach|msg|sign]]></reqen>
+		<reqcn><![CDATA[商户订单号|订单结果|订单金额|鼎易支付平台订单号|订单完成时间|备注信息|订单结果说明|md5签名字符串]]></reqcn>
+		<replyen><![CDATA[ok|message]]></replyen>
+		<replycn><![CDATA[ok|信息]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[鼎易提醒]]></explain>
+	</interface>
+	
+	<interface>
+		<id><![CDATA[dyp_query_8d]]></id>
+		<name><![CDATA[获取鼎易订单信息]]></name>
+		<type>SQL</type>
+		<service>query</service>
+		<statement><![CDATA[
+		   SELECT
+		       pay_id,amount,state,login_name
+          FROM mb_ytbp 
+          WHERE login_name = #login_name# AND pay_id=#pay_id#
+		]]></statement>
+		<reqen><![CDATA[login_name|pay_id]]></reqen>
+		<reqcn><![CDATA[用户名|订单号]]></reqcn>
+		<replyen><![CDATA[pay_id|amount|state|login_name]]></replyen>
+		<replycn><![CDATA[订单号|金额|交易状态|用户名]]></replycn>
+		<datasource><![CDATA[meibo]]></datasource>
+		<timeout><![CDATA[10mn]]></timeout>
+		<roles><![CDATA[8da_moblie]]></roles>
+		<explain><![CDATA[获取鼎易订单信息]]></explain>
+	</interface>
+	
+	
+	
+</config>

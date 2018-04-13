@@ -1,0 +1,262 @@
+<script>
+Ext.onReady(function() {
+	var store = Ext.create('Ext.data.Store', {
+        model: 'Transfer',
+        proxy: {
+            type: 'ajax',
+            url: '/TransferApp/getList',
+            reader: {
+                type: 'json',
+                root: 'data',
+                idProperty: 'id',
+                totalProperty:'total'
+            }
+        },
+        pageSize: 30,
+        autoLoad: {start: 0, limit: 30}
+        });
+	var tabId='${tabId}';
+	Ext.define('transfer.grid', {
+	    extend: 'Ext.grid.Panel',
+	    requires: [
+	        'Ext.grid.RowNumberer',
+	        'Ext.data.*',
+	        'Ext.grid.*',
+	        'Ext.util.*',
+	        'Ext.toolbar.Paging'
+	    ],
+	    xtype: 'locking-grid',
+	    id:'grid_${tabId}',
+	    viewConfig: {
+	        stripeRows: true,
+	        enableTextSelection: true
+	    },
+	    store:store,
+	    selModel: {
+	        selType: 'checkboxmodel', 
+	        mode: 'SINGLE',
+	        listeners: {
+	        	selectionchange:function(sm, selected, eOpts){
+	        		if(selected.length==1){
+	        			var s=selected[0];
+	        			if(s.get("status")=="1"){
+		        		    Ext.getCmp('grid_${tabId}').down("#detailbtn").setDisabled(false);
+		        		    Ext.getCmp('grid_${tabId}').down("#giveupbtn").setDisabled(false);
+		        		    Ext.getCmp('grid_${tabId}').down("#auditbtn").setDisabled(false);
+	        			}
+	        		    Ext.getCmp('grid_${tabId}').down("#detailbtn").setDisabled(false);
+
+	        		}else{
+	        			Ext.getCmp('grid_${tabId}').down("#detailbtn").setDisabled(true);
+	        			Ext.getCmp('grid_${tabId}').down("#giveupbtn").setDisabled(true);
+	        			Ext.getCmp('grid_${tabId}').down("#auditbtn").setDisabled(true);
+	        			Ext.getCmp('grid_${tabId}').down("#detailbtn").setDisabled(true);
+	        		}
+	        	}
+	        }
+	    },
+	    autoHeight:true,
+	    addconfig:{
+		       title:'转账操作',
+		       proFn:function(win,form){
+		   		  // win.down('#idfield').setReadOnly(false);
+		       }
+		    },
+	    tbar:[{
+		    	xtype: 'button', 
+		    	iconCls:'icon-add',
+		    	text: '添加',
+		    	handler:JBApp.addFn
+	    	},{
+	        	   xtype: 'button', 
+	        	   iconCls:'icon-giveup',
+	        	   text:'废除',
+	        	   disabled:true,
+	        	   itemId:'giveupbtn',
+	        	   handler:function(){
+	        			var select = this.up('grid').getSelectionModel().getSelection();
+	        			if (select.length != 1) {
+	        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+	        				return;
+	        			}
+	        		   var w=Ext.create('Ext.app.Billactionwin', {
+	        			    renderTo:'${tabId}',
+	        			    fstitle:'额度修正信息',
+	        			    msg:'你确定废除该额度修正提案吗?',
+	        			    title:'废除额度修正提案',
+	        			    htmlHeight:140,
+	        			    width:600,
+	        			    height:380,
+	        			    url:'/TransferApp/detail?id='+select[0].get('transfer_id'),
+	        			    act:'/TransferApp/cancle?id='+select[0].get('transfer_id'),
+	        			    cb:function(){
+	        				   store.reload();
+	        			    }
+	        			   }).show();
+	        	          }
+				        },{
+		        	    xtype: 'button', 
+			        	iconCls:'icon-auditing',
+			        	text:'审核',
+			        	disabled:true,
+			        	itemId:'auditbtn',
+			        	handler:function(){
+			        		   var select = this.up('grid').getSelectionModel().getSelection();
+			        			if (select.length != 1) {
+			        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+			        				return;
+			        			}
+			        			 var w=Ext.create('Ext.app.Billauditwin', {
+				        			    renderTo:'${tabId}',
+				        			    fstitle:'提款提案信息',
+				        			    title:'审核提款提案',
+				        			    url:'/TransferApp/detail?id='+select[0].get('transfer_id'),
+				        			    act:'/TransferApp/audit?id='+select[0].get('transfer_id'),
+				        			    cb:function(){
+				        				   store.reload();
+				        			    },
+				        			    htmlHeight:140,
+				        			    width:600,
+				        			    height:380,
+				        			   }).show();
+			        	   }
+				     },{
+			        	    xtype: 'button', 
+				        	iconCls:'icon-log',
+				        	text:'提案明细',
+				        	disabled:true,
+				        	itemId:'detailbtn',
+				        	handler:function(){
+				        		   var select = this.up('grid').getSelectionModel().getSelection();
+				        			if (select.length != 1) {
+				        				Ext.MessageBox.alert('提示信息', '只能选择一条记录操作');
+				        				return;
+				        			}
+				        		   var w=Ext.create('Ext.app.Billinfowin', {
+				        			    renderTo:'${tabId}',
+				        			    htmlHeight:140,
+				        			    width:600,
+				        			    height:280,
+				        			    title:'额度修正信息',
+				        			    url:'/TransferApp/detail?id='+select[0].get('transfer_id'),
+				        			    act:'/TransferApp/audit?id='+select[0].get('transfer_id'),
+				        			    cb:function(){
+				        				   store.reload();
+				        			    }
+				        			   }).show();
+				        	   }
+					     },'->',
+		          '起始:',
+		          {xtype:'datefield',itemId:'sdate',format: 'Y-m-d',width:100},
+		          '结束:',
+		          {xtype:'datefield',itemId:'edate',format: 'Y-m-d',width:100},
+		          '关键字:',
+	              {xtype:'textfield',itemId:'queryKey'},
+	              {
+		            text:'查询',
+		            iconCls: 'icon-search',
+		            handler : JBApp.queryFn
+		           },{
+		            text:'重设',
+		            iconCls: 'icon-reset',
+		            handler :JBApp.queryResetFn
+			       }],
+			    bbar: {
+		               xtype: 'pagingtoolbar',
+		               pageSize: 10,
+		               store:store,
+		               displayInfo: true
+		         },
+	    initComponent: function () {
+	        this.columns = [{
+	    	    text     : '创建时间',
+	    	    width    : 90,
+	    	    sortable : false,
+	    	    dataIndex: 'create_date',
+	    	    renderer:Ext.util.Format.dateRenderer('m/d H:i')
+	    	},{
+	    	    text     : '转账单号',
+	    	    width    : 170,
+	    	    sortable : false,
+	    	    dataIndex: 'transfer_no'
+	    	},{
+	    	    text     : '用户名',
+	    	    width    : 100,
+	    	    sortable : false,
+	    	    dataIndex: 'login_name'
+	    	},{
+	    	    text     : '转账类型',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'transfer_type'
+	    	},{
+	    	    text     : '转账额度',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'credit'
+	    	},{
+	    	    text     : '转账状态',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'status',
+	    	    renderer : JBApp.renderer.fix_status 
+	    	},{
+	    	    text     : '操作人',
+	    	    width    : 80,
+	    	    sortable : false,
+	    	    dataIndex: 'create_user'
+	    	},{
+	    	    text     : '审核人',
+	    	    width    : 120,
+	    	    sortable : false,
+	    	    dataIndex: 'audit_user'
+	    	},{
+	    	    text     : '审核日期',
+	    	    width    : 130,
+	    	    sortable : false,
+	    	    dataIndex: 'audit_date',
+	    	    renderer:Ext.util.Format.dateRenderer('m/d H:i')
+	    	}];
+	     this.callParent();
+	     var form=Ext.create('Ext.form.Panel', {
+		        bodyStyle:'padding:5px 5px 0',
+		        width: '100%',
+		        fieldDefaults: {
+		            labelWidth: 75
+		        },
+		        items: [
+		            {fieldLabel: '用户名',xtype:'custcom',name: 'transfer.login_name',valueField:'login_name',allowBlank: false,anchor: '95%'},
+                	{fieldLabel: '转账类型',xtype:'itemcom',groupcode:"transfer_type",name: 'transfer.transfer_type',valueField:'itemvalue',allowBlank: false,anchor: '95%'},
+                	{fieldLabel: '转账额度',xtype:'numberfield',name:'transfer.credit',allowBlank: false,anchor: '95%'},
+                	{xtype:'hidden',name:'kact'},
+                	{fieldLabel: '备注',xtype:'textfield',name:'transfer.remarks',anchor: '96%',allowBlank: false}],
+		       saveConfig:{
+		    	 url:'/TransferApp/saveTransfer',
+		    	 store:store
+		       },
+            buttons:[{xtype: 'button',iconCls:'icon-save',text: '保存数据',handler:JBApp.saveFn},
+		    	     {xtype: 'button',iconCls:'icon-close',text: '关闭窗口',handler:function(){this.up('window').hide();}}]
+         });
+		 var win=Ext.create('widget.window', {
+	            title: '--',
+	            closable: true,
+	            closeAction: 'hide',
+	            renderTo:'${tabId}',
+	            iconCls:'icon-window',
+	            width: 400,
+	            height: 230,
+	            layout: 'fit',
+	            bodyStyle: 'padding: 5px;',
+	            items: [form],
+	            listeners:{
+		            hide:function(w){
+		            	this.down('form').getForm().reset();
+		            }
+	            }
+	        });
+		 this.win=win;
+	    }
+	});
+	Ext.getCmp(tabId).add(Ext.create('transfer.grid'));
+});
+</script>

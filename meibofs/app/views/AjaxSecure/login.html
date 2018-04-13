@@ -1,0 +1,22 @@
+<html>
+<head>
+<title>八达国际管理系统</title>
+<link rel="shortcut icon" type="image/png" href="@{'/public/images/logo3.jpg'}"/>  
+<link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/icons.css'}" />
+<script type="text/javascript" src="@{'/public/ext/examples/shared/include-ext.js'}"></script>
+<script type="text/javascript" src="@{'/public/myext/LoginForm.js'}"></script>
+<style type="text/css">  
+	.icon-login {
+      background-image: url(/public/images/logo3.jpg) !important;
+   }
+ </style>
+</head>
+    <script type="text/javascript">
+        Ext.onReady(function(){
+        	 Ext.create('Ext.app.LoginWin');
+             Ext.QuickTips.init();
+        }); 
+    </script>
+<body> 
+</body>
+</html>
